@@ -9,19 +9,27 @@ from .config import (
 
 def evaluate_consensus(df):
     """
-    Combines Signal 1 (Cost Overrun), Signal 2 (Peer IQR), and Signal 3 (Isolation Forest)
-    into an explainable consensus risk classification.
+    Phase 11: Multi-Signal Consensus Engine & Decision-Support Classification.
+    Combines:
+    - Signal 1: Deterministic Cost Overrun
+    - Signal 2: Peer Statistical Anomaly (IQR/MAD)
+    - Signal 3: Isolation Forest ML Anomaly
+    
+    Risk Level Mapping:
+    - 2+ signals: HIGH RISK — REQUIRES AUDIT REVIEW
+    - 1 signal:  MEDIUM RISK — REQUIRES AUDIT REVIEW
+    - 0 signals: LOW RISK
+    - Floor (< ₹1,000): DATA_QUALITY_REVIEW
     """
     df_out = df.copy()
 
-    # Count positive signals
-    sig1 = df_out['cost_overrun_flag'].astype(int)
-    sig2 = df_out['peer_iqr_flag'].astype(int)
-    sig3 = df_out['isolation_forest_flag'].astype(int)
+    # Count positive anomaly signals
+    sig1 = df_out['cost_overrun_flag'].astype(int) if 'cost_overrun_flag' in df_out.columns else 0
+    sig2 = df_out['peer_iqr_flag'].astype(int) if 'peer_iqr_flag' in df_out.columns else 0
+    sig3 = df_out['isolation_forest_flag'].astype(int) if 'isolation_forest_flag' in df_out.columns else 0
 
     df_out['positive_signal_count'] = sig1 + sig2 + sig3
 
-    # Default classification based on signal counts
     signal_count = df_out['positive_signal_count']
     
     conditions = [

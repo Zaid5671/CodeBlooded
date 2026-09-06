@@ -1,0 +1,145 @@
+{
+  "summary": {
+    "model_name": "MPLADS Expenditure Forecasting Model",
+    "projection_months": 12,
+    "total_expected_expenditure": 14330010448.89,
+    "total_actual_expenditure": 14009190092.11,
+    "utilization_warnings_count": 0,
+    "confidence_interval": "95%",
+    "disclaimer": "Expenditure forecasts model spending trends based on historical Lok Sabha timelines. Forecast deviations represent administrative tracking alerts, not proof of fraud."
+  },
+  "timeline": [
+    {
+      "forecast_date": "2024-06",
+      "expected_expenditure": 398055845.8,
+      "lower_bound": 0.0,
+      "upper_bound": 1327742124.61,
+      "actual_expenditure": 456421635.9,
+      "deviation_amount": 58365790.1,
+      "deviation_pct": 14.66,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2024-07",
+      "expected_expenditure": 597083768.7,
+      "lower_bound": 0.0,
+      "upper_bound": 1735712270.67,
+      "actual_expenditure": 551525169.58,
+      "deviation_amount": -45558599.12,
+      "deviation_pct": -7.63,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2024-08",
+      "expected_expenditure": 796111691.6,
+      "lower_bound": 0.0,
+      "upper_bound": 2110886635.84,
+      "actual_expenditure": 675147916.08,
+      "deviation_amount": -120963775.52,
+      "deviation_pct": -15.19,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2024-09",
+      "expected_expenditure": 995139614.51,
+      "lower_bound": 0.0,
+      "upper_bound": 2465102689.73,
+      "actual_expenditure": 1121276230.98,
+      "deviation_amount": 126136616.47,
+      "deviation_pct": 12.68,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2024-10",
+      "expected_expenditure": 1094653575.96,
+      "lower_bound": 0.0,
+      "upper_bound": 2636363855.73,
+      "actual_expenditure": 1193994529.16,
+      "deviation_amount": 99340953.2,
+      "deviation_pct": 9.08,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2024-11",
+      "expected_expenditure": 1194167537.41,
+      "lower_bound": 0.0,
+      "upper_bound": 2804431407.4,
+      "actual_expenditure": 1190328635.11,
+      "deviation_amount": -3838902.3,
+      "deviation_pct": -0.32,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2024-12",
+      "expected_expenditure": 1293681498.86,
+      "lower_bound": 0.0,
+      "upper_bound": 2969697273.03,
+      "actual_expenditure": 1474310418.17,
+      "deviation_amount": 180628919.31,
+      "deviation_pct": 13.96,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2025-01",
+      "expected_expenditure": 1393195460.31,
+      "lower_bound": 0.0,
+      "upper_bound": 3132479226.55,
+      "actual_expenditure": 1427759279.48,
+      "deviation_amount": 34563819.17,
+      "deviation_pct": 2.48,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2025-02",
+      "expected_expenditure": 1492709421.76,
+      "lower_bound": 0.0,
+      "upper_bound": 3293039159.27,
+      "actual_expenditure": 1299380203.55,
+      "deviation_amount": -193329218.21,
+      "deviation_pct": -12.95,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2025-03",
+      "expected_expenditure": 1592223383.21,
+      "lower_bound": 0.0,
+      "upper_bound": 3451595940.82,
+      "actual_expenditure": 1650892943.73,
+      "deviation_amount": 58669560.52,
+      "deviation_pct": 3.68,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2025-04",
+      "expected_expenditure": 1691737344.66,
+      "lower_bound": 0.0,
+      "upper_bound": 3608334707.76,
+      "actual_expenditure": 1586264245.88,
+      "deviation_amount": -105473098.78,
+      "deviation_pct": -6.23,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    },
+    {
+      "forecast_date": "2025-05",
+      "expected_expenditure": 1791251306.11,
+      "lower_bound": 0.0,
+      "upper_bound": 3763413722.47,
+      "actual_expenditure": 1381888884.49,
+      "deviation_amount": -409362421.62,
+      "deviation_pct": -22.85,
+      "utilization_warning": false,
+      "evidence": "Expenditure tracking normally within expected 95% confidence prediction bounds."
+    }
+  ]
+}

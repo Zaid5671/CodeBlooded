@@ -1,0 +1,13 @@
+forecast_date,expected_expenditure,lower_bound,upper_bound,actual_expenditure,deviation_amount,deviation_pct,utilization_warning,evidence
+2024-06,398055845.8,0.0,1327742124.61,456421635.9,58365790.1,14.66,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2024-07,597083768.7,0.0,1735712270.67,551525169.58,-45558599.12,-7.63,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2024-08,796111691.6,0.0,2110886635.84,675147916.08,-120963775.52,-15.19,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2024-09,995139614.51,0.0,2465102689.73,1121276230.98,126136616.47,12.68,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2024-10,1094653575.96,0.0,2636363855.73,1193994529.16,99340953.2,9.08,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2024-11,1194167537.41,0.0,2804431407.4,1190328635.11,-3838902.3,-0.32,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2024-12,1293681498.86,0.0,2969697273.03,1474310418.17,180628919.31,13.96,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2025-01,1393195460.31,0.0,3132479226.55,1427759279.48,34563819.17,2.48,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2025-02,1492709421.76,0.0,3293039159.27,1299380203.55,-193329218.21,-12.95,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2025-03,1592223383.21,0.0,3451595940.82,1650892943.73,58669560.52,3.68,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2025-04,1691737344.66,0.0,3608334707.76,1586264245.88,-105473098.78,-6.23,False,Expenditure tracking normally within expected 95% confidence prediction bounds.
+2025-05,1791251306.11,0.0,3763413722.47,1381888884.49,-409362421.62,-22.85,False,Expenditure tracking normally within expected 95% confidence prediction bounds.

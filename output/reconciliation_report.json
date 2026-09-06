@@ -1,0 +1,36 @@
+{
+  "title": "Lok Sabha 18th Master Lifecycle Reconciliation Report",
+  "scope": "Lok Sabha 18th ONLY",
+  "primary_canonical_key": "clean_work_id",
+  "lifecycle_counts": {
+    "recommended_count": 107024,
+    "sanctioned_count": 79220,
+    "expenditure_count": 84172,
+    "completed_count": 34440,
+    "master_work_entities": 79221,
+    "exact_canonical_id_matches": 79219,
+    "fallback_composite_matches": 1
+  },
+  "lifecycle_match_rates": {
+    "recommendation_to_sanction_match_rate_pct": 100.0,
+    "sanction_to_expenditure_match_rate_pct": 71.45,
+    "sanction_to_completion_match_rate_pct": 43.37
+  },
+  "unmatched_records_by_stage": {
+    "unmatched_expenditure_records": 1,
+    "unmatched_completed_records": 0,
+    "unmatched_recommended_records": 27805
+  },
+  "historical_numerical_reconciliation": {
+    "model_3_delay_count_explanation": {
+      "historical_count_5791": "Preliminary evaluation using hardcoded 180-day threshold without peer baseline grouping.",
+      "reconciled_production_count_1711": "Deterministic Tukey IQR upper fence (Q3 + 1.5*IQR) grouped by State completed works baseline.",
+      "conclusion": "1,711 represents the statistically defensible peer-relative delay count."
+    },
+    "model_5_critical_priority_count_explanation": {
+      "historical_count_5493": "Preliminary cumulative count including 1-signal medium cost alerts.",
+      "reconciled_production_count_2278": "Strict consensus requirement of >=2 core independent signals (Cost HIGH, Delay TRUE, Compliance TRUE).",
+      "conclusion": "2,278 represents the actionable Critical Audit Priority tier."
+    }
+  }
+}

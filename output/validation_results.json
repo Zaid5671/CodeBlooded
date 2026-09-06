@@ -1,31 +1,60 @@
 {
   "total_sanctioned_works": 79220,
   "records_below_floor_1000": 4,
-  "records_with_expenditure": 56605,
-  "records_missing_expenditure": 22615,
-  "records_using_state_peer": 79186,
-  "records_using_national_fallback": 34,
+  "records_with_expenditure": 56604,
+  "records_missing_expenditure": 22616,
+  "work_category_counts": {
+    "ROAD": 18179,
+    "OTHER": 17423,
+    "LIGHTING": 14149,
+    "COMMUNITY_BUILDING": 9533,
+    "EDUCATION": 6924,
+    "WATER_SUPPLY": 5503,
+    "HEALTH": 5119,
+    "SPORTS": 1002,
+    "EQUIPMENT": 798,
+    "ELECTRIFICATION": 355,
+    "SANITATION": 235
+  },
+  "sla_compliance_breaches": 0,
+  "compliance_status_counts": {
+    "COMPLIANT": 79219,
+    "DATA_QUALITY_REVIEW": 1
+  },
+  "records_using_state_peer": 78322,
+  "records_using_national_fallback": 894,
+  "records_with_insufficient_peer_data": 4,
   "signal_1_cost_overrun_flags": 0,
-  "signal_2_peer_iqr_flags": 3661,
-  "signal_3_isolation_forest_flags": 3961,
+  "signal_2_peer_iqr_flags": 4259,
+  "signal_3_isolation_forest_flags": 3990,
   "risk_classification_counts": {
-    "HIGH": 2849,
-    "MEDIUM": 1924,
-    "LOW": 74443,
+    "HIGH": 2056,
+    "MEDIUM": 4137,
+    "LOW": 73023,
     "DATA_QUALITY_REVIEW": 4
   },
-  "jaccard_overlap_iqr_vs_isolation_forest": 0.5969,
+  "jaccard_overlap_iqr_vs_isolation_forest": 0.332,
   "signal_overlap": {
-    "intersection": 2849,
-    "union": 4773,
-    "jaccard_similarity": 0.5969
+    "intersection": 2056,
+    "union": 6193,
+    "jaccard_similarity": 0.332
   },
-  "sanity_checks": {
-    "no_nan_scores_in_valid_records": true,
-    "no_infinite_robust_deviations": true,
-    "no_negative_sanction_amounts": true,
-    "all_records_accounted_for": true,
-    "duplicate_work_ids_check": true
+  "sanity_assertions": {
+    "c1_floor_exclusion_for_ml": true,
+    "c2_no_nan_or_inf_in_ml_scores": true,
+    "c3_leakage_prevention_flag": true,
+    "c4_expenditure_aggregated_by_clean_work_id": true,
+    "c5_no_duplicate_clean_work_ids": true,
+    "c6_peer_grouping_hierarchy_valid": true,
+    "c7_robust_dev_no_nan_or_inf": true,
+    "c8_cost_overrun_uses_actual_expenditure": true,
+    "c9_sla_branching_valid": true,
+    "c10_risk_labels_non_incriminating": true,
+    "c11_required_fields_present": true,
+    "c12_work_ids_normalized": true,
+    "c13_explainable_evidence_present": true
   },
+  "sanity_passed_count": 13,
+  "sanity_total_count": 13,
   "all_sanity_checks_passed": true
 }

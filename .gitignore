@@ -6,6 +6,13 @@
 ehthumbs.db
 Thumbs.db
 
+# Python & Build cache
+__pycache__/
+*.pyc
+cost_detection/__pycache__/
+output/cache/
+
 # Large uncompressed pipeline output
 output/scored_sanctioned_works.csv
 output/scored_sanctioned_works.json
+

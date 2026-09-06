@@ -36,3 +36,57 @@ DISCLAIMER_TEXT = (
     "Statistical/financial anomaly requiring human investigation. "
     "Not proof of fraud or wrongdoing."
 )
+
+# Centralized Double-Dipping V2 Configuration
+DOUBLE_DIPPING_V2_CONFIG = {
+    "model_version": "double_dipping_v2",
+    "semantic_weight": 0.35,
+    "amount_weight": 0.20,
+    "location_weight": 0.20,
+    "vendor_weight": 0.15,
+    "date_weight": 0.10,
+
+    "high_risk_threshold": 85,
+    "medium_risk_threshold": 70,
+
+    "minimum_semantic_for_high": 0.75,
+    "min_contextual_anchors_for_high": 2,
+    "generic_description_dampening": 0.6,
+    "convergence_bonus_multiplier": 1.10,
+
+    "max_candidates": 5000,
+    "embedding_model": "all-MiniLM-L6-v2",
+    "image_similarity_available": False
+}
+
+# Alias for backwards compatibility
+DOUBLE_DIPPING_CONFIG = DOUBLE_DIPPING_V2_CONFIG
+
+# Model 3 — Delay Detection Parameters
+DELAY_MIN_PEER_GROUP_SIZE = 10
+DELAY_IQR_MULTIPLIER = 1.5
+DEFAULT_REFERENCE_DATE = "2026-03-31"
+
+# Model 4 — Compliance Parameters
+COMPLIANCE_APPROVAL_DAYS = 45
+COMPLIANCE_MINOR_MAX = 90
+COMPLIANCE_MODERATE_MAX = 180
+IA_WATCHLIST_MIN_WORKS = 20
+
+# Model 5 — Audit Priority Aggregator Parameters
+AUDIT_COST_HIGH_WEIGHT = 0.35
+AUDIT_COST_MEDIUM_WEIGHT = 0.15
+AUDIT_DELAY_WEIGHT = 0.30
+AUDIT_COMPLIANCE_WEIGHT = 0.35
+AUDIT_VENDOR_RISK_WEIGHT = 0.10
+
+# Vendor-Agency Network Risk Parameters
+VENDOR_HHI_HIGH_THRESHOLD = 0.25
+VENDOR_TOP_SHARE_THRESHOLD = 0.60
+VENDOR_FRAGMENTATION_WINDOW_DAYS = 7
+
+# Expenditure Forecasting Parameters
+LS17_DATA_DIR = os.path.join(BASE_DIR, "data", "original", "LokSabha17")
+FORECAST_CONFIDENCE_INTERVAL = 0.95
+
+
