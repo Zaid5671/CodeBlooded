@@ -1,0 +1,31 @@
+{
+  "total_sanctioned_works": 79220,
+  "records_below_floor_1000": 4,
+  "records_with_expenditure": 56605,
+  "records_missing_expenditure": 22615,
+  "records_using_state_peer": 79186,
+  "records_using_national_fallback": 34,
+  "signal_1_cost_overrun_flags": 0,
+  "signal_2_peer_iqr_flags": 3661,
+  "signal_3_isolation_forest_flags": 3961,
+  "risk_classification_counts": {
+    "HIGH": 2849,
+    "MEDIUM": 1924,
+    "LOW": 74443,
+    "DATA_QUALITY_REVIEW": 4
+  },
+  "jaccard_overlap_iqr_vs_isolation_forest": 0.5969,
+  "signal_overlap": {
+    "intersection": 2849,
+    "union": 4773,
+    "jaccard_similarity": 0.5969
+  },
+  "sanity_checks": {
+    "no_nan_scores_in_valid_records": true,
+    "no_infinite_robust_deviations": true,
+    "no_negative_sanction_amounts": true,
+    "all_records_accounted_for": true,
+    "duplicate_work_ids_check": true
+  },
+  "all_sanity_checks_passed": true
+}

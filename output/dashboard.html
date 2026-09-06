@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anomalous Cost Estimate & Cost Overrun Detection Engine - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.24.1/plotly.min.js"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; }
+        .card { background-color: #1e293b; border: 1px solid #334155; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
+        .kpi-title { font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        .kpi-val { font-size: 1.8rem; font-weight: 700; margin-top: 5px; }
+        .badge-high { background-color: #ef4444; color: #fff; font-size: 0.9rem; padding: 6px 12px; }
+        .badge-medium { background-color: #f59e0b; color: #fff; font-size: 0.9rem; padding: 6px 12px; }
+        .badge-low { background-color: #10b981; color: #fff; font-size: 0.9rem; padding: 6px 12px; }
+        .badge-dq { background-color: #3b82f6; color: #fff; font-size: 0.9rem; padding: 6px 12px; }
+        .disclaimer-box { background-color: #1e1b4b; border-left: 4px solid #6366f1; padding: 15px; border-radius: 6px; margin-bottom: 25px; }
+        table { color: #cbd5e1 !important; }
+        th { background-color: #334155 !important; color: #f8fafc !important; font-size: 0.85rem; }
+        td { font-size: 0.85rem; border-color: #334155 !important; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2 class="fw-bold text-white mb-1">🏛️ Anomalous Cost Estimate & Cost Overrun Detection Engine</h2>
+                <p class="text-secondary mb-0">Lok Sabha 18th MPLADS Analytical Engine | Statistical Anomaly & Cost Overrun Detection</p>
+            </div>
+            <span class="badge bg-primary fs-6">Lok Sabha 18th ONLY</span>
+        </div>
+
+        <div class="disclaimer-box">
+            <h6 class="fw-bold text-indigo-400 mb-1">ℹ️ Human Investigation Disclaimer</h6>
+            <p class="mb-0 text-slate-300 small">This system performs statistical and financial anomaly detection requiring human investigation. A <b>HIGH</b> or <b>MEDIUM</b> risk score does NOT indicate fraud or wrongdoing; it signifies that multiple statistical signals (peer IQR variance, Isolation Forest multivariate patterns, or actual cost overruns) have triggered for administrative review.</p>
+        </div>
+
+        <!-- KPI Row 1 -->
+        <div class="row text-center mb-3">
+            <div class="col-md-2">
+                <div class="card p-3">
+                    <div class="kpi-title">Total Sanctioned Works</div>
+                    <div class="kpi-val text-white">79,220</div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card p-3">
+                    <div class="kpi-title">HIGH Risk Works</div>
+                    <div class="kpi-val text-danger">2,849</div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card p-3">
+                    <div class="kpi-title">MEDIUM Risk Works</div>
+                    <div class="kpi-val text-warning">1,924</div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card p-3">
+                    <div class="kpi-title">LOW Risk Works</div>
+                    <div class="kpi-val text-success">74,443</div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card p-3">
+                    <div class="kpi-title">Data Quality Review</div>
+                    <div class="kpi-val text-info">4</div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card p-3">
+                    <div class="kpi-title">Missing Expenditure</div>
+                    <div class="kpi-val text-secondary">22,615</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Row 2: Signal Flags -->
+        <div class="row text-center mb-4">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <div class="kpi-title">Signal 1: Cost Overruns (>10%)</div>
+                    <div class="kpi-val text-danger">0</div>
+                    <small class="text-secondary mt-1">Actual vs Sanctioned Rule</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <div class="kpi-title">Signal 2: Peer IQR Anomalies (>3.0 IQR)</div>
+                    <div class="kpi-val text-warning">3,661</div>
+                    <small class="text-secondary mt-1">High-Side Peer Deviations</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <div class="kpi-title">Signal 3: Isolation Forest Anomalies</div>
+                    <div class="kpi-val text-primary">3,961</div>
+                    <small class="text-secondary mt-1">Multivariate ML Detection (Contamination: 0.05)</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card p-3">
+                    <h5 class="fw-bold text-white mb-3">📈 Risk Classification Distribution</h5>
+                    <div id="riskChart" style="height: 350px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-3">
+                    <h5 class="fw-bold text-white mb-3">🔍 Signal Overlap (Peer IQR vs Isolation Forest)</h5>
+                    <div id="overlapChart" style="height: 350px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top 20 High-Risk Table -->
+        <div class="card p-4">
+            <h5 class="fw-bold text-white mb-3">🚨 Top 20 High-Risk Anomalous Sanctioned Works</h5>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover table-bordered align-middle">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Work ID</th>
+                            <th>MP Name</th>
+                            <th>State / Constituency</th>
+                            <th>Sanction Amt</th>
+                            <th>Peer Median</th>
+                            <th>Robust Dev</th>
+                            <th>Days</th>
+                            <th>Actual Exp</th>
+                            <th>ML Score</th>
+                            <th>Risk Level</th>
+                            <th>Evidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td>1</td>
+                            <td><code>WS/MP18201/2024-2025/141045</code></td>
+                            <td><b>NEERAJ MAURYA</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>AONLA</small></td>
+                            <td class='fw-bold text-light'>₹46,470,400.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>90.9 IQR</td>
+                            <td>69 d</td>
+                            <td>₹46,470,400.00</td>
+                            <td class='fw-bold text-primary'>1.0000</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹46,470,400.00) is 19913.3% above state peer median (₹232,197.98) with IQR deviation of 90.86 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 1.0000).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>2</td>
+                            <td><code>WS/MP492/2025-2026/194809</code></td>
+                            <td><b>Shri Arun Kumar Sagar</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>SHAHJAHANPUR(SC)</small></td>
+                            <td class='fw-bold text-light'>₹40,095,000.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>78.3 IQR</td>
+                            <td>12 d</td>
+                            <td>₹40,095,000.00</td>
+                            <td class='fw-bold text-primary'>0.9985</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹40,095,000.00) is 17167.6% above state peer median (₹232,197.98) with IQR deviation of 78.33 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9985).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>3</td>
+                            <td><code>WS/MP507/2025-2026/196288</code></td>
+                            <td><b>Ashok Kumar Rawat</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>MISRIKH(SC)</small></td>
+                            <td class='fw-bold text-light'>₹47,472,048.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>92.8 IQR</td>
+                            <td>54 d</td>
+                            <td>₹37,203,872.00</td>
+                            <td class='fw-bold text-primary'>0.9976</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹47,472,048.00) is 20344.6% above state peer median (₹232,197.98) with IQR deviation of 92.82 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9976).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>4</td>
+                            <td><code>WS/MP18242/2025-2026/216762</code></td>
+                            <td><b>RAMBHUAL NISHAD</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>SULTANPUR</small></td>
+                            <td class='fw-bold text-light'>₹24,641,199.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>48.0 IQR</td>
+                            <td>154 d</td>
+                            <td>₹24,137,489.00</td>
+                            <td class='fw-bold text-primary'>0.9976</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹24,641,199.00) is 10512.2% above state peer median (₹232,197.98) with IQR deviation of 47.96 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9976).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>5</td>
+                            <td><code>WS/MP507/2026-2027/290535</code></td>
+                            <td><b>Ashok Kumar Rawat</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>MISRIKH(SC)</small></td>
+                            <td class='fw-bold text-light'>₹49,740,000.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>97.3 IQR</td>
+                            <td>50 d</td>
+                            <td>₹35,321,457.00</td>
+                            <td class='fw-bold text-primary'>0.9976</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹49,740,000.00) is 21321.4% above state peer median (₹232,197.98) with IQR deviation of 97.28 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9976).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>6</td>
+                            <td><code>WS/MP492/2024-2025/134984</code></td>
+                            <td><b>Shri Arun Kumar Sagar</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>SHAHJAHANPUR(SC)</small></td>
+                            <td class='fw-bold text-light'>₹37,908,000.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>74.0 IQR</td>
+                            <td>21 d</td>
+                            <td>₹37,908,000.00</td>
+                            <td class='fw-bold text-primary'>0.9972</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹37,908,000.00) is 16225.7% above state peer median (₹232,197.98) with IQR deviation of 74.03 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9972).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>7</td>
+                            <td><code>WS/MP507/2024-2025/170558</code></td>
+                            <td><b>Ashok Kumar Rawat</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>MISRIKH(SC)</small></td>
+                            <td class='fw-bold text-light'>₹28,310,620.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>55.2 IQR</td>
+                            <td>18 d</td>
+                            <td>₹28,310,620.00</td>
+                            <td class='fw-bold text-primary'>0.9957</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹28,310,620.00) is 12092.4% above state peer median (₹232,197.98) with IQR deviation of 55.17 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9957).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>8</td>
+                            <td><code>WS/MP492/2026-2027/282269</code></td>
+                            <td><b>Shri Arun Kumar Sagar</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>SHAHJAHANPUR(SC)</small></td>
+                            <td class='fw-bold text-light'>₹31,200,000.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>60.9 IQR</td>
+                            <td>26 d</td>
+                            <td>₹31,200,000.00</td>
+                            <td class='fw-bold text-primary'>0.9948</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹31,200,000.00) is 13336.8% above state peer median (₹232,197.98) with IQR deviation of 60.85 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9948).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>9</td>
+                            <td><code>WS/MP18279/2025-2026/216827</code></td>
+                            <td><b>MUHAMMED HAMDULLAH SAYEED</b></td>
+                            <td>Lakshadweep<br><small class='text-secondary'>LAKSHADWEEP(ST)</small></td>
+                            <td class='fw-bold text-light'>₹45,000,000.00</td>
+                            <td class='text-info'>₹265,220.00</td>
+                            <td class='text-warning'>48.0 IQR</td>
+                            <td>27 d</td>
+                            <td>₹32,562,250.00</td>
+                            <td class='fw-bold text-primary'>0.9940</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹45,000,000.00) is 16867.0% above state peer median (₹265,220.00) with IQR deviation of 48.04 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9940).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>10</td>
+                            <td><code>WS/MP18201/2025-2026/194865</code></td>
+                            <td><b>NEERAJ MAURYA</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>AONLA</small></td>
+                            <td class='fw-bold text-light'>₹21,030,400.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>40.9 IQR</td>
+                            <td>35 d</td>
+                            <td>₹21,030,400.00</td>
+                            <td class='fw-bold text-primary'>0.9917</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹21,030,400.00) is 8957.1% above state peer median (₹232,197.98) with IQR deviation of 40.87 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9917).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>11</td>
+                            <td><code>WS/MP18070/2025-2026/201278</code></td>
+                            <td><b>MIAN ALTAF AHMAD</b></td>
+                            <td>Jammu And Kashmir<br><small class='text-secondary'>ANANTNAG</small></td>
+                            <td class='fw-bold text-light'>₹20,000,000.00</td>
+                            <td class='text-info'>₹300,000.00</td>
+                            <td class='text-warning'>67.7 IQR</td>
+                            <td>8 d</td>
+                            <td><span class='text-secondary'>NO_EXPENDITURE</span></td>
+                            <td class='fw-bold text-primary'>0.9914</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>MISSING EVIDENCE: no expenditure record found yet for this work.</li><li>Peer Anomaly: Sanction amount (₹20,000,000.00) is 6566.7% above state peer median (₹300,000.00) with IQR deviation of 67.70 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9914).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>12</td>
+                            <td><code>WS/MP18070/2025-2026/166162</code></td>
+                            <td><b>MIAN ALTAF AHMAD</b></td>
+                            <td>Jammu And Kashmir<br><small class='text-secondary'>ANANTNAG</small></td>
+                            <td class='fw-bold text-light'>₹15,000,000.00</td>
+                            <td class='text-info'>₹300,000.00</td>
+                            <td class='text-warning'>50.5 IQR</td>
+                            <td>138 d</td>
+                            <td>₹6,894,000.00</td>
+                            <td class='fw-bold text-primary'>0.9913</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹15,000,000.00) is 4900.0% above state peer median (₹300,000.00) with IQR deviation of 50.52 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9913).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>13</td>
+                            <td><code>WS/MP507/2025-2026/180315</code></td>
+                            <td><b>Ashok Kumar Rawat</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>MISRIKH(SC)</small></td>
+                            <td class='fw-bold text-light'>₹20,304,037.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>39.4 IQR</td>
+                            <td>32 d</td>
+                            <td>₹20,304,037.00</td>
+                            <td class='fw-bold text-primary'>0.9913</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹20,304,037.00) is 8644.3% above state peer median (₹232,197.98) with IQR deviation of 39.44 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9913).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>14</td>
+                            <td><code>WS/MP18233/2025-2026/180308</code></td>
+                            <td><b>PRAVEEN PATEL</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>PHULPUR</small></td>
+                            <td class='fw-bold text-light'>₹20,609,400.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>40.0 IQR</td>
+                            <td>153 d</td>
+                            <td>₹20,609,400.00</td>
+                            <td class='fw-bold text-primary'>0.9908</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹20,609,400.00) is 8775.8% above state peer median (₹232,197.98) with IQR deviation of 40.04 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9908).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>15</td>
+                            <td><code>WS/MP817/2025-2026/229416</code></td>
+                            <td><b>Smt Anupriya Patel</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>MIRZAPUR</small></td>
+                            <td class='fw-bold text-light'>₹22,131,000.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>43.0 IQR</td>
+                            <td>16 d</td>
+                            <td>₹17,151,917.00</td>
+                            <td class='fw-bold text-primary'>0.9902</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹22,131,000.00) is 9431.1% above state peer median (₹232,197.98) with IQR deviation of 43.03 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9902).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>16</td>
+                            <td><code>WS/MP817/2025-2026/229418</code></td>
+                            <td><b>Smt Anupriya Patel</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>MIRZAPUR</small></td>
+                            <td class='fw-bold text-light'>₹19,747,300.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>38.3 IQR</td>
+                            <td>16 d</td>
+                            <td>₹16,945,492.00</td>
+                            <td class='fw-bold text-primary'>0.9902</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹19,747,300.00) is 8404.5% above state peer median (₹232,197.98) with IQR deviation of 38.35 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9902).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>17</td>
+                            <td><code>WS/MP443/2024-2025/138721</code></td>
+                            <td><b>Rodmal Nagar</b></td>
+                            <td>Madhya Pradesh<br><small class='text-secondary'>RAJGARH</small></td>
+                            <td class='fw-bold text-light'>₹16,177,075.00</td>
+                            <td class='text-info'>₹240,064.00</td>
+                            <td class='text-warning'>46.8 IQR</td>
+                            <td>70 d</td>
+                            <td>₹16,176,660.00</td>
+                            <td class='fw-bold text-primary'>0.9885</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹16,177,075.00) is 6638.7% above state peer median (₹240,064.00) with IQR deviation of 46.77 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9885).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>18</td>
+                            <td><code>WS/MP18233/2026-2027/274638</code></td>
+                            <td><b>PRAVEEN PATEL</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>PHULPUR</small></td>
+                            <td class='fw-bold text-light'>₹20,792,000.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>40.4 IQR</td>
+                            <td>58 d</td>
+                            <td>₹20,786,350.00</td>
+                            <td class='fw-bold text-primary'>0.9881</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹20,792,000.00) is 8854.4% above state peer median (₹232,197.98) with IQR deviation of 40.40 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9881).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>19</td>
+                            <td><code>WS/MP18198/2025-2026/214766</code></td>
+                            <td><b>UJJWAL RAMAN SINGH</b></td>
+                            <td>Uttar Pradesh<br><small class='text-secondary'>ALLAHABAD</small></td>
+                            <td class='fw-bold text-light'>₹16,757,000.00</td>
+                            <td class='text-info'>₹232,197.98</td>
+                            <td class='text-warning'>32.5 IQR</td>
+                            <td>39 d</td>
+                            <td>₹15,862,312.00</td>
+                            <td class='fw-bold text-primary'>0.9877</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹16,757,000.00) is 7116.7% above state peer median (₹232,197.98) with IQR deviation of 32.47 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9877).</li></ul></td>
+                        </tr>
+        
+                        <tr>
+                            <td>20</td>
+                            <td><code>WS/MP880/2025-2026/211190</code></td>
+                            <td><b>Manoj Tiwari</b></td>
+                            <td>Delhi<br><small class='text-secondary'>NORTH EAST DELHI</small></td>
+                            <td class='fw-bold text-light'>₹25,217,575.00</td>
+                            <td class='text-info'>₹627,814.00</td>
+                            <td class='text-warning'>43.0 IQR</td>
+                            <td>166 d</td>
+                            <td>₹18,913,181.00</td>
+                            <td class='fw-bold text-primary'>0.9872</td>
+                            <td><span class='badge badge-high'>HIGH (2 Sigs)</span></td>
+                            <td class='small'><ul class='mb-0 ps-3'><li>Peer Anomaly: Sanction amount (₹25,217,575.00) is 3916.7% above state peer median (₹627,814.00) with IQR deviation of 43.00 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.9872).</li></ul></td>
+                        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Risk Distribution Chart
+        var riskData = [{
+            values: [2849, 1924, 74443, 4],
+            labels: ['HIGH', 'MEDIUM', 'LOW', 'DATA_QUALITY_REVIEW'],
+            type: 'pie',
+            marker: { colors: ['#ef4444', '#f59e0b', '#10b981', '#3b82f6'] }
+        }];
+        var riskLayout = {
+            paper_bgcolor: 'transparent',
+            plot_bgcolor: 'transparent',
+            font: { color: '#f8fafc' },
+            margin: { t: 20, b: 20, l: 20, r: 20 }
+        };
+        Plotly.newPlot('riskChart', riskData, riskLayout);
+
+        // Signal Overlap Bar Chart
+        var overlapData = [{
+            x: ['Peer IQR Anomalies', 'Isolation Forest Anomalies', 'Combined Union', 'Jaccard Overlap Score'],
+            y: [3661, 3961, 5431, 59.69],
+            type: 'bar',
+            marker: { color: ['#f59e0b', '#6366f1', '#10b981', '#ec4899'] }
+        }];
+        var overlapLayout = {
+            paper_bgcolor: 'transparent',
+            plot_bgcolor: 'transparent',
+            font: { color: '#f8fafc' },
+            margin: { t: 20, b: 40, l: 40, r: 20 }
+        };
+        Plotly.newPlot('overlapChart', overlapData, overlapLayout);
+    </script>
+</body>
+</html>
+    
