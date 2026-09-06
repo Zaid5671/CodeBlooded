@@ -1,0 +1,25 @@
+{
+  "model_name": "Anomalous Cost Estimate & Cost Overrun Detection Engine",
+  "total_sanctioned_works": 79220,
+  "risk_breakdown": {
+    "HIGH": 2849,
+    "MEDIUM": 1924,
+    "LOW": 74443,
+    "DATA_QUALITY_REVIEW": 4
+  },
+  "signals": {
+    "cost_overrun_flags": 0,
+    "peer_iqr_flags": 3661,
+    "isolation_forest_flags": 3961
+  },
+  "expenditure_matching": {
+    "matched_works": 56605,
+    "missing_expenditure_works": 22615
+  },
+  "peer_group_levels": {
+    "state_peer_group_works": 79186,
+    "national_fallback_works": 34
+  },
+  "jaccard_overlap_iqr_vs_if": 0.5969,
+  "all_sanity_checks_passed": true
+}

@@ -1,0 +1,13 @@
+{
+  "model_name": "Anomalous Cost Estimate & Cost Overrun Detection Engine",
+  "model_version": "1.0.0",
+  "sanction_amount_floor_inr": 1000.0,
+  "peer_min_size": 20,
+  "iqr_multiplier": 3.0,
+  "cost_overrun_threshold": 0.1,
+  "isolation_forest": {
+    "n_estimators": 300,
+    "contamination": 0.05,
+    "random_state": 42
+  }
+}
