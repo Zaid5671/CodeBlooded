@@ -26,9 +26,9 @@ month,forecast_date,type,expected_expenditure,actual_expenditure,forecast_expend
 2026-07,2026-07,HISTORICAL_OBSERVED,1386699122.33,2191908781.0,1386699122.33,77919318.08,2695478926.58,805209658.67,58.07,WITHIN_EXPECTED_RANGE,False,Expenditure tracking within empirical 95% expected range.
 2026-08,2026-08,HISTORICAL_OBSERVED,1683034731.0,1791900003.0,1683034731.0,374254926.75,2991814535.25,108865272.0,6.47,WITHIN_EXPECTED_RANGE,False,Expenditure tracking within empirical 95% expected range.
 2026-09,2026-09,HISTORICAL_OBSERVED,1817868016.0,395564126.0,1817868016.0,509088211.75,3126647820.25,-1422303890.0,-78.24,BELOW_EXPECTED_TREND,True,Monthly expenditure was 78.2% below the forecasted utilization level and outside the empirical 95% expected range.
-2026-10,2026-10,FUTURE_FORECAST,1337916700.78,,1337916700.78,29136896.53,2646696505.03,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
-2026-11,2026-11,FUTURE_FORECAST,1337916700.78,,1337916700.78,29136896.53,2646696505.03,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
-2026-12,2026-12,FUTURE_FORECAST,1337916700.78,,1337916700.78,29136896.53,2646696505.03,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
-2027-01,2027-01,FUTURE_FORECAST,1337916700.78,,1337916700.78,29136896.53,2646696505.03,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
-2027-02,2027-02,FUTURE_FORECAST,1337916700.78,,1337916700.78,29136896.53,2646696505.03,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
-2027-03,2027-03,FUTURE_FORECAST,1337916700.78,,1337916700.78,29136896.53,2646696505.03,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
+2026-10,2026-10,FUTURE_FORECAST,1459790970.0,,1459790970.0,151011165.75,2768570774.25,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
+2026-11,2026-11,FUTURE_FORECAST,1215751699.67,,1215751699.67,0.0,2524531503.92,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
+2026-12,2026-12,FUTURE_FORECAST,1023702265.22,,1023702265.22,0.0,2332482069.47,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
+2027-01,2027-01,FUTURE_FORECAST,1233081644.96,,1233081644.96,0.0,2541861449.21,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
+2027-02,2027-02,FUTURE_FORECAST,1157511869.95,,1157511869.95,0.0,2466291674.2,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.
+2027-03,2027-03,FUTURE_FORECAST,1138098593.38,,1138098593.38,0.0,2446878397.63,0.0,0.0,PROJECTED_FORECAST,False,Projected utilization trend based on historical monthly expenditure patterns.

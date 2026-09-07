@@ -13,9 +13,24 @@ from cost_detection.config import (
 )
 from cost_detection.preprocessing import clean_monetary_field
 
+def recursive_rolling_mean_forecast(history_vals, horizon=6, window=3):
+    """
+    Canonical Recursive Rolling Mean Forecasting Engine.
+    Generates multi-step forecasts by computing the rolling mean of the latest window observations
+    and appending predictions recursively to the working history.
+    """
+    history = list(history_vals)
+    predictions = []
+    for step in range(horizon):
+        w = history[-window:] if len(history) >= window else history
+        pred = float(np.mean(w))
+        predictions.append(pred)
+        history.append(pred)
+    return predictions
+
 def generate_expenditure_forecast(df_master=None, horizon_months=FORECAST_HORIZON_MONTHS, data_dir=DATA_DIR):
     """
-    MPLADS Expenditure Forecasting Module.
+    MPLADS Expenditure Forecasting Module (M4_FORECAST).
     Predictive time-series model analyzing actual monthly expenditure utilization trends
     and identifying significant deviations from expected historical baseline patterns.
     
@@ -33,8 +48,8 @@ def generate_expenditure_forecast(df_master=None, horizon_months=FORECAST_HORIZO
         df_exp = pd.read_csv(ls18_exp_path, low_memory=False)
         
     if df_exp is None or df_exp.empty:
-        # Gracefully handle missing expenditure data
         summary_empty = {
+            'model_id': 'M4_FORECAST',
             'model_name': 'MPLADS Expenditure Forecasting Model',
             'model_version': '1.0.0',
             'aggregation_level': 'NATIONAL',
@@ -52,15 +67,17 @@ def generate_expenditure_forecast(df_master=None, horizon_months=FORECAST_HORIZO
         }
         return pd.DataFrame(), summary_empty
 
-    amt_col = 'Fund Disbursed Amount ( ₹ )' if 'Fund Disbursed Amount ( ₹ )' in df_exp.columns else df_exp.columns[-1]
+    amt_cols = [c for c in df_exp.columns if ('disbursed' in c.lower() or 'amount' in c.lower()) and 'date' not in c.lower()]
+    amt_col = amt_cols[0] if amt_cols else df_exp.columns[-1]
     date_col = 'Expenditure Date' if 'Expenditure Date' in df_exp.columns else 'date'
     
-    df_exp['clean_amt'] = clean_monetary_field(df_exp[amt_col]).fillna(0.0)
-    df_exp['dt'] = pd.to_datetime(df_exp[date_col], errors='coerce')
-    df_valid = df_exp.dropna(subset=['dt']).copy()
+    df_exp['clean_amt'] = clean_monetary_field(df_exp[amt_col])
+    df_exp['dt'] = pd.to_datetime(df_exp[date_col], errors='coerce', dayfirst=True)
+    df_valid = df_exp.dropna(subset=['dt', 'clean_amt']).copy()
     
     if len(df_valid) == 0:
         summary_empty = {
+            'model_id': 'M4_FORECAST',
             'model_name': 'MPLADS Expenditure Forecasting Model',
             'model_version': '1.0.0',
             'aggregation_level': 'NATIONAL',
@@ -79,11 +96,15 @@ def generate_expenditure_forecast(df_master=None, horizon_months=FORECAST_HORIZO
         return pd.DataFrame(), summary_empty
         
     df_valid['year_month'] = df_valid['dt'].dt.to_period('M').astype(str)
-    monthly_series = df_valid.groupby('year_month')['clean_amt'].sum().sort_index()
+    min_m = df_valid['year_month'].min()
+    max_m = df_valid['year_month'].max()
+    all_periods = pd.period_range(start=min_m, end=max_m, freq='M').astype(str)
+    monthly_series = df_valid.groupby('year_month')['clean_amt'].sum().reindex(all_periods, fill_value=0.0)
     
     obs_count = len(monthly_series)
     if obs_count < MIN_FORECAST_OBSERVATIONS:
         summary_empty = {
+            'model_id': 'M4_FORECAST',
             'model_name': 'MPLADS Expenditure Forecasting Model',
             'model_version': '1.0.0',
             'aggregation_level': 'NATIONAL',
@@ -163,17 +184,15 @@ def generate_expenditure_forecast(df_master=None, horizon_months=FORECAST_HORIZO
         }
         all_records.append(rec)
         
-    # 3. Generate future forecast horizon (e.g. 6 months)
+    # 3. Generate future forecast horizon using canonical recursive rolling mean
     last_dt = pd.to_datetime(historical_end + "-01")
     future_dates = pd.date_range(start=last_dt + pd.DateOffset(months=1), periods=horizon_months, freq="MS")
     
-    # Recent trend growth factor
-    recent_trend = np.mean(monthly_vals[-3:]) / mean_exp if mean_exp > 0 else 1.0
-    recent_trend = max(0.8, min(1.3, recent_trend))
+    future_predictions = recursive_rolling_mean_forecast(monthly_vals, horizon=horizon_months, window=3)
     
-    for dt in future_dates:
+    for dt, fcst_val in zip(future_dates, future_predictions):
         ym = dt.strftime("%Y-%m")
-        fcst_val = round(mean_exp * recent_trend, 2)
+        fcst_val = round(float(fcst_val), 2)
         total_expected += fcst_val
         margin = round(1.96 * std_exp, 2)
         lower_b = max(0.0, round(fcst_val - margin, 2))
@@ -201,13 +220,14 @@ def generate_expenditure_forecast(df_master=None, horizon_months=FORECAST_HORIZO
     df_all = pd.DataFrame(all_records)
     
     results = {
+        'model_id': 'M4_FORECAST',
         'model_name': 'MPLADS Expenditure Forecasting Model',
         'model_version': '1.0.0',
         'aggregation_level': 'NATIONAL',
         'historical_start': historical_start,
         'historical_end': historical_end,
         'forecast_horizon': horizon_months,
-        'forecasting_method': 'Seasonal Rolling Baseline with Empirical 95% Expected Range',
+        'forecasting_method': 'Recursive 3-Month Rolling Average with Empirical 95% Expected Range',
         'observations_used': obs_count,
         'total_expected_expenditure': round(total_expected, 2),
         'total_actual_expenditure': round(total_actual, 2),
@@ -223,7 +243,6 @@ def generate_expenditure_forecast(df_master=None, horizon_months=FORECAST_HORIZO
     with open(os.path.join(OUTPUT_DIR, "expenditure_forecast_results.json"), "w") as f:
         json.dump(results, f, indent=2)
         
-    # Save expenditure_forecast.json for backward compatibility
     with open(os.path.join(OUTPUT_DIR, "expenditure_forecast.json"), "w") as f:
         json.dump(results, f, indent=2)
         

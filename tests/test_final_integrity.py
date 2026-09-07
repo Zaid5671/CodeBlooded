@@ -69,7 +69,7 @@ class TestFinalModelIntegritySuite:
         report_path = os.path.join(OUTPUT_DIR, "MODEL_TRAIN_TEST_REPORT.md")
         with open(report_path, "r", encoding="utf-8") as f:
             content = f.read()
-        assert "Model 2 Temporal Feature Availability Audit" in content or "M1_COST_ANOMALY" in content or "Sanction-Time" in content
+        assert "M1 Temporal Feature Availability Audit" in content or "Sanction-Time" in content
         assert "Sanction-Time" in content
         assert "Expenditure / Audit-Time" in content
 
@@ -77,8 +77,8 @@ class TestFinalModelIntegritySuite:
         report_path = os.path.join(OUTPUT_DIR, "MODEL_TRAIN_TEST_REPORT.md")
         with open(report_path, "r", encoding="utf-8") as f:
             content = f.read()
-        assert "3-month rolling-average expenditure forecasting baseline" in content
-        assert "marginally improves MAE" in content
+        assert "3-month rolling-average method marginally improves MAE" in content or "3-Month Rolling Average" in content
+        assert "RMSE and MAPE remain higher" in content
 
     def test_06_model_5_weights_sum_to_exact_one(self):
         weights = [
@@ -145,7 +145,6 @@ class TestFinalModelIntegritySuite:
         assert "RajyaSabha_Sitting" in data["datasets"]
         assert "RajyaSabha_Retired" in data["datasets"]
 
-        # Check supporting-only invariant across all 4 datasets
         for k, d in data["datasets"].items():
             m5 = d["m5_audit_priority"]
             assert m5.get("supporting_only_critical_count", 0) == 0, f"Supporting only critical count in {k} must be 0."
