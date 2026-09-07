@@ -170,6 +170,14 @@ def generate_static_html_dashboard():
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">🔍 Model 1 — Double-Dipping & Model 2 — Cost Overrun Engine</h4>
                     <p class="text-secondary small mb-3">Record linkage for distinct potential duplicate work pairs alongside hierarchical peer IQR/MAD and Isolation Forest ML cost estimate anomaly detection.</p>
+    """
+    cross_msg = "Cross-House LS↔RS Detection: Ready — Rajya Sabha data not currently available"
+    if dd_data and 'cross_house_display_message' in dd_data:
+        cross_msg = dd_data['cross_house_display_message']
+    html_content += f"""
+                    <div class="alert alert-info py-2 small mb-3">
+                        <b>🏛️ Chamber Scope:</b> {cross_msg}
+                    </div>
                 </div>
             </div>
 
@@ -185,37 +193,63 @@ def generate_static_html_dashboard():
             <div class="tab-pane fade" id="predict" role="tabpanel">
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">📈 MPLADS Expenditure Forecasting Model</h4>
-                    <p class="text-secondary small mb-3">12-month expected spending trend timeline with 95% confidence bounds trained on historical Lok Sabha 17th timeline patterns.</p>
+                    <span class="badge bg-secondary mb-2" style="width: fit-content;">Predictive Insight — Not Fraud Detection</span>
+                    <p class="text-secondary small mb-3">12-month expected spending trend timeline with empirical 95% prediction bounds based on actual monthly expenditure utilization patterns.</p>
     """
     if forecast_data:
-        timeline = forecast_data.get('timeline', [])
-        html_content += """
+        timeline = forecast_data.get('forecast_records', forecast_data.get('timeline', []))
+        fcst_status = forecast_data.get('status', 'SUCCESS')
+        if fcst_status == 'INSUFFICIENT_DATA' or not timeline:
+            html_content += """
+                    <div class="alert alert-warning py-3 text-center">
+                        <b>Forecast unavailable — insufficient historical observations</b>
+                    </div>
+            """
+        else:
+            html_content += """
                     <div class="table-responsive">
                         <table class="table table-dark table-hover table-bordered align-middle">
                             <thead>
-                                <tr><th>Month</th><th>Expected Expenditure</th><th>Lower Bound (95%)</th><th>Upper Bound (95%)</th><th>Actual Expenditure</th><th>Status & Warning</th></tr>
+                                <tr><th>Month</th><th>Type</th><th>Forecast Expenditure</th><th>Lower Bound (95%)</th><th>Upper Bound (95%)</th><th>Actual Expenditure</th><th>Status & Evidence</th></tr>
                             </thead>
                             <tbody>
-        """
-        for row in timeline:
-            exp_str = f"₹{row['expected_expenditure']:,.2f}"
-            low_str = f"₹{row['lower_bound']:,.2f}"
-            upp_str = f"₹{row['upper_bound']:,.2f}"
-            act_str = f"₹{row['actual_expenditure']:,.2f}"
-            warn_badge = "<span class='badge bg-warning text-dark'>UTILIZATION_ALERT</span>" if row['utilization_warning'] else "<span class='badge bg-success'>NORMAL_TRACKING</span>"
-            html_content += f"""
+            """
+            for row in timeline:
+                m_str = row.get('month', row.get('forecast_date', ''))
+                t_str = row.get('type', 'OBSERVED')
+                fcst_str = f"₹{row.get('forecast_expenditure', row.get('expected_expenditure', 0.0)):,.2f}"
+                low_str = f"₹{row.get('lower_bound', 0.0):,.2f}"
+                upp_str = f"₹{row.get('upper_bound', 0.0):,.2f}"
+                act_val = row.get('actual_expenditure')
+                act_str = f"₹{act_val:,.2f}" if act_val is not None else "<span class='text-muted'>Pending</span>"
+                
+                st_val = row.get('deviation_status', 'NORMAL')
+                if 'ABOVE' in st_val or 'BELOW' in st_val or row.get('utilization_warning'):
+                    warn_badge = "<span class='badge bg-warning text-dark'>" + st_val + "</span>"
+                else:
+                    warn_badge = "<span class='badge bg-success'>" + st_val + "</span>"
+                    
+                ev_str = row.get('evidence', '')
+                html_content += f"""
                                 <tr>
-                                    <td><b>{row['forecast_date']}</b></td>
-                                    <td class='text-info'>{exp_str}</td>
+                                    <td><b>{m_str}</b></td>
+                                    <td><small class='text-secondary'>{t_str}</small></td>
+                                    <td class='text-info'>{fcst_str}</td>
                                     <td class='text-secondary'>{low_str}</td>
                                     <td class='text-secondary'>{upp_str}</td>
                                     <td class='fw-bold text-light'>{act_str}</td>
-                                    <td>{warn_badge} <small class='text-secondary d-block'>{row['evidence']}</small></td>
+                                    <td>{warn_badge} <small class='text-secondary d-block'>{ev_str}</small></td>
                                 </tr>
-            """
-        html_content += """
+                """
+            html_content += """
                             </tbody>
                         </table>
+                    </div>
+            """
+    else:
+        html_content += """
+                    <div class="alert alert-warning py-3 text-center">
+                        <b>Forecast unavailable — insufficient historical observations</b>
                     </div>
         """
     html_content += """
@@ -234,3 +268,4 @@ def generate_static_html_dashboard():
 
 if __name__ == '__main__':
     generate_static_html_dashboard()
+

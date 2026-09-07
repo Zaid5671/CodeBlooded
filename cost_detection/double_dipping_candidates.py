@@ -18,15 +18,22 @@ def extract_location_tokens(text):
     tokens = set(re.findall(r'\b[a-z0-9]{3,}\b', s))
     return tokens - stop_words
 
-def generate_candidate_pairs(df_master, max_pairs_per_group=30, overall_max_pairs=5000):
+def generate_candidate_pairs(df_master, df_b=None, chamber_pair="LS-LS", max_pairs_per_group=30, overall_max_pairs=5000):
     """
-    Generates candidate pairs of DISTINCT Master Work Entities for double-dipping V2 analysis.
-    Uses multi-path blocking (Constituency, Category + Location, MP) with pair deduplication.
+    Generates candidate pairs of Master Work Entities for double-dipping V2 analysis.
+    Supports both intra-dataset (df_master vs df_master, e.g. LS-LS) and
+    cross-dataset (df_master vs df_b, e.g. LS-RS) candidate generation.
     
     Returns:
         candidate_pairs: List of dicts containing (entity_a, entity_b, blocking_key)
         blocking_metrics: dict of blocking statistics
     """
+    if df_b is None or df_b is df_master:
+        return _generate_intra_candidate_pairs(df_master, max_pairs_per_group, overall_max_pairs)
+    else:
+        return _generate_cross_candidate_pairs(df_master, df_b, chamber_pair, max_pairs_per_group, overall_max_pairs)
+
+def _generate_intra_candidate_pairs(df_master, max_pairs_per_group=30, overall_max_pairs=5000):
     candidate_pairs = []
     seen_pair_keys = set()
     raw_pairs_examined = 0
@@ -67,8 +74,8 @@ def generate_candidate_pairs(df_master, max_pairs_per_group=30, overall_max_pair
                 r_a = records[i]
                 r_b = records[j]
                 
-                mid_a = r_a.get('master_work_id', r_a.get('entity_id', str(i)))
-                mid_b = r_b.get('master_work_id', r_b.get('entity_id', str(j)))
+                mid_a = r_a.get('master_work_id', r_a.get('entity_id', r_a.get('clean_work_id', str(i))))
+                mid_b = r_b.get('master_work_id', r_b.get('entity_id', r_b.get('clean_work_id', str(j))))
                 
                 if mid_a == mid_b:
                     pairs_removed_lifecycle += 1
@@ -79,7 +86,7 @@ def generate_candidate_pairs(df_master, max_pairs_per_group=30, overall_max_pair
                     pairs_removed_lifecycle += 1
                     continue
                     
-                pair_key = tuple(sorted([mid_a, mid_b]))
+                pair_key = tuple(sorted([str(mid_a), str(mid_b)]))
                 if pair_key in seen_pair_keys:
                     pairs_removed_duplicate += 1
                     continue
@@ -98,8 +105,8 @@ def generate_candidate_pairs(df_master, max_pairs_per_group=30, overall_max_pair
                     
                     r_a = records[i]
                     r_b = records[j]
-                    mid_a = r_a.get('master_work_id', r_a.get('entity_id', str(i)))
-                    mid_b = r_b.get('master_work_id', r_b.get('entity_id', str(j)))
+                    mid_a = r_a.get('master_work_id', r_a.get('entity_id', r_a.get('clean_work_id', str(i))))
+                    mid_b = r_b.get('master_work_id', r_b.get('entity_id', r_b.get('clean_work_id', str(j))))
                     
                     if mid_a == mid_b:
                         pairs_removed_lifecycle += 1
@@ -109,7 +116,7 @@ def generate_candidate_pairs(df_master, max_pairs_per_group=30, overall_max_pair
                     if cid_a and cid_b and cid_a == cid_b:
                         pairs_removed_lifecycle += 1
                         continue
-                    pair_key = tuple(sorted([mid_a, mid_b]))
+                    pair_key = tuple(sorted([str(mid_a), str(mid_b)]))
                     if pair_key in seen_pair_keys:
                         pairs_removed_duplicate += 1
                         continue
@@ -139,3 +146,105 @@ def generate_candidate_pairs(df_master, max_pairs_per_group=30, overall_max_pair
     }
     
     return candidate_pairs, metrics
+
+def _generate_cross_candidate_pairs(df_a, df_b, chamber_pair, max_pairs_per_group=30, overall_max_pairs=5000):
+    candidate_pairs = []
+    seen_pair_keys = set()
+    raw_pairs_examined = 0
+    pairs_removed_duplicate = 0
+    
+    state_col_a = 'state' if 'state' in df_a.columns else df_a.columns[0]
+    state_col_b = 'state' if 'state' in df_b.columns else df_b.columns[0]
+    
+    groups_a = dict(list(df_a.groupby(state_col_a)))
+    groups_b = dict(list(df_b.groupby(state_col_b)))
+    
+    common_states = set(groups_a.keys()).intersection(set(groups_b.keys()))
+    if not common_states:
+        # Fallback to single group comparison if state columns differ
+        common_states = {'ALL'}
+        groups_a = {'ALL': df_a}
+        groups_b = {'ALL': df_b}
+        
+    for state in common_states:
+        group_a = groups_a[state]
+        group_b = groups_b[state]
+        
+        recs_a = group_a.to_dict('records')
+        recs_b = group_b.to_dict('records')
+        
+        descs_a = [r.get('description', r.get('work_name', '')) for r in recs_a]
+        descs_b = [r.get('description', r.get('work_name', '')) for r in recs_b]
+        
+        sim_matrix = None
+        if SKLEARN_SPARSE_AVAILABLE and descs_a and descs_b:
+            try:
+                vec = TfidfVectorizer(ngram_range=(1, 2), min_df=1, stop_words='english')
+                vec_a = vec.fit_transform(descs_a)
+                vec_b = vec.transform(descs_b)
+                sim_matrix = (vec_a * vec_b.T).tocsr()
+            except Exception:
+                sim_matrix = None
+                
+        group_pairs = []
+        if sim_matrix is not None:
+            coo = sim_matrix.tocoo()
+            for i, j, tfidf_sim in zip(coo.row, coo.col, coo.data):
+                raw_pairs_examined += 1
+                if tfidf_sim < 0.35:
+                    continue
+                r_a = recs_a[i]
+                r_b = recs_b[j]
+                
+                mid_a = r_a.get('master_work_id', r_a.get('entity_id', r_a.get('clean_work_id', str(i))))
+                mid_b = r_b.get('master_work_id', r_b.get('entity_id', r_b.get('clean_work_id', str(j))))
+                
+                pair_key = (str(mid_a), str(mid_b))
+                reverse_key = (str(mid_b), str(mid_a))
+                if pair_key in seen_pair_keys or reverse_key in seen_pair_keys:
+                    pairs_removed_duplicate += 1
+                    continue
+                    
+                group_pairs.append((tfidf_sim, r_a, r_b, pair_key, f"CROSS_HOUSE:{chamber_pair}|{state}"))
+        else:
+            for i, r_a in enumerate(recs_a[:100]):
+                words_i = set(re.findall(r'\b[a-z0-9]{3,}\b', str(descs_a[i]).lower()))
+                if not words_i: continue
+                for j, r_b in enumerate(recs_b[:100]):
+                    raw_pairs_examined += 1
+                    words_j = set(re.findall(r'\b[a-z0-9]{3,}\b', str(descs_b[j]).lower()))
+                    if not words_j: continue
+                    overlap = len(words_i.intersection(words_j)) / len(words_i.union(words_j))
+                    if overlap < 0.30: continue
+                    
+                    mid_a = r_a.get('master_work_id', r_a.get('entity_id', r_a.get('clean_work_id', str(i))))
+                    mid_b = r_b.get('master_work_id', r_b.get('entity_id', r_b.get('clean_work_id', str(j))))
+                    
+                    pair_key = (str(mid_a), str(mid_b))
+                    reverse_key = (str(mid_b), str(mid_a))
+                    if pair_key in seen_pair_keys or reverse_key in seen_pair_keys:
+                        pairs_removed_duplicate += 1
+                        continue
+                    group_pairs.append((overlap, r_a, r_b, pair_key, f"CROSS_HOUSE:{chamber_pair}|{state}"))
+                    
+        group_pairs.sort(key=lambda x: x[0], reverse=True)
+        for _, r_a, r_b, pair_key, block_path in group_pairs[:max_pairs_per_group]:
+            seen_pair_keys.add(pair_key)
+            candidate_pairs.append({
+                'entity_a': r_a,
+                'entity_b': r_b,
+                'blocking_path': block_path
+            })
+            if len(candidate_pairs) >= overall_max_pairs:
+                break
+        if len(candidate_pairs) >= overall_max_pairs:
+            break
+            
+    metrics = {
+        'blocked_groups': len(common_states),
+        'raw_pairs_examined': raw_pairs_examined,
+        'duplicate_candidate_pairs_removed': pairs_removed_duplicate,
+        'retained_candidate_pairs': len(candidate_pairs)
+    }
+    return candidate_pairs, metrics
+

@@ -1,0 +1,223 @@
+================================================================================
+               AI-POWERED MPLADS AUDIT INTELLIGENCE SYSTEM (LOK SABHA 18TH)
+                  MACHINE LEARNING & STATISTICAL MODEL ARCHITECTURE
+================================================================================
+
+OVERVIEW:
+The MPLADS AI Intelligence System employs an ensemble of unsupervised machine learning,
+natural language processing (NLP), peer-relative statistical anomaly detection, and graph/network
+analytics to identify potential administrative, financial, operational, and record-linkage anomalies
+across 79,221 master work entities in Lok Sabha 18th.
+
+Because ground-truth labels for fraudulent transactions do not exist in standard government datasets,
+the system strictly avoids supervised classifiers (e.g. XGBoost, Random Forest with synthetic labels)
+to prevent label leakage and false accusations. All algorithms operate via statistical distribution analysis,
+record linkage, rule-based statutory auditing, or unsupervised multivariate isolation trees.
+
+================================================================================
+1. MODEL 1 — DOUBLE-DIPPING / POTENTIAL DUPLICATE WORK DETECTOR (RECORD LINKAGE)
+================================================================================
+
+OBJECTIVE:
+Identify pairs of distinct MPLADS works that possess highly similar physical descriptions, 
+overlapping geographical locations, and close execution timelines within the same constituency block,
+indicating potential duplicate sanctioning or double billing.
+
+ARCHITECTURAL PIPELINE:
+1. Candidate Generation / Blocking:
+   - To avoid comparing all 3.1 billion possible pairs (O(N^2) for N=79,221), candidate pairs are
+     restricted to works occurring within the same State, District, and Constituency Block.
+   - Generates top 5,000 candidate work pairs ranked by preliminary block overlap.
+
+2. Text Normalization & Generic Phrase Removal:
+   - Descriptions undergo cleaning: lowercasing, whitespace normalization, removal of boilerplate phrases 
+     (e.g., "construction of", "installation of", "supply of", "c.c. road", "paver block").
+   - Location-specific identifiers (village names, road codes, school names, survey numbers) are preserved.
+
+3. Vector Embeddings & Similarity Calculation:
+   - Primary Backend: TF-IDF (Term Frequency-Inverse Document Frequency) N-gram Token Vectorizer 
+     (unigrams & bigrams) paired with Cosine Similarity.
+   - Fallback Backend: Pure-Python Jaccard & Token Set Similarity Vectorizer.
+   - Dynamic Weighting: Pairs sharing identical generic phrases without unique location tokens are 
+     penalized to prevent high-similarity false positives.
+
+4. Multi-Feature Pairwise Risk Scoring:
+   - Text Similarity Score (Weight: 45%)
+   - Cost Ratio Match Score (Weight: 20%) — min(cost1, cost2) / max(cost1, cost2)
+   - Location Token Overlap (Weight: 20%)
+   - Vendor Matching Score (Weight: 15%) — Fuzzy Jaro-Winkler comparison of vendor names.
+
+5. Risk Tier Classification:
+   - HIGH RISK: Composite Score >= 85 (Requires formal audit review)
+   - MEDIUM RISK: Composite Score between 65 and 84
+   - LOW RISK: Composite Score < 65
+
+PRODUCTION METRICS (LS 18th Data):
+   • Candidate Pairs Evaluated: 5,000
+   • HIGH RISK Pairs Flagged: 1,732 pairs
+
+================================================================================
+2. MODEL 2 — ANOMALOUS COST ESTIMATE DETECTOR (ISOLATION FOREST & PEER IQR/MAD)
+================================================================================
+
+OBJECTIVE:
+Detect works exhibiting statistically inflated cost estimates or extreme expenditure overruns 
+relative to peer works of similar category and geographical region.
+
+CONSENSUS MULTI-SIGNAL ARCHITECTURE:
+Model 2 integrates three independent detection signals:
+
+SIGNAL 1: Deterministic Cost Overrun Checker
+  - Formula: Disbursed Expenditure > 1.10 * Sanctioned Amount
+  - Flagged: Works exceeding approved sanction limit by > 10%.
+
+SIGNAL 2: Hierarchical Peer-Group Statistical IQR & MAD Detector
+  - Peer Grouping: Formed dynamically at (State x Work Category) level. Fallback to (National x Work Category)
+    if the peer group contains fewer than 10 completed works.
+  - Metrics:
+      * Interquartile Range (IQR = Q3 - Q1)
+      * Median Absolute Deviation (MAD = median(|x - median(x)|))
+  - Anomaly Condition: Disbursed Amount > Upper Fence (Q3 + 1.5 * IQR) AND > (Median + 3.0 * MAD).
+
+SIGNAL 3: Unsupervised Isolation Forest Machine Learning Anomaly Detector
+  - Algorithm: Scikit-Learn Isolation Forest / Fallback Multivariate Distance Model.
+  - Hyperparameters:
+      * N Estimators: 100 / 300 Isolation Trees
+      * Contamination Rate: 0.05 (5% target anomaly distribution)
+      * Random State: 42 (Reproducible random splitting hyperplanes)
+  - Feature Matrix:
+      1. Log Sanction Amount: ln(1 + Sanction Amount)
+      2. Log Disbursed Amount: ln(1 + Disbursed Amount)
+      3. Disbursed-to-Sanctioned Ratio: Disbursed / Sanctioned
+      4. Category Z-Score: (Sanction Amount - Peer Mean) / Peer StdDev
+  - Mechanism: Recursively partitions data using random feature split lines. Outliers require fewer 
+    splits to isolate near tree roots, yielding lower average path length and higher anomaly scores (0 to 1).
+
+CONSENSUS RISK CLASSIFICATION:
+  - HIGH RISK: Signal 1 Fired OR (Signal 2 AND Signal 3 Fired)
+  - MEDIUM RISK: Signal 2 Fired OR Signal 3 Fired
+  - LOW RISK: No Signals Fired
+
+PRODUCTION METRICS (LS 18th Data):
+  • High Risk Works: 2,056
+  • Medium Risk Works: 4,137
+  • Low Risk Works: 73,023
+
+================================================================================
+3. MODEL 3 — DELAYED PROJECTS & SLA BREACH DETECTOR (PEER-RELATIVE TUKEY IQR)
+================================================================================
+
+OBJECTIVE:
+Identify works with abnormal approval-to-completion or sanction-to-execution timelines using non-parametric 
+peer statistical distributions.
+
+ALGORITHMIC METHODOLOGY:
+- Elapsed Duration Calculation:
+    * Completed Works: Duration (days) = Completion Date - Sanction Date
+    * Ongoing Works: Duration (days) = Reference Date - Sanction Date
+- Dynamic Peer Fencing:
+    * Grouping: (State x Work Category)
+    * Upper IQR Fence: Threshold = Q3 + 1.5 * IQR
+- Classification:
+    * Flagged as Delayed if Elapsed Duration > Peer Group Upper IQR Fence.
+    * Missing sanction dates are retained under "UNKNOWN_MISSING_SANCTION_DATE" rather than dropped.
+
+PRODUCTION METRICS (LS 18th Data):
+  • Completed Works Evaluated: 42,443
+  • Ongoing Works Evaluated: 36,778
+  • Delayed Completed Works: 714
+  • Delayed Ongoing Works: 997
+  • Total Delayed Works Flagged: 1,711
+
+================================================================================
+4. MODEL 4 — STATUTORY COMPLIANCE ENGINE & IA WATCHLIST (SLA AUDITOR)
+================================================================================
+
+OBJECTIVE:
+Enforce statutory 45-day approval window rules (Sanction Date - Recommended Date) and track 
+systemic delays across Implementing Agencies.
+
+CATEGORIZATION RULES:
+  - COMPLIANT: Approval Gap <= 45 days
+  - MINOR DEVIATION: 46 to 90 days
+  - MODERATE DEVIATION: 91 to 180 days
+  - SEVERE DEVIATION: > 180 days
+
+IA ACCOUNTABILITY WATCHLIST:
+  - Ranks all 609 Implementing Agencies with >= 20 sanctioned works by Median Approval Gap (days).
+  - Highlights systemic administrative bottlenecks for policy intervention.
+
+PRODUCTION METRICS (LS 18th Data):
+  • Compliant (<=45d): 23,337
+  • Minor Deviation (46-90d): 20,937
+  • Moderate Deviation (91-180d): 21,611
+  • Severe Deviation (>180d): 13,334
+
+================================================================================
+5. VENDOR–AGENCY NETWORK RISK ANALYZER (GRAPH & CONCENTRATION METRICS)
+================================================================================
+
+OBJECTIVE:
+Analyze expenditure transactions to identify monopolistic vendor concentration and split payments (payment structuring).
+
+NETWORK METRICS:
+1. Herfindahl-Hirschman Index (HHI):
+   - Formula: HHI = SUM( (Agency_Vendor_Disbursement / Agency_Total_Disbursement)^2 )
+   - Threshold: HHI > 0.25 flags high expenditure concentration with a single vendor.
+
+2. 7-Day Payment Structuring Window:
+   - Scans transaction logs for multiple disbursements under statutory approval thresholds (e.g. < ₹50,000)
+     issued to the same vendor within 7 calendar days by the same agency.
+
+3. Government Entity Safeguard:
+   - Classifies public engineering departments (e.g. District Engineer, Nirmithi Kendra, Zilla Parishad)
+     as "GOVERNMENT_ENTITY". Prevents public sector execution from being misidentified as private vendor risk.
+
+PRODUCTION METRICS (LS 18th Data):
+  • High Concentration Agencies (HHI > 0.25): 67
+  • Payment Structuring Candidates: 651 agencies
+  • Whitelisted Government Entities: 34
+
+================================================================================
+6. MPLADS EXPENDITURE FORECASTING MODEL (TIME-SERIES HISTORICAL TRAJECTORY)
+================================================================================
+
+OBJECTIVE:
+Forecast 12-month Lok Sabha 18th expenditure trends with 95% confidence intervals based on historical 
+Lok Sabha 17th monthly disbursement patterns.
+
+MODEL METRICS:
+- Historical Input: Lok Sabha 17th monthly expenditure trajectory (N = 60 months).
+- Trajectory Projection: Monthly proportional allocation curve applied to LS 18th sanctioned budget.
+- Gaussian Prediction Interval: 95% Confidence Bounds = Forecast +/- 1.96 * Historical StdDev.
+
+================================================================================
+7. MODEL 5 — AUDIT PRIORITY AGGREGATOR (MULTI-SIGNAL CONSENSUS ENGINE)
+================================================================================
+
+OBJECTIVE:
+Synthesize signals across Models 1, 2, 3, 4, Vendor Risk, and Forecasting into a single, defensible 
+audit priority classification for operational auditors.
+
+CONSENSUS LOGIC:
+- Priority Score Calculation:
+    Priority Score = 0.35 * Cost_High + 0.15 * Cost_Med + 0.30 * Delay_Flag + 0.35 * Compliance_Severe + 0.25 * Vendor_HHI
+- CRITICAL AUDIT PRIORITY:
+    Triggered when >= 2 independent risk signals fire (or 1 high-confidence record linkage match).
+- STANDARD REVIEW:
+    Triggered when exactly 1 risk signal fires.
+- LOW PRIORITY:
+    0 risk signals fired.
+
+GOVERNANCE DISCLAIMER ENFORCEMENT:
+All outputs utilize strict non-incriminating audit labels:
+  - "POTENTIAL ANOMALY"
+  - "REQUIRES AUDIT REVIEW"
+  - "CRITICAL AUDIT PRIORITY"
+  - "VENDOR CONCENTRATION RISK"
+
+PRODUCTION METRICS (LS 18th Data):
+  • CRITICAL AUDIT PRIORITY: 2,278 works
+  • STANDARD REVIEW: 55,069 works
+  • LOW PRIORITY: 21,873 works
+================================================================================

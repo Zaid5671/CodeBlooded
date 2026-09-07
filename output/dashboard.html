@@ -49,13 +49,13 @@
             <div class="col-md-2">
                 <div class="card p-3">
                     <div class="kpi-title">Critical Audit Priority</div>
-                    <div class="kpi-val text-danger">2,278</div>
+                    <div class="kpi-val text-danger">2,658</div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="card p-3">
                     <div class="kpi-title">Cost Anomaly High</div>
-                    <div class="kpi-val text-warning">2,056</div>
+                    <div class="kpi-val text-warning">2,504</div>
                 </div>
             </div>
             <div class="col-md-2">
@@ -122,7 +122,7 @@
                                     <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
                                     <td class='fw-bold text-primary fs-6'>80.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Work Category Taxonomy: COMMUNITY_BUILDING</li><li>Peer Anomaly: Sanction amount (₹1,500,000.00) is 200.0% above state category median (₹500,000.00) with IQR robust deviation of 200.00 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.1350).</li><li>Compliance Signal: Sanctioned 325 days after recommendation, exceeding the 45-day statutory window by 280 days (SEVERE_DEVIATION).</li><li>Vendor Network: High expenditure concentration (69.2%) associated with a government/entity vendor ('BOMMAI ZILLA NIRMITHI KENDRA'); concentration alone does not establish irregularity.</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Work Category Taxonomy: COMMUNITY_BUILDING</li><li>Peer Anomaly: Sanction amount (₹1,500,000.00) is 200.0% above state category median (₹500,000.00) with IQR robust deviation of 200.00 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.7554).</li><li>Compliance Signal: Sanctioned 325 days after recommendation, exceeding the 45-day statutory window by 280 days (SEVERE_DEVIATION).</li><li>Vendor Network: High expenditure concentration (69.2%) associated with a government/entity vendor ('BOMMAI ZILLA NIRMITHI KENDRA'); concentration alone does not establish irregularity.</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
                                 </tr>
             
                                 <tr>
@@ -305,6 +305,10 @@
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">🔍 Model 1 — Double-Dipping & Model 2 — Cost Overrun Engine</h4>
                     <p class="text-secondary small mb-3">Record linkage for distinct potential duplicate work pairs alongside hierarchical peer IQR/MAD and Isolation Forest ML cost estimate anomaly detection.</p>
+    
+                    <div class="alert alert-info py-2 small mb-3">
+                        <b>🏛️ Chamber Scope:</b> Cross-House LS↔RS Detection: Ready — Rajya Sabha data not currently available
+                    </div>
                 </div>
             </div>
 
@@ -320,127 +324,410 @@
             <div class="tab-pane fade" id="predict" role="tabpanel">
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">📈 MPLADS Expenditure Forecasting Model</h4>
-                    <p class="text-secondary small mb-3">12-month expected spending trend timeline with 95% confidence bounds trained on historical Lok Sabha 17th timeline patterns.</p>
+                    <span class="badge bg-secondary mb-2" style="width: fit-content;">Predictive Insight — Not Fraud Detection</span>
+                    <p class="text-secondary small mb-3">12-month expected spending trend timeline with empirical 95% prediction bounds based on actual monthly expenditure utilization patterns.</p>
     
                     <div class="table-responsive">
                         <table class="table table-dark table-hover table-bordered align-middle">
                             <thead>
-                                <tr><th>Month</th><th>Expected Expenditure</th><th>Lower Bound (95%)</th><th>Upper Bound (95%)</th><th>Actual Expenditure</th><th>Status & Warning</th></tr>
+                                <tr><th>Month</th><th>Type</th><th>Forecast Expenditure</th><th>Lower Bound (95%)</th><th>Upper Bound (95%)</th><th>Actual Expenditure</th><th>Status & Evidence</th></tr>
                             </thead>
                             <tbody>
-        
-                                <tr>
-                                    <td><b>2024-06</b></td>
-                                    <td class='text-info'>₹398,055,845.80</td>
-                                    <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹1,327,742,124.61</td>
-                                    <td class='fw-bold text-light'>₹329,013,102.20</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
-                                </tr>
             
                                 <tr>
                                     <td><b>2024-07</b></td>
-                                    <td class='text-info'>₹597,083,768.70</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,029,166,692.91</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹1,735,712,270.67</td>
-                                    <td class='fw-bold text-light'>₹633,160,907.89</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹2,337,946,497.16</td>
+                                    <td class='fw-bold text-light'>₹448,127.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2024-08</b></td>
-                                    <td class='text-info'>₹796,111,691.60</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,029,166,692.91</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹2,110,886,635.84</td>
-                                    <td class='fw-bold text-light'>₹880,801,264.18</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹2,337,946,497.16</td>
+                                    <td class='fw-bold text-light'>₹9,543,134.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2024-09</b></td>
-                                    <td class='text-info'>₹995,139,614.51</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,029,166,692.91</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹2,465,102,689.73</td>
-                                    <td class='fw-bold text-light'>₹1,130,373,501.04</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹2,337,946,497.16</td>
+                                    <td class='fw-bold text-light'>₹95,075,278.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2024-10</b></td>
-                                    <td class='text-info'>₹1,094,653,575.96</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹35,022,179.67</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹2,636,363,855.73</td>
-                                    <td class='fw-bold text-light'>₹1,014,619,526.11</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹1,343,801,983.92</td>
+                                    <td class='fw-bold text-light'>₹154,520,760.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2024-11</b></td>
-                                    <td class='text-info'>₹1,194,167,537.41</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹86,379,724.00</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹2,804,431,407.40</td>
-                                    <td class='fw-bold text-light'>₹1,112,908,201.92</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹1,395,159,528.25</td>
+                                    <td class='fw-bold text-light'>₹297,949,171.20</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2024-12</b></td>
-                                    <td class='text-info'>₹1,293,681,498.86</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹182,515,069.73</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹2,969,697,273.03</td>
-                                    <td class='fw-bold text-light'>₹977,786,028.48</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹1,491,294,873.98</td>
+                                    <td class='fw-bold text-light'>₹303,992,839.92</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2025-01</b></td>
-                                    <td class='text-info'>₹1,393,195,460.31</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹252,154,257.04</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹3,132,479,226.55</td>
-                                    <td class='fw-bold text-light'>₹1,195,624,848.33</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹1,560,934,061.29</td>
+                                    <td class='fw-bold text-light'>₹477,323,425.55</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2025-02</b></td>
-                                    <td class='text-info'>₹1,492,709,421.76</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹359,755,145.56</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹3,293,039,159.27</td>
-                                    <td class='fw-bold text-light'>₹1,654,095,533.38</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹1,668,534,949.81</td>
+                                    <td class='fw-bold text-light'>₹466,284,869.10</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2025-03</b></td>
-                                    <td class='text-info'>₹1,592,223,383.21</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹415,867,044.86</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹3,451,595,940.82</td>
-                                    <td class='fw-bold text-light'>₹1,350,160,525.42</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹1,724,646,849.11</td>
+                                    <td class='fw-bold text-light'>₹721,646,097.68</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2025-04</b></td>
-                                    <td class='text-info'>₹1,691,737,344.66</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹555,084,797.44</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹3,608,334,707.76</td>
-                                    <td class='fw-bold text-light'>₹1,316,768,604.28</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹1,863,864,601.69</td>
+                                    <td class='fw-bold text-light'>₹486,359,923.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
                                 <tr>
                                     <td><b>2025-05</b></td>
-                                    <td class='text-info'>₹1,791,251,306.11</td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹558,096,963.26</td>
                                     <td class='text-secondary'>₹0.00</td>
-                                    <td class='text-secondary'>₹3,763,413,722.47</td>
-                                    <td class='fw-bold text-light'>₹1,813,998,223.98</td>
-                                    <td><span class='badge bg-success'>NORMAL_TRACKING</span> <small class='text-secondary d-block'>Expenditure tracking normally within expected 95% confidence prediction bounds.</small></td>
+                                    <td class='text-secondary'>₹1,866,876,767.51</td>
+                                    <td class='fw-bold text-light'>₹837,461,132.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
                                 </tr>
-            
+                
+                                <tr>
+                                    <td><b>2025-06</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹681,822,384.23</td>
+                                    <td class='text-secondary'>₹0.00</td>
+                                    <td class='text-secondary'>₹1,990,602,188.48</td>
+                                    <td class='fw-bold text-light'>₹909,040,293.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2025-07</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹744,287,116.00</td>
+                                    <td class='text-secondary'>₹0.00</td>
+                                    <td class='text-secondary'>₹2,053,066,920.25</td>
+                                    <td class='fw-bold text-light'>₹1,484,234,623.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2025-08</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,076,912,016.00</td>
+                                    <td class='text-secondary'>₹0.00</td>
+                                    <td class='text-secondary'>₹2,385,691,820.25</td>
+                                    <td class='fw-bold text-light'>₹1,280,704,000.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2025-09</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,224,659,638.67</td>
+                                    <td class='text-secondary'>₹0.00</td>
+                                    <td class='text-secondary'>₹2,533,439,442.92</td>
+                                    <td class='fw-bold text-light'>₹1,584,402,222.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2025-10</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,449,780,281.67</td>
+                                    <td class='text-secondary'>₹141,000,477.42</td>
+                                    <td class='text-secondary'>₹2,758,560,085.92</td>
+                                    <td class='fw-bold text-light'>₹1,560,513,920.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2025-11</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,475,206,714.00</td>
+                                    <td class='text-secondary'>₹166,426,909.75</td>
+                                    <td class='text-secondary'>₹2,783,986,518.25</td>
+                                    <td class='fw-bold text-light'>₹1,369,447,752.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2025-12</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,504,787,964.67</td>
+                                    <td class='text-secondary'>₹196,008,160.42</td>
+                                    <td class='text-secondary'>₹2,813,567,768.92</td>
+                                    <td class='fw-bold text-light'>₹1,610,502,958.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-01</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,513,488,210.00</td>
+                                    <td class='text-secondary'>₹204,708,405.75</td>
+                                    <td class='text-secondary'>₹2,822,268,014.25</td>
+                                    <td class='fw-bold text-light'>₹1,720,252,958.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-02</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,566,734,556.00</td>
+                                    <td class='text-secondary'>₹257,954,751.75</td>
+                                    <td class='text-secondary'>₹2,875,514,360.25</td>
+                                    <td class='fw-bold text-light'>₹1,938,880,940.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-03</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,756,545,618.67</td>
+                                    <td class='text-secondary'>₹447,765,814.42</td>
+                                    <td class='text-secondary'>₹3,065,325,422.92</td>
+                                    <td class='fw-bold text-light'>₹1,939,446,008.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-04</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,866,193,302.00</td>
+                                    <td class='text-secondary'>₹557,413,497.75</td>
+                                    <td class='text-secondary'>₹3,174,973,106.25</td>
+                                    <td class='fw-bold text-light'>₹1,302,901,955.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-05</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,727,076,301.00</td>
+                                    <td class='text-secondary'>₹418,296,496.75</td>
+                                    <td class='text-secondary'>₹3,035,856,105.25</td>
+                                    <td class='fw-bold text-light'>₹1,387,400,148.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-06</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,543,249,370.33</td>
+                                    <td class='text-secondary'>₹234,469,566.08</td>
+                                    <td class='text-secondary'>₹2,852,029,174.58</td>
+                                    <td class='fw-bold text-light'>₹1,469,795,264.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-07</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,386,699,122.33</td>
+                                    <td class='text-secondary'>₹77,919,318.08</td>
+                                    <td class='text-secondary'>₹2,695,478,926.58</td>
+                                    <td class='fw-bold text-light'>₹2,191,908,781.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-08</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,683,034,731.00</td>
+                                    <td class='text-secondary'>₹374,254,926.75</td>
+                                    <td class='text-secondary'>₹2,991,814,535.25</td>
+                                    <td class='fw-bold text-light'>₹1,791,900,003.00</td>
+                                    <td><span class='badge bg-success'>WITHIN_EXPECTED_RANGE</span> <small class='text-secondary d-block'>Expenditure tracking within expected historical prediction bounds.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-09</b></td>
+                                    <td><small class='text-secondary'>HISTORICAL_OBSERVED</small></td>
+                                    <td class='text-info'>₹1,817,868,016.00</td>
+                                    <td class='text-secondary'>₹509,088,211.75</td>
+                                    <td class='text-secondary'>₹3,126,647,820.25</td>
+                                    <td class='fw-bold text-light'>₹395,564,126.00</td>
+                                    <td><span class='badge bg-warning text-dark'>BELOW_EXPECTED_TREND</span> <small class='text-secondary d-block'>Monthly expenditure was 78.2% below the forecasted utilization level and outside the expected prediction interval.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-10</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-11</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2026-12</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-01</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-02</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-03</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-04</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-05</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-06</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-07</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-08</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
+                                <tr>
+                                    <td><b>2027-09</b></td>
+                                    <td><small class='text-secondary'>FUTURE_FORECAST</small></td>
+                                    <td class='text-info'>₹1,337,916,700.78</td>
+                                    <td class='text-secondary'>₹29,136,896.53</td>
+                                    <td class='text-secondary'>₹2,646,696,505.03</td>
+                                    <td class='fw-bold text-light'><span class='text-muted'>Pending</span></td>
+                                    <td><span class='badge bg-success'>PROJECTED_FORECAST</span> <small class='text-secondary d-block'>Projected utilization trend based on historical monthly expenditure patterns.</small></td>
+                                </tr>
+                
                             </tbody>
                         </table>
                     </div>
-        
+            
                 </div>
             </div>
         </div>

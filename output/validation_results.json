@@ -26,18 +26,18 @@
   "records_with_insufficient_peer_data": 4,
   "signal_1_cost_overrun_flags": 0,
   "signal_2_peer_iqr_flags": 4259,
-  "signal_3_isolation_forest_flags": 3990,
+  "signal_3_isolation_forest_flags": 3961,
   "risk_classification_counts": {
-    "HIGH": 2056,
-    "MEDIUM": 4137,
-    "LOW": 73023,
+    "HIGH": 2504,
+    "MEDIUM": 3212,
+    "LOW": 73500,
     "DATA_QUALITY_REVIEW": 4
   },
-  "jaccard_overlap_iqr_vs_isolation_forest": 0.332,
+  "jaccard_overlap_iqr_vs_isolation_forest": 0.4381,
   "signal_overlap": {
-    "intersection": 2056,
-    "union": 6193,
-    "jaccard_similarity": 0.332
+    "intersection": 2504,
+    "union": 5716,
+    "jaccard_similarity": 0.4381
   },
   "sanity_assertions": {
     "c1_floor_exclusion_for_ml": true,
