@@ -1,21 +1,140 @@
 {
-  "generated_at": "2026-09-07T15:24:43.146465",
+  "generated_at": "2026-09-07T15:30:33.737597",
+  "registry": {
+    "models": {
+      "M1_COST_ANOMALY": {
+        "id": "M1_COST_ANOMALY",
+        "title": "Anomalous Cost Estimate Detection",
+        "type": "AI_ML_MODEL",
+        "algorithm": "Robust Peer-Group IQR/MAD + Isolation Forest (8 Non-Redundant Features)",
+        "operating_point": "Configured anomaly operating point: 5%",
+        "grain": "Work Level (Sanctioned Works)",
+        "scope": "AUDIT-TIME ANOMALY DETECTION / PRE-SANCTION COST SCREENING",
+        "governance_label": "POTENTIAL COST ANOMALY"
+      },
+      "M2_DUPLICATE_WORK": {
+        "id": "M2_DUPLICATE_WORK",
+        "title": "Double-Dipping / Duplicate Work Detection",
+        "type": "AI_ML_MODEL",
+        "algorithm": "Geographic Candidate Blocking (State+District+Category) + TF-IDF Vectorizer + Token Cosine Similarity",
+        "grain": "Candidate Pair Level (Blocked Pairs)",
+        "scope": "INTRA-HOUSE & CROSS-HOUSE WORK DEDUPLICATION",
+        "governance_label": "POTENTIAL DUPLICATE WORK"
+      },
+      "M3_EXPENDITURE_ANOMALY": {
+        "id": "M3_EXPENDITURE_ANOMALY",
+        "title": "Expenditure & Fund Utilization Anomaly Detection",
+        "type": "AI_ML_MODEL",
+        "algorithm": "Transaction-Grain Lifecycle Analysis (Payment Structuring, Velocity, First-Payment Delay)",
+        "grain": "Transaction & Work Level",
+        "scope": "POST-SANCTION DISBURSEMENT & EXPENDITURE AUDIT",
+        "governance_label": "POTENTIAL EXPENDITURE / DISBURSEMENT ANOMALY"
+      },
+      "M4_FORECAST": {
+        "id": "M4_FORECAST",
+        "title": "MPLADS Expenditure Forecasting",
+        "type": "AI_ML_MODEL",
+        "algorithm": "Recursive 3-Month Rolling Average Baseline (Multi-Step 6-Month Horizon)",
+        "grain": "National Monthly Aggregate (State-Month Prepared)",
+        "scope": "EMPIRICAL DECISION-SUPPORT EXPENDITURE PROJECTION",
+        "governance_label": "EMPIRICAL 95% EXPECTED RANGE"
+      },
+      "M5_AUDIT_PRIORITY": {
+        "id": "M5_AUDIT_PRIORITY",
+        "title": "Unified Audit Priority Aggregator",
+        "type": "AI_ML_MODEL",
+        "algorithm": "Multi-Dimensional Weighted Priority Aggregation (Sum = 1.00)",
+        "weights": {
+          "Cost": 0.3,
+          "Delay": 0.25,
+          "Compliance": 0.25,
+          "Vendor": 0.1,
+          "Eligibility": 0.1
+        },
+        "grain": "Work Level",
+        "scope": "MULTI-CRITERIA RISK TRIAGE & AUDIT ALLOCATION",
+        "governance_label": "AUDIT PRIORITY SCORE"
+      }
+    },
+    "supporting_logic": {
+      "RULE_DELAY_SLA": {
+        "id": "RULE_DELAY_SLA",
+        "title": "Execution Delay & SLA Benchmark",
+        "type": "DETERMINISTIC_RULE",
+        "algorithm": "Peer Group Duration Tukey IQR Upper Fence",
+        "governance_label": "PEER-RELATIVE DELAY ANOMALY"
+      },
+      "RULE_STATUTORY_COMPLIANCE": {
+        "id": "RULE_STATUTORY_COMPLIANCE",
+        "title": "Recommendation-to-Sanction 45-Day Statutory Benchmark",
+        "type": "DETERMINISTIC_RULE",
+        "algorithm": "Configured 45-day statutory approval threshold review",
+        "governance_label": "STATUTORY COMPLIANCE DEVIATION \u2014 REQUIRES AUDIT REVIEW"
+      },
+      "VENDOR_RISK": {
+        "id": "VENDOR_RISK",
+        "title": "Vendor & Implementing Agency Concentration Analyzer",
+        "type": "GRAPH_ANALYTICS",
+        "algorithm": "Herfindahl-Hirschman Index (HHI) + Bipartite Network Graph Metrics",
+        "governance_label": "VENDOR CONCENTRATION RISK"
+      },
+      "MODULE_DUPLICATE_EXPENDITURE": {
+        "id": "MODULE_DUPLICATE_EXPENDITURE",
+        "title": "Duplicate / Repeat Transaction Detector",
+        "type": "DETERMINISTIC_MODULE",
+        "algorithm": "Exact & Near-Repeat Amount / Date Transaction Matching",
+        "governance_label": "PAYMENT PATTERN REQUIRING REVIEW"
+      },
+      "MODULE_FUND_UTILIZATION": {
+        "id": "MODULE_FUND_UTILIZATION",
+        "title": "Fund Utilization & Idle Balances Engine",
+        "type": "ANALYTICS_MODULE",
+        "algorithm": "Disbursement-to-Sanction Ratio & Inactivity Thresholds",
+        "governance_label": "UTILIZATION IMBALANCE"
+      },
+      "MODULE_ELIGIBILITY": {
+        "id": "MODULE_ELIGIBILITY",
+        "title": "Inadmissible Work / Eligibility Filter",
+        "type": "RULE_ENGINE",
+        "algorithm": "Negative List Syntactic & Keyword Parser with Context Filters",
+        "governance_label": "POTENTIALLY INADMISSIBLE \u2014 REQUIRES AUDIT REVIEW"
+      },
+      "MODULE_PRIVATE_BENEFICIARY": {
+        "id": "MODULE_PRIVATE_BENEFICIARY",
+        "title": "Private & Commercial Beneficiary Detector",
+        "type": "RULE_ENGINE",
+        "algorithm": "Entity Ownership Classifier with Government Entity Safeguards",
+        "governance_label": "POTENTIAL PRIVATE/COMMERCIAL BENEFICIARY \u2014 REQUIRES REVIEW"
+      }
+    }
+  },
   "datasets": {
     "LokSabha18": {
       "description": "18th Lok Sabha (Active Corpus)",
       "files_count": 6,
       "total_rows_across_files": 305413,
       "sanctioned_works_count": 79220,
-      "model1_duplicate_record_linkage": {
-        "works_evaluated": 15000,
-        "high_risk_candidates": 1018,
-        "medium_risk_candidates": 847,
-        "low_risk_candidates": 1135,
-        "mean_max_similarity": 71.56177473647651,
-        "p95_similarity": 100.00000000000003
+      "missing_statistics": {
+        "total_available": 79220,
+        "missing_work_id": 79220,
+        "missing_amount": 1,
+        "missing_desc": 98,
+        "missing_dates": 1
       },
-      "model2_cost_anomaly": {
-        "evaluated_works": 79219,
+      "m1_cost_anomaly": {
+        "model_id": "M1_COST_ANOMALY",
+        "model_name": "Anomalous Cost Estimate Detection",
+        "records_available": 79220,
+        "records_evaluated": 79219,
+        "records_excluded": 1,
+        "exclusion_reasons": "Sanction amount missing or non-positive",
+        "methodology": "Robust Peer-Group IQR/MAD + Isolation Forest Unsupervised Anomaly Detection",
+        "parameters": {
+          "contamination": 0.05,
+          "n_estimators": 100,
+          "random_state": 42
+        },
+        "configured_operating_point": "5%",
         "anomalies_flagged": 3703,
         "anomaly_rate_pct": 4.67,
         "mean_sanction_cost": 527221.9543654931,
@@ -23,50 +142,118 @@
         "p95_sanction_cost": 1500000.0,
         "max_sanction_cost": 49740000.0
       },
-      "model3_delay_detector": {
-        "evaluated_works": 79219,
-        "median_duration_days": 327.0,
-        "p90_duration_days": 580.0,
-        "tukey_upper_fence_days": 896.0,
-        "delayed_count": 0,
-        "delay_pct": 0.0
+      "m2_duplicate_work": {
+        "model_id": "M2_DUPLICATE_WORK",
+        "model_name": "Double-Dipping / Duplicate Work Detection",
+        "diagnostic_type": "TEXT-SIMILARITY DIAGNOSTIC & RECORD LINKAGE",
+        "records_available": 79220,
+        "records_evaluated": 15000,
+        "records_excluded": 101,
+        "exclusion_reasons": "Work description missing or shorter than 4 characters",
+        "methodology": "TF-IDF Vectorizer + Cosine Similarity with Geographic Candidate Blocking",
+        "high_risk_candidates": 1027,
+        "medium_risk_candidates": 831,
+        "low_risk_candidates": 1142,
+        "mean_similarity": 71.6049659784118,
+        "p95_similarity": 100.00000000000003
       },
-      "model4_statutory_compliance": {
-        "evaluated_with_dates": 79219,
+      "m3_expenditure_anomaly": {
+        "model_id": "M3_EXPENDITURE_ANOMALY",
+        "model_name": "Expenditure & Fund Utilization Anomaly Detection",
+        "records_available": 84172,
+        "records_evaluated": 111,
+        "total_disbursed_transactions": 84172,
+        "unique_works_with_expenditure": 111,
+        "mean_payments_per_work": 758.31,
+        "payment_structuring_candidates": 0
+      },
+      "rule_delay_sla": {
+        "rule_id": "RULE_DELAY_SLA",
+        "rule_title": "Execution Delay & SLA Benchmark",
+        "records_available": 79220,
+        "records_evaluated": 79219,
+        "records_excluded": 1,
+        "median_duration_days": 327.0,
+        "tukey_upper_fence_days": 896.0,
+        "delayed_works_flagged": 0,
+        "delay_rate_pct": 0.0
+      },
+      "rule_statutory_compliance": {
+        "rule_id": "RULE_STATUTORY_COMPLIANCE",
+        "rule_title": "Recommendation-to-Sanction 45-Day Statutory Benchmark",
+        "records_available": 79220,
+        "records_evaluated": 79219,
+        "records_excluded": 1,
         "compliant_45d": 23337,
         "minor_46_90d": 20937,
         "moderate_91_180d": 21611,
         "severe_gt180d": 13334,
         "compliance_rate_pct": 29.46,
-        "median_sanction_gap_days": 79.0
+        "median_gap_days": 79.0
       },
-      "model5_priority_aggregator": {
-        "total_works": 79220,
-        "critical_audit_priority": 2352,
-        "standard_review": 39518,
-        "low_priority": 37350,
-        "critical_pct": 2.97,
-        "standard_pct": 49.88,
-        "low_pct": 47.15,
+      "m4_forecast": {
+        "model_id": "M4_FORECAST",
+        "model_name": "MPLADS Expenditure Forecasting",
+        "forecasting_scope": "National Monthly Aggregation",
+        "historical_months_observed": 27,
+        "train_months": 21,
+        "test_months": 6,
+        "out_of_sample_mae": 552133404.5,
+        "out_of_sample_rmse": 721252976.1493812,
+        "out_of_sample_mape_pct": 79.18141135024938,
+        "mean_monthly_expenditure": 1029166692.9055556,
+        "interval_label": "EMPIRICAL 95% EXPECTED RANGE"
+      },
+      "m5_audit_priority": {
+        "model_id": "M5_AUDIT_PRIORITY",
+        "model_name": "Unified Audit Priority Aggregator",
+        "methodology": "Multi-Dimensional Weighted Priority Aggregation on REAL Signals",
+        "weights": {
+          "AUDIT_COST_HIGH_WEIGHT": 0.3,
+          "AUDIT_DELAY_WEIGHT": 0.25,
+          "AUDIT_COMPLIANCE_WEIGHT": 0.25,
+          "AUDIT_VENDOR_RISK_WEIGHT": 0.1,
+          "AUDIT_ELIGIBILITY_WEIGHT": 0.1
+        },
+        "weight_sum": 1.0,
+        "records_evaluated": 79220,
+        "critical_audit_priority": 2578,
+        "standard_review": 54429,
+        "low_priority": 22213,
+        "critical_pct": 3.25,
+        "standard_pct": 68.71,
+        "low_pct": 28.04,
         "min_score": 0.0,
-        "max_score": 0.9
+        "max_score": 0.65,
+        "supporting_only_critical_count": 0
       }
     },
     "LokSabha17": {
-      "description": "17th Lok Sabha (Historical Corpus)",
+      "description": "17th Lok Sabha (Historical Full Term)",
       "files_count": 5,
       "total_rows_across_files": 397241,
       "sanctioned_works_count": 92117,
-      "model1_duplicate_record_linkage": {
-        "works_evaluated": 15000,
-        "high_risk_candidates": 1395,
-        "medium_risk_candidates": 716,
-        "low_risk_candidates": 889,
-        "mean_max_similarity": 76.41952195475498,
-        "p95_similarity": 100.00000000000003
+      "missing_statistics": {
+        "total_available": 92117,
+        "missing_work_id": 92117,
+        "missing_amount": 6,
+        "missing_desc": 196,
+        "missing_dates": 1
       },
-      "model2_cost_anomaly": {
-        "evaluated_works": 92111,
+      "m1_cost_anomaly": {
+        "model_id": "M1_COST_ANOMALY",
+        "model_name": "Anomalous Cost Estimate Detection",
+        "records_available": 92117,
+        "records_evaluated": 92111,
+        "records_excluded": 6,
+        "exclusion_reasons": "Sanction amount missing or non-positive",
+        "methodology": "Robust Peer-Group IQR/MAD + Isolation Forest Unsupervised Anomaly Detection",
+        "parameters": {
+          "contamination": 0.05,
+          "n_estimators": 100,
+          "random_state": 42
+        },
+        "configured_operating_point": "5%",
         "anomalies_flagged": 4606,
         "anomaly_rate_pct": 5.0,
         "mean_sanction_cost": 469009.2320207142,
@@ -74,33 +261,90 @@
         "p95_sanction_cost": 1338265.0,
         "max_sanction_cost": 75742166.0
       },
-      "model3_delay_detector": {
-        "evaluated_works": 92116,
-        "median_duration_days": 917.0,
-        "p90_duration_days": 1033.0,
-        "tukey_upper_fence_days": 1243.5,
-        "delayed_count": 0,
-        "delay_pct": 0.0
+      "m2_duplicate_work": {
+        "model_id": "M2_DUPLICATE_WORK",
+        "model_name": "Double-Dipping / Duplicate Work Detection",
+        "diagnostic_type": "TEXT-SIMILARITY DIAGNOSTIC & RECORD LINKAGE",
+        "records_available": 92117,
+        "records_evaluated": 15000,
+        "records_excluded": 199,
+        "exclusion_reasons": "Work description missing or shorter than 4 characters",
+        "methodology": "TF-IDF Vectorizer + Cosine Similarity with Geographic Candidate Blocking",
+        "high_risk_candidates": 1374,
+        "medium_risk_candidates": 744,
+        "low_risk_candidates": 882,
+        "mean_similarity": 76.36033142799312,
+        "p95_similarity": 100.00000000000003
       },
-      "model4_statutory_compliance": {
-        "evaluated_with_dates": 92116,
+      "m3_expenditure_anomaly": {
+        "model_id": "M3_EXPENDITURE_ANOMALY",
+        "model_name": "Expenditure & Fund Utilization Anomaly Detection",
+        "records_available": 138575,
+        "records_evaluated": 113,
+        "total_disbursed_transactions": 138575,
+        "unique_works_with_expenditure": 113,
+        "mean_payments_per_work": 1226.33,
+        "payment_structuring_candidates": 0
+      },
+      "rule_delay_sla": {
+        "rule_id": "RULE_DELAY_SLA",
+        "rule_title": "Execution Delay & SLA Benchmark",
+        "records_available": 92117,
+        "records_evaluated": 92116,
+        "records_excluded": 1,
+        "median_duration_days": 917.0,
+        "tukey_upper_fence_days": 1243.5,
+        "delayed_works_flagged": 0,
+        "delay_rate_pct": 0.0
+      },
+      "rule_statutory_compliance": {
+        "rule_id": "RULE_STATUTORY_COMPLIANCE",
+        "rule_title": "Recommendation-to-Sanction 45-Day Statutory Benchmark",
+        "records_available": 92117,
+        "records_evaluated": 92116,
+        "records_excluded": 1,
         "compliant_45d": 30929,
         "minor_46_90d": 16501,
         "moderate_91_180d": 19963,
         "severe_gt180d": 24723,
         "compliance_rate_pct": 33.58,
-        "median_sanction_gap_days": 86.0
+        "median_gap_days": 86.0
       },
-      "model5_priority_aggregator": {
-        "total_works": 92117,
-        "critical_audit_priority": 2692,
-        "standard_review": 46007,
-        "low_priority": 43418,
-        "critical_pct": 2.92,
-        "standard_pct": 49.94,
-        "low_pct": 47.13,
+      "m4_forecast": {
+        "model_id": "M4_FORECAST",
+        "model_name": "MPLADS Expenditure Forecasting",
+        "forecasting_scope": "National Monthly Aggregation",
+        "historical_months_observed": 39,
+        "train_months": 31,
+        "test_months": 8,
+        "out_of_sample_mae": 119565577.29166669,
+        "out_of_sample_rmse": 142869110.43829107,
+        "out_of_sample_mape_pct": 133.92468406052973,
+        "mean_monthly_expenditure": 995139614.5058975,
+        "interval_label": "EMPIRICAL 95% EXPECTED RANGE"
+      },
+      "m5_audit_priority": {
+        "model_id": "M5_AUDIT_PRIORITY",
+        "model_name": "Unified Audit Priority Aggregator",
+        "methodology": "Multi-Dimensional Weighted Priority Aggregation on REAL Signals",
+        "weights": {
+          "AUDIT_COST_HIGH_WEIGHT": 0.3,
+          "AUDIT_DELAY_WEIGHT": 0.25,
+          "AUDIT_COMPLIANCE_WEIGHT": 0.25,
+          "AUDIT_VENDOR_RISK_WEIGHT": 0.1,
+          "AUDIT_ELIGIBILITY_WEIGHT": 0.1
+        },
+        "weight_sum": 1.0,
+        "records_evaluated": 92117,
+        "critical_audit_priority": 2993,
+        "standard_review": 59807,
+        "low_priority": 29317,
+        "critical_pct": 3.25,
+        "standard_pct": 64.93,
+        "low_pct": 31.83,
         "min_score": 0.0,
-        "max_score": 0.9
+        "max_score": 0.65,
+        "supporting_only_critical_count": 0
       }
     },
     "RajyaSabha_Sitting": {
@@ -108,16 +352,27 @@
       "files_count": 6,
       "total_rows_across_files": 80220,
       "sanctioned_works_count": 19607,
-      "model1_duplicate_record_linkage": {
-        "works_evaluated": 15000,
-        "high_risk_candidates": 1598,
-        "medium_risk_candidates": 486,
-        "low_risk_candidates": 916,
-        "mean_max_similarity": 76.80708171446342,
-        "p95_similarity": 100.00000000000003
+      "missing_statistics": {
+        "total_available": 19607,
+        "missing_work_id": 19607,
+        "missing_amount": 1,
+        "missing_desc": 11,
+        "missing_dates": 1
       },
-      "model2_cost_anomaly": {
-        "evaluated_works": 19606,
+      "m1_cost_anomaly": {
+        "model_id": "M1_COST_ANOMALY",
+        "model_name": "Anomalous Cost Estimate Detection",
+        "records_available": 19607,
+        "records_evaluated": 19606,
+        "records_excluded": 1,
+        "exclusion_reasons": "Sanction amount missing or non-positive",
+        "methodology": "Robust Peer-Group IQR/MAD + Isolation Forest Unsupervised Anomaly Detection",
+        "parameters": {
+          "contamination": 0.05,
+          "n_estimators": 100,
+          "random_state": 42
+        },
+        "configured_operating_point": "5%",
         "anomalies_flagged": 923,
         "anomaly_rate_pct": 4.71,
         "mean_sanction_cost": 874629.2403789656,
@@ -125,33 +380,90 @@
         "p95_sanction_cost": 2500000.0,
         "max_sanction_cost": 73500000.0
       },
-      "model3_delay_detector": {
-        "evaluated_works": 19606,
-        "median_duration_days": 417.0,
-        "p90_duration_days": 938.0,
-        "tukey_upper_fence_days": 1271.5,
-        "delayed_count": 0,
-        "delay_pct": 0.0
+      "m2_duplicate_work": {
+        "model_id": "M2_DUPLICATE_WORK",
+        "model_name": "Double-Dipping / Duplicate Work Detection",
+        "diagnostic_type": "TEXT-SIMILARITY DIAGNOSTIC & RECORD LINKAGE",
+        "records_available": 19607,
+        "records_evaluated": 15000,
+        "records_excluded": 12,
+        "exclusion_reasons": "Work description missing or shorter than 4 characters",
+        "methodology": "TF-IDF Vectorizer + Cosine Similarity with Geographic Candidate Blocking",
+        "high_risk_candidates": 1591,
+        "medium_risk_candidates": 496,
+        "low_risk_candidates": 913,
+        "mean_similarity": 76.7612015014216,
+        "p95_similarity": 100.00000000000003
       },
-      "model4_statutory_compliance": {
-        "evaluated_with_dates": 19606,
+      "m3_expenditure_anomaly": {
+        "model_id": "M3_EXPENDITURE_ANOMALY",
+        "model_name": "Expenditure & Fund Utilization Anomaly Detection",
+        "records_available": 25141,
+        "records_evaluated": 100,
+        "total_disbursed_transactions": 25141,
+        "unique_works_with_expenditure": 100,
+        "mean_payments_per_work": 251.41,
+        "payment_structuring_candidates": 0
+      },
+      "rule_delay_sla": {
+        "rule_id": "RULE_DELAY_SLA",
+        "rule_title": "Execution Delay & SLA Benchmark",
+        "records_available": 19607,
+        "records_evaluated": 19606,
+        "records_excluded": 1,
+        "median_duration_days": 417.0,
+        "tukey_upper_fence_days": 1271.5,
+        "delayed_works_flagged": 0,
+        "delay_rate_pct": 0.0
+      },
+      "rule_statutory_compliance": {
+        "rule_id": "RULE_STATUTORY_COMPLIANCE",
+        "rule_title": "Recommendation-to-Sanction 45-Day Statutory Benchmark",
+        "records_available": 19607,
+        "records_evaluated": 19606,
+        "records_excluded": 1,
         "compliant_45d": 6474,
         "minor_46_90d": 5176,
         "moderate_91_180d": 4673,
         "severe_gt180d": 3283,
         "compliance_rate_pct": 33.02,
-        "median_sanction_gap_days": 69.0
+        "median_gap_days": 69.0
       },
-      "model5_priority_aggregator": {
-        "total_works": 19607,
-        "critical_audit_priority": 583,
-        "standard_review": 9797,
-        "low_priority": 9227,
-        "critical_pct": 2.97,
-        "standard_pct": 49.97,
-        "low_pct": 47.06,
+      "m4_forecast": {
+        "model_id": "M4_FORECAST",
+        "model_name": "MPLADS Expenditure Forecasting",
+        "forecasting_scope": "National Monthly Aggregation",
+        "historical_months_observed": 39,
+        "train_months": 31,
+        "test_months": 8,
+        "out_of_sample_mae": 126310077.99999999,
+        "out_of_sample_rmse": 200192028.4514144,
+        "out_of_sample_mape_pct": 81.28296347929516,
+        "mean_monthly_expenditure": 318774921.3510256,
+        "interval_label": "EMPIRICAL 95% EXPECTED RANGE"
+      },
+      "m5_audit_priority": {
+        "model_id": "M5_AUDIT_PRIORITY",
+        "model_name": "Unified Audit Priority Aggregator",
+        "methodology": "Multi-Dimensional Weighted Priority Aggregation on REAL Signals",
+        "weights": {
+          "AUDIT_COST_HIGH_WEIGHT": 0.3,
+          "AUDIT_DELAY_WEIGHT": 0.25,
+          "AUDIT_COMPLIANCE_WEIGHT": 0.25,
+          "AUDIT_VENDOR_RISK_WEIGHT": 0.1,
+          "AUDIT_ELIGIBILITY_WEIGHT": 0.1
+        },
+        "weight_sum": 1.0,
+        "records_evaluated": 19607,
+        "critical_audit_priority": 659,
+        "standard_review": 12737,
+        "low_priority": 6211,
+        "critical_pct": 3.36,
+        "standard_pct": 64.96,
+        "low_pct": 31.68,
         "min_score": 0.0,
-        "max_score": 0.9
+        "max_score": 0.65,
+        "supporting_only_critical_count": 0
       }
     },
     "RajyaSabha_Retired": {
@@ -159,16 +471,27 @@
       "files_count": 6,
       "total_rows_across_files": 80158,
       "sanctioned_works_count": 19607,
-      "model1_duplicate_record_linkage": {
-        "works_evaluated": 15000,
-        "high_risk_candidates": 1598,
-        "medium_risk_candidates": 486,
-        "low_risk_candidates": 916,
-        "mean_max_similarity": 76.80708171446342,
-        "p95_similarity": 100.00000000000003
+      "missing_statistics": {
+        "total_available": 19607,
+        "missing_work_id": 19607,
+        "missing_amount": 1,
+        "missing_desc": 11,
+        "missing_dates": 1
       },
-      "model2_cost_anomaly": {
-        "evaluated_works": 19606,
+      "m1_cost_anomaly": {
+        "model_id": "M1_COST_ANOMALY",
+        "model_name": "Anomalous Cost Estimate Detection",
+        "records_available": 19607,
+        "records_evaluated": 19606,
+        "records_excluded": 1,
+        "exclusion_reasons": "Sanction amount missing or non-positive",
+        "methodology": "Robust Peer-Group IQR/MAD + Isolation Forest Unsupervised Anomaly Detection",
+        "parameters": {
+          "contamination": 0.05,
+          "n_estimators": 100,
+          "random_state": 42
+        },
+        "configured_operating_point": "5%",
         "anomalies_flagged": 923,
         "anomaly_rate_pct": 4.71,
         "mean_sanction_cost": 874629.2403789656,
@@ -176,45 +499,148 @@
         "p95_sanction_cost": 2500000.0,
         "max_sanction_cost": 73500000.0
       },
-      "model3_delay_detector": {
-        "evaluated_works": 19606,
-        "median_duration_days": 417.0,
-        "p90_duration_days": 938.0,
-        "tukey_upper_fence_days": 1271.5,
-        "delayed_count": 0,
-        "delay_pct": 0.0
+      "m2_duplicate_work": {
+        "model_id": "M2_DUPLICATE_WORK",
+        "model_name": "Double-Dipping / Duplicate Work Detection",
+        "diagnostic_type": "TEXT-SIMILARITY DIAGNOSTIC & RECORD LINKAGE",
+        "records_available": 19607,
+        "records_evaluated": 15000,
+        "records_excluded": 12,
+        "exclusion_reasons": "Work description missing or shorter than 4 characters",
+        "methodology": "TF-IDF Vectorizer + Cosine Similarity with Geographic Candidate Blocking",
+        "high_risk_candidates": 1591,
+        "medium_risk_candidates": 496,
+        "low_risk_candidates": 913,
+        "mean_similarity": 76.7612015014216,
+        "p95_similarity": 100.00000000000003
       },
-      "model4_statutory_compliance": {
-        "evaluated_with_dates": 19606,
+      "m3_expenditure_anomaly": {
+        "model_id": "M3_EXPENDITURE_ANOMALY",
+        "model_name": "Expenditure & Fund Utilization Anomaly Detection",
+        "records_available": 25130,
+        "records_evaluated": 100,
+        "total_disbursed_transactions": 25130,
+        "unique_works_with_expenditure": 100,
+        "mean_payments_per_work": 251.3,
+        "payment_structuring_candidates": 0
+      },
+      "rule_delay_sla": {
+        "rule_id": "RULE_DELAY_SLA",
+        "rule_title": "Execution Delay & SLA Benchmark",
+        "records_available": 19607,
+        "records_evaluated": 19606,
+        "records_excluded": 1,
+        "median_duration_days": 417.0,
+        "tukey_upper_fence_days": 1271.5,
+        "delayed_works_flagged": 0,
+        "delay_rate_pct": 0.0
+      },
+      "rule_statutory_compliance": {
+        "rule_id": "RULE_STATUTORY_COMPLIANCE",
+        "rule_title": "Recommendation-to-Sanction 45-Day Statutory Benchmark",
+        "records_available": 19607,
+        "records_evaluated": 19606,
+        "records_excluded": 1,
         "compliant_45d": 6474,
         "minor_46_90d": 5176,
         "moderate_91_180d": 4673,
         "severe_gt180d": 3283,
         "compliance_rate_pct": 33.02,
-        "median_sanction_gap_days": 69.0
+        "median_gap_days": 69.0
       },
-      "model5_priority_aggregator": {
-        "total_works": 19607,
-        "critical_audit_priority": 583,
-        "standard_review": 9797,
-        "low_priority": 9227,
-        "critical_pct": 2.97,
-        "standard_pct": 49.97,
-        "low_pct": 47.06,
+      "m4_forecast": {
+        "model_id": "M4_FORECAST",
+        "model_name": "MPLADS Expenditure Forecasting",
+        "forecasting_scope": "National Monthly Aggregation",
+        "historical_months_observed": 39,
+        "train_months": 31,
+        "test_months": 8,
+        "out_of_sample_mae": 127143684.24999999,
+        "out_of_sample_rmse": 202199343.3272978,
+        "out_of_sample_mape_pct": 87.87738540635495,
+        "mean_monthly_expenditure": 318603925.19717944,
+        "interval_label": "EMPIRICAL 95% EXPECTED RANGE"
+      },
+      "m5_audit_priority": {
+        "model_id": "M5_AUDIT_PRIORITY",
+        "model_name": "Unified Audit Priority Aggregator",
+        "methodology": "Multi-Dimensional Weighted Priority Aggregation on REAL Signals",
+        "weights": {
+          "AUDIT_COST_HIGH_WEIGHT": 0.3,
+          "AUDIT_DELAY_WEIGHT": 0.25,
+          "AUDIT_COMPLIANCE_WEIGHT": 0.25,
+          "AUDIT_VENDOR_RISK_WEIGHT": 0.1,
+          "AUDIT_ELIGIBILITY_WEIGHT": 0.1
+        },
+        "weight_sum": 1.0,
+        "records_evaluated": 19607,
+        "critical_audit_priority": 659,
+        "standard_review": 12737,
+        "low_priority": 6211,
+        "critical_pct": 3.36,
+        "standard_pct": 64.96,
+        "low_pct": 31.68,
         "min_score": 0.0,
-        "max_score": 0.9
+        "max_score": 0.65,
+        "supporting_only_critical_count": 0
       }
     }
   },
-  "cross_dataset_analysis": {
-    "state_overlap": {
-      "lok_sabha_18_unique_states": 37,
-      "lok_sabha_17_unique_states": 36,
-      "rajya_sabha_sitting_unique_states": 30,
-      "rajya_sabha_retired_unique_states": 30,
-      "all_house_common_states": 30
-    },
-    "grand_total_records_scanned": 863032,
+  "rajya_sabha_parity_audit": {
+    "file_comparisons": {
+      "Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv": {
+        "sitting_file": "Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv",
+        "retired_file": "Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv",
+        "sitting_rows": 232,
+        "retired_rows": 0,
+        "row_difference": 232,
+        "hash_identical": false
+      },
+      "Amount_consented_for_Calamity_Rajya_Sitting.csv": {
+        "sitting_file": "Amount_consented_for_Calamity_Rajya_Sitting.csv",
+        "retired_file": "Amount_consented_for_Calamity_Rajya_Sitting.csv",
+        "sitting_rows": 21,
+        "retired_rows": 0,
+        "row_difference": 21,
+        "hash_identical": false
+      },
+      "Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv": {
+        "sitting_file": "Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv",
+        "retired_file": "Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv",
+        "sitting_rows": 25141,
+        "retired_rows": 0,
+        "row_difference": 25141,
+        "hash_identical": false
+      },
+      "Works_Completed_Rajya_Sitting.csv": {
+        "sitting_file": "Works_Completed_Rajya_Sitting.csv",
+        "retired_file": "Works_Completed_Rajya_Sitting.csv",
+        "sitting_rows": 9979,
+        "retired_rows": 0,
+        "row_difference": 9979,
+        "hash_identical": false
+      },
+      "Works_Recommended_Rajya_Sitting.csv": {
+        "sitting_file": "Works_Recommended_Rajya_Sitting.csv",
+        "retired_file": "Works_Recommended_Rajya_Sitting.csv",
+        "sitting_rows": 25240,
+        "retired_rows": 0,
+        "row_difference": 25240,
+        "hash_identical": false
+      },
+      "Works_Sanctioned_Rajya_Sitting.csv": {
+        "sitting_file": "Works_Sanctioned_Rajya_Sitting.csv",
+        "retired_file": "Works_Sanctioned_Rajya_Sitting.csv",
+        "sitting_rows": 19607,
+        "retired_rows": 0,
+        "row_difference": 19607,
+        "hash_identical": false
+      }
+    }
+  },
+  "corpus_summary": {
+    "grand_total_csv_files": 23,
+    "grand_total_scanned_rows": 863032,
     "grand_total_sanctioned_works": 210551
   }
 }

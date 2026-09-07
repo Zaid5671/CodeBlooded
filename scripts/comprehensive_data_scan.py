@@ -14,13 +14,13 @@ def analyze_dataset(file_path):
 
     total_rows = len(df)
     total_cols = len(df.columns)
-    
+
     exact_duplicates = int(df.duplicated().sum())
     exact_dup_pct = round((exact_duplicates / total_rows * 100.0), 2) if total_rows > 0 else 0.0
 
     norm_path = file_path.replace("\\", "/")
     filename = os.path.basename(file_path)
-    
+
     if "LokSabha17" in norm_path or "LokSabha_17" in filename:
         chamber = "Lok Sabha"
         term = "17th Lok Sabha (2019-2024)"
@@ -66,10 +66,10 @@ def analyze_dataset(file_path):
         null_cnt = int(s.isnull().sum())
         null_pct = round((null_cnt / total_rows * 100.0), 2) if total_rows > 0 else 0.0
         unique_cnt = int(s.nunique(dropna=True))
-        
+
         numeric_s = pd.to_numeric(s.astype(str).str.replace(',', '').str.strip(), errors='coerce')
         is_num = (numeric_s.notnull().sum() / max(1, (total_rows - null_cnt))) > 0.8 if (total_rows - null_cnt) > 0 else False
-        
+
         is_dt = False
         date_min, date_max, date_unique = None, None, None
         if not is_num and any(k in col.lower() for k in ['date', 'dt', 'time']):
@@ -169,12 +169,12 @@ def main():
     os.makedirs("output", exist_ok=True)
     all_files = sorted(glob.glob("data/original/**/*.csv", recursive=True))
     print(f"Discovered {len(all_files)} CSV files.")
-    
+
     results = []
     for f in all_files:
         res = analyze_dataset(f)
         results.append(res)
-        
+
     with open("output/FULL_DATASET_SCAN.json", "w", encoding="utf-8") as f_out:
         json.dump(results, f_out, indent=2)
     print("Wrote output/FULL_DATASET_SCAN.json")
@@ -185,10 +185,10 @@ def main():
     md.append("## Executive Summary of Scanned Datasets\n")
     md.append("| # | Dataset File | Chamber / Term | Record Grain | Rows | Cols | Dupl Rows (%) | Work ID / Key Fields |")
     md.append("|---|---|---|---|---:|---:|---:|---|")
-    
+
     total_all_rows = 0
     chamber_rows = {"Lok Sabha": 0, "Rajya Sabha": 0}
-    
+
     for idx, r in enumerate(results, 1):
         if "error" in r:
             md.append(f"| {idx} | `{r['filename']}` | ERROR | ERROR | - | - | - | {r['error']} |")
@@ -197,11 +197,11 @@ def main():
         chamber_rows[r["chamber"]] = chamber_rows.get(r["chamber"], 0) + r["row_count"]
         key_fields = ", ".join(r["semantic_fields"]["work_id_fields"] + r["semantic_fields"]["work_number_fields"] + r["semantic_fields"]["mp_fields"][:1])
         md.append(f"| {idx} | `{r['filename']}` | {r['term']} | {r['record_grain']} | {r['row_count']:,} | {r['column_count']} | {r['exact_duplicate_rows']:,} ({r['exact_duplicate_percentage']}%) | {key_fields} |")
-        
+
     md.append(f"\n**Total Real Data Records Scanned Across All Files**: **{total_all_rows:,} rows**\n")
     md.append(f"- **Lok Sabha Total Rows**: {chamber_rows.get('Lok Sabha', 0):,}")
     md.append(f"- **Rajya Sabha Total Rows**: {chamber_rows.get('Rajya Sabha', 0):,}\n")
-    
+
     md.append("## Detailed File-by-File Statistical Profile\n")
     for idx, r in enumerate(results, 1):
         if "error" in r:
@@ -212,16 +212,16 @@ def main():
         md.append(f"- **Record Grain**: `{r['record_grain']}`")
         md.append(f"- **Dimensions**: {r['row_count']:,} rows × {r['column_count']} columns | Size: {r['file_size_bytes']:,} bytes")
         md.append(f"- **Exact Duplicate Rows**: {r['exact_duplicate_rows']:,} ({r['exact_duplicate_percentage']}%)")
-        
+
         if r["identifier_analyses"]:
             md.append("- **Identifier Uniqueness**:")
             for id_col, id_info in r["identifier_analyses"].items():
                 md.append(f"  - `{id_col}`: {id_info['unique_count']:,} unique out of {id_info['total_present']:,} records ({id_info['duplicate_count']:,} duplicates, {id_info['duplicate_percentage']}%)")
-                
+
         md.append("\n#### Column Schema & Statistics\n")
         md.append("| Column Name | Type | Category | Null Count (%) | Summary Statistics / Distribution |")
         md.append("|---|---|---|---:|---|")
-        
+
         for col_name, c in r["columns"].items():
             cat = c.get("type_category", "UNKNOWN")
             null_str = f"{c['null_count']:,} ({c['null_percentage']}%)"

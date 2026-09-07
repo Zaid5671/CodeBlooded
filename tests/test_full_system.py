@@ -61,7 +61,7 @@ class TestFullSystemProductionSuite(unittest.TestCase):
             'concentration_risk': True,
             'evidence': ['High expenditure concentration detected']
         }])
-        
+
         df_p, summary = run_audit_priority_aggregation(df_s, df_d, df_c, df_vendor_risk=df_v)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 2)

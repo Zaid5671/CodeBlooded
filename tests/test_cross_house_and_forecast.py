@@ -10,7 +10,7 @@ from cost_detection.double_dipping_candidates import generate_candidate_pairs
 from backend.forecasting.expenditure_forecast import generate_expenditure_forecast
 
 class TestCrossHouseAndForecast(unittest.TestCase):
-    
+
     def setUp(self):
         self.mock_ls_works = [
             {
@@ -46,7 +46,7 @@ class TestCrossHouseAndForecast(unittest.TestCase):
                 'work_status': 'COMPLETED'
             }
         ]
-        
+
         self.mock_rs_works = [
             {
                 'clean_work_id': 'RS_001',

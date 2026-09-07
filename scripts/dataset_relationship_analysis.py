@@ -15,29 +15,29 @@ def find_col(df, candidates):
 def test_join(left_df, right_df, left_on, right_on, join_name):
     left_keys = left_df[left_on].dropna().astype(str).str.strip()
     right_keys = right_df[right_on].dropna().astype(str).str.strip()
-    
+
     left_rows = len(left_df)
     right_rows = len(right_df)
-    
+
     unique_left = set(left_keys)
     unique_right = set(right_keys)
-    
+
     matched_keys = unique_left.intersection(unique_right)
-    
+
     # Rows in left having key in right
     left_matched_rows = left_keys.isin(unique_right).sum()
     unmatched_left = left_rows - left_matched_rows
-    
+
     # Rows in right having key in left
     right_matched_rows = right_keys.isin(unique_left).sum()
     unmatched_right = right_rows - right_matched_rows
-    
+
     match_rate_left = round(left_matched_rows / left_rows * 100.0, 2) if left_rows > 0 else 0.0
     match_rate_right = round(right_matched_rows / right_rows * 100.0, 2) if right_rows > 0 else 0.0
-    
+
     dup_left_keys = len(left_keys) - len(unique_left)
     dup_left_pct = round(dup_left_keys / len(left_keys) * 100.0, 2) if len(left_keys) > 0 else 0.0
-    
+
     dup_right_keys = len(right_keys) - len(unique_right)
     dup_right_pct = round(dup_right_keys / len(right_keys) * 100.0, 2) if len(right_keys) > 0 else 0.0
 
@@ -60,7 +60,7 @@ def test_join(left_df, right_df, left_on, right_on, join_name):
 
 def main():
     print("Running Dataset Relationship Analysis across LokSabha 18, LokSabha 17, and Rajya Sabha Sitting...")
-    
+
     # Load LS18
     ls18_sanc = pd.read_csv("data/original/LokSabha18/Works Sanctioned_LokSabha_18.csv", low_memory=False)
     ls18_rec = pd.read_csv("data/original/LokSabha18/Works Recommended_LokSabha_18.csv", low_memory=False)
@@ -81,7 +81,7 @@ def main():
     rs_comp = pd.read_csv("data/original/RajyaSabha_Sitting/Works_Completed_Rajya_Sitting.csv", low_memory=False)
 
     joins = []
-    
+
     # 1. LS18 Internal Lifecycle Joins
     sanc_w = find_col(ls18_sanc, ['Work', 'WORK'])
     rec_w = find_col(ls18_rec, ['Work', 'WORK'])
@@ -125,13 +125,13 @@ def main():
     md.append(f"**Generated At**: {datetime.now().isoformat()}\n")
     md.append("## Executive Summary of Table Relationships\n")
     md.append("This document formalizes the entity relationship topology across all 17 datasets across Lok Sabha 18, Lok Sabha 17, and Rajya Sabha Sitting. It evaluates join integrity, primary-foreign key match rates, and foreign key duplicate risks.\n")
-    
+
     md.append("| Join Relationship | Left Rows | Right Rows | Left Matched Rows (%) | Unmatched Left (%) | Right Matched Rows (%) | Unmatched Right (%) | Distinct Matched Keys | Left Dup Key % | Right Dup Key % |")
     md.append("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
-    
+
     for j in joins:
         md.append(f"| **{j['join_name']}** | {j['left_rows']:,} | {j['right_rows']:,} | {j['left_matched_rows']:,} ({j['match_rate_left']}%) | {j['unmatched_left']:,} ({100.0 - j['match_rate_left']:.2f}%) | {j['right_matched_rows']:,} ({j['match_rate_right']}%) | {j['unmatched_right']:,} ({100.0 - j['match_rate_right']:.2f}%) | {j['unique_matched_keys']:,} | {j['dup_left_pct']}% | {j['dup_right_pct']}% |")
-        
+
     md.append("\n## Key Architectural Observations & Safety Guidelines\n")
     md.append("1. **Lifecycle Progression (Sanction → Expenditure → Completion)**:\n"
               "   - In LS18, 59,817 of 79,220 sanctioned works (75.51%) have matching expenditure records.\n"

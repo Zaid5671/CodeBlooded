@@ -43,44 +43,44 @@ def evaluate_model_1():
     print("\n========================================================")
     print("  MODEL 1: RECORD LINKAGE 80/20 TRAIN-TEST EXPERIMENT")
     print("========================================================")
-    
+
     df_sanc = load_sanctioned_works()
     total_records = len(df_sanc)
-    
+
     text_corpus = df_sanc['Work description'].fillna(df_sanc['Work category']).fillna('').astype(str).str.strip()
     df_sanc['clean_desc'] = text_corpus
-    
+
     # Random 80/20 hold-out split with fixed random seed (42)
     train_df, test_df = train_test_split(df_sanc, test_size=0.20, random_state=42)
-    
+
     print(f"Total Work Records: {total_records:,}")
     print(f"  • 80% Train Records: {len(train_df):,}")
     print(f"  • 20% Test Records:  {len(test_df):,}")
-    
+
     # Fit TF-IDF strictly on Train
     vectorizer = TfidfVectorizer(ngram_range=(1, 2), max_features=10000, min_df=2, stop_words='english')
     train_vecs = vectorizer.fit_transform(train_df['clean_desc'])
     test_vecs = vectorizer.transform(test_df['clean_desc'])
-    
+
     vocab_size = len(vectorizer.vocabulary_)
     print(f"Vocabulary Size (Fitted strictly on Train): {vocab_size:,} features")
-    
+
     np.random.seed(42)
     idx_tr1 = np.random.randint(0, len(train_df), 10000)
     idx_tr2 = np.random.randint(0, len(train_df), 10000)
     tr_sims = np.asarray(train_vecs[idx_tr1].multiply(train_vecs[idx_tr2]).sum(axis=1)).ravel()
-    
+
     idx_ts1 = np.random.randint(0, len(test_df), 10000)
     idx_ts2 = np.random.randint(0, len(test_df), 10000)
     ts_sims = np.asarray(test_vecs[idx_ts1].multiply(test_vecs[idx_ts2]).sum(axis=1)).ravel()
-    
+
     tr_mean, tr_p90, tr_p99 = float(np.mean(tr_sims)), float(np.percentile(tr_sims, 90)), float(np.percentile(tr_sims, 99))
     ts_mean, ts_p90, ts_p99 = float(np.mean(ts_sims)), float(np.percentile(ts_sims, 90)), float(np.percentile(ts_sims, 99))
-    
+
     print(f"Train Similarity Distribution: Mean={tr_mean:.4f}, P90={tr_p90:.4f}, P99={tr_p99:.4f}")
     print(f"Test Similarity Distribution:  Mean={ts_mean:.4f}, P90={ts_p90:.4f}, P99={ts_p99:.4f}")
     print("Stability: Out-of-Sample distribution aligns tightly with in-sample baseline.")
-    
+
     return {
         "model_name": "Model 1: Record Linkage / Duplicate Work Detection",
         "split_description": "Random 80/20 hold-out split with fixed random seed (42)",
@@ -105,7 +105,7 @@ def evaluate_model_2():
     print("\n========================================================")
     print("  MODEL 2: COST ANOMALY 80/20 CHRONOLOGICAL EXPERIMENT")
     print("========================================================")
-    
+
     df_sanc = load_sanctioned_works()
     df_exp = load_expenditure_works()
     df_prep = preprocess_sanctioned_works(df_sanc)
@@ -113,31 +113,31 @@ def evaluate_model_2():
     df_matched = match_expenditure_data(df_cat, df_exp)
     df_comp = evaluate_compliance_rules(df_matched)
     df_s1 = evaluate_cost_overrun(df_comp)
-    
+
     df_valid = df_s1[~df_s1['is_below_floor'] & df_s1['sanction_amount'].notnull()].copy()
-    
+
     # Sort chronologically by sanc_dt or rec_dt
     df_valid['dt'] = df_valid['sanc_dt'].fillna(df_valid['rec_dt'])
     df_valid = df_valid.sort_values(by='dt').reset_index(drop=True)
-    
+
     split_idx = int(len(df_valid) * 0.80)
     train_raw = df_valid.iloc[:split_idx].copy()
     test_raw = df_valid.iloc[split_idx:].copy()
-    
+
     train_start = str(train_raw['dt'].min().date()) if train_raw['dt'].notnull().sum() > 0 else "N/A"
     train_end = str(train_raw['dt'].max().date()) if train_raw['dt'].notnull().sum() > 0 else "N/A"
     test_start = str(test_raw['dt'].min().date()) if test_raw['dt'].notnull().sum() > 0 else "N/A"
     test_end = str(test_raw['dt'].max().date()) if test_raw['dt'].notnull().sum() > 0 else "N/A"
-    
+
     print(f"Total Valid Population: {len(df_valid):,} works")
     print(f"  • 80% Train (Chronological): {len(train_raw):,} works (Range: {train_start} to {train_end})")
     print(f"  • 20% Test (Chronological):  {len(test_raw):,} works (Range: {test_start} to {test_end})")
-    
+
     # 1. Fit Peer Statistics ONLY on Train
     train_peer_stats = compute_peer_statistics(train_raw)
     train_s2 = evaluate_peer_iqr(train_raw, learned_stats=train_peer_stats)
     test_s2 = evaluate_peer_iqr(test_raw, learned_stats=train_peer_stats)
-    
+
     # 2. Fit Isolation Forest ONLY on Train
     train_s3, fitted_imputer, fitted_iso_model = train_and_score_isolation_forest(train_s2)
     test_s3, _, _ = train_and_score_isolation_forest(
@@ -145,27 +145,27 @@ def evaluate_model_2():
         fitted_imputer=fitted_imputer,
         fitted_model=fitted_iso_model
     )
-    
+
     train_flags = train_s3['isolation_forest_flag'].values
     test_flags = test_s3['isolation_forest_flag'].values
-    
+
     train_rate = float(train_flags.sum() / len(train_raw) * 100.0)
     test_rate = float(test_flags.sum() / len(test_raw) * 100.0)
     delta_rate = float(abs(train_rate - test_rate))
-    
+
     test_iqr_flags = test_s3['peer_iqr_flag'].values
     test_both = int((test_iqr_flags & test_flags).sum())
     test_union = int((test_iqr_flags | test_flags).sum())
     test_jaccard = float(test_both / test_union) if test_union > 0 else 0.0
-    
+
     # Assert exact feature count == 8
     assert len(NUMERIC_FEATURES) == 8, f"Expected 8 features, got {len(NUMERIC_FEATURES)}"
-    
+
     print(f"Train In-Sample Anomaly Rate:    {train_rate:.2f}%")
     print(f"Test Out-of-Sample Anomaly Rate: {test_rate:.2f}%")
     print(f"Rate Delta:                      {delta_rate:.2f}%")
     print(f"Test Cross-Detector Concordance (Jaccard): {test_jaccard:.4f}")
-    
+
     # Feature availability classification
     feature_availability = [
         {"feature": "log_sanction_amount", "availability": "Sanction-Time", "description": "Log-scale monetary sanction magnitude"},
@@ -177,7 +177,7 @@ def evaluate_model_2():
         {"feature": "payment_var_filled", "availability": "Expenditure / Audit-Time", "description": "Variance across installment payment voucher amounts"},
         {"feature": "median_time_between_payments_filled", "availability": "Expenditure / Audit-Time", "description": "Median calendar days between successive payment disbursements"}
     ]
-    
+
     return {
         "model_name": "Model 2: Unsupervised Cost Anomaly Detection",
         "evaluation_description": "Chronological out-of-sample stability evaluation of an audit-time unsupervised anomaly detector",
@@ -210,44 +210,44 @@ def evaluate_model_3():
     print("\n========================================================")
     print("  MODEL 3: EXPENDITURE FORECASTING 80/20 EXPERIMENT")
     print("========================================================")
-    
+
     p18 = "data/original/LokSabha18/Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv"
     df18 = pd.read_csv(p18, low_memory=False)
     amt_col18 = 'Fund Disbursed Amount ( ₹ )'
     date_col18 = 'Expenditure Date'
     df18['clean_amt'] = clean_monetary_field(df18[amt_col18]).fillna(0.0)
     df18['dt'] = pd.to_datetime(df18[date_col18], errors='coerce')
-    
+
     valid18 = df18.dropna(subset=['dt']).copy()
     valid18['year_month'] = valid18['dt'].dt.to_period('M').astype(str)
     monthly18 = valid18.groupby('year_month')['clean_amt'].sum().sort_index()
-    
+
     monthly_series = monthly18[monthly18 > 0]
     total_obs = len(monthly_series)
-    
+
     split_idx = int(total_obs * 0.80)
     train_series = monthly_series.iloc[:split_idx]
     test_series = monthly_series.iloc[split_idx:]
-    
+
     train_vals = train_series.values
     test_vals = test_series.values
-    
+
     train_start = str(train_series.index[0])
     train_end = str(train_series.index[-1])
     test_start = str(test_series.index[0])
     test_end = str(test_series.index[-1])
-    
+
     print(f"Total Monthly Observations: {total_obs}")
     print(f"  • Train Observations (80%): {len(train_series)} ({train_start} to {train_end})")
     print(f"  • Test Observations (20%):  {len(test_series)} ({test_start} to {test_end})")
-    
+
     mean_tr = np.mean(train_vals)
     std_tr = np.std(train_vals) if np.std(train_vals) > 0 else mean_tr * 0.25
-    
+
     predictions = []
     baseline_prev = []
     baseline_ma3 = []
-    
+
     history = list(train_vals)
     for t_idx, actual in enumerate(test_vals):
         # 3-month rolling average forecast baseline
@@ -256,32 +256,32 @@ def evaluate_model_3():
         baseline_prev.append(float(history[-1]))
         baseline_ma3.append(float(np.mean(history)))
         history.append(actual)
-        
+
     predictions = np.array(predictions)
     test_vals = np.array(test_vals)
     base_prev = np.array(baseline_prev)
     base_ma3 = np.array(baseline_ma3)
-    
+
     def calc_metrics(y_true, y_pred):
         mae = float(np.mean(np.abs(y_true - y_pred)))
         rmse = float(np.sqrt(np.mean((y_true - y_pred)**2)))
         mape = float(np.mean(np.abs((y_true - y_pred) / y_true))) * 100.0 if np.all(y_true > 0) else 0.0
         return mae, rmse, mape
-    
+
     model_mae, model_rmse, model_mape = calc_metrics(test_vals, predictions)
     prev_mae, prev_rmse, prev_mape = calc_metrics(test_vals, base_prev)
     ma3_mae, ma3_rmse, ma3_mape = calc_metrics(test_vals, base_ma3)
-    
+
     print(f"\nModel Out-of-Sample Evaluation:")
     print(f"  • Model MAE:   ₹{model_mae:,.2f} (vs Prev-Month: ₹{prev_mae:,.2f})")
     print(f"  • Model RMSE:  ₹{model_rmse:,.2f} (vs Prev-Month: ₹{prev_rmse:,.2f})")
     print(f"  • Model MAPE:  {model_mape:.2f}% (vs Prev-Month: {prev_mape:.2f}%)")
-    
+
     full_vals = monthly_series.values
     full_mean = float(np.mean(full_vals))
     full_std = float(np.std(full_vals)) if np.std(full_vals) > 0 else full_mean * 0.25
     trend_factor = max(0.8, min(1.3, np.mean(full_vals[-3:]) / full_mean))
-    
+
     future_6m = []
     last_ym = pd.to_datetime(str(monthly_series.index[-1]) + "-01")
     for step in range(1, 7):
@@ -295,13 +295,13 @@ def evaluate_model_3():
             "upper_bound": round(f_val + margin, 2),
             "expected_range_type": "Empirical 95% Expected Range"
         })
-        
+
     conclusion_text = (
         "The 3-month rolling-average method marginally improves MAE relative to the naïve "
         "previous-month baseline, while RMSE and MAPE remain higher. It is therefore retained "
         "as an empirical forecasting aid and is not claimed to outperform the naïve baseline across all evaluation metrics."
     )
-    
+
     return {
         "model_name": "Model 3: Rolling-Average Expenditure Forecasting Baseline",
         "methodology": "3-month rolling-average expenditure forecasting baseline",
@@ -330,7 +330,7 @@ def main():
     m1_res = evaluate_model_1()
     m2_res = evaluate_model_2()
     m3_res = evaluate_model_3()
-    
+
     md = []
     # 1. Executive Summary
     md.append("# 3-MODEL RIGOROUS 80/20 TRAIN/TEST EVALUATION REPORT")
@@ -341,7 +341,7 @@ def main():
     md.append(f"| **Model 1: Record Linkage** | {m1_res['split_description']} | {m1_res['train_records']:,} works | {m1_res['test_records']:,} works | Full LS18 Active Term | Full LS18 Active Term | Vocab: {m1_res['vocab_size']:,} | Delta P99 Sim: {m1_res['delta_p99']} |")
     md.append(f"| **Model 2: Cost Anomaly** | Chronological 80/20 Split | {m2_res['train_rows']:,} works | {m2_res['test_rows']:,} works | {m2_res['train_start']} to {m2_res['train_end']} | {m2_res['test_start']} to {m2_res['test_end']} | Train Rate: {m2_res['train_anomaly_rate']}% | Test Rate: {m2_res['test_anomaly_rate']}% | Concordance: {m2_res['test_cross_detector_jaccard']} |")
     md.append(f"| **Model 3: Forecasting** | Chronological 80/20 Time-Series | {m3_res['train_observations']} months | {m3_res['test_observations']} months | {m3_res['train_start']} to {m3_res['train_end']} | {m3_res['test_start']} to {m3_res['test_end']} | MAE: ₹{m3_res['model_mae']:,.2f} | RMSE: ₹{m3_res['model_rmse']:,.2f} | MAPE: {m3_res['model_mape']}% |")
-    
+
     # 2. Data Leakage Audit
     md.append("\n---\n")
     md.append("## 2. Data Leakage Audit\n")

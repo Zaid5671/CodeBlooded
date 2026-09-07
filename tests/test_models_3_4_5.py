@@ -9,14 +9,14 @@ from backend.compliance_detection.approval_compliance import run_compliance_dete
 from backend.audit_engine.misuse_priority import run_audit_priority_aggregation
 
 class TestModels345(unittest.TestCase):
-    
+
     # -------------------------------------------------------------------------
     # MODEL 3 TESTS (1-12)
     # -------------------------------------------------------------------------
     def setUp(self):
         # Create synthetic master dataset for testing
         np.random.seed(42)
-        
+
         # State A: 12 completed works (duration 10 to 50 days), 2 ongoing
         # State B: 3 completed works (duration 20 to 30 days), 2 ongoing (national fallback)
         records = []
@@ -28,7 +28,7 @@ class TestModels345(unittest.TestCase):
                 'completion_date': f"2024-02-{10+i:02d}", # ~40 to 51 days
                 'work_status': 'COMPLETED'
             })
-            
+
         for i in range(3):
             records.append({
                 'clean_work_id': f"WS/MP2/2024-2025/200{i}",
@@ -37,7 +37,7 @@ class TestModels345(unittest.TestCase):
                 'completion_date': '2024-01-20',
                 'work_status': 'COMPLETED'
             })
-            
+
         # Ongoing work in State A (long ongoing)
         records.append({
             'clean_work_id': 'WS/MP1/2024-2025/1099',
@@ -46,7 +46,7 @@ class TestModels345(unittest.TestCase):
             'completion_date': None,
             'work_status': 'SANCTIONED'
         })
-        
+
         # Ongoing work in State B
         records.append({
             'clean_work_id': 'WS/MP2/2024-2025/2099',
@@ -55,7 +55,7 @@ class TestModels345(unittest.TestCase):
             'completion_date': None,
             'work_status': 'SANCTIONED'
         })
-        
+
         # Work missing sanction date
         records.append({
             'clean_work_id': 'WS/MP3/2024-2025/3001',
@@ -64,7 +64,7 @@ class TestModels345(unittest.TestCase):
             'completion_date': None,
             'work_status': 'SANCTIONED'
         })
-        
+
         self.df_test_master = pd.DataFrame(records)
 
     def test_01_correct_iqr_calculation(self):
@@ -193,7 +193,7 @@ class TestModels345(unittest.TestCase):
             records.append({'clean_work_id': f"W_A_{i}", 'ida': 'AGENCY_A', 'recommended_date': '2024-01-01', 'sanction_date': '2024-03-01'})
         for i in range(5):
             records.append({'clean_work_id': f"W_B_{i}", 'ida': 'AGENCY_B', 'recommended_date': '2024-01-01', 'sanction_date': '2024-03-01'})
-            
+
         df_master = pd.DataFrame(records)
         watchlist = build_ia_watchlist(df_master, min_works=20)
         self.assertEqual(len(watchlist), 1)
@@ -204,7 +204,7 @@ class TestModels345(unittest.TestCase):
         for i in range(20):
             records.append({'clean_work_id': f"W_FAST_{i}", 'ida': 'FAST_AGENCY', 'recommended_date': '2024-01-01', 'sanction_date': '2024-01-10'}) # 9 days gap
             records.append({'clean_work_id': f"W_SLOW_{i}", 'ida': 'SLOW_AGENCY', 'recommended_date': '2024-01-01', 'sanction_date': '2024-06-01'}) # ~152 days gap
-            
+
         df_master = pd.DataFrame(records)
         watchlist = build_ia_watchlist(df_master, min_works=20)
         self.assertEqual(watchlist.iloc[0]['implementing_agency'], 'SLOW_AGENCY')
@@ -216,7 +216,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH', 'evidence_list': ['Cost high']}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False, 'delay_status': 'ONGOING_ON_SCHEDULE'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False, 'compliance_severity': 'COMPLIANT'}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.30)
@@ -226,7 +226,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'MEDIUM', 'evidence_list': ['Cost medium']}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False, 'delay_status': 'ONGOING_ON_SCHEDULE'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False, 'compliance_severity': 'COMPLIANT'}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.10)
@@ -235,7 +235,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'MEDIUM', 'evidence_list': ['Cost medium']}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False, 'delay_status': 'ONGOING_ON_SCHEDULE'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False, 'compliance_severity': 'COMPLIANT'}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertFalse(row['cost_signal'])
@@ -246,7 +246,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'LOW'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True, 'delay_status': 'ONGOING_DELAYED', 'evidence': 'Delayed 100 days'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False, 'compliance_severity': 'COMPLIANT'}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.25)
@@ -256,7 +256,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'LOW'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': True, 'compliance_severity': 'SEVERE_DEVIATION', 'evidence': 'Gap 200 days'}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.25)
@@ -266,7 +266,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH', 'evidence_list': ['Cost high']}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True, 'evidence': 'Delayed'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 2)
@@ -276,7 +276,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH', 'evidence_list': ['Cost high']}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 1)
@@ -286,7 +286,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'LOW'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 0)
@@ -296,7 +296,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': True, 'compliance_severity': 'SEVERE_DEVIATION'}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 3)
@@ -306,7 +306,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH', 'evidence_list': ['Cost overrun detected']}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True, 'evidence': 'Ongoing for 400 days'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False, 'evidence': 'Sanctioned in 20 days'}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         ev = " ".join(row['combined_evidence'])
@@ -317,7 +317,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH'}, {'clean_work_id': 'W1', 'risk_level': 'HIGH'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': True}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         self.assertEqual(len(df_p), 1)
 
@@ -325,7 +325,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': True}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         self.assertFalse(df_p['misuse_priority_score'].isnull().any())
         self.assertFalse(np.isinf(df_p['misuse_priority_score']).any())
@@ -334,7 +334,7 @@ class TestModels345(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': True}])
-        
+
         p1, s1 = run_audit_priority_aggregation(df_s, df_d, df_c)
         p2, s2 = run_audit_priority_aggregation(df_s, df_d, df_c)
         pd.testing.assert_frame_equal(p1, p2)

@@ -7,7 +7,7 @@ from datetime import datetime
 
 def generate_reports():
     print("Generating Data Quality & Model Utilization Reports...")
-    
+
     with open("output/FULL_DATASET_SCAN.json") as f:
         scan_data = json.load(f)
 
@@ -17,7 +17,7 @@ def generate_reports():
         fn = d["filename"]
         fp = d["file_path"]
         df = pd.read_csv(fp, low_memory=False)
-        
+
         # Check negative and tiny amounts (< 1000)
         amt_cols = d["semantic_fields"]["amount_fields"]
         neg_counts = {}
@@ -64,7 +64,7 @@ def generate_reports():
     md_q.append("## 1. Summary of Data Quality Findings Across All 17 Real Datasets\n")
     md_q.append("| File Name | Total Rows | Total Cells | Null Cells (%) | Exact Dup Rows | Negative Amounts | Small Value (< ₹1k) Amounts | Malformed Dates |")
     md_q.append("|---|---:|---:|---:|---:|---|---|---|")
-    
+
     for q in quality_records:
         null_pct = round(q["null_cells"] / max(1, q["total_cells"]) * 100.0, 2)
         neg_str = ", ".join([f"{k}: {v}" for k, v in q["negative_amounts"].items()]) if q["negative_amounts"] else "None (0)"
@@ -86,11 +86,11 @@ def generate_reports():
     md_u = []
     md_u.append("# 3-MODEL & ANALYTICAL PIPELINE DATA UTILIZATION REPORT")
     md_u.append(f"**Generated At**: {datetime.now().isoformat()}\n")
-    
+
     md_u.append("## Dataset Utilization Matrix across System Modules\n")
     md_u.append("| Dataset File | Chamber / Term | Rows | Model 1 (Dupl) | Model 2 (Cost) | Model 3 (Forecast) | Model 4 (Compliance) | Vendor/Agency | Module 6 (Repeated Exp) | Module 7 (Velocity) | Status / Technical Reason |")
     md_u.append("|---|---|---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|---|")
-    
+
     utilization_matrix = [
         ("Works Sanctioned_LokSabha_18.csv", "LS18", 79220, "USED", "USED", "USED (Agg)", "USED", "USED", "USED", "USED", "Primary work-level entity dataset for Lok Sabha 18th"),
         ("Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv", "LS18", 84172, "USED (Join)", "USED", "USED", "N/A", "USED", "USED", "USED", "Primary expenditure & vendor transaction records for LS18"),

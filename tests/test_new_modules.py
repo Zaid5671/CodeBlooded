@@ -165,7 +165,7 @@ class TestNewModulesSuite(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W_M5', 'risk_level': 'HIGH', 'IDA': 'AGENCY_1'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W_M5', 'signal_delay': True}])
         df_c = pd.DataFrame([{'clean_work_id': 'W_M5', 'signal_compliance': True}])
-        
+
         df_p, summary = run_audit_priority_aggregation(df_s, df_d, df_c)
         score = df_p.iloc[0]['misuse_priority_score']
         display_score = df_p.iloc[0]['display_score']
@@ -177,7 +177,7 @@ class TestNewModulesSuite(unittest.TestCase):
         df_s = pd.DataFrame([{'clean_work_id': 'W_HIGH', 'risk_level': 'HIGH', 'IDA': 'AGENCY_1'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W_HIGH', 'signal_delay': True}])
         df_c = pd.DataFrame([{'clean_work_id': 'W_HIGH', 'signal_compliance': True}])
-        
+
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         self.assertEqual(df_p.iloc[0]['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
 
