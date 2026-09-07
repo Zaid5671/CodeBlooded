@@ -86,8 +86,8 @@ ARCHITECTURAL PIPELINE:
 PRODUCTION METRICS (LS 18th Data):
    • Candidate Pairs Evaluated (LS-LS): 5,000 top ranked pairs (from 6,954,003 raw blocked pairs across 1,262 blocks)
    • HIGH RISK Pairs Flagged (LS-LS): 1,810 pairs
-   • MEDIUM RISK Pairs Flagged (LS-LS): 2,140 pairs
-   • LOW RISK Pairs Flagged (LS-LS): 1,050 pairs
+   • MEDIUM RISK Pairs Flagged (LS-LS): 2,142 pairs
+   • LOW RISK Pairs Flagged (LS-LS): 1,048 pairs
    • Cross-House Candidates (LS-RS): 0 (Pending Rajya Sabha data)
 
 ================================================================================
