@@ -1,6 +1,6 @@
 # SIH26102 — ALL-DATASET DEEP FORENSIC & MODEL EVALUATION REPORT
 
-**Generated At**: `2026-09-07T15:46:19.314497` | **Status**: ALL REAL DATA — ZERO SYNTHETIC FALLBACKS
+**Generated At**: `2026-09-07T15:52:21.058143` | **Status**: ALL REAL DATA — ZERO SYNTHETIC FALLBACKS
 
 **Governance Notice**: *All identified patterns are statistical and financial anomalies requiring human administrative audit investigation. Not proof of fraud, crime, or wrongdoing.*
 
@@ -50,7 +50,9 @@
 
 ---
 
-## 4. M2_DUPLICATE_WORK: Candidate Blocking & Text-Similarity Diagnostic
+## 4. M2_DUPLICATE_WORK — TF-IDF Representation Stability Diagnostic
+
+*(Note: Evaluates TF-IDF representation stability across sample descriptions. Production candidate-pair ranking and deduplication executes in `cost_detection/double_dipping.py` on blocked partitions (`state_code` + `district_code` + `work_category`))*
 
 | Dataset | Works Evaluated | High Risk Candidate Pairs (Cosine $\ge 85$) | Medium Risk Pairs (65–84) | Low Risk Pairs (<65) | Mean Max Sim | P95 Sim |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -63,12 +65,14 @@
 
 ## 5. M3_EXPENDITURE_ANOMALY, RULE_DELAY_SLA & RULE_STATUTORY_COMPLIANCE
 
-| Dataset | Works with Expenditure | Structuring Candidates (Heuristic) | Delayed Works Flagged (Tukey Fence) | 45-Day Statutory Compliance Rate | Median Approval Gap |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **LokSabha18** | 111 | 0 | 0 (0.00%) | 29.46% (23,337 works) | 79.0 days |
-| **LokSabha17** | 113 | 0 | 0 (0.00%) | 33.58% (30,929 works) | 86.0 days |
-| **RajyaSabha_Sitting** | 100 | 0 | 0 (0.00%) | 33.02% (6,474 works) | 69.0 days |
-| **RajyaSabha_Retired** | 100 | 0 | 0 (0.00%) | 33.02% (6,474 works) | 69.0 days |
+*Analytical payment-structuring screening heuristic: `num_payments >= 5`, `total_spent > ₹500,000`, `max_payment < ₹200,000`. These are analytical screening parameters, NOT statutory limits.*
+
+| Dataset | Transaction Records Evaluated | Unique Works with Expenditure | Payment Structuring Candidates (Heuristic) | Delayed Works Flagged (Lifecycle-Aware Tukey Fence) | 45-Day Statutory Compliance Rate | Median Approval Gap |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **LokSabha18** | 84,172 | 111 | 0 | 0 (0.00%) | 29.46% (23,337 works) | 79.0 days |
+| **LokSabha17** | 138,575 | 113 | 0 | 0 (0.00%) | 33.58% (30,929 works) | 86.0 days |
+| **RajyaSabha_Sitting** | 25,141 | 100 | 0 | 0 (0.00%) | 33.02% (6,474 works) | 69.0 days |
+| **RajyaSabha_Retired** | 25,130 | 100 | 0 | 0 (0.00%) | 33.02% (6,474 works) | 69.0 days |
 
 ---
 
@@ -76,6 +80,7 @@
 
 - **Mathematical Invariant**: $\sum \text{Weights} = 0.30 \text{ (Cost)} + 0.25 \text{ (Delay)} + 0.25 \text{ (Compliance)} + 0.10 \text{ (Vendor)} + 0.10 \text{ (Eligibility)} = \mathbf{1.0000}$.
 - **Supporting-Only Critical Escalations**: **0 works** across all datasets (Strict Invariant Preserved).
+- *(Note: Vendor dimension in multi-corpus baseline uses descriptive agency volume signal: >500 works; production system on LS18 uses HHI + Bipartite Network Graph with Government Entity Safeguards)*.
 
 | Dataset | Total Works Evaluated | Critical Audit Priority Tier | Standard Review Tier | Low Priority Tier | Priority Score Range |
 | :--- | :---: | :---: | :---: | :---: | :---: |

@@ -328,26 +328,64 @@ def evaluate_m3_expenditure_anomaly(exp_df, sanc_df):
         "unique_works_with_expenditure": len(grouped),
         "mean_payments_per_work": float(round(grouped['num_payments'].mean(), 2)),
         "payment_structuring_candidates": len(structuring_works),
+        "heuristic_description": (
+            "Analytical payment-structuring screening heuristic: "
+            "num_payments >= 5, total_spent > ₹500,000, max_payment < ₹200,000. "
+            "These are analytical screening parameters, NOT statutory limits."
+        ),
         "heuristic_type": "ANALYTICAL_SCREENING_HEURISTIC",
         "statutory_threshold": False,
         "structuring_works_set": structuring_works
     }
 
-def evaluate_rule_delay_sla(df):
+def evaluate_rule_delay_sla(df, completed_df=None):
     total_available = len(df)
     valid = df.dropna(subset=['sanction_dt']).copy()
     excluded = total_available - len(valid)
 
-    now = pd.Timestamp.now()
-    valid['duration_days'] = (now - valid['sanction_dt']).dt.days
+    # Lifecycle awareness: merge completion date if completed dataset available
+    comp_map = {}
+    if completed_df is not None and not completed_df.empty:
+        id_cols = [c for c in completed_df.columns if 'work' in c.lower() and ('id' in c.lower() or 'code' in c.lower() or c.lower() == 'work')]
+        comp_date_cols = [c for c in completed_df.columns if 'completion' in c.lower() and 'date' in c.lower()]
+        if id_cols and comp_date_cols:
+            c_id = id_cols[0]
+            c_dt = comp_date_cols[0]
+            c_clean = completed_df.dropna(subset=[c_id, c_dt]).copy()
+            c_clean['comp_dt_clean'] = pd.to_datetime(c_clean[c_dt], errors='coerce')
+            comp_map = dict(zip(c_clean[c_id].astype(str).str.strip(), c_clean['comp_dt_clean']))
 
-    q75 = valid['duration_days'].quantile(0.75)
-    q25 = valid['duration_days'].quantile(0.25)
+    now = pd.Timestamp.now()
+    durations = []
+    is_completed_list = []
+
+    for idx, row in valid.iterrows():
+        s_dt = row['sanction_dt']
+        w_id = str(row.get('work_id', idx)).strip()
+        c_dt = comp_map.get(w_id, pd.NaT)
+
+        if pd.notnull(c_dt) and c_dt >= s_dt:
+            durations.append((c_dt - s_dt).days)
+            is_completed_list.append(True)
+        else:
+            durations.append((now - s_dt).days)
+            is_completed_list.append(False)
+
+    valid['duration_days'] = durations
+    valid['is_completed'] = is_completed_list
+
+    # Exclude invalid negative durations
+    valid = valid[valid['duration_days'] >= 0]
+
+    q75 = valid['duration_days'].quantile(0.75) if len(valid) > 0 else 365.0
+    q25 = valid['duration_days'].quantile(0.25) if len(valid) > 0 else 0.0
     iqr = max(q75 - q25, 30)
     upper_fence = q75 + 1.5 * iqr
 
     is_delayed = (valid['duration_days'] > upper_fence)
     delayed_count = int(is_delayed.sum())
+    completed_count = int(valid['is_completed'].sum())
+    ongoing_count = len(valid) - completed_count
 
     work_delay_map = dict(zip(valid.index, is_delayed))
 
@@ -357,6 +395,8 @@ def evaluate_rule_delay_sla(df):
         "records_available": total_available,
         "records_evaluated": len(valid),
         "records_excluded": excluded,
+        "completed_works_evaluated": completed_count,
+        "ongoing_works_evaluated": ongoing_count,
         "exclusion_reasons": "Sanction date missing or invalid",
         "median_duration_days": float(valid['duration_days'].median()) if len(valid) > 0 else 0.0,
         "tukey_upper_fence_days": float(upper_fence),
@@ -427,7 +467,7 @@ def evaluate_vendor_and_eligibility_signals(df):
         for idx in df.index:
             work_elig_map[idx] = False
 
-    return work_vendor_map, work_elig_map
+    return work_vendor_map, work_elig_map, "DESCRIPTIVE AGENCY VOLUME SIGNAL — NOT VENDOR RISK MODEL"
 
 def evaluate_m5_audit_priority_real_signals(df, m1_eval, delay_eval, comp_eval, vendor_map, elig_map):
     total_works = len(df)
@@ -660,16 +700,16 @@ def main():
 
         # M3 Expenditure Anomaly
         m3_res = evaluate_m3_expenditure_anomaly(bundle.get('expenditure'), sanc_df)
-        print(f"  • M3_EXPENDITURE_ANOMALY: {m3_res.get('unique_works_with_expenditure', 0):,} works, {m3_res.get('payment_structuring_candidates', 0)} structuring candidates")
+        print(f"  • M3_EXPENDITURE_ANOMALY: {m3_res.get('records_evaluated', 0):,} transactions, {m3_res.get('unique_works_with_expenditure', 0):,} works, {m3_res.get('payment_structuring_candidates', 0)} structuring candidates")
 
         # Supporting Rules: Delay & Statutory Compliance
-        delay_res = evaluate_rule_delay_sla(sanc_df)
+        delay_res = evaluate_rule_delay_sla(sanc_df, bundle.get('completed'))
         comp_res = evaluate_rule_statutory_compliance(sanc_df)
-        print(f"  • RULE_DELAY_SLA: {delay_res['delayed_works_flagged']:,} delayed ({delay_res['delay_rate_pct']}%), Median = {delay_res['median_duration_days']:.1f} days")
+        print(f"  • RULE_DELAY_SLA: {delay_res['delayed_works_flagged']:,} delayed ({delay_res['delay_rate_pct']}%), Median = {delay_res['median_duration_days']:.1f} days (Completed: {delay_res['completed_works_evaluated']:,}, Ongoing: {delay_res['ongoing_works_evaluated']:,})")
         print(f"  • RULE_STATUTORY_COMPLIANCE: Compliant = {comp_res['compliant_45d']:,} ({comp_res['compliance_rate_pct']}%), Median Gap = {comp_res['median_gap_days']:.1f} days")
 
         # Vendor & Eligibility
-        ven_map, elig_map = evaluate_vendor_and_eligibility_signals(sanc_df)
+        ven_map, elig_map, ven_desc = evaluate_vendor_and_eligibility_signals(sanc_df)
 
         # M5 Audit Priority (Consuming REAL signals)
         m5_res = evaluate_m5_audit_priority_real_signals(sanc_df, m1_res, delay_res, comp_res, ven_map, elig_map)
@@ -758,7 +798,8 @@ def generate_markdown_report(rep):
     md.append("\n---\n\n")
 
     # Section 4: Model 2 Duplicate Work
-    md.append("## 4. M2_DUPLICATE_WORK: Candidate Blocking & Text-Similarity Diagnostic\n\n")
+    md.append("## 4. M2_DUPLICATE_WORK — TF-IDF Representation Stability Diagnostic\n\n")
+    md.append("*(Note: Evaluates TF-IDF representation stability across sample descriptions. Production candidate-pair ranking and deduplication executes in `cost_detection/double_dipping.py` on blocked partitions (`state_code` + `district_code` + `work_category`))*\n\n")
     md.append("| Dataset | Works Evaluated | High Risk Candidate Pairs (Cosine $\\ge 85$) | Medium Risk Pairs (65–84) | Low Risk Pairs (<65) | Mean Max Sim | P95 Sim |\n")
     md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: |\n")
     for k, d in rep['datasets'].items():
@@ -768,19 +809,21 @@ def generate_markdown_report(rep):
 
     # Section 5: Model 3 & Supporting Rules
     md.append("## 5. M3_EXPENDITURE_ANOMALY, RULE_DELAY_SLA & RULE_STATUTORY_COMPLIANCE\n\n")
-    md.append("| Dataset | Works with Expenditure | Structuring Candidates (Heuristic) | Delayed Works Flagged (Tukey Fence) | 45-Day Statutory Compliance Rate | Median Approval Gap |\n")
-    md.append("| :--- | :---: | :---: | :---: | :---: | :---: |\n")
+    md.append("*Analytical payment-structuring screening heuristic: `num_payments >= 5`, `total_spent > ₹500,000`, `max_payment < ₹200,000`. These are analytical screening parameters, NOT statutory limits.*\n\n")
+    md.append("| Dataset | Transaction Records Evaluated | Unique Works with Expenditure | Payment Structuring Candidates (Heuristic) | Delayed Works Flagged (Lifecycle-Aware Tukey Fence) | 45-Day Statutory Compliance Rate | Median Approval Gap |\n")
+    md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: |\n")
     for k, d in rep['datasets'].items():
         m3 = d['m3_expenditure_anomaly']
         rd = d['rule_delay_sla']
         rc = d['rule_statutory_compliance']
-        md.append(f"| **{k}** | {m3.get('unique_works_with_expenditure', 0):,} | {m3.get('payment_structuring_candidates', 0):,} | {rd['delayed_works_flagged']:,} ({rd['delay_rate_pct']:.2f}%) | {rc['compliance_rate_pct']:.2f}% ({rc['compliant_45d']:,} works) | {rc['median_gap_days']:.1f} days |\n")
+        md.append(f"| **{k}** | {m3.get('records_evaluated', 0):,} | {m3.get('unique_works_with_expenditure', 0):,} | {m3.get('payment_structuring_candidates', 0):,} | {rd['delayed_works_flagged']:,} ({rd['delay_rate_pct']:.2f}%) | {rc['compliance_rate_pct']:.2f}% ({rc['compliant_45d']:,} works) | {rc['median_gap_days']:.1f} days |\n")
     md.append("\n---\n\n")
 
     # Section 6: Model 5 Real Signal Priority
     md.append("## 6. M5_AUDIT_PRIORITY: Real-Signal Unified Priority Aggregator\n\n")
     md.append("- **Mathematical Invariant**: $\\sum \\text{Weights} = 0.30 \\text{ (Cost)} + 0.25 \\text{ (Delay)} + 0.25 \\text{ (Compliance)} + 0.10 \\text{ (Vendor)} + 0.10 \\text{ (Eligibility)} = \\mathbf{1.0000}$.\n")
-    md.append("- **Supporting-Only Critical Escalations**: **0 works** across all datasets (Strict Invariant Preserved).\n\n")
+    md.append("- **Supporting-Only Critical Escalations**: **0 works** across all datasets (Strict Invariant Preserved).\n")
+    md.append("- *(Note: Vendor dimension in multi-corpus baseline uses descriptive agency volume signal: >500 works; production system on LS18 uses HHI + Bipartite Network Graph with Government Entity Safeguards)*.\n\n")
     md.append("| Dataset | Total Works Evaluated | Critical Audit Priority Tier | Standard Review Tier | Low Priority Tier | Priority Score Range |\n")
     md.append("| :--- | :---: | :---: | :---: | :---: | :---: |\n")
     for k, d in rep['datasets'].items():

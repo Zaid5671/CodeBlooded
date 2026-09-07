@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T15:46:19.314497",
+  "generated_at": "2026-09-07T15:52:21.058143",
   "registry": {
     "models": {
       "M1_COST_ANOMALY": {
@@ -178,6 +178,7 @@
         "unique_works_with_expenditure": 111,
         "mean_payments_per_work": 758.31,
         "payment_structuring_candidates": 0,
+        "heuristic_description": "Analytical payment-structuring screening heuristic: num_payments >= 5, total_spent > \u20b9500,000, max_payment < \u20b9200,000. These are analytical screening parameters, NOT statutory limits.",
         "heuristic_type": "ANALYTICAL_SCREENING_HEURISTIC",
         "statutory_threshold": false
       },
@@ -187,6 +188,8 @@
         "records_available": 79220,
         "records_evaluated": 79219,
         "records_excluded": 1,
+        "completed_works_evaluated": 0,
+        "ongoing_works_evaluated": 79219,
         "exclusion_reasons": "Sanction date missing or invalid",
         "median_duration_days": 327.0,
         "tukey_upper_fence_days": 896.0,
@@ -305,6 +308,7 @@
         "unique_works_with_expenditure": 113,
         "mean_payments_per_work": 1226.33,
         "payment_structuring_candidates": 0,
+        "heuristic_description": "Analytical payment-structuring screening heuristic: num_payments >= 5, total_spent > \u20b9500,000, max_payment < \u20b9200,000. These are analytical screening parameters, NOT statutory limits.",
         "heuristic_type": "ANALYTICAL_SCREENING_HEURISTIC",
         "statutory_threshold": false
       },
@@ -314,6 +318,8 @@
         "records_available": 92117,
         "records_evaluated": 92116,
         "records_excluded": 1,
+        "completed_works_evaluated": 0,
+        "ongoing_works_evaluated": 92116,
         "exclusion_reasons": "Sanction date missing or invalid",
         "median_duration_days": 917.0,
         "tukey_upper_fence_days": 1243.5,
@@ -432,6 +438,7 @@
         "unique_works_with_expenditure": 100,
         "mean_payments_per_work": 251.41,
         "payment_structuring_candidates": 0,
+        "heuristic_description": "Analytical payment-structuring screening heuristic: num_payments >= 5, total_spent > \u20b9500,000, max_payment < \u20b9200,000. These are analytical screening parameters, NOT statutory limits.",
         "heuristic_type": "ANALYTICAL_SCREENING_HEURISTIC",
         "statutory_threshold": false
       },
@@ -441,6 +448,8 @@
         "records_available": 19607,
         "records_evaluated": 19606,
         "records_excluded": 1,
+        "completed_works_evaluated": 0,
+        "ongoing_works_evaluated": 19606,
         "exclusion_reasons": "Sanction date missing or invalid",
         "median_duration_days": 417.0,
         "tukey_upper_fence_days": 1271.5,
@@ -559,6 +568,7 @@
         "unique_works_with_expenditure": 100,
         "mean_payments_per_work": 251.3,
         "payment_structuring_candidates": 0,
+        "heuristic_description": "Analytical payment-structuring screening heuristic: num_payments >= 5, total_spent > \u20b9500,000, max_payment < \u20b9200,000. These are analytical screening parameters, NOT statutory limits.",
         "heuristic_type": "ANALYTICAL_SCREENING_HEURISTIC",
         "statutory_threshold": false
       },
@@ -568,6 +578,8 @@
         "records_available": 19607,
         "records_evaluated": 19606,
         "records_excluded": 1,
+        "completed_works_evaluated": 0,
+        "ongoing_works_evaluated": 19606,
         "exclusion_reasons": "Sanction date missing or invalid",
         "median_duration_days": 417.0,
         "tukey_upper_fence_days": 1271.5,

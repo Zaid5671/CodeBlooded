@@ -148,3 +148,46 @@ class TestFinalModelIntegritySuite:
         for k, d in data["datasets"].items():
             m5 = d["m5_audit_priority"]
             assert m5.get("supporting_only_critical_count", 0) == 0, f"Supporting only critical count in {k} must be 0."
+
+    def test_13_m3_expenditure_heuristic_and_no_fabricated_metrics(self):
+        from scripts.test_all_datasets_deep_evaluation import evaluate_m3_expenditure_anomaly
+        df_exp = pd.read_csv("data/original/LokSabha18/Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv", low_memory=False)
+        res = evaluate_m3_expenditure_anomaly(df_exp, None)
+        assert res["model_id"] == "M3_EXPENDITURE_ANOMALY"
+        assert "num_payments >= 5" in res["heuristic_description"]
+        assert "total_spent > ₹500,000" in res["heuristic_description"]
+        assert "max_payment < ₹200,000" in res["heuristic_description"]
+        assert res["statutory_threshold"] is False
+        assert "statistical_transaction_outliers" not in res
+
+    def test_14_m2_diagnostic_representation_stability_wording(self):
+        deep_eval_md = os.path.join(OUTPUT_DIR, "ALL_DATASETS_DEEP_EVALUATION_REPORT.md")
+        with open(deep_eval_md, "r", encoding="utf-8") as f:
+            content = f.read()
+        assert "M2_DUPLICATE_WORK — TF-IDF Representation Stability Diagnostic" in content
+        assert "duplicate-detection accuracy" not in content.lower() or "not establish duplicate-detection accuracy" in content
+
+    def test_15_delay_rule_lifecycle_awareness(self):
+        from scripts.test_all_datasets_deep_evaluation import evaluate_rule_delay_sla
+        sanc_df = pd.DataFrame({
+            'sanction_dt': [pd.Timestamp('2024-01-01'), pd.Timestamp('2024-01-01')],
+            'work_id': ['WORK_A', 'WORK_B']
+        })
+        comp_df = pd.DataFrame({
+            'Work ID': ['WORK_A'],
+            'Completion Date': ['2024-03-01']
+        })
+        res = evaluate_rule_delay_sla(sanc_df, comp_df)
+        assert res['records_evaluated'] == 2
+        assert res['completed_works_evaluated'] == 1
+        assert res['ongoing_works_evaluated'] == 1
+
+    def test_16_m4_empirical_expected_range_wording(self):
+        forecast_path = os.path.join(OUTPUT_DIR, "expenditure_forecast.json")
+        with open(forecast_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        assert "confidence_interval" not in content.lower() or "expected range" in content.lower()
+        report_path = os.path.join(OUTPUT_DIR, "FINAL_MODEL_INTEGRITY_REPORT.md")
+        with open(report_path, "r", encoding="utf-8") as f:
+            rep_text = f.read()
+        assert "EMPIRICAL 95% EXPECTED RANGE" in rep_text
