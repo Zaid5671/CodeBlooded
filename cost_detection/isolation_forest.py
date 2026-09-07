@@ -51,6 +51,17 @@ except ImportError:
             composite_dist = np.mean(z_scores, axis=1)
             return np.where(composite_dist >= self.threshold_, -1, 1)
 
+NUMERIC_FEATURES = [
+    'log_sanction_amount',
+    'peer_dev_ratio_filled',
+    'robust_dev_filled',
+    'days_filled',
+    'num_payments_filled',
+    'max_payment_ratio_filled',
+    'payment_var_filled',
+    'median_time_between_payments_filled'
+]
+
 def train_and_score_isolation_forest(df, fitted_imputer=None, fitted_model=None):
     """
     Signal 3: Isolation Forest ML Anomaly Detector.
@@ -59,6 +70,10 @@ def train_and_score_isolation_forest(df, fitted_imputer=None, fitted_model=None)
     - peer_dev_ratio_filled (peer deviation ratio filled with 0.0 safe baseline)
     - robust_dev_filled (IQR/MAD robust deviation filled with 0.0 safe baseline)
     - days_filled (recommendation to sanction duration in days filled with median baseline)
+    - num_payments_filled (payment installments volume)
+    - max_payment_ratio_filled (largest voucher ratio)
+    - payment_var_filled (payment amount variance)
+    - median_time_between_payments_filled (median days between payments)
     """
     df_out = df.copy()
 
@@ -88,16 +103,7 @@ def train_and_score_isolation_forest(df, fitted_imputer=None, fitted_model=None)
     med_time = df_valid['median_time_between_payments'].median() if 'median_time_between_payments' in df_valid.columns and pd.notnull(df_valid['median_time_between_payments'].median()) else 0.0
     df_valid['median_time_between_payments_filled'] = df_valid['median_time_between_payments'].fillna(med_time) if 'median_time_between_payments' in df_valid.columns else 0.0
 
-    features = [
-        'log_sanction_amount',
-        'peer_dev_ratio_filled',
-        'robust_dev_filled',
-        'days_filled',
-        'num_payments_filled',
-        'max_payment_ratio_filled',
-        'payment_var_filled',
-        'median_time_between_payments_filled'
-    ]
+    features = NUMERIC_FEATURES
 
     X_raw = df_valid[features]
     X_raw = X_raw.replace([np.inf, -np.inf], np.nan)

@@ -31,25 +31,25 @@
   },
   "candidates_generated": 5000,
   "risk_tier_counts": {
-    "HIGH RISK \u2014 REQUIRES AUDIT REVIEW": 1812,
-    "MEDIUM RISK": 2144,
-    "LOW RISK": 1044
+    "HIGH RISK \u2014 REQUIRES AUDIT REVIEW": 1813,
+    "MEDIUM RISK": 2145,
+    "LOW RISK": 1042
   },
   "score_distribution": {
     "count": 5000,
     "min": 28.0,
-    "p25": 73.0,
+    "p25": 74.0,
     "median": 90.0,
     "p75": 100.0,
-    "mean": 84.4,
+    "mean": 84.41,
     "p90": 100.0,
     "p95": 100.0,
     "p99": 100.0,
     "max": 100.0,
-    "pct_gte_85": 61.98,
-    "pct_gte_90": 50.82,
+    "pct_gte_85": 62.02,
+    "pct_gte_90": 50.86,
     "pct_gte_95": 37.94,
-    "pct_eq_100": 26.68
+    "pct_eq_100": 26.66
   },
   "weights_configuration": {
     "model_version": "double_dipping_v2",
@@ -69,10 +69,10 @@
     "image_similarity_available": false
   },
   "performance_metrics_seconds": {
-    "ingestion_reconciliation": 7.817,
-    "embedding_generation": 2.429,
-    "candidate_blocking_scoring": 256.848,
-    "total_runtime": 267.093
+    "ingestion_reconciliation": 4.025,
+    "embedding_generation": 1.265,
+    "candidate_blocking_scoring": 4.227,
+    "total_runtime": 9.517
   },
   "top_suspicious_pairs": [
     {
@@ -127905,123 +127905,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_00905",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP541/2024-2025/170071",
-      "matched_work_id": "WS/MP541/2024-2025/172352",
-      "work_a": {
-        "entity_id": "ENT_018542",
-        "work_id": "WS/MP541/2024-2025/170071",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of  Toilet block with running water facility at Moirabari Girls Secondary school. GP Moirabari, Laharighat",
-        "sanction_amount": 500000.0,
-        "expenditure_amount": 494996.0,
-        "vendors": [
-          "Arnaz Hardware",
-          "Ashraful Islam"
-        ],
-        "sanction_date": "24-Mar-2025",
-        "status": "Work partially Completed"
-      },
-      "work_b": {
-        "entity_id": "ENT_019621",
-        "work_id": "WS/MP541/2024-2025/172352",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of Toilet block with running water facility at HAM Girls Secondary school. GP Moirabari, Laharighat",
-        "sanction_amount": 500000.0,
-        "expenditure_amount": 494996.0,
-        "vendors": [
-          "Arnaz Hardware",
-          "Mustafa Mustaqul Islam"
-        ],
-        "sanction_date": "24-Mar-2025",
-        "status": "Work partially Completed"
-      },
-      "risk_score": 100,
-      "risk_score_display": "100/100",
-      "risk_tier": "HIGH RISK \u2014 REQUIRES AUDIT REVIEW",
-      "similarity_score": 100,
-      "amount_similarity": 100.0,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": true,
-      "convergence_count": 5,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 80.0,
-        "amount_similarity_pct": 100.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.8001889506490517,
-        "title_similarity": 0.7142857142857143,
-        "description_similarity": 0.9375,
-        "fuzzy_text_similarity": 0.8482142857142858,
-        "amount_similarity": 1.0,
-        "amount_difference": 0.0,
-        "amount_ratio": 1.0,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 8,
-        "shared_location_tokens": [
-          "facility",
-          "girls",
-          "laharighat",
-          "moirabari",
-          "running",
-          "secondary",
-          "toilet",
-          "with"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": true,
-        "convergence_count": 5
-      },
-      "triggered_evidence": [
-        "High semantic text similarity (80.0%)",
-        "Matching location tokens found ('facility', 'girls', 'laharighat')",
-        "Identical or near-identical sanction amount (\u20b9500,000.00 vs \u20b9500,000.00)",
-        "Identical vendor involved ('Arnaz Hardware, Ashraful Islam')",
-        "Sanctioned within same constituency ('NOWGONG')"
-      ],
-      "evidence": [
-        "High semantic text similarity (80.0%)",
-        "Matching location tokens found ('facility', 'girls', 'laharighat')",
-        "Identical or near-identical sanction amount (\u20b9500,000.00 vs \u20b9500,000.00)",
-        "Identical vendor involved ('Arnaz Hardware, Ashraful Islam')",
-        "Sanctioned within same constituency ('NOWGONG')"
-      ],
-      "missing_evidence": [
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_02023",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -162713,17 +162596,17 @@
         "sanction_amount": 456780.0,
         "expenditure_amount": 456780.0,
         "vendors": [
-          "NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED",
-          "M K Sports",
-          "Neha Creations",
           "R v Sports",
-          "INDIA SALES CORPORATION",
           "Brar Associates",
-          "LOT INTERNATIONAL",
-          "VM Enterprises",
-          "UNLIMITED INC",
           "Pritam Singh and Sons",
-          "Rewa International"
+          "NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED",
+          "Rewa International",
+          "Neha Creations",
+          "UNLIMITED INC",
+          "LOT INTERNATIONAL",
+          "INDIA SALES CORPORATION",
+          "M K Sports",
+          "VM Enterprises"
         ],
         "sanction_date": "28-Feb-2025",
         "status": "Physical Inspection"
@@ -162739,17 +162622,17 @@
         "sanction_amount": 456530.0,
         "expenditure_amount": 456530.0,
         "vendors": [
-          "NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED",
-          "M K Sports",
-          "Neha Creations",
           "R v Sports",
-          "INDIA SALES CORPORATION",
           "Brar Associates",
-          "LOT INTERNATIONAL",
-          "VM Enterprises",
-          "UNLIMITED INC",
           "Pritam Singh and Sons",
-          "Rewa International"
+          "NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED",
+          "Rewa International",
+          "Neha Creations",
+          "UNLIMITED INC",
+          "LOT INTERNATIONAL",
+          "INDIA SALES CORPORATION",
+          "M K Sports",
+          "VM Enterprises"
         ],
         "sanction_date": "28-Feb-2025",
         "status": "Physical Inspection"
@@ -162815,13 +162698,13 @@
       "triggered_evidence": [
         "Matching location tokens found ('air', 'campus', 'chandigarh')",
         "Identical or near-identical sanction amount (\u20b9456,780.00 vs \u20b9456,530.00)",
-        "Identical vendor involved ('NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED, M K Sports, Neha Creations, R v Sports, INDIA SALES CORPORATION, Brar Associates, LOT INTERNATIONAL, VM Enterprises, UNLIMITED INC, Pritam Singh and Sons, Rewa International')",
+        "Identical vendor involved ('R v Sports, Brar Associates, Pritam Singh and Sons, NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED, Rewa International, Neha Creations, UNLIMITED INC, LOT INTERNATIONAL, INDIA SALES CORPORATION, M K Sports, VM Enterprises')",
         "Sanctioned within same constituency ('CHANDIGARH')"
       ],
       "evidence": [
         "Matching location tokens found ('air', 'campus', 'chandigarh')",
         "Identical or near-identical sanction amount (\u20b9456,780.00 vs \u20b9456,530.00)",
-        "Identical vendor involved ('NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED, M K Sports, Neha Creations, R v Sports, INDIA SALES CORPORATION, Brar Associates, LOT INTERNATIONAL, VM Enterprises, UNLIMITED INC, Pritam Singh and Sons, Rewa International')",
+        "Identical vendor involved ('R v Sports, Brar Associates, Pritam Singh and Sons, NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED, Rewa International, Neha Creations, UNLIMITED INC, LOT INTERNATIONAL, INDIA SALES CORPORATION, M K Sports, VM Enterprises')",
         "Sanctioned within same constituency ('CHANDIGARH')"
       ],
       "missing_evidence": [
@@ -184233,6 +184116,117 @@
         "Identical or near-identical sanction amount (\u20b9200,000.00 vs \u20b9200,000.00)",
         "Identical vendor involved ('GP KANDO BHATNOL')",
         "Sanctioned within same constituency ('SHIMLA (SC)')"
+      ],
+      "missing_evidence": [
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04982",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18379/2025-2026/194644",
+      "matched_work_id": "WS/MP18379/2025-2026/194645",
+      "work_a": {
+        "entity_id": "ENT_031317",
+        "work_id": "WS/MP18379/2025-2026/194644",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of Sports gear for Sports clubs of Gulmarg AC",
+        "sanction_amount": 200000.0,
+        "expenditure_amount": 191620.0,
+        "vendors": [
+          "NEW SYNDICATE SPORTS",
+          "Alpha Sports Centre"
+        ],
+        "sanction_date": "18-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_031318",
+        "work_id": "WS/MP18379/2025-2026/194645",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of Sports gear for Sports clubs of Baramulla AC",
+        "sanction_amount": 200000.0,
+        "expenditure_amount": 197670.0,
+        "vendors": [
+          "NEW SYNDICATE SPORTS"
+        ],
+        "sanction_date": "18-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 97,
+      "risk_score_display": "97/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 97,
+      "amount_similarity": 100.0,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 4,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 66.4,
+        "amount_similarity_pct": 100.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.6638018704652455,
+        "title_similarity": 0.75,
+        "description_similarity": 0.7777777777777778,
+        "fuzzy_text_similarity": 0.7666666666666667,
+        "amount_similarity": 1.0,
+        "amount_difference": 0.0,
+        "amount_ratio": 1.0,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 5,
+        "shared_location_tokens": [
+          "clubs",
+          "for",
+          "gear",
+          "providing",
+          "sports"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 4
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('clubs', 'for', 'gear')",
+        "Identical or near-identical sanction amount (\u20b9200,000.00 vs \u20b9200,000.00)",
+        "Identical vendor involved ('NEW SYNDICATE SPORTS, Alpha Sports Centre')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('clubs', 'for', 'gear')",
+        "Identical or near-identical sanction amount (\u20b9200,000.00 vs \u20b9200,000.00)",
+        "Identical vendor involved ('NEW SYNDICATE SPORTS, Alpha Sports Centre')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
       ],
       "missing_evidence": [
         "No image comparison available (Image field contains placeholder strings)"
@@ -217537,8 +217531,8 @@
         "sanction_amount": 250000.0,
         "expenditure_amount": 250000.0,
         "vendors": [
-          "RAJYA PRAWARTIT YOJNA GP PO SARMA",
-          "MUKHYA KARYAPALAN ADHIKARI JANPAD PANCHAYAT PONDI UPRODA"
+          "MUKHYA KARYAPALAN ADHIKARI JANPAD PANCHAYAT PONDI UPRODA",
+          "RAJYA PRAWARTIT YOJNA GP PO SARMA"
         ],
         "sanction_date": "02-Jul-2025",
         "status": "Physical Inspection"
@@ -217756,8 +217750,8 @@
         "sanction_amount": 250000.0,
         "expenditure_amount": 250000.0,
         "vendors": [
-          "RAJYA PRAWARTIT YOJNA GP PO SARMA",
-          "MUKHYA KARYAPALAN ADHIKARI JANPAD PANCHAYAT PONDI UPRODA"
+          "MUKHYA KARYAPALAN ADHIKARI JANPAD PANCHAYAT PONDI UPRODA",
+          "RAJYA PRAWARTIT YOJNA GP PO SARMA"
         ],
         "sanction_date": "02-Jul-2025",
         "status": "Physical Inspection"
@@ -225131,117 +225125,6 @@
         "Matching location tokens found ('chittamuru', 'internal', 'laying')",
         "Identical vendor involved ('GRR ENTERPRISES')",
         "Sanctioned within same constituency ('TIRUPATI(SC)')"
-      ],
-      "missing_evidence": [
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_04969",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18379/2025-2026/208949",
-      "matched_work_id": "WS/MP18379/2025-2026/208951",
-      "work_a": {
-        "entity_id": "ENT_039442",
-        "work_id": "WS/MP18379/2025-2026/208949",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of sports gears for sports teams of Bandipora Assembly Constituency.",
-        "sanction_amount": 300000.0,
-        "expenditure_amount": 300000.0,
-        "vendors": [
-          "KOHINOOR TRADERS"
-        ],
-        "sanction_date": "08-Aug-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_039444",
-        "work_id": "WS/MP18379/2025-2026/208951",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing sports gears for sports teams of Sonawari Assembly Constituency.",
-        "sanction_amount": 250000.0,
-        "expenditure_amount": 246025.0,
-        "vendors": [
-          "KOHINOOR TRADERS",
-          "SYED GH RABBANI"
-        ],
-        "sanction_date": "08-Aug-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 94,
-      "risk_score_display": "94/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 94,
-      "amount_similarity": 83.3,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 68.9,
-        "amount_similarity_pct": 83.3,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.6892640071386378,
-        "title_similarity": 0.75,
-        "description_similarity": 0.8,
-        "fuzzy_text_similarity": 0.78,
-        "amount_similarity": 0.8333333333333334,
-        "amount_difference": 50000.0,
-        "amount_ratio": 0.8333333333333334,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 7,
-        "shared_location_tokens": [
-          "assembly",
-          "constituency",
-          "for",
-          "gears",
-          "providing",
-          "sports",
-          "teams"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('assembly', 'constituency', 'for')",
-        "Identical vendor involved ('KOHINOOR TRADERS')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('assembly', 'constituency', 'for')",
-        "Identical vendor involved ('KOHINOOR TRADERS')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
       ],
       "missing_evidence": [
         "No image comparison available (Image field contains placeholder strings)"
@@ -241083,6 +240966,117 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_04971",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18379/2025-2026/208950",
+      "matched_work_id": "WS/MP18379/2025-2026/208951",
+      "work_a": {
+        "entity_id": "ENT_039443",
+        "work_id": "WS/MP18379/2025-2026/208950",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of sports gears for sports teams of Gurez Assembly Constituency.",
+        "sanction_amount": 200000.0,
+        "expenditure_amount": 200000.0,
+        "vendors": [
+          "SYED GH RABBANI"
+        ],
+        "sanction_date": "08-Aug-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_039444",
+        "work_id": "WS/MP18379/2025-2026/208951",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing sports gears for sports teams of Sonawari Assembly Constituency.",
+        "sanction_amount": 250000.0,
+        "expenditure_amount": 246025.0,
+        "vendors": [
+          "SYED GH RABBANI",
+          "KOHINOOR TRADERS"
+        ],
+        "sanction_date": "08-Aug-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 93,
+      "risk_score_display": "93/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 93,
+      "amount_similarity": 80.0,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 68.0,
+        "amount_similarity_pct": 80.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.6796850665615455,
+        "title_similarity": 0.75,
+        "description_similarity": 0.8,
+        "fuzzy_text_similarity": 0.78,
+        "amount_similarity": 0.8,
+        "amount_difference": 50000.0,
+        "amount_ratio": 0.8,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 7,
+        "shared_location_tokens": [
+          "assembly",
+          "constituency",
+          "for",
+          "gears",
+          "providing",
+          "sports",
+          "teams"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('assembly', 'constituency', 'for')",
+        "Identical vendor involved ('SYED GH RABBANI')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('assembly', 'constituency', 'for')",
+        "Identical vendor involved ('SYED GH RABBANI')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "missing_evidence": [
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_00594",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -241184,6 +241178,114 @@
         "Matching location tokens found ('electrical', 'jalumuru', 'limits')",
         "Identical vendor involved ('SRI J VENKATA GIRI DHARA RAO')",
         "Sanctioned within same constituency ('SRIKAKULAM')"
+      ],
+      "missing_evidence": [
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04687",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18065/2025-2026/251497",
+      "matched_work_id": "WS/MP18065/2025-2026/253432",
+      "work_a": {
+        "entity_id": "ENT_061213",
+        "work_id": "WS/MP18065/2025-2026/251497",
+        "state": "Haryana",
+        "constituency": "ROHTAK",
+        "mp": "DEEPENDER SINGH HOODA",
+        "category": "Normal/Others",
+        "description": "Const. of Bwall of Hall",
+        "sanction_amount": 499685.0,
+        "expenditure_amount": 499685.0,
+        "vendors": [
+          "JOGINDER GOVT CONTRACTOR"
+        ],
+        "sanction_date": "11-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_062315",
+        "work_id": "WS/MP18065/2025-2026/253432",
+        "state": "Haryana",
+        "constituency": "ROHTAK",
+        "mp": "DEEPENDER SINGH HOODA",
+        "category": "Normal/Others",
+        "description": "Const. of Bwall of Hall Dadi Sati",
+        "sanction_amount": 500000.0,
+        "expenditure_amount": 499354.0,
+        "vendors": [
+          "JOGINDER GOVT CONTRACTOR",
+          "RAVI KANT"
+        ],
+        "sanction_date": "16-Jan-2026",
+        "status": "Work Completed"
+      },
+      "risk_score": 93,
+      "risk_score_display": "93/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 93,
+      "amount_similarity": 99.9,
+      "location_similarity": 100.0,
+      "date_similarity": 67.0,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 66.5,
+        "amount_similarity_pct": 99.9,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.6647705455843952,
+        "title_similarity": 0.8,
+        "description_similarity": 0.6666666666666666,
+        "fuzzy_text_similarity": 0.72,
+        "amount_similarity": 0.99937,
+        "amount_difference": 315.0,
+        "amount_ratio": 0.99937,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.6703200460356393,
+        "date_difference_days": 36,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 2,
+        "shared_location_tokens": [
+          "bwall",
+          "const"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('bwall', 'const')",
+        "Identical or near-identical sanction amount (\u20b9499,685.00 vs \u20b9500,000.00)",
+        "Identical vendor involved ('JOGINDER GOVT CONTRACTOR')",
+        "Sanctioned within same constituency ('ROHTAK')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('bwall', 'const')",
+        "Identical or near-identical sanction amount (\u20b9499,685.00 vs \u20b9500,000.00)",
+        "Identical vendor involved ('JOGINDER GOVT CONTRACTOR')",
+        "Sanctioned within same constituency ('ROHTAK')"
       ],
       "missing_evidence": [
         "No image comparison available (Image field contains placeholder strings)"
@@ -275320,6 +275422,122 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_04684",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18065/2025-2026/239256",
+      "matched_work_id": "WS/MP18065/2025-2026/242109",
+      "work_a": {
+        "entity_id": "ENT_055414",
+        "work_id": "WS/MP18065/2025-2026/239256",
+        "state": "Haryana",
+        "constituency": "ROHTAK",
+        "mp": "DEEPENDER SINGH HOODA",
+        "category": "Normal/Others",
+        "description": "Const of Rwall Lod wala Johad, Baba Jagram Dass near Shiv Mandir",
+        "sanction_amount": 700000.0,
+        "expenditure_amount": 697440.0,
+        "vendors": [
+          "The Nominath Ji Co Op L and C Society",
+          "DEEPIKA"
+        ],
+        "sanction_date": "27-Nov-2025",
+        "status": "Work Completed"
+      },
+      "work_b": {
+        "entity_id": "ENT_056894",
+        "work_id": "WS/MP18065/2025-2026/242109",
+        "state": "Haryana",
+        "constituency": "ROHTAK",
+        "mp": "DEEPENDER SINGH HOODA",
+        "category": "Normal/Others",
+        "description": "Comp. of Rwall of Lod wala Johad, Baba Jagram Dass near Shiv Mandir",
+        "sanction_amount": 400000.0,
+        "expenditure_amount": 399954.0,
+        "vendors": [
+          "The Nominath Ji Co Op L and C Society"
+        ],
+        "sanction_date": "18-Feb-2026",
+        "status": "Work Completed"
+      },
+      "risk_score": 90,
+      "risk_score_display": "90/100",
+      "risk_tier": "HIGH RISK \u2014 REQUIRES AUDIT REVIEW",
+      "similarity_score": 90,
+      "amount_similarity": 57.1,
+      "location_similarity": 100.0,
+      "date_similarity": 39.8,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": true,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 89.6,
+        "amount_similarity_pct": 57.1,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.8964441652267581,
+        "title_similarity": 0.8,
+        "description_similarity": 0.8461538461538461,
+        "fuzzy_text_similarity": 0.8276923076923077,
+        "amount_similarity": 0.5714285714285714,
+        "amount_difference": 300000.0,
+        "amount_ratio": 0.5714285714285714,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.39763442648458736,
+        "date_difference_days": 83,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 9,
+        "shared_location_tokens": [
+          "baba",
+          "dass",
+          "jagram",
+          "johad",
+          "lod",
+          "mandir",
+          "rwall",
+          "shiv",
+          "wala"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": true,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "High semantic text similarity (89.6%)",
+        "Matching location tokens found ('baba', 'dass', 'jagram')",
+        "Identical vendor involved ('The Nominath Ji Co Op L and C Society, DEEPIKA')",
+        "Sanctioned within same constituency ('ROHTAK')"
+      ],
+      "evidence": [
+        "High semantic text similarity (89.6%)",
+        "Matching location tokens found ('baba', 'dass', 'jagram')",
+        "Identical vendor involved ('The Nominath Ji Co Op L and C Society, DEEPIKA')",
+        "Sanctioned within same constituency ('ROHTAK')"
+      ],
+      "missing_evidence": [
+        "Substantially different sanction amounts (\u20b9700,000.00 vs \u20b9400,000.00)",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_03341",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -289012,115 +289230,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04989",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18379/2025-2026/194643",
-      "matched_work_id": "WS/MP18379/2025-2026/194644",
-      "work_a": {
-        "entity_id": "ENT_031316",
-        "work_id": "WS/MP18379/2025-2026/194643",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of Sports gear for Sports clubs of Uri AC",
-        "sanction_amount": 300000.0,
-        "expenditure_amount": 299470.0,
-        "vendors": [
-          "Alpha Sports Centre"
-        ],
-        "sanction_date": "18-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_031317",
-        "work_id": "WS/MP18379/2025-2026/194644",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of Sports gear for Sports clubs of Gulmarg AC",
-        "sanction_amount": 200000.0,
-        "expenditure_amount": 191620.0,
-        "vendors": [
-          "Alpha Sports Centre",
-          "NEW SYNDICATE SPORTS"
-        ],
-        "sanction_date": "18-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 89,
-      "risk_score_display": "89/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 89,
-      "amount_similarity": 66.7,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 65.1,
-        "amount_similarity_pct": 66.7,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.6506849439812417,
-        "title_similarity": 0.75,
-        "description_similarity": 0.7777777777777778,
-        "fuzzy_text_similarity": 0.7666666666666667,
-        "amount_similarity": 0.6666666666666667,
-        "amount_difference": 100000.0,
-        "amount_ratio": 0.6666666666666666,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 5,
-        "shared_location_tokens": [
-          "clubs",
-          "for",
-          "gear",
-          "providing",
-          "sports"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('clubs', 'for', 'gear')",
-        "Identical vendor involved ('Alpha Sports Centre')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('clubs', 'for', 'gear')",
-        "Identical vendor involved ('Alpha Sports Centre')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "missing_evidence": [
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_00840",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -293875,6 +293984,115 @@
         "Matching location tokens found ('ambedkar', 'bobbili', 'karri')",
         "Identical vendor involved ('SVSST INFRASTRUCTURE')",
         "Sanctioned within same constituency ('VIZIANAGARAM')"
+      ],
+      "missing_evidence": [
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_00910",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP541/2026-2027/267658",
+      "matched_work_id": "WS/MP541/2026-2027/267663",
+      "work_a": {
+        "entity_id": "ENT_069015",
+        "work_id": "WS/MP541/2026-2027/267658",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of a toilet block at Dhopguri H.S. School, Laharighat",
+        "sanction_amount": 400000.0,
+        "expenditure_amount": 319930.0,
+        "vendors": [
+          "SHAIWON ENTERPRISE",
+          "Rajul Ahmed"
+        ],
+        "sanction_date": "15-Jun-2026",
+        "status": "Vendor Identification"
+      },
+      "work_b": {
+        "entity_id": "ENT_069018",
+        "work_id": "WS/MP541/2026-2027/267663",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of toilet block at Tinisukia Secondary School, Laharighat",
+        "sanction_amount": 400000.0,
+        "expenditure_amount": 319930.0,
+        "vendors": [
+          "SHAIWON ENTERPRISE",
+          "Rabbul Hussain"
+        ],
+        "sanction_date": "20-Jun-2026",
+        "status": "Vendor Identification"
+      },
+      "risk_score": 89,
+      "risk_score_display": "89/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 89,
+      "amount_similarity": 100.0,
+      "location_similarity": 100.0,
+      "date_similarity": 94.6,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 4,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 47.0,
+        "amount_similarity_pct": 100.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.47044731553340796,
+        "title_similarity": 0.6,
+        "description_similarity": 0.5384615384615384,
+        "fuzzy_text_similarity": 0.563076923076923,
+        "amount_similarity": 1.0,
+        "amount_difference": 0.0,
+        "amount_ratio": 1.0,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.9459594689067654,
+        "date_difference_days": 5,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 2,
+        "shared_location_tokens": [
+          "laharighat",
+          "toilet"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 4
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('laharighat', 'toilet')",
+        "Identical or near-identical sanction amount (\u20b9400,000.00 vs \u20b9400,000.00)",
+        "Identical vendor involved ('SHAIWON ENTERPRISE, Rajul Ahmed')",
+        "Sanctioned within same constituency ('NOWGONG')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('laharighat', 'toilet')",
+        "Identical or near-identical sanction amount (\u20b9400,000.00 vs \u20b9400,000.00)",
+        "Identical vendor involved ('SHAIWON ENTERPRISE, Rajul Ahmed')",
+        "Sanctioned within same constituency ('NOWGONG')"
       ],
       "missing_evidence": [
         "No image comparison available (Image field contains placeholder strings)"
@@ -318553,115 +318771,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04997",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18379/2025-2026/194642",
-      "matched_work_id": "WS/MP18379/2025-2026/194644",
-      "work_a": {
-        "entity_id": "ENT_031315",
-        "work_id": "WS/MP18379/2025-2026/194642",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of Sports gear for Sports clubs of Wagoora Kreeri AC",
-        "sanction_amount": 300000.0,
-        "expenditure_amount": 298374.0,
-        "vendors": [
-          "Alpha Sports Centre"
-        ],
-        "sanction_date": "18-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_031317",
-        "work_id": "WS/MP18379/2025-2026/194644",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of Sports gear for Sports clubs of Gulmarg AC",
-        "sanction_amount": 200000.0,
-        "expenditure_amount": 191620.0,
-        "vendors": [
-          "Alpha Sports Centre",
-          "NEW SYNDICATE SPORTS"
-        ],
-        "sanction_date": "18-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 87,
-      "risk_score_display": "87/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 87,
-      "amount_similarity": 66.7,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 59.2,
-        "amount_similarity_pct": 66.7,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.5922446483125611,
-        "title_similarity": 0.75,
-        "description_similarity": 0.7,
-        "fuzzy_text_similarity": 0.72,
-        "amount_similarity": 0.6666666666666667,
-        "amount_difference": 100000.0,
-        "amount_ratio": 0.6666666666666666,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 5,
-        "shared_location_tokens": [
-          "clubs",
-          "for",
-          "gear",
-          "providing",
-          "sports"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('clubs', 'for', 'gear')",
-        "Identical vendor involved ('Alpha Sports Centre')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('clubs', 'for', 'gear')",
-        "Identical vendor involved ('Alpha Sports Centre')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "missing_evidence": [
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_02511",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -318787,9 +318896,9 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 1000000.0,
         "vendors": [
-          "Ms Mohnio Enterprises",
+          "SEIJAL ENTERPRISES",
           "Yeshi Choden Sunickjee",
-          "SEIJAL ENTERPRISES"
+          "Ms Mohnio Enterprises"
         ],
         "sanction_date": "23-Oct-2025",
         "status": "Physical Inspection"
@@ -318805,9 +318914,9 @@
         "sanction_amount": 1500000.0,
         "expenditure_amount": 1500000.0,
         "vendors": [
-          "Ms Mohnio Enterprises",
+          "SEIJAL ENTERPRISES",
           "Yeshi Choden Sunickjee",
-          "SEIJAL ENTERPRISES"
+          "Ms Mohnio Enterprises"
         ],
         "sanction_date": "23-Oct-2025",
         "status": "Physical Inspection"
@@ -318866,12 +318975,12 @@
       },
       "triggered_evidence": [
         "Matching location tokens found ('bichom', 'khentseling', 'nafra')",
-        "Identical vendor involved ('Ms Mohnio Enterprises, Yeshi Choden Sunickjee, SEIJAL ENTERPRISES')",
+        "Identical vendor involved ('SEIJAL ENTERPRISES, Yeshi Choden Sunickjee, Ms Mohnio Enterprises')",
         "Sanctioned within same constituency ('ARUNACHAL WEST')"
       ],
       "evidence": [
         "Matching location tokens found ('bichom', 'khentseling', 'nafra')",
-        "Identical vendor involved ('Ms Mohnio Enterprises, Yeshi Choden Sunickjee, SEIJAL ENTERPRISES')",
+        "Identical vendor involved ('SEIJAL ENTERPRISES, Yeshi Choden Sunickjee, Ms Mohnio Enterprises')",
         "Sanctioned within same constituency ('ARUNACHAL WEST')"
       ],
       "missing_evidence": [
@@ -326756,6 +326865,122 @@
         "Matching location tokens found ('aapurti', 'adhishthapan', 'boring')",
         "Identical or near-identical sanction amount (\u20b9448,900.00 vs \u20b9450,000.00)",
         "Sanctioned within same constituency ('PURVI CHAMPARAN')"
+      ],
+      "missing_evidence": [
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_00905",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP541/2024-2025/170071",
+      "matched_work_id": "WS/MP541/2024-2025/172352",
+      "work_a": {
+        "entity_id": "ENT_018542",
+        "work_id": "WS/MP541/2024-2025/170071",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of  Toilet block with running water facility at Moirabari Girls Secondary school. GP Moirabari, Laharighat",
+        "sanction_amount": 500000.0,
+        "expenditure_amount": 494996.0,
+        "vendors": [
+          "Ashraful Islam",
+          "Arnaz Hardware"
+        ],
+        "sanction_date": "24-Mar-2025",
+        "status": "Work partially Completed"
+      },
+      "work_b": {
+        "entity_id": "ENT_019621",
+        "work_id": "WS/MP541/2024-2025/172352",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of Toilet block with running water facility at HAM Girls Secondary school. GP Moirabari, Laharighat",
+        "sanction_amount": 500000.0,
+        "expenditure_amount": 494996.0,
+        "vendors": [
+          "Mustafa Mustaqul Islam",
+          "Arnaz Hardware"
+        ],
+        "sanction_date": "24-Mar-2025",
+        "status": "Work partially Completed"
+      },
+      "risk_score": 86,
+      "risk_score_display": "86/100",
+      "risk_tier": "HIGH RISK \u2014 REQUIRES AUDIT REVIEW",
+      "similarity_score": 86,
+      "amount_similarity": 100.0,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": true,
+      "convergence_count": 4,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 80.0,
+        "amount_similarity_pct": 100.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.8001889506490517,
+        "title_similarity": 0.7142857142857143,
+        "description_similarity": 0.9375,
+        "fuzzy_text_similarity": 0.8482142857142858,
+        "amount_similarity": 1.0,
+        "amount_difference": 0.0,
+        "amount_ratio": 1.0,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 8,
+        "shared_location_tokens": [
+          "facility",
+          "girls",
+          "laharighat",
+          "moirabari",
+          "running",
+          "secondary",
+          "toilet",
+          "with"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": true,
+        "convergence_count": 4
+      },
+      "triggered_evidence": [
+        "High semantic text similarity (80.0%)",
+        "Matching location tokens found ('facility', 'girls', 'laharighat')",
+        "Identical or near-identical sanction amount (\u20b9500,000.00 vs \u20b9500,000.00)",
+        "Sanctioned within same constituency ('NOWGONG')"
+      ],
+      "evidence": [
+        "High semantic text similarity (80.0%)",
+        "Matching location tokens found ('facility', 'girls', 'laharighat')",
+        "Identical or near-identical sanction amount (\u20b9500,000.00 vs \u20b9500,000.00)",
+        "Sanctioned within same constituency ('NOWGONG')"
       ],
       "missing_evidence": [
         "Different vendors recorded across works",
@@ -369116,116 +369341,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04982",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18379/2025-2026/194644",
-      "matched_work_id": "WS/MP18379/2025-2026/194645",
-      "work_a": {
-        "entity_id": "ENT_031317",
-        "work_id": "WS/MP18379/2025-2026/194644",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of Sports gear for Sports clubs of Gulmarg AC",
-        "sanction_amount": 200000.0,
-        "expenditure_amount": 191620.0,
-        "vendors": [
-          "Alpha Sports Centre",
-          "NEW SYNDICATE SPORTS"
-        ],
-        "sanction_date": "18-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_031318",
-        "work_id": "WS/MP18379/2025-2026/194645",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of Sports gear for Sports clubs of Baramulla AC",
-        "sanction_amount": 200000.0,
-        "expenditure_amount": 197670.0,
-        "vendors": [
-          "NEW SYNDICATE SPORTS"
-        ],
-        "sanction_date": "18-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 81,
-      "risk_score_display": "81/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 81,
-      "amount_similarity": 100.0,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 66.4,
-        "amount_similarity_pct": 100.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.6638018704652455,
-        "title_similarity": 0.75,
-        "description_similarity": 0.7777777777777778,
-        "fuzzy_text_similarity": 0.7666666666666667,
-        "amount_similarity": 1.0,
-        "amount_difference": 0.0,
-        "amount_ratio": 1.0,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 5,
-        "shared_location_tokens": [
-          "clubs",
-          "for",
-          "gear",
-          "providing",
-          "sports"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('clubs', 'for', 'gear')",
-        "Identical or near-identical sanction amount (\u20b9200,000.00 vs \u20b9200,000.00)",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('clubs', 'for', 'gear')",
-        "Identical or near-identical sanction amount (\u20b9200,000.00 vs \u20b9200,000.00)",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "missing_evidence": [
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_00134",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -370984,8 +371099,8 @@
         "sanction_amount": 500000.0,
         "expenditure_amount": 499329.0,
         "vendors": [
-          "Sujit Gupta",
-          "Sarmindar Terang"
+          "Sarmindar Terang",
+          "Sujit Gupta"
         ],
         "sanction_date": "25-Oct-2024",
         "status": "Physical Inspection"
@@ -371001,8 +371116,8 @@
         "sanction_amount": 500000.0,
         "expenditure_amount": 499329.0,
         "vendors": [
-          "Sujit Gupta",
-          "Sarmindar Terang"
+          "Sarmindar Terang",
+          "Sujit Gupta"
         ],
         "sanction_date": "25-Oct-2024",
         "status": "Physical Inspection"
@@ -371059,13 +371174,13 @@
       "triggered_evidence": [
         "Matching location tokens found ('fishery')",
         "Identical or near-identical sanction amount (\u20b9500,000.00 vs \u20b9500,000.00)",
-        "Identical vendor involved ('Sujit Gupta, Sarmindar Terang')",
+        "Identical vendor involved ('Sarmindar Terang, Sujit Gupta')",
         "Sanctioned within same constituency ('Diphu (ST)')"
       ],
       "evidence": [
         "Matching location tokens found ('fishery')",
         "Identical or near-identical sanction amount (\u20b9500,000.00 vs \u20b9500,000.00)",
-        "Identical vendor involved ('Sujit Gupta, Sarmindar Terang')",
+        "Identical vendor involved ('Sarmindar Terang, Sujit Gupta')",
         "Sanctioned within same constituency ('Diphu (ST)')"
       ],
       "missing_evidence": [
@@ -373049,8 +373164,8 @@
         "sanction_amount": 200000.0,
         "expenditure_amount": 191620.0,
         "vendors": [
-          "Alpha Sports Centre",
-          "NEW SYNDICATE SPORTS"
+          "NEW SYNDICATE SPORTS",
+          "Alpha Sports Centre"
         ],
         "sanction_date": "18-Dec-2025",
         "status": "Physical Inspection"
@@ -375378,6 +375493,116 @@
       "missing_evidence": [
         "Low semantic description overlap (34.3%)",
         "Expenditure vendor records missing or partial",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04608",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18064/2024-2025/154954",
+      "matched_work_id": "WS/MP18064/2024-2025/154955",
+      "work_a": {
+        "entity_id": "ENT_010587",
+        "work_id": "WS/MP18064/2024-2025/154954",
+        "state": "Haryana",
+        "constituency": "KURUKSHETRA",
+        "mp": "NAVEEN JINDAL",
+        "category": "Normal/Others",
+        "description": "Construction of street from Main street to h/o Guljar Singh s/o Ram Sarup",
+        "sanction_amount": 96944.0,
+        "expenditure_amount": 96944.0,
+        "vendors": [
+          "SHIV KUMAR CONTRACTOR",
+          "KUBER CONCRETE SOLUTIONS"
+        ],
+        "sanction_date": "03-Jan-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_010588",
+        "work_id": "WS/MP18064/2024-2025/154955",
+        "state": "Haryana",
+        "constituency": "KURUKSHETRA",
+        "mp": "NAVEEN JINDAL",
+        "category": "Normal/Others",
+        "description": "Construction of street from main street to h/o Jaipal Singh s/o Atma Ram",
+        "sanction_amount": 79228.0,
+        "expenditure_amount": 79228.0,
+        "vendors": [
+          "SHIV KUMAR CONTRACTOR",
+          "Jai Shree Ram Enterprises",
+          "KUBER CONCRETE SOLUTIONS"
+        ],
+        "sanction_date": "03-Jan-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 80,
+      "risk_score_display": "80/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 80,
+      "amount_similarity": 81.7,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 32.7,
+        "amount_similarity_pct": 81.7,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.32736683792840127,
+        "title_similarity": 0.8571428571428571,
+        "description_similarity": 0.7142857142857143,
+        "fuzzy_text_similarity": 0.7714285714285714,
+        "amount_similarity": 0.817255322660505,
+        "amount_difference": 17716.0,
+        "amount_ratio": 0.817255322660505,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 3,
+        "shared_location_tokens": [
+          "main",
+          "ram",
+          "singh"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('main', 'ram', 'singh')",
+        "Identical vendor involved ('SHIV KUMAR CONTRACTOR, KUBER CONCRETE SOLUTIONS')",
+        "Sanctioned within same constituency ('KURUKSHETRA')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('main', 'ram', 'singh')",
+        "Identical vendor involved ('SHIV KUMAR CONTRACTOR, KUBER CONCRETE SOLUTIONS')",
+        "Sanctioned within same constituency ('KURUKSHETRA')"
+      ],
+      "missing_evidence": [
+        "Low semantic description overlap (32.7%)",
         "No image comparison available (Image field contains placeholder strings)"
       ],
       "dampeners_applied": [],
@@ -386449,6 +386674,117 @@
       "missing_evidence": [
         "Low semantic description overlap (37.2%)",
         "Expenditure vendor records missing or partial",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04401",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18066/2026-2027/285627",
+      "matched_work_id": "WS/MP18066/2026-2027/285645",
+      "work_a": {
+        "entity_id": "ENT_076273",
+        "work_id": "WS/MP18066/2026-2027/285627",
+        "state": "Haryana",
+        "constituency": "SIRSA(SC)",
+        "mp": "SELJA",
+        "category": "Normal/Others",
+        "description": "Construction of IPB flooring under shed at Govt School in Village Nathwan",
+        "sanction_amount": 358000.0,
+        "expenditure_amount": 358000.0,
+        "vendors": [
+          "LILU RAM",
+          "DPC SSA FATEHABAD",
+          "PREET STEEL WORKS",
+          "VIJAY PAL"
+        ],
+        "sanction_date": "10-Aug-2026",
+        "status": "Vendor Identification"
+      },
+      "work_b": {
+        "entity_id": "ENT_076275",
+        "work_id": "WS/MP18066/2026-2027/285645",
+        "state": "Haryana",
+        "constituency": "SIRSA(SC)",
+        "mp": "SELJA",
+        "category": "Normal/Others",
+        "description": "Construction of Shed at Govt School in Village Hamjapur",
+        "sanction_amount": 500000.0,
+        "expenditure_amount": 499164.0,
+        "vendors": [
+          "LILU RAM",
+          "PREET STEEL WORKS",
+          "DPC SSA FATEHABAD"
+        ],
+        "sanction_date": "10-Aug-2026",
+        "status": "Vendor Identification"
+      },
+      "risk_score": 78,
+      "risk_score_display": "78/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 78,
+      "amount_similarity": 71.6,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 33.9,
+        "amount_similarity_pct": 71.6,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.33936180786667464,
+        "title_similarity": 0.7777777777777778,
+        "description_similarity": 0.6153846153846154,
+        "fuzzy_text_similarity": 0.6803418803418804,
+        "amount_similarity": 0.716,
+        "amount_difference": 142000.0,
+        "amount_ratio": 0.716,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 2,
+        "shared_location_tokens": [
+          "govt",
+          "shed"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('govt', 'shed')",
+        "Identical vendor involved ('LILU RAM, DPC SSA FATEHABAD, PREET STEEL WORKS, VIJAY PAL')",
+        "Sanctioned within same constituency ('SIRSA(SC)')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('govt', 'shed')",
+        "Identical vendor involved ('LILU RAM, DPC SSA FATEHABAD, PREET STEEL WORKS, VIJAY PAL')",
+        "Sanctioned within same constituency ('SIRSA(SC)')"
+      ],
+      "missing_evidence": [
+        "Low semantic description overlap (33.9%)",
         "No image comparison available (Image field contains placeholder strings)"
       ],
       "dampeners_applied": [],
@@ -419984,6 +420320,116 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_00909",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP541/2025-2026/161362",
+      "matched_work_id": "WS/MP541/2025-2026/224372",
+      "work_a": {
+        "entity_id": "ENT_014135",
+        "work_id": "WS/MP541/2025-2026/161362",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of Community hall with a fitness centre for  Bogalipara Hirajyoti AAS Goot, Bogalipara Chetuakhaity, Laharighat",
+        "sanction_amount": 700000.0,
+        "expenditure_amount": 559875.0,
+        "vendors": [
+          "SHAIWON ENTERPRISE",
+          "Rajul Ahmed"
+        ],
+        "sanction_date": "14-Nov-2025",
+        "status": "Work partially Completed"
+      },
+      "work_b": {
+        "entity_id": "ENT_047426",
+        "work_id": "WS/MP541/2025-2026/224372",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of boundary wall and toilet block at Bogalipara community hall and fitness centre, Bogalipara, Laharighat",
+        "sanction_amount": 1000000.0,
+        "expenditure_amount": 798919.0,
+        "vendors": [
+          "SHAIWON ENTERPRISE",
+          "Rajul Ahmed",
+          "Abduk Rajak"
+        ],
+        "sanction_date": "22-Dec-2025",
+        "status": "Work partially Completed"
+      },
+      "risk_score": 73,
+      "risk_score_display": "73/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 73,
+      "amount_similarity": 70.0,
+      "location_similarity": 100.0,
+      "date_similarity": 65.6,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 48.8,
+        "amount_similarity_pct": 70.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.4881220460902409,
+        "title_similarity": 0.25,
+        "description_similarity": 0.38095238095238093,
+        "fuzzy_text_similarity": 0.3285714285714285,
+        "amount_similarity": 0.7,
+        "amount_difference": 300000.0,
+        "amount_ratio": 0.7,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.6555883369077856,
+        "date_difference_days": 38,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 4,
+        "shared_location_tokens": [
+          "bogalipara",
+          "centre",
+          "fitness",
+          "laharighat"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('bogalipara', 'centre', 'fitness')",
+        "Identical vendor involved ('SHAIWON ENTERPRISE, Rajul Ahmed')",
+        "Sanctioned within same constituency ('NOWGONG')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('bogalipara', 'centre', 'fitness')",
+        "Identical vendor involved ('SHAIWON ENTERPRISE, Rajul Ahmed')",
+        "Sanctioned within same constituency ('NOWGONG')"
+      ],
+      "missing_evidence": [
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_03605",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -420127,8 +420573,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 299697.0,
         "vendors": [
-          "Baharul Islam",
-          "Abul Hussain"
+          "Abul Hussain",
+          "Baharul Islam"
         ],
         "sanction_date": "30-Dec-2025",
         "status": "Vendor Identification"
@@ -420194,114 +420640,6 @@
         "Matching location tokens found ('erosion', 'jaljali', 'river')",
         "Identical or near-identical sanction amount (\u20b9300,000.00 vs \u20b9300,000.00)",
         "Sanctioned within same constituency ('DHUBRI')"
-      ],
-      "missing_evidence": [
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_00910",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP541/2026-2027/267658",
-      "matched_work_id": "WS/MP541/2026-2027/267663",
-      "work_a": {
-        "entity_id": "ENT_069015",
-        "work_id": "WS/MP541/2026-2027/267658",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of a toilet block at Dhopguri H.S. School, Laharighat",
-        "sanction_amount": 400000.0,
-        "expenditure_amount": 319930.0,
-        "vendors": [
-          "Rajul Ahmed",
-          "SHAIWON ENTERPRISE"
-        ],
-        "sanction_date": "15-Jun-2026",
-        "status": "Vendor Identification"
-      },
-      "work_b": {
-        "entity_id": "ENT_069018",
-        "work_id": "WS/MP541/2026-2027/267663",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of toilet block at Tinisukia Secondary School, Laharighat",
-        "sanction_amount": 400000.0,
-        "expenditure_amount": 319930.0,
-        "vendors": [
-          "Rabbul Hussain",
-          "SHAIWON ENTERPRISE"
-        ],
-        "sanction_date": "20-Jun-2026",
-        "status": "Vendor Identification"
-      },
-      "risk_score": 73,
-      "risk_score_display": "73/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 73,
-      "amount_similarity": 100.0,
-      "location_similarity": 100.0,
-      "date_similarity": 94.6,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 47.0,
-        "amount_similarity_pct": 100.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.47044731553340796,
-        "title_similarity": 0.6,
-        "description_similarity": 0.5384615384615384,
-        "fuzzy_text_similarity": 0.563076923076923,
-        "amount_similarity": 1.0,
-        "amount_difference": 0.0,
-        "amount_ratio": 1.0,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.9459594689067654,
-        "date_difference_days": 5,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 2,
-        "shared_location_tokens": [
-          "laharighat",
-          "toilet"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('laharighat', 'toilet')",
-        "Identical or near-identical sanction amount (\u20b9400,000.00 vs \u20b9400,000.00)",
-        "Sanctioned within same constituency ('NOWGONG')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('laharighat', 'toilet')",
-        "Identical or near-identical sanction amount (\u20b9400,000.00 vs \u20b9400,000.00)",
-        "Sanctioned within same constituency ('NOWGONG')"
       ],
       "missing_evidence": [
         "Different vendors recorded across works",
@@ -429214,8 +429552,8 @@
         "sanction_amount": 400000.0,
         "expenditure_amount": 400000.0,
         "vendors": [
-          "Yahia Alam",
-          "GLOBAL TRADES"
+          "GLOBAL TRADES",
+          "Yahia Alam"
         ],
         "sanction_date": "29-Nov-2025",
         "status": "Physical Inspection"
@@ -429730,6 +430068,116 @@
         "Matching location tokens found ('ambulances', 'city', 'four')",
         "Identical or near-identical sanction amount (\u20b92,000,000.00 vs \u20b92,000,000.00)",
         "Sanctioned within same constituency ('PORBANDAR')"
+      ],
+      "missing_evidence": [
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04969",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18379/2025-2026/208949",
+      "matched_work_id": "WS/MP18379/2025-2026/208951",
+      "work_a": {
+        "entity_id": "ENT_039442",
+        "work_id": "WS/MP18379/2025-2026/208949",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of sports gears for sports teams of Bandipora Assembly Constituency.",
+        "sanction_amount": 300000.0,
+        "expenditure_amount": 300000.0,
+        "vendors": [
+          "KOHINOOR TRADERS"
+        ],
+        "sanction_date": "08-Aug-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_039444",
+        "work_id": "WS/MP18379/2025-2026/208951",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing sports gears for sports teams of Sonawari Assembly Constituency.",
+        "sanction_amount": 250000.0,
+        "expenditure_amount": 246025.0,
+        "vendors": [
+          "SYED GH RABBANI",
+          "KOHINOOR TRADERS"
+        ],
+        "sanction_date": "08-Aug-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 71,
+      "risk_score_display": "71/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 71,
+      "amount_similarity": 83.3,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 68.9,
+        "amount_similarity_pct": 83.3,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.6892640071386378,
+        "title_similarity": 0.75,
+        "description_similarity": 0.8,
+        "fuzzy_text_similarity": 0.78,
+        "amount_similarity": 0.8333333333333334,
+        "amount_difference": 50000.0,
+        "amount_ratio": 0.8333333333333334,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 7,
+        "shared_location_tokens": [
+          "assembly",
+          "constituency",
+          "for",
+          "gears",
+          "providing",
+          "sports",
+          "teams"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('assembly', 'constituency', 'for')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('assembly', 'constituency', 'for')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
       ],
       "missing_evidence": [
         "Different vendors recorded across works",
@@ -432650,9 +433098,9 @@
         "sanction_amount": 499902.0,
         "expenditure_amount": 499669.0,
         "vendors": [
-          "THE KHARAL SHRI RAM CO OP LC SOCIETY",
           "THASKA GRAM UDYOG SAMITI",
-          "VINOD KUMAR GOVT CONTRACTOR"
+          "VINOD KUMAR GOVT CONTRACTOR",
+          "THE KHARAL SHRI RAM CO OP LC SOCIETY"
         ],
         "sanction_date": "03-Apr-2026",
         "status": "Vendor Identification"
@@ -434566,116 +435014,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04971",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18379/2025-2026/208950",
-      "matched_work_id": "WS/MP18379/2025-2026/208951",
-      "work_a": {
-        "entity_id": "ENT_039443",
-        "work_id": "WS/MP18379/2025-2026/208950",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of sports gears for sports teams of Gurez Assembly Constituency.",
-        "sanction_amount": 200000.0,
-        "expenditure_amount": 200000.0,
-        "vendors": [
-          "SYED GH RABBANI"
-        ],
-        "sanction_date": "08-Aug-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_039444",
-        "work_id": "WS/MP18379/2025-2026/208951",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing sports gears for sports teams of Sonawari Assembly Constituency.",
-        "sanction_amount": 250000.0,
-        "expenditure_amount": 246025.0,
-        "vendors": [
-          "KOHINOOR TRADERS",
-          "SYED GH RABBANI"
-        ],
-        "sanction_date": "08-Aug-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 70,
-      "risk_score_display": "70/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 70,
-      "amount_similarity": 80.0,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 68.0,
-        "amount_similarity_pct": 80.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.6796850665615455,
-        "title_similarity": 0.75,
-        "description_similarity": 0.8,
-        "fuzzy_text_similarity": 0.78,
-        "amount_similarity": 0.8,
-        "amount_difference": 50000.0,
-        "amount_ratio": 0.8,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 7,
-        "shared_location_tokens": [
-          "assembly",
-          "constituency",
-          "for",
-          "gears",
-          "providing",
-          "sports",
-          "teams"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('assembly', 'constituency', 'for')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('assembly', 'constituency', 'for')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "missing_evidence": [
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_04285",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -434773,113 +435111,6 @@
       ],
       "missing_evidence": [
         "Expenditure vendor records missing or partial",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_04687",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18065/2025-2026/251497",
-      "matched_work_id": "WS/MP18065/2025-2026/253432",
-      "work_a": {
-        "entity_id": "ENT_061213",
-        "work_id": "WS/MP18065/2025-2026/251497",
-        "state": "Haryana",
-        "constituency": "ROHTAK",
-        "mp": "DEEPENDER SINGH HOODA",
-        "category": "Normal/Others",
-        "description": "Const. of Bwall of Hall",
-        "sanction_amount": 499685.0,
-        "expenditure_amount": 499685.0,
-        "vendors": [
-          "JOGINDER GOVT CONTRACTOR"
-        ],
-        "sanction_date": "11-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_062315",
-        "work_id": "WS/MP18065/2025-2026/253432",
-        "state": "Haryana",
-        "constituency": "ROHTAK",
-        "mp": "DEEPENDER SINGH HOODA",
-        "category": "Normal/Others",
-        "description": "Const. of Bwall of Hall Dadi Sati",
-        "sanction_amount": 500000.0,
-        "expenditure_amount": 499354.0,
-        "vendors": [
-          "RAVI KANT",
-          "JOGINDER GOVT CONTRACTOR"
-        ],
-        "sanction_date": "16-Jan-2026",
-        "status": "Work Completed"
-      },
-      "risk_score": 70,
-      "risk_score_display": "70/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 70,
-      "amount_similarity": 99.9,
-      "location_similarity": 100.0,
-      "date_similarity": 67.0,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 66.5,
-        "amount_similarity_pct": 99.9,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.6647705455843952,
-        "title_similarity": 0.8,
-        "description_similarity": 0.6666666666666666,
-        "fuzzy_text_similarity": 0.72,
-        "amount_similarity": 0.99937,
-        "amount_difference": 315.0,
-        "amount_ratio": 0.99937,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.6703200460356393,
-        "date_difference_days": 36,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 2,
-        "shared_location_tokens": [
-          "bwall",
-          "const"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('bwall', 'const')",
-        "Identical or near-identical sanction amount (\u20b9499,685.00 vs \u20b9500,000.00)",
-        "Sanctioned within same constituency ('ROHTAK')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('bwall', 'const')",
-        "Identical or near-identical sanction amount (\u20b9499,685.00 vs \u20b9500,000.00)",
-        "Sanctioned within same constituency ('ROHTAK')"
-      ],
-      "missing_evidence": [
-        "Different vendors recorded across works",
         "No image comparison available (Image field contains placeholder strings)"
       ],
       "dampeners_applied": [],
@@ -450518,121 +450749,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04684",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18065/2025-2026/239256",
-      "matched_work_id": "WS/MP18065/2025-2026/242109",
-      "work_a": {
-        "entity_id": "ENT_055414",
-        "work_id": "WS/MP18065/2025-2026/239256",
-        "state": "Haryana",
-        "constituency": "ROHTAK",
-        "mp": "DEEPENDER SINGH HOODA",
-        "category": "Normal/Others",
-        "description": "Const of Rwall Lod wala Johad, Baba Jagram Dass near Shiv Mandir",
-        "sanction_amount": 700000.0,
-        "expenditure_amount": 697440.0,
-        "vendors": [
-          "DEEPIKA",
-          "The Nominath Ji Co Op L and C Society"
-        ],
-        "sanction_date": "27-Nov-2025",
-        "status": "Work Completed"
-      },
-      "work_b": {
-        "entity_id": "ENT_056894",
-        "work_id": "WS/MP18065/2025-2026/242109",
-        "state": "Haryana",
-        "constituency": "ROHTAK",
-        "mp": "DEEPENDER SINGH HOODA",
-        "category": "Normal/Others",
-        "description": "Comp. of Rwall of Lod wala Johad, Baba Jagram Dass near Shiv Mandir",
-        "sanction_amount": 400000.0,
-        "expenditure_amount": 399954.0,
-        "vendors": [
-          "The Nominath Ji Co Op L and C Society"
-        ],
-        "sanction_date": "18-Feb-2026",
-        "status": "Work Completed"
-      },
-      "risk_score": 67,
-      "risk_score_display": "67/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 67,
-      "amount_similarity": 57.1,
-      "location_similarity": 100.0,
-      "date_similarity": 39.8,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": true,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 89.6,
-        "amount_similarity_pct": 57.1,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.8964441652267581,
-        "title_similarity": 0.8,
-        "description_similarity": 0.8461538461538461,
-        "fuzzy_text_similarity": 0.8276923076923077,
-        "amount_similarity": 0.5714285714285714,
-        "amount_difference": 300000.0,
-        "amount_ratio": 0.5714285714285714,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.39763442648458736,
-        "date_difference_days": 83,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 9,
-        "shared_location_tokens": [
-          "baba",
-          "dass",
-          "jagram",
-          "johad",
-          "lod",
-          "mandir",
-          "rwall",
-          "shiv",
-          "wala"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": true,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "High semantic text similarity (89.6%)",
-        "Matching location tokens found ('baba', 'dass', 'jagram')",
-        "Sanctioned within same constituency ('ROHTAK')"
-      ],
-      "evidence": [
-        "High semantic text similarity (89.6%)",
-        "Matching location tokens found ('baba', 'dass', 'jagram')",
-        "Sanctioned within same constituency ('ROHTAK')"
-      ],
-      "missing_evidence": [
-        "Substantially different sanction amounts (\u20b9700,000.00 vs \u20b9400,000.00)",
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_04970",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -455098,6 +455214,114 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_04989",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18379/2025-2026/194643",
+      "matched_work_id": "WS/MP18379/2025-2026/194644",
+      "work_a": {
+        "entity_id": "ENT_031316",
+        "work_id": "WS/MP18379/2025-2026/194643",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of Sports gear for Sports clubs of Uri AC",
+        "sanction_amount": 300000.0,
+        "expenditure_amount": 299470.0,
+        "vendors": [
+          "Alpha Sports Centre"
+        ],
+        "sanction_date": "18-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_031317",
+        "work_id": "WS/MP18379/2025-2026/194644",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of Sports gear for Sports clubs of Gulmarg AC",
+        "sanction_amount": 200000.0,
+        "expenditure_amount": 191620.0,
+        "vendors": [
+          "NEW SYNDICATE SPORTS",
+          "Alpha Sports Centre"
+        ],
+        "sanction_date": "18-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 66,
+      "risk_score_display": "66/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 66,
+      "amount_similarity": 66.7,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 65.1,
+        "amount_similarity_pct": 66.7,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.6506849439812417,
+        "title_similarity": 0.75,
+        "description_similarity": 0.7777777777777778,
+        "fuzzy_text_similarity": 0.7666666666666667,
+        "amount_similarity": 0.6666666666666667,
+        "amount_difference": 100000.0,
+        "amount_ratio": 0.6666666666666666,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 5,
+        "shared_location_tokens": [
+          "clubs",
+          "for",
+          "gear",
+          "providing",
+          "sports"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('clubs', 'for', 'gear')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('clubs', 'for', 'gear')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "missing_evidence": [
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_04991",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -455131,8 +455355,8 @@
         "sanction_amount": 200000.0,
         "expenditure_amount": 191620.0,
         "vendors": [
-          "Alpha Sports Centre",
-          "NEW SYNDICATE SPORTS"
+          "NEW SYNDICATE SPORTS",
+          "Alpha Sports Centre"
         ],
         "sanction_date": "18-Dec-2025",
         "status": "Physical Inspection"
@@ -458629,6 +458853,115 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_04603",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18064/2025-2026/203141",
+      "matched_work_id": "WS/MP18064/2025-2026/226026",
+      "work_a": {
+        "entity_id": "ENT_036147",
+        "work_id": "WS/MP18064/2025-2026/203141",
+        "state": "Haryana",
+        "constituency": "KURUKSHETRA",
+        "mp": "NAVEEN JINDAL",
+        "category": "Normal/Others",
+        "description": "Construction of shed on first floor of Agarwal  Dharmshala and Floor Tiles",
+        "sanction_amount": 1100000.0,
+        "expenditure_amount": 807096.0,
+        "vendors": [
+          "The S and R Group Cooperative Labour And Construction Society Limited Kaithal",
+          "RAJINDER KUMAR CONTRACTOR"
+        ],
+        "sanction_date": "24-Dec-2025",
+        "status": "Work partially Completed"
+      },
+      "work_b": {
+        "entity_id": "ENT_048400",
+        "work_id": "WS/MP18064/2025-2026/226026",
+        "state": "Haryana",
+        "constituency": "KURUKSHETRA",
+        "mp": "NAVEEN JINDAL",
+        "category": "Trust and Society",
+        "description": "Construction of Shed and floor for cycle in school",
+        "sanction_amount": 176351.0,
+        "expenditure_amount": 176351.0,
+        "vendors": [
+          "The S and R Group Cooperative Labour And Construction Society Limited Kaithal"
+        ],
+        "sanction_date": "24-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 66,
+      "risk_score_display": "66/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 66,
+      "amount_similarity": 16.0,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 34.7,
+        "amount_similarity_pct": 16.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.34744217312651854,
+        "title_similarity": 0.07692307692307693,
+        "description_similarity": 0.35714285714285715,
+        "fuzzy_text_similarity": 0.24505494505494504,
+        "amount_similarity": 0.1603190909090909,
+        "amount_difference": 923649.0,
+        "amount_ratio": 0.1603190909090909,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 0.5,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 3,
+        "shared_location_tokens": [
+          "and",
+          "floor",
+          "shed"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('and', 'floor', 'shed')",
+        "Identical vendor involved ('The S and R Group Cooperative Labour And Construction Society Limited Kaithal, RAJINDER KUMAR CONTRACTOR')",
+        "Sanctioned within same constituency ('KURUKSHETRA')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('and', 'floor', 'shed')",
+        "Identical vendor involved ('The S and R Group Cooperative Labour And Construction Society Limited Kaithal, RAJINDER KUMAR CONTRACTOR')",
+        "Sanctioned within same constituency ('KURUKSHETRA')"
+      ],
+      "missing_evidence": [
+        "Low semantic description overlap (34.7%)",
+        "Substantially different sanction amounts (\u20b91,100,000.00 vs \u20b9176,351.00)",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_01680",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -458738,228 +459071,6 @@
       ],
       "missing_evidence": [
         "Low semantic description overlap (34.0%)",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_00919",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP541/2024-2025/172352",
-      "matched_work_id": "WS/MP541/2025-2026/246510",
-      "work_a": {
-        "entity_id": "ENT_019621",
-        "work_id": "WS/MP541/2024-2025/172352",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of Toilet block with running water facility at HAM Girls Secondary school. GP Moirabari, Laharighat",
-        "sanction_amount": 500000.0,
-        "expenditure_amount": 494996.0,
-        "vendors": [
-          "Arnaz Hardware",
-          "Mustafa Mustaqul Islam"
-        ],
-        "sanction_date": "24-Mar-2025",
-        "status": "Work partially Completed"
-      },
-      "work_b": {
-        "entity_id": "ENT_059058",
-        "work_id": "WS/MP541/2025-2026/246510",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of toilet block with running water facilities at Saharia gaon Adarsha Secondary School, Lengribori, Laharighat",
-        "sanction_amount": 480000.0,
-        "expenditure_amount": 383760.0,
-        "vendors": [
-          "Arnaz Hardware",
-          "SHAJAHAN ALI"
-        ],
-        "sanction_date": "27-Feb-2026",
-        "status": "Work partially Completed"
-      },
-      "risk_score": 66,
-      "risk_score_display": "66/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 66,
-      "amount_similarity": 96.0,
-      "location_similarity": 100.0,
-      "date_similarity": 2.3,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 33.6,
-        "amount_similarity_pct": 96.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.33607974494433257,
-        "title_similarity": 0.7142857142857143,
-        "description_similarity": 0.5238095238095238,
-        "fuzzy_text_similarity": 0.6000000000000001,
-        "amount_similarity": 0.96,
-        "amount_difference": 20000.0,
-        "amount_ratio": 0.96,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.02287346491123891,
-        "date_difference_days": 340,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 5,
-        "shared_location_tokens": [
-          "laharighat",
-          "running",
-          "secondary",
-          "toilet",
-          "with"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('laharighat', 'running', 'secondary')",
-        "Identical vendor involved ('Arnaz Hardware, Mustafa Mustaqul Islam')",
-        "Sanctioned within same constituency ('NOWGONG')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('laharighat', 'running', 'secondary')",
-        "Identical vendor involved ('Arnaz Hardware, Mustafa Mustaqul Islam')",
-        "Sanctioned within same constituency ('NOWGONG')"
-      ],
-      "missing_evidence": [
-        "Low semantic description overlap (33.6%)",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_00920",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP541/2024-2025/170071",
-      "matched_work_id": "WS/MP541/2025-2026/246510",
-      "work_a": {
-        "entity_id": "ENT_018542",
-        "work_id": "WS/MP541/2024-2025/170071",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of  Toilet block with running water facility at Moirabari Girls Secondary school. GP Moirabari, Laharighat",
-        "sanction_amount": 500000.0,
-        "expenditure_amount": 494996.0,
-        "vendors": [
-          "Arnaz Hardware",
-          "Ashraful Islam"
-        ],
-        "sanction_date": "24-Mar-2025",
-        "status": "Work partially Completed"
-      },
-      "work_b": {
-        "entity_id": "ENT_059058",
-        "work_id": "WS/MP541/2025-2026/246510",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of toilet block with running water facilities at Saharia gaon Adarsha Secondary School, Lengribori, Laharighat",
-        "sanction_amount": 480000.0,
-        "expenditure_amount": 383760.0,
-        "vendors": [
-          "Arnaz Hardware",
-          "SHAJAHAN ALI"
-        ],
-        "sanction_date": "27-Feb-2026",
-        "status": "Work partially Completed"
-      },
-      "risk_score": 66,
-      "risk_score_display": "66/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 66,
-      "amount_similarity": 96.0,
-      "location_similarity": 100.0,
-      "date_similarity": 2.3,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 33.0,
-        "amount_similarity_pct": 96.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.3300792808777578,
-        "title_similarity": 0.7142857142857143,
-        "description_similarity": 0.55,
-        "fuzzy_text_similarity": 0.6157142857142858,
-        "amount_similarity": 0.96,
-        "amount_difference": 20000.0,
-        "amount_ratio": 0.96,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.02287346491123891,
-        "date_difference_days": 340,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 5,
-        "shared_location_tokens": [
-          "laharighat",
-          "running",
-          "secondary",
-          "toilet",
-          "with"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('laharighat', 'running', 'secondary')",
-        "Identical vendor involved ('Arnaz Hardware, Ashraful Islam')",
-        "Sanctioned within same constituency ('NOWGONG')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('laharighat', 'running', 'secondary')",
-        "Identical vendor involved ('Arnaz Hardware, Ashraful Islam')",
-        "Sanctioned within same constituency ('NOWGONG')"
-      ],
-      "missing_evidence": [
-        "Low semantic description overlap (33.0%)",
         "No image comparison available (Image field contains placeholder strings)"
       ],
       "dampeners_applied": [],
@@ -467627,6 +467738,114 @@
       },
       "features": {
         "semantic_similarity": 0.598655422416423,
+        "title_similarity": 0.75,
+        "description_similarity": 0.7,
+        "fuzzy_text_similarity": 0.72,
+        "amount_similarity": 0.6666666666666667,
+        "amount_difference": 100000.0,
+        "amount_ratio": 0.6666666666666666,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 5,
+        "shared_location_tokens": [
+          "clubs",
+          "for",
+          "gear",
+          "providing",
+          "sports"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('clubs', 'for', 'gear')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('clubs', 'for', 'gear')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "missing_evidence": [
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04997",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18379/2025-2026/194642",
+      "matched_work_id": "WS/MP18379/2025-2026/194644",
+      "work_a": {
+        "entity_id": "ENT_031315",
+        "work_id": "WS/MP18379/2025-2026/194642",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of Sports gear for Sports clubs of Wagoora Kreeri AC",
+        "sanction_amount": 300000.0,
+        "expenditure_amount": 298374.0,
+        "vendors": [
+          "Alpha Sports Centre"
+        ],
+        "sanction_date": "18-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_031317",
+        "work_id": "WS/MP18379/2025-2026/194644",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of Sports gear for Sports clubs of Gulmarg AC",
+        "sanction_amount": 200000.0,
+        "expenditure_amount": 191620.0,
+        "vendors": [
+          "NEW SYNDICATE SPORTS",
+          "Alpha Sports Centre"
+        ],
+        "sanction_date": "18-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 64,
+      "risk_score_display": "64/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 64,
+      "amount_similarity": 66.7,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 59.2,
+        "amount_similarity_pct": 66.7,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.5922446483125611,
         "title_similarity": 0.75,
         "description_similarity": 0.7,
         "fuzzy_text_similarity": 0.72,
@@ -482294,8 +482513,8 @@
         "sanction_amount": 500000.0,
         "expenditure_amount": 500000.0,
         "vendors": [
-          "JYOTI NYIGANG",
           "TABOM MIZE",
+          "JYOTI NYIGANG",
           "ALOM NYIGANG"
         ],
         "sanction_date": "20-Jan-2026",
@@ -484023,8 +484242,8 @@
         "sanction_amount": 999648.0,
         "expenditure_amount": 984086.0,
         "vendors": [
-          "KAPIL DALAL",
-          "MS Sanjay Construction Kharak Bainsi Meham"
+          "MS Sanjay Construction Kharak Bainsi Meham",
+          "KAPIL DALAL"
         ],
         "sanction_date": "28-May-2025",
         "status": "Work partially Completed"
@@ -486689,10 +486908,10 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 999614.0,
         "vendors": [
-          "Evolve",
           "Variety Book Store",
-          "Variety Stationary Store",
           "FUTURE SYSTEM",
+          "Variety Stationary Store",
+          "Evolve",
           "M M Technologies"
         ],
         "sanction_date": "25-Feb-2026",
@@ -487970,8 +488189,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 299697.0,
         "vendors": [
-          "Baharul Islam",
-          "Abul Hussain"
+          "Abul Hussain",
+          "Baharul Islam"
         ],
         "sanction_date": "30-Dec-2025",
         "status": "Vendor Identification"
@@ -494176,8 +494395,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 240000.0,
         "vendors": [
-          "Abduk Rajak",
-          "SHAIWON ENTERPRISE"
+          "SHAIWON ENTERPRISE",
+          "Abduk Rajak"
         ],
         "sanction_date": "16-Dec-2025",
         "status": "Work partially Completed"
@@ -494193,8 +494412,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 300000.0,
         "vendors": [
-          "Ashiqur Rahman",
-          "MOHD IKRAMUL HUSSAIN"
+          "MOHD IKRAMUL HUSSAIN",
+          "Ashiqur Rahman"
         ],
         "sanction_date": "19-Feb-2026",
         "status": "Physical Inspection"
@@ -495382,8 +495601,8 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 1000000.0,
         "vendors": [
-          "AMUM MOYONG",
-          "Ms Siang Youth Enterprises"
+          "Ms Siang Youth Enterprises",
+          "AMUM MOYONG"
         ],
         "sanction_date": "14-Nov-2025",
         "status": "Work Completed"
@@ -496633,115 +496852,6 @@
       "evidence": [
         "Matching location tokens found ('iron', 'shed', 'tin')",
         "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "missing_evidence": [
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_00909",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP541/2025-2026/161362",
-      "matched_work_id": "WS/MP541/2025-2026/224372",
-      "work_a": {
-        "entity_id": "ENT_014135",
-        "work_id": "WS/MP541/2025-2026/161362",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of Community hall with a fitness centre for  Bogalipara Hirajyoti AAS Goot, Bogalipara Chetuakhaity, Laharighat",
-        "sanction_amount": 700000.0,
-        "expenditure_amount": 559875.0,
-        "vendors": [
-          "Rajul Ahmed",
-          "SHAIWON ENTERPRISE"
-        ],
-        "sanction_date": "14-Nov-2025",
-        "status": "Work partially Completed"
-      },
-      "work_b": {
-        "entity_id": "ENT_047426",
-        "work_id": "WS/MP541/2025-2026/224372",
-        "state": "Assam",
-        "constituency": "NOWGONG",
-        "mp": "Pradyut Bordoloi",
-        "category": "Normal/Others",
-        "description": "Construction of boundary wall and toilet block at Bogalipara community hall and fitness centre, Bogalipara, Laharighat",
-        "sanction_amount": 1000000.0,
-        "expenditure_amount": 798919.0,
-        "vendors": [
-          "Abduk Rajak",
-          "Rajul Ahmed",
-          "SHAIWON ENTERPRISE"
-        ],
-        "sanction_date": "22-Dec-2025",
-        "status": "Work partially Completed"
-      },
-      "risk_score": 58,
-      "risk_score_display": "58/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 58,
-      "amount_similarity": 70.0,
-      "location_similarity": 100.0,
-      "date_similarity": 65.6,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 1,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 48.8,
-        "amount_similarity_pct": 70.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.4881220460902409,
-        "title_similarity": 0.25,
-        "description_similarity": 0.38095238095238093,
-        "fuzzy_text_similarity": 0.3285714285714285,
-        "amount_similarity": 0.7,
-        "amount_difference": 300000.0,
-        "amount_ratio": 0.7,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.6555883369077856,
-        "date_difference_days": 38,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 4,
-        "shared_location_tokens": [
-          "bogalipara",
-          "centre",
-          "fitness",
-          "laharighat"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 1
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('bogalipara', 'centre', 'fitness')",
-        "Sanctioned within same constituency ('NOWGONG')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('bogalipara', 'centre', 'fitness')",
-        "Sanctioned within same constituency ('NOWGONG')"
       ],
       "missing_evidence": [
         "Different vendors recorded across works",
@@ -498338,115 +498448,6 @@
       ],
       "missing_evidence": [
         "Low semantic description overlap (35.0%)",
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_04608",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18064/2024-2025/154954",
-      "matched_work_id": "WS/MP18064/2024-2025/154955",
-      "work_a": {
-        "entity_id": "ENT_010587",
-        "work_id": "WS/MP18064/2024-2025/154954",
-        "state": "Haryana",
-        "constituency": "KURUKSHETRA",
-        "mp": "NAVEEN JINDAL",
-        "category": "Normal/Others",
-        "description": "Construction of street from Main street to h/o Guljar Singh s/o Ram Sarup",
-        "sanction_amount": 96944.0,
-        "expenditure_amount": 96944.0,
-        "vendors": [
-          "KUBER CONCRETE SOLUTIONS",
-          "SHIV KUMAR CONTRACTOR"
-        ],
-        "sanction_date": "03-Jan-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_010588",
-        "work_id": "WS/MP18064/2024-2025/154955",
-        "state": "Haryana",
-        "constituency": "KURUKSHETRA",
-        "mp": "NAVEEN JINDAL",
-        "category": "Normal/Others",
-        "description": "Construction of street from main street to h/o Jaipal Singh s/o Atma Ram",
-        "sanction_amount": 79228.0,
-        "expenditure_amount": 79228.0,
-        "vendors": [
-          "Jai Shree Ram Enterprises",
-          "KUBER CONCRETE SOLUTIONS",
-          "SHIV KUMAR CONTRACTOR"
-        ],
-        "sanction_date": "03-Jan-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 58,
-      "risk_score_display": "58/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 58,
-      "amount_similarity": 81.7,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 32.7,
-        "amount_similarity_pct": 81.7,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.32736683792840127,
-        "title_similarity": 0.8571428571428571,
-        "description_similarity": 0.7142857142857143,
-        "fuzzy_text_similarity": 0.7714285714285714,
-        "amount_similarity": 0.817255322660505,
-        "amount_difference": 17716.0,
-        "amount_ratio": 0.817255322660505,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 3,
-        "shared_location_tokens": [
-          "main",
-          "ram",
-          "singh"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('main', 'ram', 'singh')",
-        "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('main', 'ram', 'singh')",
-        "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "missing_evidence": [
-        "Low semantic description overlap (32.7%)",
         "Different vendors recorded across works",
         "No image comparison available (Image field contains placeholder strings)"
       ],
@@ -500516,9 +500517,9 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 296426.0,
         "vendors": [
-          "MANOJ RATILAL SAGAR",
           "AMRUT ENTERPRISE",
-          "LABOUR CESS MPLADS DUDCTION"
+          "LABOUR CESS MPLADS DUDCTION",
+          "MANOJ RATILAL SAGAR"
         ],
         "sanction_date": "17-Dec-2025",
         "status": "Vendor Identification"
@@ -502873,8 +502874,8 @@
         "sanction_amount": 500000.0,
         "expenditure_amount": 399900.0,
         "vendors": [
-          "Rabbul Hussain",
-          "SHAIWON ENTERPRISE"
+          "SHAIWON ENTERPRISE",
+          "Rabbul Hussain"
         ],
         "sanction_date": "01-Jan-2026",
         "status": "Work partially Completed"
@@ -502890,8 +502891,8 @@
         "sanction_amount": 480000.0,
         "expenditure_amount": 383760.0,
         "vendors": [
-          "Arnaz Hardware",
-          "SHAJAHAN ALI"
+          "SHAJAHAN ALI",
+          "Arnaz Hardware"
         ],
         "sanction_date": "27-Feb-2026",
         "status": "Work partially Completed"
@@ -506143,11 +506144,11 @@
         "sanction_amount": 1343000.0,
         "expenditure_amount": 981712.0,
         "vendors": [
-          "Sham Electrical Engineering Works",
-          "JP Brothers",
           "Venus Sales Corporation",
-          "Amar Ujala Ltd",
+          "Sham Electrical Engineering Works",
           "The Hind Samachar Ltd",
+          "JP Brothers",
+          "Amar Ujala Ltd",
           "The Tribune Trust"
         ],
         "sanction_date": "20-Jun-2025",
@@ -507103,8 +507104,8 @@
         "sanction_amount": 199924.0,
         "expenditure_amount": 199924.0,
         "vendors": [
-          "OM ENTERPRISE",
-          "PRANJAL BORGOHAIN"
+          "PRANJAL BORGOHAIN",
+          "OM ENTERPRISE"
         ],
         "sanction_date": "16-May-2025",
         "status": "Physical Inspection"
@@ -507405,116 +507406,6 @@
       ],
       "missing_evidence": [
         "Low semantic description overlap (37.1%)",
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_04401",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18066/2026-2027/285627",
-      "matched_work_id": "WS/MP18066/2026-2027/285645",
-      "work_a": {
-        "entity_id": "ENT_076273",
-        "work_id": "WS/MP18066/2026-2027/285627",
-        "state": "Haryana",
-        "constituency": "SIRSA(SC)",
-        "mp": "SELJA",
-        "category": "Normal/Others",
-        "description": "Construction of IPB flooring under shed at Govt School in Village Nathwan",
-        "sanction_amount": 358000.0,
-        "expenditure_amount": 358000.0,
-        "vendors": [
-          "VIJAY PAL",
-          "LILU RAM",
-          "DPC SSA FATEHABAD",
-          "PREET STEEL WORKS"
-        ],
-        "sanction_date": "10-Aug-2026",
-        "status": "Vendor Identification"
-      },
-      "work_b": {
-        "entity_id": "ENT_076275",
-        "work_id": "WS/MP18066/2026-2027/285645",
-        "state": "Haryana",
-        "constituency": "SIRSA(SC)",
-        "mp": "SELJA",
-        "category": "Normal/Others",
-        "description": "Construction of Shed at Govt School in Village Hamjapur",
-        "sanction_amount": 500000.0,
-        "expenditure_amount": 499164.0,
-        "vendors": [
-          "LILU RAM",
-          "DPC SSA FATEHABAD",
-          "PREET STEEL WORKS"
-        ],
-        "sanction_date": "10-Aug-2026",
-        "status": "Vendor Identification"
-      },
-      "risk_score": 56,
-      "risk_score_display": "56/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 56,
-      "amount_similarity": 71.6,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 33.9,
-        "amount_similarity_pct": 71.6,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.33936180786667464,
-        "title_similarity": 0.7777777777777778,
-        "description_similarity": 0.6153846153846154,
-        "fuzzy_text_similarity": 0.6803418803418804,
-        "amount_similarity": 0.716,
-        "amount_difference": 142000.0,
-        "amount_ratio": 0.716,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 2,
-        "shared_location_tokens": [
-          "govt",
-          "shed"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('govt', 'shed')",
-        "Sanctioned within same constituency ('SIRSA(SC)')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('govt', 'shed')",
-        "Sanctioned within same constituency ('SIRSA(SC)')"
-      ],
-      "missing_evidence": [
-        "Low semantic description overlap (33.9%)",
         "Different vendors recorded across works",
         "No image comparison available (Image field contains placeholder strings)"
       ],
@@ -510849,9 +510740,9 @@
         "expenditure_amount": 185006.0,
         "vendors": [
           "MS New Shiv Shakti Paint Store",
-          "MS Guru Nanak Traders",
+          "Shiva Building Material",
           "The Kuber Co Op LC Soc Ltd",
-          "Shiva Building Material"
+          "MS Guru Nanak Traders"
         ],
         "sanction_date": "13-Dec-2024",
         "status": "Physical Inspection"
@@ -512986,8 +512877,8 @@
         "sanction_amount": 577100.0,
         "expenditure_amount": 577100.0,
         "vendors": [
-          "A S ENTERPRISES",
-          "Paramount Softech"
+          "Paramount Softech",
+          "A S ENTERPRISES"
         ],
         "sanction_date": "13-Jan-2026",
         "status": "Physical Inspection"
@@ -513003,8 +512894,8 @@
         "sanction_amount": 281542.0,
         "expenditure_amount": 281542.0,
         "vendors": [
-          "T D Parodkar and Company",
-          "GHRSSIDC"
+          "GHRSSIDC",
+          "T D Parodkar and Company"
         ],
         "sanction_date": "06-Mar-2026",
         "status": "Physical Inspection"
@@ -513866,9 +513757,9 @@
         "sanction_amount": 98912.0,
         "expenditure_amount": 98912.0,
         "vendors": [
-          "CHEEMA ENTERPRISES",
           "KUBER CONCRETE SOLUTIONS",
-          "MS Balaji Enterprises"
+          "MS Balaji Enterprises",
+          "CHEEMA ENTERPRISES"
         ],
         "sanction_date": "16-Jan-2025",
         "status": "Physical Inspection"
@@ -517684,9 +517575,9 @@
         "sanction_amount": 951024.0,
         "expenditure_amount": 951024.0,
         "vendors": [
+          "Bennett Coleman and Co Ltd",
           "Amar Ujala Ltd",
           "The Hind Samachar Ltd",
-          "Bennett Coleman and Co Ltd",
           "Versatile"
         ],
         "sanction_date": "24-Feb-2025",
@@ -521285,9 +521176,9 @@
         "expenditure_amount": 185006.0,
         "vendors": [
           "MS New Shiv Shakti Paint Store",
-          "MS Guru Nanak Traders",
+          "Shiva Building Material",
           "The Kuber Co Op LC Soc Ltd",
-          "Shiva Building Material"
+          "MS Guru Nanak Traders"
         ],
         "sanction_date": "13-Dec-2024",
         "status": "Physical Inspection"
@@ -525700,6 +525591,226 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_00919",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP541/2024-2025/172352",
+      "matched_work_id": "WS/MP541/2025-2026/246510",
+      "work_a": {
+        "entity_id": "ENT_019621",
+        "work_id": "WS/MP541/2024-2025/172352",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of Toilet block with running water facility at HAM Girls Secondary school. GP Moirabari, Laharighat",
+        "sanction_amount": 500000.0,
+        "expenditure_amount": 494996.0,
+        "vendors": [
+          "Mustafa Mustaqul Islam",
+          "Arnaz Hardware"
+        ],
+        "sanction_date": "24-Mar-2025",
+        "status": "Work partially Completed"
+      },
+      "work_b": {
+        "entity_id": "ENT_059058",
+        "work_id": "WS/MP541/2025-2026/246510",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of toilet block with running water facilities at Saharia gaon Adarsha Secondary School, Lengribori, Laharighat",
+        "sanction_amount": 480000.0,
+        "expenditure_amount": 383760.0,
+        "vendors": [
+          "SHAJAHAN ALI",
+          "Arnaz Hardware"
+        ],
+        "sanction_date": "27-Feb-2026",
+        "status": "Work partially Completed"
+      },
+      "risk_score": 51,
+      "risk_score_display": "51/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 51,
+      "amount_similarity": 96.0,
+      "location_similarity": 100.0,
+      "date_similarity": 2.3,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 1,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 33.6,
+        "amount_similarity_pct": 96.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.33607974494433257,
+        "title_similarity": 0.7142857142857143,
+        "description_similarity": 0.5238095238095238,
+        "fuzzy_text_similarity": 0.6000000000000001,
+        "amount_similarity": 0.96,
+        "amount_difference": 20000.0,
+        "amount_ratio": 0.96,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.02287346491123891,
+        "date_difference_days": 340,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 5,
+        "shared_location_tokens": [
+          "laharighat",
+          "running",
+          "secondary",
+          "toilet",
+          "with"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 1
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('laharighat', 'running', 'secondary')",
+        "Sanctioned within same constituency ('NOWGONG')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('laharighat', 'running', 'secondary')",
+        "Sanctioned within same constituency ('NOWGONG')"
+      ],
+      "missing_evidence": [
+        "Low semantic description overlap (33.6%)",
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_00920",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP541/2024-2025/170071",
+      "matched_work_id": "WS/MP541/2025-2026/246510",
+      "work_a": {
+        "entity_id": "ENT_018542",
+        "work_id": "WS/MP541/2024-2025/170071",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of  Toilet block with running water facility at Moirabari Girls Secondary school. GP Moirabari, Laharighat",
+        "sanction_amount": 500000.0,
+        "expenditure_amount": 494996.0,
+        "vendors": [
+          "Ashraful Islam",
+          "Arnaz Hardware"
+        ],
+        "sanction_date": "24-Mar-2025",
+        "status": "Work partially Completed"
+      },
+      "work_b": {
+        "entity_id": "ENT_059058",
+        "work_id": "WS/MP541/2025-2026/246510",
+        "state": "Assam",
+        "constituency": "NOWGONG",
+        "mp": "Pradyut Bordoloi",
+        "category": "Normal/Others",
+        "description": "Construction of toilet block with running water facilities at Saharia gaon Adarsha Secondary School, Lengribori, Laharighat",
+        "sanction_amount": 480000.0,
+        "expenditure_amount": 383760.0,
+        "vendors": [
+          "SHAJAHAN ALI",
+          "Arnaz Hardware"
+        ],
+        "sanction_date": "27-Feb-2026",
+        "status": "Work partially Completed"
+      },
+      "risk_score": 51,
+      "risk_score_display": "51/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 51,
+      "amount_similarity": 96.0,
+      "location_similarity": 100.0,
+      "date_similarity": 2.3,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 1,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 33.0,
+        "amount_similarity_pct": 96.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.3300792808777578,
+        "title_similarity": 0.7142857142857143,
+        "description_similarity": 0.55,
+        "fuzzy_text_similarity": 0.6157142857142858,
+        "amount_similarity": 0.96,
+        "amount_difference": 20000.0,
+        "amount_ratio": 0.96,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.02287346491123891,
+        "date_difference_days": 340,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 5,
+        "shared_location_tokens": [
+          "laharighat",
+          "running",
+          "secondary",
+          "toilet",
+          "with"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 1
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('laharighat', 'running', 'secondary')",
+        "Sanctioned within same constituency ('NOWGONG')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('laharighat', 'running', 'secondary')",
+        "Sanctioned within same constituency ('NOWGONG')"
+      ],
+      "missing_evidence": [
+        "Low semantic description overlap (33.0%)",
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_04660",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -528274,9 +528385,9 @@
         "sanction_amount": 279802.0,
         "expenditure_amount": 278791.0,
         "vendors": [
+          "SHREE KRISHNA ENTERPRISES",
           "JAI BABA KHAK NATH WELDING WORKSHOP",
-          "RAHUL",
-          "SHREE KRISHNA ENTERPRISES"
+          "RAHUL"
         ],
         "sanction_date": "28-Jan-2026",
         "status": "Work partially Completed"
@@ -535914,8 +536025,8 @@
         "sanction_amount": 500000.0,
         "expenditure_amount": 499329.0,
         "vendors": [
-          "Sujit Gupta",
-          "Sarmindar Terang"
+          "Sarmindar Terang",
+          "Sujit Gupta"
         ],
         "sanction_date": "25-Oct-2024",
         "status": "Physical Inspection"
@@ -539594,114 +539705,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04603",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18064/2025-2026/203141",
-      "matched_work_id": "WS/MP18064/2025-2026/226026",
-      "work_a": {
-        "entity_id": "ENT_036147",
-        "work_id": "WS/MP18064/2025-2026/203141",
-        "state": "Haryana",
-        "constituency": "KURUKSHETRA",
-        "mp": "NAVEEN JINDAL",
-        "category": "Normal/Others",
-        "description": "Construction of shed on first floor of Agarwal  Dharmshala and Floor Tiles",
-        "sanction_amount": 1100000.0,
-        "expenditure_amount": 807096.0,
-        "vendors": [
-          "RAJINDER KUMAR CONTRACTOR",
-          "The S and R Group Cooperative Labour And Construction Society Limited Kaithal"
-        ],
-        "sanction_date": "24-Dec-2025",
-        "status": "Work partially Completed"
-      },
-      "work_b": {
-        "entity_id": "ENT_048400",
-        "work_id": "WS/MP18064/2025-2026/226026",
-        "state": "Haryana",
-        "constituency": "KURUKSHETRA",
-        "mp": "NAVEEN JINDAL",
-        "category": "Trust and Society",
-        "description": "Construction of Shed and floor for cycle in school",
-        "sanction_amount": 176351.0,
-        "expenditure_amount": 176351.0,
-        "vendors": [
-          "The S and R Group Cooperative Labour And Construction Society Limited Kaithal"
-        ],
-        "sanction_date": "24-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 45,
-      "risk_score_display": "45/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 45,
-      "amount_similarity": 16.0,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 34.7,
-        "amount_similarity_pct": 16.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.34744217312651854,
-        "title_similarity": 0.07692307692307693,
-        "description_similarity": 0.35714285714285715,
-        "fuzzy_text_similarity": 0.24505494505494504,
-        "amount_similarity": 0.1603190909090909,
-        "amount_difference": 923649.0,
-        "amount_ratio": 0.1603190909090909,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 0.5,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 3,
-        "shared_location_tokens": [
-          "and",
-          "floor",
-          "shed"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('and', 'floor', 'shed')",
-        "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('and', 'floor', 'shed')",
-        "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "missing_evidence": [
-        "Low semantic description overlap (34.7%)",
-        "Substantially different sanction amounts (\u20b91,100,000.00 vs \u20b9176,351.00)",
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_04606",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -540769,8 +540772,8 @@
         "sanction_amount": 500000.0,
         "expenditure_amount": 499329.0,
         "vendors": [
-          "Sujit Gupta",
-          "Sarmindar Terang"
+          "Sarmindar Terang",
+          "Sujit Gupta"
         ],
         "sanction_date": "25-Oct-2024",
         "status": "Physical Inspection"
@@ -542339,8 +542342,8 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 999711.0,
         "vendors": [
-          "BABA HARIDAS TRADERS",
-          "The Malik Co Op L C Society Ltd Dabodha Khurd"
+          "The Malik Co Op L C Society Ltd Dabodha Khurd",
+          "BABA HARIDAS TRADERS"
         ],
         "sanction_date": "01-Sep-2025",
         "status": "Physical Inspection"
@@ -546245,8 +546248,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 300000.0,
         "vendors": [
-          "Ashiqur Rahman",
-          "MOHD IKRAMUL HUSSAIN"
+          "MOHD IKRAMUL HUSSAIN",
+          "Ashiqur Rahman"
         ],
         "sanction_date": "19-Feb-2026",
         "status": "Physical Inspection"
@@ -546351,8 +546354,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 240000.0,
         "vendors": [
-          "Abduk Rajak",
-          "SHAIWON ENTERPRISE"
+          "SHAIWON ENTERPRISE",
+          "Abduk Rajak"
         ],
         "sanction_date": "16-Dec-2025",
         "status": "Work partially Completed"
@@ -548023,10 +548026,10 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 1000000.0,
         "vendors": [
-          "BHARAT NIRMAN  CO",
-          "RK ENTERPRISE",
           "VIKASH ELECTRICALS",
-          "MS ANAS HARDWARE"
+          "BHARAT NIRMAN  CO",
+          "MS ANAS HARDWARE",
+          "RK ENTERPRISE"
         ],
         "sanction_date": "28-Aug-2025",
         "status": "Physical Inspection"

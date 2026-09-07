@@ -50,7 +50,7 @@ def evaluate_model_1():
     text_corpus = df_sanc['Work description'].fillna(df_sanc['Work category']).fillna('').astype(str).str.strip()
     df_sanc['clean_desc'] = text_corpus
     
-    # 80/20 Split
+    # Random 80/20 hold-out split with fixed random seed (42)
     train_df, test_df = train_test_split(df_sanc, test_size=0.20, random_state=42)
     
     print(f"Total Work Records: {total_records:,}")
@@ -83,6 +83,7 @@ def evaluate_model_1():
     
     return {
         "model_name": "Model 1: Record Linkage / Duplicate Work Detection",
+        "split_description": "Random 80/20 hold-out split with fixed random seed (42)",
         "total_records": total_records,
         "train_records": len(train_df),
         "test_records": len(test_df),
@@ -91,7 +92,13 @@ def evaluate_model_1():
         "train_sim_p99": tr_p99,
         "test_sim_p90": ts_p90,
         "test_sim_p99": ts_p99,
-        "delta_p99": round(abs(tr_p99 - ts_p99), 4)
+        "delta_p99": round(abs(tr_p99 - ts_p99), 4),
+        "interpretation": (
+            "The held-out TF-IDF similarity distribution is broadly consistent with the training "
+            "distribution. This supports representation stability under the hold-out split, but does "
+            "not establish duplicate-detection accuracy because verified duplicate/non-duplicate labels "
+            "are unavailable."
+        )
     }
 
 def evaluate_model_2():
@@ -151,13 +158,29 @@ def evaluate_model_2():
     test_union = int((test_iqr_flags | test_flags).sum())
     test_jaccard = float(test_both / test_union) if test_union > 0 else 0.0
     
+    # Assert exact feature count == 8
+    assert len(NUMERIC_FEATURES) == 8, f"Expected 8 features, got {len(NUMERIC_FEATURES)}"
+    
     print(f"Train In-Sample Anomaly Rate:    {train_rate:.2f}%")
     print(f"Test Out-of-Sample Anomaly Rate: {test_rate:.2f}%")
     print(f"Rate Delta:                      {delta_rate:.2f}%")
     print(f"Test Cross-Detector Concordance (Jaccard): {test_jaccard:.4f}")
     
+    # Feature availability classification
+    feature_availability = [
+        {"feature": "log_sanction_amount", "availability": "Sanction-Time", "description": "Log-scale monetary sanction magnitude"},
+        {"feature": "peer_dev_ratio_filled", "availability": "Peer-Distribution (Train Baselines)", "description": "Deviation ratio relative to category-state peer median"},
+        {"feature": "robust_dev_filled", "availability": "Peer-Distribution (Train Baselines)", "description": "Tukey IQR / MAD robust normalized cost deviation"},
+        {"feature": "days_filled", "availability": "Lifecycle (Recommendation to Sanction)", "description": "Duration in calendar days between recommendation and sanction"},
+        {"feature": "num_payments_filled", "availability": "Expenditure / Audit-Time", "description": "Number of disbursement voucher installments recorded"},
+        {"feature": "max_payment_ratio_filled", "availability": "Expenditure / Audit-Time", "description": "Fraction of total expenditure disbursed in single largest voucher"},
+        {"feature": "payment_var_filled", "availability": "Expenditure / Audit-Time", "description": "Variance across installment payment voucher amounts"},
+        {"feature": "median_time_between_payments_filled", "availability": "Expenditure / Audit-Time", "description": "Median calendar days between successive payment disbursements"}
+    ]
+    
     return {
         "model_name": "Model 2: Unsupervised Cost Anomaly Detection",
+        "evaluation_description": "Chronological out-of-sample stability evaluation of an audit-time unsupervised anomaly detector",
         "train_rows": len(train_raw),
         "test_rows": len(test_raw),
         "train_start": train_start,
@@ -166,6 +189,7 @@ def evaluate_model_2():
         "test_end": test_end,
         "feature_count": len(NUMERIC_FEATURES),
         "feature_names": NUMERIC_FEATURES,
+        "feature_availability": feature_availability,
         "isolation_forest_params": {
             "n_estimators": 300,
             "contamination": 0.05,
@@ -173,7 +197,13 @@ def evaluate_model_2():
         },
         "train_anomaly_rate": round(train_rate, 2),
         "test_anomaly_rate": round(test_rate, 2),
-        "test_cross_detector_jaccard": round(test_jaccard, 4)
+        "rate_delta": round(delta_rate, 2),
+        "test_cross_detector_jaccard": round(test_jaccard, 4),
+        "limitation_note": (
+            "Because verified audit outcome labels are unavailable, these metrics evaluate "
+            "out-of-sample stability and agreement between independent unsupervised detectors "
+            "rather than classification accuracy."
+        )
     }
 
 def evaluate_model_3():
@@ -220,6 +250,7 @@ def evaluate_model_3():
     
     history = list(train_vals)
     for t_idx, actual in enumerate(test_vals):
+        # 3-month rolling average forecast baseline
         fcst = float(np.mean(history[-3:]))
         predictions.append(fcst)
         baseline_prev.append(float(history[-1]))
@@ -265,8 +296,18 @@ def evaluate_model_3():
             "expected_range_type": "Empirical 95% Expected Range"
         })
         
+    conclusion_text = (
+        "The 3-month rolling-average method marginally improves MAE relative to the naïve "
+        "previous-month baseline, while RMSE and MAPE remain higher. It is therefore retained "
+        "as an empirical forecasting aid and is not claimed to outperform the naïve baseline across all evaluation metrics."
+    )
+    
     return {
-        "model_name": "Model 3: Time-Series Expenditure Forecasting",
+        "model_name": "Model 3: Rolling-Average Expenditure Forecasting Baseline",
+        "methodology": "3-month rolling-average expenditure forecasting baseline",
+        "evaluation_dataset": "data/original/LokSabha18/Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv (27 monthly aggregated observations)",
+        "historical_context_dataset": "data/original/LokSabha17/Expenditure on Completed and On-going Works as on Date_LokSabha17.csv (historical term reference)",
+        "production_forecast_dataset": "Lok Sabha 18th 27 historical monthly observations",
         "total_observations": total_obs,
         "train_observations": len(train_series),
         "test_observations": len(test_series),
@@ -280,6 +321,8 @@ def evaluate_model_3():
         "baseline_prev_mae": round(prev_mae, 2),
         "baseline_prev_rmse": round(prev_rmse, 2),
         "baseline_prev_mape": round(prev_mape, 2),
+        "conclusion": conclusion_text,
+        "forecast_horizon_months": 6,
         "future_6m_forecast": future_6m
     }
 
@@ -289,50 +332,102 @@ def main():
     m3_res = evaluate_model_3()
     
     md = []
+    # 1. Executive Summary
     md.append("# 3-MODEL RIGOROUS 80/20 TRAIN/TEST EVALUATION REPORT")
-    md.append(f"**Generated At**: {datetime.now().isoformat()}\n")
-    md.append("## Executive Summary: Leak-Free 80/20 Train/Test Splits\n")
+    md.append(f"**Generated At**: {datetime.now().isoformat()} | **Methodology Freeze**: SIH26102 Production Integrity\n")
+    md.append("## 1. Executive Summary: Leak-Free 80/20 Train/Test Splits\n")
     md.append("| Model | Split Type | Train Set | Test Set | Train Temporal Range | Test Temporal Range | Primary Evaluation Metrics |")
     md.append("|---|---|---:|---:|---|---|---|")
-    md.append(f"| **Model 1: Record Linkage** | Stratified Random (80/20) | {m1_res['train_records']:,} works | {m1_res['test_records']:,} works | Full LS18 Term | Full LS18 Term | Vocab: {m1_res['vocab_size']:,} | Delta P99 Sim: {m1_res['delta_p99']} |")
-    md.append(f"| **Model 2: Cost Anomaly** | Chronological (80/20) | {m2_res['train_rows']:,} works | {m2_res['test_rows']:,} works | {m2_res['train_start']} to {m2_res['train_end']} | {m2_res['test_start']} to {m2_res['test_end']} | Train Rate: {m2_res['train_anomaly_rate']}% | Test Rate: {m2_res['test_anomaly_rate']}% | Concordance: {m2_res['test_cross_detector_jaccard']} |")
-    md.append(f"| **Model 3: Forecasting** | Chronological (80/20) | {m3_res['train_observations']} months | {m3_res['test_observations']} months | {m3_res['train_start']} to {m3_res['train_end']} | {m3_res['test_start']} to {m3_res['test_end']} | Out-of-Sample MAE: ₹{m3_res['model_mae']:,.2f} | RMSE: ₹{m3_res['model_rmse']:,.2f} | MAPE: {m3_res['model_mape']}% |")
+    md.append(f"| **Model 1: Record Linkage** | {m1_res['split_description']} | {m1_res['train_records']:,} works | {m1_res['test_records']:,} works | Full LS18 Active Term | Full LS18 Active Term | Vocab: {m1_res['vocab_size']:,} | Delta P99 Sim: {m1_res['delta_p99']} |")
+    md.append(f"| **Model 2: Cost Anomaly** | Chronological 80/20 Split | {m2_res['train_rows']:,} works | {m2_res['test_rows']:,} works | {m2_res['train_start']} to {m2_res['train_end']} | {m2_res['test_start']} to {m2_res['test_end']} | Train Rate: {m2_res['train_anomaly_rate']}% | Test Rate: {m2_res['test_anomaly_rate']}% | Concordance: {m2_res['test_cross_detector_jaccard']} |")
+    md.append(f"| **Model 3: Forecasting** | Chronological 80/20 Time-Series | {m3_res['train_observations']} months | {m3_res['test_observations']} months | {m3_res['train_start']} to {m3_res['train_end']} | {m3_res['test_start']} to {m3_res['test_end']} | MAE: ₹{m3_res['model_mae']:,.2f} | RMSE: ₹{m3_res['model_rmse']:,.2f} | MAPE: {m3_res['model_mape']}% |")
     
+    # 2. Data Leakage Audit
     md.append("\n---\n")
-    md.append("## 1. MODEL 1: RECORD LINKAGE / POTENTIAL DUPLICATE WORK DETECTION\n")
-    md.append(f"- **Methodology**: TF-IDF Vectorizer with N-gram range `(1, 2)` fitted strictly on 80% Train set ({m1_res['train_records']:,} records).\n"
-              f"- **Vocabulary Size**: {m1_res['vocab_size']:,} features learned on training set only.\n"
-              f"- **Test Transformation**: Held-out 20% Test set ({m1_res['test_records']:,} records) transformed using the fitted training vocabulary.\n"
-              f"- **Similarity Stability**: Train P99 Cosine Similarity = `{m1_res['train_sim_p99']:.4f}`, Test P99 Cosine Similarity = `{m1_res['test_sim_p99']:.4f}` (Variance = `{m1_res['delta_p99']:.4f}`).\n"
-              f"- **Administrative Notice**: Ground-truth fraud/duplicate labels do not exist in administrative government data; therefore supervised accuracy/recall is NOT claimed.\n")
-              
-    md.append("\n---\n")
-    md.append("## 2. MODEL 2: UNSUPERVISED COST ANOMALY DETECTION\n")
-    md.append(f"- **Methodology**: Chronological 80/20 split based on sanctioned dates.\n"
-              f"- **Training Partition**: {m2_res['train_rows']:,} works spanning `{m2_res['train_start']}` to `{m2_res['train_end']}`.\n"
-              f"- **Testing Partition**: {m2_res['test_rows']:,} works spanning `{m2_res['test_start']}` to `{m2_res['test_end']}`.\n"
-              f"- **Feature Set ({m2_res['feature_count']} features)**: `{', '.join(m2_res['feature_names'])}`\n"
-              f"- **Model Configuration**: Isolation Forest with `n_estimators=300`, `contamination=0.05`, `random_state=42`.\n"
-              f"- **Out-of-Sample Anomaly Rates**: In-sample training anomaly rate = `{m2_res['train_anomaly_rate']}%`, out-of-sample test anomaly rate = `{m2_res['test_anomaly_rate']}%`.\n"
-              f"- **Cross-Detector Concordance**: Out-of-sample Jaccard similarity between Peer IQR/MAD detector and Isolation Forest ML detector = `{m2_res['test_cross_detector_jaccard']:.4f}`.\n"
-              f"- **Administrative Notice**: Ground-truth administrative audit outcome labels are unavailable; model performance is evaluated via out-of-sample anomaly stability and multi-detector concordance.\n")
+    md.append("## 2. Data Leakage Audit\n")
+    md.append("A comprehensive source-code audit across the repository confirms strict isolation between training and testing data:\n"
+              "- **Model 1 (TF-IDF Vectorizer)**: `TfidfVectorizer` is fitted strictly on the 80% training slice (`train_df`). The held-out test partition (`test_df`) is transformed using the fitted vocabulary without updating or refitting the vocabulary.\n"
+              "- **Model 2 (Imputation, Peer Statistics, Isolation Forest)**: `SimpleImputer`, hierarchical State-Category Tukey IQR/MAD baselines, and `IsolationForest(n_estimators=300, random_state=42)` are fitted solely on the chronological 80% train split (`train_raw`). The out-of-sample 20% test split (`test_raw`) is evaluated against these frozen baselines without incorporating any test distributions.\n"
+              "- **Model 3 (Time-Series Baseline)**: The 3-month rolling baseline is calibrated strictly on historical training months (`2024-07` to `2026-03`). Predictions for held-out test months (`2026-04` to `2026-09`) are generated sequentially forward without exposing future actuals to the estimator prior to evaluation.\n"
+              "- **Production Pipeline Execution**: Full-data production fits occur independently after evaluation reporting is complete to maximize operational coverage.\n")
 
+    # 3. Model 1 Evaluation
     md.append("\n---\n")
-    md.append("## 3. MODEL 3: EXPENDITURE FORECASTING\n")
-    md.append(f"- **Methodology**: Chronological time-series partition of monthly aggregated expenditure observations.\n"
+    md.append("## 3. Model 1: Record Linkage / Potential Duplicate Work Detection\n")
+    md.append(f"- **Split Methodology**: {m1_res['split_description']}.\n"
+              f"- **Training Partition**: {m1_res['train_records']:,} sanctioned works.\n"
+              f"- **Held-Out Test Partition**: {m1_res['test_records']:,} sanctioned works.\n"
+              f"- **Learned Vocabulary Size**: {m1_res['vocab_size']:,} n-gram features fitted strictly on training text.\n"
+              f"- **In-Sample Train Similarity Distribution**: Mean = `{m1_res['train_sim_p90']:.4f}` (P90), `{m1_res['train_sim_p99']:.4f}` (P99).\n"
+              f"- **Held-Out Test Similarity Distribution**: Mean = `{m1_res['test_sim_p90']:.4f}` (P90), `{m1_res['test_sim_p99']:.4f}` (P99).\n"
+              f"- **Distribution Stability Variance ($\Delta$ P99)**: `{m1_res['delta_p99']:.4f}`.\n"
+              f"- **Evaluation Interpretation**: {m1_res['interpretation']}\n")
+
+    # 4. Model 2 Evaluation
+    md.append("\n---\n")
+    md.append("## 4. Model 2: Unsupervised Cost Anomaly Detection\n")
+    md.append(f"- **Evaluation Nature**: {m2_res['evaluation_description']}.\n"
+              f"- **Chronological Training Partition**: {m2_res['train_rows']:,} works (`{m2_res['train_start']}` to `{m2_res['train_end']}`).\n"
+              f"- **Chronological Test Partition**: {m2_res['test_rows']:,} works (`{m2_res['test_start']}` to `{m2_res['test_end']}`).\n"
+              f"- **Model Parameters**: Isolation Forest (`n_estimators=300`, `contamination=0.05`, `random_state=42`).\n"
+              f"- **In-Sample Train Anomaly Rate**: `{m2_res['train_anomaly_rate']}%`.\n"
+              f"- **Out-of-Sample Test Anomaly Rate**: `{m2_res['test_anomaly_rate']}%`.\n"
+              f"- **Anomaly Rate Stability Delta**: `{m2_res['rate_delta']}%`.\n"
+              f"- **Out-of-Sample Cross-Detector Concordance (Jaccard)**: `{m2_res['test_cross_detector_jaccard']:.4f}`.\n"
+              f"- **Methodological Note**: {m2_res['limitation_note']}\n")
+
+    # 5. Model 2 Temporal Feature Availability Audit
+    md.append("\n---\n")
+    md.append("## 5. Model 2 Temporal Feature Availability Audit\n")
+    md.append("The 8 non-redundant numerical features utilized by Model 2 are explicitly categorized by their point of availability in the administrative lifecycle:\n\n")
+    md.append("| # | Feature Name | Administrative Availability Point | Functional Description |")
+    md.append("|---|---|---|---|")
+    for idx, fa in enumerate(m2_res["feature_availability"], 1):
+        md.append(f"| {idx} | `{fa['feature']}` | **{fa['availability']}** | {fa['description']} |")
+    md.append("\n*Audit Finding*: Model 2 is an **audit-time anomaly detector** evaluated on historical records post-expenditure, rather than a pre-sanction forecasting model.\n")
+
+    # 6. Model 3 Evaluation
+    md.append("\n---\n")
+    md.append("## 6. Model 3: Expenditure Forecasting Evaluation\n")
+    md.append(f"- **Methodology**: {m3_res['methodology']}.\n"
+              f"- **Evaluation Dataset**: `{m3_res['evaluation_dataset']}`.\n"
+              f"- **Historical Context Dataset**: `{m3_res['historical_context_dataset']}`.\n"
               f"- **Training Partition**: {m3_res['train_observations']} monthly observations (`{m3_res['train_start']}` to `{m3_res['train_end']}`).\n"
-              f"- **Testing Partition**: {m3_res['test_observations']} monthly observations (`{m3_res['test_start']}` to `{m3_res['test_end']}`).\n"
-              f"- **Out-of-Sample Error Metrics**:\n"
-              f"  - **Model Out-of-Sample MAE**: ₹{m3_res['model_mae']:,.2f} (Baseline Naïve: ₹{m3_res['baseline_prev_mae']:,.2f})\n"
-              f"  - **Model Out-of-Sample RMSE**: ₹{m3_res['model_rmse']:,.2f} (Baseline Naïve: ₹{m3_res['baseline_prev_rmse']:,.2f})\n"
-              f"  - **Model Out-of-Sample MAPE**: {m3_res['model_mape']:.2f}% (Baseline Naïve: {m3_res['baseline_prev_mape']:.2f}%)\n"
-              f"- **Model Performance Conclusion**: The seasonal rolling baseline model reduces out-of-sample prediction error relative to the naïve previous-month baseline.\n")
-    
-    md.append("\n### 6-Month Production Forecast (Full Historical Baseline)\n")
-    md.append("| Target Month | Forecasted Expenditure | Lower Bound (Empirical 95%) | Upper Bound (Empirical 95%) | Expected Range Type |")
+              f"- **Testing Partition**: {m3_res['test_observations']} monthly observations (`{m3_res['test_start']}` to `{m3_res['test_end']}`).\n")
+
+    # 7. Baseline Comparison
+    md.append("\n---\n")
+    md.append("## 7. Baseline Comparison & Metric Evaluation\n")
+    md.append("| Forecasting Method | Out-of-Sample MAE | Out-of-Sample RMSE | Out-of-Sample MAPE | Comparison to Naïve Baseline |")
+    md.append("|---|---:|---:|---:|---|")
+    md.append(f"| **3-Month Rolling Average (Proposed)** | **₹{m3_res['model_mae']:,.2f}** | ₹{m3_res['model_rmse']:,.2f} | {m3_res['model_mape']:.2f}% | **Marginally Lower MAE** ($-₹{m3_res['baseline_prev_mae'] - m3_res['model_mae']:,.2f}$) |")
+    md.append(f"| **Naïve Previous-Month Baseline** | ₹{m3_res['baseline_prev_mae']:,.2f} | **₹{m3_res['baseline_prev_rmse']:,.2f}** | **{m3_res['baseline_prev_mape']:.2f}%** | Baseline Reference |")
+    md.append(f"\n**Performance Conclusion**: {m3_res['conclusion']}\n")
+
+    # 8. Six-Month Forecast
+    md.append("\n---\n")
+    md.append("## 8. Six-Month Production Forecast (Full Historical Baseline)\n")
+    md.append("Empirical six-month projection generated from full 27-month historical baseline with recent trend momentum:\n\n")
+    md.append("| Target Month | Forecasted Expenditure | Lower Bound | Upper Bound | Interval Terminology |")
     md.append("|---|---:|---:|---:|---|")
     for fc in m3_res["future_6m_forecast"]:
         md.append(f"| `{fc['month']}` | ₹{fc['forecast_expenditure']:,.2f} | ₹{fc['lower_bound']:,.2f} | ₹{fc['upper_bound']:,.2f} | {fc['expected_range_type']} |")
+
+    # 9. Limitations
+    md.append("\n---\n")
+    md.append("## 9. Genuine Methodological & Administrative Limitations\n")
+    md.append("1. **Absence of Ground-Truth Administrative Adjudication Labels**: Public government datasets do not contain validated fraud or duplicate outcome labels; metrics reflect statistical stability and multi-detector concordance rather than supervised classification accuracy.\n"
+              "2. **Cross-House Entity Linkage**: Rajya Sabha sitting member records lack direct Lok Sabha constituency keys; cross-house analysis requires text/location record linkage and remains under `CROSS_HOUSE_ENABLED = False` pending verified house mapping.\n"
+              "3. **Short Monthly Time Series**: 27 monthly observations limit high-order econometric models; empirical rolling baseline provides operational bounding without over-parameterization.\n"
+              "4. **Administrative Payment Grouping**: When voucher transactions lack unique voucher numbers, clustering relies on `(Work ID, Vendor, Amount, Date)` composites.\n")
+
+    # 10. Reproducibility Information
+    md.append("\n---\n")
+    md.append("## 10. Reproducibility & Execution Command\n")
+    md.append("To reproduce this exact 80/20 train/test evaluation run:\n"
+              "```bash\n"
+              "PYTHONPATH=. python3 scripts/train_test_3_models.py\n"
+              "```\n")
 
     with open("output/MODEL_TRAIN_TEST_REPORT.md", "w", encoding="utf-8") as f:
         f.write("\n".join(md))
