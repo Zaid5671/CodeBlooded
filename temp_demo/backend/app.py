@@ -331,6 +331,84 @@ def get_audit_priority():
         data = json.load(f)
     return jsonify(data)
 
+@app.route("/api/forecast", methods=["GET"])
+def get_forecast():
+    """GET /api/forecast - Returns Model 4 expenditure forecast analysis."""
+    path = os.path.join(OUTPUT_DIR, "expenditure_forecast.json")
+    if not os.path.exists(path):
+        path = os.path.join(OUTPUT_DIR, "expenditure_forecast_results.json")
+    if not os.path.exists(path):
+        return jsonify({"error": "Forecast results not found."}), 404
+    with open(path) as f:
+        data = json.load(f)
+    return jsonify(data)
+
+@app.route("/api/vendor-risk", methods=["GET"])
+def get_vendor_risk():
+    """GET /api/vendor-risk - Returns Vendor Agency Risk Network analysis."""
+    path = os.path.join(OUTPUT_DIR, "vendor_agency_risk.json")
+    if not os.path.exists(path):
+        return jsonify({"error": "Vendor risk results not found."}), 404
+    with open(path) as f:
+        data = json.load(f)
+    return jsonify(data)
+
+@app.route("/api/inadmissible-works", methods=["GET"])
+def get_inadmissible_works():
+    """GET /api/inadmissible-works - Returns Module 2 inadmissible works analysis."""
+    path = os.path.join(OUTPUT_DIR, "inadmissible_works_results.json")
+    if not os.path.exists(path):
+        return jsonify({"error": "Inadmissible works results not found."}), 404
+    with open(path) as f:
+        data = json.load(f)
+    return jsonify(data)
+
+@app.route("/api/private-beneficiaries", methods=["GET"])
+def get_private_beneficiaries():
+    """GET /api/private-beneficiaries - Returns Module 3 private beneficiaries analysis."""
+    path = os.path.join(OUTPUT_DIR, "private_beneficiaries_results.json")
+    if not os.path.exists(path):
+        return jsonify({"error": "Private beneficiaries results not found."}), 404
+    with open(path) as f:
+        data = json.load(f)
+    return jsonify(data)
+
+@app.route("/api/duplicate-expenditure", methods=["GET"])
+def get_duplicate_expenditure():
+    """GET /api/duplicate-expenditure - Returns Module 6 duplicate expenditure analysis."""
+    path = os.path.join(OUTPUT_DIR, "duplicate_expenditure_results.json")
+    if not os.path.exists(path):
+        return jsonify({"error": "Duplicate expenditure results not found."}), 404
+    with open(path) as f:
+        data = json.load(f)
+    return jsonify(data)
+
+@app.route("/api/fund-utilization", methods=["GET"])
+def get_fund_utilization():
+    """GET /api/fund-utilization - Returns Module 7 fund utilization analysis."""
+    path = os.path.join(OUTPUT_DIR, "fund_utilization_results.json")
+    if not os.path.exists(path):
+        return jsonify({"error": "Fund utilization results not found."}), 404
+    with open(path) as f:
+        data = json.load(f)
+    return jsonify(data)
+
+@app.route("/api/deep-evaluation", methods=["GET"])
+def get_deep_evaluation():
+    """GET /api/deep-evaluation - Returns multi-dataset evaluation suite results."""
+    path = os.path.join(OUTPUT_DIR, "ALL_DATASETS_DEEP_EVALUATION.json")
+    if not os.path.exists(path):
+        return jsonify({"error": "Deep evaluation results not found."}), 404
+    with open(path) as f:
+        data = json.load(f)
+    return jsonify(data)
+
+@app.route("/api/canonical-registry", methods=["GET"])
+def get_canonical_registry_api():
+    """GET /api/canonical-registry - Returns canonical registry definitions."""
+    from backend.canonical_registry import get_canonical_registry
+    return jsonify(get_canonical_registry())
+
 # Serve Frontend Static Assets
 @app.route("/")
 def index():

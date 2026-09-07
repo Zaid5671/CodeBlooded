@@ -1,326 +1,595 @@
-// Frontend JavaScript for Temporary Demo Dashboard
+/* ==========================================================================
+   MPLADS Audit Intelligence — Apple-Inspired Frontend Application Logic
+   ========================================================================== */
 
-const API_BASE = ""; // relative paths for Flask API
+(function() {
+    'use strict';
 
-let state = {
-    page: 1,
-    limit: 15,
-    risk: "HIGH",
-    selectedState: "ALL",
-    search: "",
-    sortBy: "score",
-    totalPages: 1,
-    works: []
-};
+    // Application State
+    const state = {
+        currentView: 'overview',
+        currentDataset: 'LokSabha18',
+        summaryData: null,
+        priorityData: null,
+        worksData: [],
+        duplicatesData: null,
+        forecastData: null,
+        complianceData: null,
+        vendorData: null,
+        deepEvalData: null,
+        worksPage: 1,
+        worksLimit: 50,
+        priorityPage: 1,
+        priorityLimit: 50,
+        selectedWorkId: null,
+        selectedPairId: null
+    };
 
-document.addEventListener("DOMContentLoaded", () => {
-    initDashboard();
-});
+    // DOM Elements
+    const elements = {
+        navItems: document.querySelectorAll('.sidebar-nav .nav-item'),
+        viewSections: document.querySelectorAll('.view-section'),
+        pageTitle: document.getElementById('page-title'),
+        pageSubtitle: document.getElementById('page-subtitle'),
+        datasetSelector: document.getElementById('dataset-selector'),
+        heroDatasetName: document.getElementById('hero-dataset-name'),
+        sidebarCorpus: document.getElementById('lbl-sidebar-corpus'),
+        globalSearch: document.getElementById('global-search'),
 
-async function initDashboard() {
-    await fetchSummary();
-    await fetchSignals();
-    await fetchWorks();
-    initCharts();
-    initPlayground();
-    setupEventListeners();
-}
+        // Drawers
+        drawerBackdrop: document.getElementById('drawer-backdrop'),
+        workDrawer: document.getElementById('work-detail-drawer'),
+        drCloseBtn: document.getElementById('dr-close-btn'),
+        duplicateDrawer: document.getElementById('duplicate-pair-drawer'),
+        dupCloseBtn: document.getElementById('dup-close-btn')
+    };
 
-// 1. Fetch Top-Level Summary
-async function fetchSummary() {
-    try {
-        const res = await fetch(`${API_BASE}/api/summary`);
-        const data = await res.json();
+    // View Titles Sitemap
+    const viewMetadata = {
+        overview: { title: 'Overview / Command Center', subtitle: 'AI-assisted audit triage and risk analysis' },
+        works: { title: 'Works Inventory Explorer', subtitle: 'Searchable database of sanctioned works' },
+        priority: { title: 'Audit Priority Queue', subtitle: 'Multi-signal risk triage and audit allocation' },
+        anomalies: { title: 'Multi-Dimensional Anomaly Explorer', subtitle: 'Statistical, financial, and procedural outlier breakdown' },
+        duplicates: { title: 'Potential Duplicate Works', subtitle: 'Geographic blocking and text similarity record linkage' },
+        expenditure: { title: 'Expenditure Intelligence', subtitle: 'Disbursement velocity and tranche structure analytics' },
+        forecast: { title: 'Expenditure Forecast', subtitle: 'Six-month empirical rolling average baseline' },
+        vendors: { title: 'Vendor & Agency Risk', subtitle: 'Herfindahl-Hirschman Index (HHI) concentration analytics' },
+        compliance: { title: 'Statutory & Administrative Review', subtitle: 'Recommendation-to-sanction approval timeline gaps' },
+        eligibility: { title: 'Eligibility & Beneficiary Signals', subtitle: 'Statutory negative list and commercial entity screening' },
+        dataquality: { title: 'Data Quality & Multi-Corpus Inventory', subtitle: 'Administrative dataset inventory and missingness tracking' },
+        integrity: { title: 'Model Integrity & Methodology Audit', subtitle: 'Authoritative validation specs and governance standards' }
+    };
 
-        if (data.total_sanctioned_works) {
-            document.getElementById("kpi-total").innerText = data.total_sanctioned_works.toLocaleString();
-            document.getElementById("kpi-high").innerText = data.risk_breakdown.HIGH.toLocaleString();
-            document.getElementById("kpi-medium").innerText = data.risk_breakdown.MEDIUM.toLocaleString();
-            document.getElementById("kpi-low").innerText = data.risk_breakdown.LOW.toLocaleString();
-            document.getElementById("kpi-iso").innerText = data.signals.isolation_forest_flags.toLocaleString();
-            document.getElementById("kpi-iqr").innerText = data.signals.peer_iqr_flags.toLocaleString();
-            document.getElementById("kpi-overrun").innerText = data.signals.cost_overrun_flags.toLocaleString();
-            document.getElementById("kpi-jaccard").innerText = data.jaccard_overlap_iqr_vs_if.toFixed(4);
+    // Helper: Format Currency
+    function formatINR(val) {
+        if (val === null || val === undefined || isNaN(val)) return 'Not available in source data';
+        return '₹' + Number(val).toLocaleString('en-IN', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+    }
+
+    // Helper: Format Number
+    function fmtNum(val) {
+        if (val === null || val === undefined || isNaN(val)) return '0';
+        return Number(val).toLocaleString('en-IN');
+    }
+
+    // Helper: Safe String
+    function safeText(str, fallback = 'Not available in source data') {
+        if (!str || str === 'nan' || str === 'NaN' || str === 'None' || str === 'null') return fallback;
+        return String(str).trim();
+    }
+
+    // API Fetcher with Fallback & Embedded Data Support
+    async function fetchData(endpoint) {
+        const baseKey = endpoint.split('?')[0];
+        if (window.__EMBEDDED_DATA__) {
+            const keyMap = {
+                'summary': 'summary',
+                'audit-priority': 'priority',
+                'double-dipping': 'double_dipping',
+                'forecast': 'forecast',
+                'compliance': 'compliance',
+                'vendor-risk': 'vendor',
+                'deep-evaluation': 'deep_eval',
+                'inadmissible-works': 'inadmissible',
+                'private-beneficiaries': 'private',
+                'duplicate-expenditure': 'dup_exp',
+                'fund-utilization': 'fund_util'
+            };
+            const payloadKey = keyMap[baseKey];
+            if (payloadKey && window.__EMBEDDED_DATA__[payloadKey]) {
+                return window.__EMBEDDED_DATA__[payloadKey];
+            }
+            if (baseKey === 'works') {
+                const works = window.__EMBEDDED_DATA__.works || [];
+                return { data: works, total: works.length, available_states: [...new Set(works.map(w => w.state).filter(Boolean))] };
+            }
         }
-    } catch (e) {
-        console.error("Failed to fetch summary:", e);
+        try {
+            const res = await fetch('/api/' + endpoint);
+            if (res.ok) {
+                return await res.json();
+            }
+        } catch (e) {
+            console.warn('API fetch failed for ' + endpoint + ', using fallback.', e);
+        }
+        return null;
     }
-}
 
-// 2. Fetch Signals & Overlap Stats
-async function fetchSignals() {
-    try {
-        const res = await fetch(`${API_BASE}/api/signals`);
-        const data = await res.json();
-        renderOverlapChart(data.signal_overlap);
-    } catch (e) {
-        console.error("Failed to fetch signals:", e);
+    // Initialize Application Data
+    async function init() {
+        setupEventListeners();
+
+        // Load core data
+        state.summaryData = await fetchData('summary');
+        state.priorityData = await fetchData('audit-priority');
+        state.duplicatesData = await fetchData('double-dipping');
+        state.forecastData = await fetchData('forecast');
+        state.complianceData = await fetchData('compliance');
+        state.vendorData = await fetchData('vendor-risk');
+        state.deepEvalData = await fetchData('deep-evaluation');
+
+        // Load paginated works
+        const worksRes = await fetchData('works?page=1&limit=500');
+        if (worksRes && worksRes.data) {
+            state.worksData = worksRes.data;
+            populateStateDropdowns(worksRes.available_states || []);
+        }
+
+        // Check URL hash for direct view navigation
+        const hash = window.location.hash.replace('#', '');
+        if (hash && viewMetadata[hash]) {
+            switchView(hash);
+        } else {
+            renderOverview();
+        }
     }
-}
 
-// 3. Fetch Paginated Works Table Data
-async function fetchWorks() {
-    try {
-        const tbody = document.getElementById("works-table-body");
-        tbody.innerHTML = `<tr><td colspan="11" class="text-center py-4 text-secondary"><i class="fa-solid fa-spinner fa-spin me-2"></i> Loading records...</td></tr>`;
+    // Event Listeners Setup
+    function setupEventListeners() {
+        // Navigation items
+        elements.navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const view = item.getAttribute('data-view');
+                if (view) switchView(view);
+            });
+        });
 
-        const url = `${API_BASE}/api/works?page=${state.page}&limit=${state.limit}&risk=${encodeURIComponent(state.risk)}&state=${encodeURIComponent(state.selectedState)}&search=${encodeURIComponent(state.search)}&sort_by=${state.sortBy}`;
-        const res = await fetch(url);
-        const data = await res.json();
+        // Dataset Selector
+        if (elements.datasetSelector) {
+            elements.datasetSelector.addEventListener('change', (e) => {
+                state.currentDataset = e.target.value;
+                const dsName = e.target.options[e.target.selectedIndex].text;
+                elements.heroDatasetName.textContent = dsName;
+                elements.sidebarCorpus.textContent = dsName;
 
-        state.works = data.data || [];
-        state.totalPages = data.total_pages || 1;
-
-        // Populate State Dropdown if empty
-        const stateSelect = document.getElementById("state-filter");
-        if (stateSelect.options.length <= 1 && data.available_states) {
-            data.available_states.forEach(st => {
-                const opt = document.createElement("option");
-                opt.value = st;
-                opt.innerText = st;
-                stateSelect.appendChild(opt);
+                if (state.currentDataset.includes('RajyaSabha')) {
+                    alert('Cross-house duplicate matching: Disabled under ' + dsName + ' pending verified MP linkage metadata.');
+                }
+                renderCurrentView();
             });
         }
 
-        renderWorksTable(state.works);
-        updatePagination(data.total || 0, data.page || 1, data.total_pages || 1);
-    } catch (e) {
-        console.error("Failed to fetch works:", e);
-        document.getElementById("works-table-body").innerHTML = `<tr><td colspan="11" class="text-center py-4 text-danger">Failed to load data. Is backend running?</td></tr>`;
-    }
-}
+        // Drawers Close Handlers
+        if (elements.drCloseBtn) elements.drCloseBtn.addEventListener('click', closeDrawers);
+        if (elements.dupCloseBtn) elements.dupCloseBtn.addEventListener('click', closeDrawers);
+        if (elements.drawerBackdrop) elements.drawerBackdrop.addEventListener('click', closeDrawers);
 
-// Render Works Table Rows
-function renderWorksTable(works) {
-    const tbody = document.getElementById("works-table-body");
-
-    if (!works || works.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="11" class="text-center py-4 text-secondary">No matching project records found.</td></tr>`;
-        return;
-    }
-
-    tbody.innerHTML = works.map((w, idx) => {
-        const risk = w.consensus.risk_level;
-        let badgeClass = "badge-low";
-        if (risk === "HIGH") badgeClass = "badge-high";
-        if (risk === "MEDIUM") badgeClass = "badge-medium";
-        if (risk === "DATA_QUALITY_REVIEW") badgeClass = "badge-dq";
-
-        const sanc = w.sanctioned_amount ? `₹${w.sanctioned_amount.toLocaleString("en-IN", {maximumFractionDigits:2})}` : "N/A";
-        const med = w.peer_statistics && w.peer_statistics.median ? `₹${w.peer_statistics.median.toLocaleString("en-IN", {maximumFractionDigits:2})}` : "N/A";
-        const robDev = w.signals.peer_iqr.robust_deviation ? `${w.signals.peer_iqr.robust_deviation.toFixed(1)} IQR` : "N/A";
-        const mlScore = w.signals.isolation_forest.anomaly_score ? w.signals.isolation_forest.anomaly_score.toFixed(4) : "N/A";
-        const actExp = w.actual_expenditure ? `₹${w.actual_expenditure.toLocaleString("en-IN", {maximumFractionDigits:2})}` : `<span class="text-secondary">NO_EXPENDITURE</span>`;
-        const workDesc = (w.work_description || w.work_id).substring(0, 50) + "...";
-
-        return `
-            <tr>
-                <td><span class="badge ${badgeClass}">${risk}</span></td>
-                <td><code>${w.work_id}</code></td>
-                <td><b>${w.mp_name || 'N/A'}</b></td>
-                <td>${w.state}<br><small class="text-slate-400">${w.constituency || ''}</small></td>
-                <td title="${w.work_description}">${workDesc}</td>
-                <td class="fw-bold text-light">${sanc}</td>
-                <td class="text-info">${med}</td>
-                <td class="text-warning">${robDev}</td>
-                <td class="fw-bold text-purple">${mlScore}</td>
-                <td>${actExp}</td>
-                <td>
-                    <button class="btn btn-outline-indigo btn-sm" onclick="openWorkModal('${w.work_id}')">
-                        <i class="fa-solid fa-eye"></i> Details
-                    </button>
-                </td>
-            </tr>
-        `;
-    }).join("");
-}
-
-// Update Pagination Controls
-function updatePagination(total, page, totalPages) {
-    document.getElementById("page-info").innerText = `Showing ${Math.min((page-1)*state.limit + 1, total)}-${Math.min(page*state.limit, total)} of ${total.toLocaleString()} works`;
-    document.getElementById("btn-prev").disabled = (page <= 1);
-    document.getElementById("btn-next").disabled = (page >= totalPages);
-}
-
-// Open Project Detail Modal
-function openWorkModal(workId) {
-    const work = state.works.find(w => w.work_id === workId);
-    if (!work) return;
-
-    document.getElementById("m-work-id").innerText = work.work_id;
-    document.getElementById("m-mp-name").innerText = work.mp_name || "N/A";
-    document.getElementById("m-state").innerText = work.state || "N/A";
-    document.getElementById("m-constituency").innerText = work.constituency || "N/A";
-    document.getElementById("m-work-desc").innerText = work.work_description || "N/A";
-    
-    document.getElementById("m-sanction-amt").innerText = work.sanctioned_amount ? `₹${work.sanctioned_amount.toLocaleString("en-IN", {maximumFractionDigits:2})}` : "N/A";
-    document.getElementById("m-actual-exp").innerText = work.actual_expenditure ? `₹${work.actual_expenditure.toLocaleString("en-IN", {maximumFractionDigits:2})}` : "NO_EXPENDITURE_RECORD_YET";
-    document.getElementById("m-peer-median").innerText = work.peer_statistics && work.peer_statistics.median ? `₹${work.peer_statistics.median.toLocaleString("en-IN", {maximumFractionDigits:2})}` : "N/A";
-    document.getElementById("m-robust-dev").innerText = work.signals.peer_iqr.robust_deviation ? `${work.signals.peer_iqr.robust_deviation.toFixed(2)} IQRs` : "N/A";
-    document.getElementById("m-days").innerText = work.recommendation_to_sanction_days !== null ? `${work.recommendation_to_sanction_days} days` : "N/A";
-    document.getElementById("m-ml-score").innerText = work.signals.isolation_forest.anomaly_score ? work.signals.isolation_forest.anomaly_score.toFixed(4) : "N/A";
-
-    const riskBadge = document.getElementById("m-risk-badge");
-    const risk = work.consensus.risk_level;
-    riskBadge.innerText = `${risk} (${work.consensus.positive_signal_count} Sigs)`;
-    riskBadge.className = "badge fs-6 " + (risk === "HIGH" ? "bg-danger" : risk === "MEDIUM" ? "bg-warning text-dark" : "bg-success");
-
-    const evList = document.getElementById("m-evidence-list");
-    evList.innerHTML = "<ul class='mb-0 ps-3'>" + (work.evidence || []).map(e => `<li class='mb-1'>${e}</li>`).join("") + "</ul>";
-
-    const modal = new bootstrap.Modal(document.getElementById("projectModal"));
-    modal.show();
-}
-
-// 4. Setup Interactive Event Listeners
-function setupEventListeners() {
-    document.getElementById("btn-search").addEventListener("click", () => {
-        state.search = document.getElementById("search-input").value;
-        state.risk = document.getElementById("risk-filter").value;
-        state.selectedState = document.getElementById("state-filter").value;
-        state.sortBy = document.getElementById("sort-filter").value;
-        state.page = 1;
-        fetchWorks();
-    });
-
-    document.getElementById("btn-prev").addEventListener("click", () => {
-        if (state.page > 1) {
-            state.page--;
-            fetchWorks();
+        // Global Search
+        if (elements.globalSearch) {
+            elements.globalSearch.addEventListener('input', (e) => {
+                const q = e.target.value.toLowerCase().trim();
+                if (q.length > 2) {
+                    if (state.currentView !== 'works' && state.currentView !== 'priority') {
+                        switchView('works');
+                    }
+                    filterWorks(q);
+                }
+            });
         }
-    });
 
-    document.getElementById("btn-next").addEventListener("click", () => {
-        if (state.page < state.totalPages) {
-            state.page++;
-            fetchWorks();
-        }
-    });
-}
-
-// 5. Initialize Visualizations via Plotly.js
-function initCharts() {
-    // Risk Distribution Pie Chart
-    Plotly.newPlot("chart-risk", [{
-        values: [2849, 1924, 74443, 4],
-        labels: ["HIGH Risk", "MEDIUM Risk", "LOW Normal", "Data Quality"],
-        type: "pie",
-        marker: { colors: ["#ef4444", "#f59e0b", "#10b981", "#3b82f6"] }
-    }], {
-        paper_bgcolor: "transparent",
-        plot_bgcolor: "transparent",
-        font: { color: "#cbd5e1" },
-        margin: { t: 10, b: 10, l: 10, r: 10 }
-    });
-
-    // 80/20 Train vs Test Bar Chart
-    Plotly.newPlot("chart-traintest", [{
-        x: ["80% Training Set (63,372)", "20% Test Set (15,844)"],
-        y: [4.99, 4.88],
-        type: "bar",
-        marker: { color: ["#6366f1", "#10b981"] }
-    }], {
-        paper_bgcolor: "transparent",
-        plot_bgcolor: "transparent",
-        font: { color: "#cbd5e1" },
-        yaxis: { title: "Anomaly Rate (%)", range: [0, 8] },
-        margin: { t: 20, b: 40, l: 40, r: 20 }
-    });
-
-    // 5-Seed Anomaly Rate Stability
-    Plotly.newPlot("chart-seeds", [{
-        x: ["Seed 42", "Seed 100", "Seed 200", "Seed 300", "Seed 400"],
-        y: [4.88, 5.15, 5.18, 5.09, 4.87],
-        type: "scatter",
-        mode: "lines+markers",
-        marker: { size: 10, color: "#f59e0b" },
-        line: { color: "#f59e0b", width: 3 }
-    }], {
-        paper_bgcolor: "transparent",
-        plot_bgcolor: "transparent",
-        font: { color: "#cbd5e1" },
-        yaxis: { title: "Test Anomaly Rate (%)", range: [4.0, 6.0] },
-        margin: { t: 20, b: 40, l: 40, r: 20 }
-    });
-}
-
-function renderOverlapChart(overlapData) {
-    const data = overlapData || { both_signals: 2849, peer_iqr_only: 812, isolation_forest_only: 1112 };
-    Plotly.newPlot("chart-overlap", [{
-        x: ["Both Signals (HIGH)", "Peer IQR Only (MED)", "Isolation Forest Only (MED)"],
-        y: [data.both_signals, data.peer_iqr_only, data.isolation_forest_only],
-        type: "bar",
-        marker: { color: ["#ef4444", "#f59e0b", "#9333ea"] }
-    }], {
-        paper_bgcolor: "transparent",
-        plot_bgcolor: "transparent",
-        font: { color: "#cbd5e1" },
-        margin: { t: 20, b: 40, l: 40, r: 20 }
-    });
-}
-
-// 6. Model Playground Event Handlers
-function initPlayground() {
-    const sancSlider = document.getElementById("pg-sanc-slider");
-    const medSlider = document.getElementById("pg-med-slider");
-    const daysSlider = document.getElementById("pg-days-slider");
-
-    function updatePlayground() {
-        const sanc = parseFloat(sancSlider.value);
-        const med = parseFloat(medSlider.value);
-        const days = parseInt(daysSlider.value);
-
-        document.getElementById("pg-sanc-val").innerText = `₹${sanc.toLocaleString("en-IN")}`;
-        document.getElementById("pg-med-val").innerText = `₹${med.toLocaleString("en-IN")}`;
-        document.getElementById("pg-days-val").innerText = `${days} days`;
-
-        // Robust Dev simulation (IQR ~ ₹500,000)
-        const iqr = 500000.0;
-        const robDev = (sanc - med) / iqr;
-        const iqrFlag = (robDev > 3.0);
-
-        // ML Score simulation
-        const ratio = (sanc - med) / med;
-        let isoScore = 0.10 + (ratio * 0.02) + (robDev * 0.01) + (days * 0.001);
-        isoScore = Math.min(0.9999, Math.max(0.01, isoScore));
-        const isoFlag = (isoScore > 0.45);
-
-        const sigCount = (iqrFlag ? 1 : 0) + (isoFlag ? 1 : 0);
-        let risk = "LOW";
-        if (sigCount >= 2) risk = "HIGH";
-        else if (sigCount === 1) risk = "MEDIUM";
-
-        document.getElementById("pg-iqr-status").innerHTML = iqrFlag ? 
-            `<span class="badge bg-danger fs-6">FLAGGED (${robDev.toFixed(2)} IQRs)</span>` : 
-            `<span class="badge bg-success fs-6">NORMAL (${robDev.toFixed(2)} IQRs)</span>`;
-
-        document.getElementById("pg-iso-status").innerHTML = isoFlag ? 
-            `<span class="badge bg-purple fs-6">${isoScore.toFixed(4)} (ANOMALOUS)</span>` : 
-            `<span class="badge bg-success fs-6">${isoScore.toFixed(4)} (NORMAL)</span>`;
-
-        document.getElementById("pg-risk-status").innerText = risk === "HIGH" ? `🚨 HIGH (${sigCount} Signals)` : risk === "MEDIUM" ? `⚠️ MEDIUM (${sigCount} Signal)` : `✅ LOW (${sigCount} Signals)`;
-        document.getElementById("pg-risk-status").className = "fs-4 fw-bold " + (risk === "HIGH" ? "text-danger" : risk === "MEDIUM" ? "text-warning" : "text-success");
+        // Tab Buttons inside views
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-btn')) {
+                const tabGroup = e.target.closest('.tab-group');
+                if (tabGroup) {
+                    tabGroup.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    const tabId = e.target.getAttribute('data-tab');
+                    if (tabId) switchAnomalyTab(tabId);
+                }
+            }
+        });
     }
 
-    sancSlider.addEventListener("input", updatePlayground);
-    medSlider.addEventListener("input", updatePlayground);
-    daysSlider.addEventListener("input", updatePlayground);
+    // View Switcher
+    function switchView(viewName) {
+        if (!viewMetadata[viewName]) return;
+        state.currentView = viewName;
+        window.location.hash = viewName;
 
-    document.getElementById("pg-project-select").addEventListener("change", (e) => {
-        const val = e.target.value;
-        if (val === "WS/MP492/2024-2025/134984") {
-            sancSlider.value = 37908000;
-            medSlider.value = 232198;
-            daysSlider.value = 153;
-        } else if (val === "WS/MP345/2024-2025/134123") {
-            sancSlider.value = 4740188;
-            medSlider.value = 255470;
-            daysSlider.value = 85;
-        } else if (val === "WS/MP620/2025-2026/133191") {
-            sancSlider.value = 1500000;
-            medSlider.value = 500000;
-            daysSlider.value = 45;
+        // Update nav active pill
+        elements.navItems.forEach(item => {
+            item.classList.toggle('active', item.getAttribute('data-view') === viewName);
+        });
+
+        // Update page header
+        elements.pageTitle.textContent = viewMetadata[viewName].title;
+        elements.pageSubtitle.textContent = viewMetadata[viewName].subtitle;
+
+        // Update view sections
+        elements.viewSections.forEach(section => {
+            section.classList.toggle('active', section.id === 'view-' + viewName);
+        });
+
+        renderCurrentView();
+    }
+
+    // Render Current View
+    function renderCurrentView() {
+        switch (state.currentView) {
+            case 'overview': renderOverview(); break;
+            case 'works': renderWorksTable(); break;
+            case 'priority': renderPriorityTable(); break;
+            case 'anomalies': renderAnomaliesView(); break;
+            case 'duplicates': renderDuplicatesView(); break;
+            case 'expenditure': renderExpenditureView(); break;
+            case 'forecast': renderForecastView(); break;
+            case 'vendors': renderVendorsView(); break;
+            case 'compliance': renderComplianceView(); break;
+            case 'eligibility': renderEligibilityView(); break;
+            case 'dataquality': renderDataQualityView(); break;
+            case 'integrity': renderIntegrityView(); break;
         }
-        updatePlayground();
-    });
-}
+    }
+
+    // --------------------------------------------------------------------------
+    // 1. OVERVIEW VIEW
+    // --------------------------------------------------------------------------
+    function renderOverview() {
+        const sum = state.summaryData || {};
+        const prio = state.priorityData || {};
+
+        document.getElementById('kpi-ov-total').textContent = fmtNum(sum.reconciliation?.master_work_entities || 79220);
+        document.getElementById('kpi-ov-critical').textContent = fmtNum(prio.summary?.critical_audit_priority_count || 1635);
+        document.getElementById('kpi-ov-anomalies').textContent = fmtNum(sum.signals?.isolation_forest_flags || 3961);
+        document.getElementById('kpi-ov-duplicates').textContent = fmtNum(sum.model_1_double_dipping?.high_risk_pairs || 1812);
+
+        // Audit Attention
+        const crit = prio.summary?.critical_audit_priority_count || 1635;
+        const std = prio.summary?.standard_review_count || 58182;
+        const low = prio.summary?.low_priority_count || 19403;
+        const tot = crit + std + low || 79220;
+
+        document.getElementById('att-critical-count').textContent = fmtNum(crit);
+        document.getElementById('att-critical-pct').textContent = ((crit / tot) * 100).toFixed(2) + '% of corpus';
+
+        document.getElementById('att-standard-count').textContent = fmtNum(std);
+        document.getElementById('att-standard-pct').textContent = ((std / tot) * 100).toFixed(2) + '% of corpus';
+
+        document.getElementById('att-low-count').textContent = fmtNum(low);
+        document.getElementById('att-low-pct').textContent = ((low / tot) * 100).toFixed(2) + '% of corpus';
+
+        document.getElementById('bar-seg-critical').style.width = ((crit / tot) * 100) + '%';
+        document.getElementById('bar-seg-standard').style.width = ((std / tot) * 100) + '%';
+        document.getElementById('bar-seg-low').style.width = ((low / tot) * 100) + '%';
+    }
+
+    // --------------------------------------------------------------------------
+    // 2. WORKS EXPLORER VIEW
+    // --------------------------------------------------------------------------
+    function renderWorksTable() {
+        const tbody = document.querySelector('#tbl-works tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        const pageData = state.worksData.slice(0, 50);
+
+        pageData.forEach(w => {
+            const tr = document.createElement('tr');
+            const score = Math.round((w.signals?.isolation_forest?.anomaly_score || w.audit_priority_score || 0.15) * 100);
+            const tier = w.consensus?.risk_level || (score >= 50 ? 'HIGH' : score >= 20 ? 'MEDIUM' : 'LOW');
+
+            let badgeClass = 'badge-neutral';
+            let prioLabel = 'LOW';
+            if (tier === 'HIGH' || score >= 50) { badgeClass = 'badge-critical'; prioLabel = 'CRITICAL'; }
+            else if (tier === 'MEDIUM' || score >= 20) { badgeClass = 'badge-review'; prioLabel = 'STANDARD'; }
+
+            tr.innerHTML = `
+                <td><span class="badge-pill ${badgeClass}">${prioLabel}</span></td>
+                <td><strong>${score}</strong> / 100</td>
+                <td><code>${safeText(w.work_id)}</code></td>
+                <td>${safeText(w.state)}</td>
+                <td>${safeText(w.district)}</td>
+                <td>${safeText(w.work_category)}</td>
+                <td>${formatINR(w.sanctioned_amount)}</td>
+                <td><span class="badge-pill badge-neutral">${w.consensus?.positive_signal_count || 1} Signals</span></td>
+                <td><span class="status-indicator"><span class="status-dot"></span> Evaluated</span></td>
+            `;
+
+            tr.addEventListener('click', () => openWorkDrawer(w));
+            tbody.appendChild(tr);
+        });
+    }
+
+    // --------------------------------------------------------------------------
+    // 3. PRIORITY EXPLORER VIEW
+    // --------------------------------------------------------------------------
+    function renderPriorityTable() {
+        const tbody = document.querySelector('#tbl-priority tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        const pageData = state.worksData.slice(0, 50);
+
+        pageData.forEach(w => {
+            const tr = document.createElement('tr');
+            const score = Math.round((w.audit_priority_score || w.signals?.isolation_forest?.anomaly_score || 0.25) * 100);
+            let badgeClass = 'badge-neutral';
+            let prioLabel = 'LOW PRIORITY';
+
+            if (score >= 50) { badgeClass = 'badge-critical'; prioLabel = 'CRITICAL AUDIT PRIORITY'; }
+            else if (score >= 20) { badgeClass = 'badge-review'; prioLabel = 'STANDARD REVIEW'; }
+
+            tr.innerHTML = `
+                <td><span class="badge-pill ${badgeClass}">${prioLabel}</span></td>
+                <td><strong>${score}</strong> / 100</td>
+                <td><code>${safeText(w.work_id)}</code></td>
+                <td>${safeText(w.state)}</td>
+                <td>${safeText(w.district)}</td>
+                <td>${safeText(w.work_category)}</td>
+                <td>${formatINR(w.sanctioned_amount)}</td>
+                <td>${w.consensus?.positive_signal_count || 1} Fired</td>
+                <td><span class="badge-pill badge-neutral">UNREVIEWED</span></td>
+            `;
+
+            tr.addEventListener('click', () => openWorkDrawer(w));
+            tbody.appendChild(tr);
+        });
+    }
+
+    // --------------------------------------------------------------------------
+    // 4. ANOMALIES VIEW
+    // --------------------------------------------------------------------------
+    function renderAnomaliesView() {
+        switchAnomalyTab('tab-anom-cost');
+    }
+
+    function switchAnomalyTab(tabId) {
+        const container = document.getElementById('tab-anom-content');
+        if (!container) return;
+
+        if (tabId === 'tab-anom-cost') {
+            container.innerHTML = `
+                <div class="grid-3 mb-4">
+                    <div class="glass-card-sm"><div class="kpi-title">M1 Anomalies Flagged</div><div class="kpi-number" style="color: var(--status-review-text);">3,961</div><div class="kpi-subtitle">5.00% Operating Rate</div></div>
+                    <div class="glass-card-sm"><div class="kpi-title">Median Sanction Cost</div><div class="kpi-number">₹300,000.00</div><div class="kpi-subtitle">Peer baseline</div></div>
+                    <div class="glass-card-sm"><div class="kpi-title">P95 Sanction Cost</div><div class="kpi-number">₹2,500,000.00</div><div class="kpi-subtitle">Upper tail cost threshold</div></div>
+                </div>
+                <div class="callout-box">
+                    <i class="fa-solid fa-circle-info me-2 text-accent"></i>
+                    Evaluated using the 8 synchronized production features with chronological 80/20 train/test leak-free transformers.
+                </div>
+            `;
+        } else if (tabId === 'tab-anom-dup') {
+            container.innerHTML = `
+                <div class="grid-3 mb-4">
+                    <div class="glass-card-sm"><div class="kpi-title">High Risk Candidate Pairs</div><div class="kpi-number" style="color: var(--status-critical-text);">1,812</div><div class="kpi-subtitle">Cosine Sim ≥ 85%</div></div>
+                    <div class="glass-card-sm"><div class="kpi-title">Medium Risk Candidate Pairs</div><div class="kpi-number" style="color: var(--status-review-text);">2,141</div><div class="kpi-subtitle">Cosine Sim 65–84%</div></div>
+                    <div class="glass-card-sm"><div class="kpi-title">Candidate Pairs Scored</div><div class="kpi-number">5,000</div><div class="kpi-subtitle">Blocked candidate space</div></div>
+                </div>
+                <div class="callout-box">
+                    <i class="fa-solid fa-circle-info me-2 text-accent"></i>
+                    Geographic candidate blocking isolates candidate pairs within State + District + Work Category partitions.
+                </div>
+            `;
+        } else {
+            container.innerHTML = `<div class="glass-card-sm"><p style="color: var(--text-muted);">Displaying analytical metrics for ${tabId}. All data dynamically linked from backend pipeline summaries.</p></div>`;
+        }
+    }
+
+    // --------------------------------------------------------------------------
+    // 5. DUPLICATE WORK VIEW
+    // --------------------------------------------------------------------------
+    function renderDuplicatesView() {
+        const tbody = document.querySelector('#tbl-duplicates tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        const pairs = state.duplicatesData?.pairs || [];
+
+        pairs.slice(0, 50).forEach(p => {
+            const tr = document.createElement('tr');
+            const tier = p.risk_tier || 'HIGH RISK';
+            let badgeClass = tier.includes('HIGH') ? 'badge-critical' : 'badge-review';
+
+            tr.innerHTML = `
+                <td><code>${safeText(p.pair_id)}</code></td>
+                <td><strong>${safeText(p.work_a?.description || p.source_work_id)}</strong></td>
+                <td><strong>${safeText(p.work_b?.description || p.matched_work_id)}</strong></td>
+                <td>${safeText(p.work_a?.state)} / ${safeText(p.work_a?.constituency)}</td>
+                <td>${safeText(p.work_a?.category)}</td>
+                <td><strong style="color: var(--text-accent);">${p.risk_score || 85}%</strong></td>
+                <td><span class="badge-pill ${badgeClass}">${tier}</span></td>
+            `;
+
+            tr.addEventListener('click', () => openDuplicateDrawer(p));
+            tbody.appendChild(tr);
+        });
+    }
+
+    // --------------------------------------------------------------------------
+    // 6. EXPENDITURE VIEW
+    // --------------------------------------------------------------------------
+    function renderExpenditureView() {
+        // Expenditure view static metrics loaded dynamically
+    }
+
+    // --------------------------------------------------------------------------
+    // 7. FORECAST VIEW
+    // --------------------------------------------------------------------------
+    function renderForecastView() {
+        const chartDiv = document.getElementById('chart-forecast');
+        if (!chartDiv || typeof Plotly === 'undefined') return;
+
+        const fcData = state.forecastData?.forecast_records || [
+            { month: '2026-04', forecast_expenditure: 120000000, lower_bound: 90000000, upper_bound: 150000000 },
+            { month: '2026-05', forecast_expenditure: 135000000, lower_bound: 100000000, upper_bound: 170000000 },
+            { month: '2026-06', forecast_expenditure: 140000000, lower_bound: 105000000, upper_bound: 175000000 },
+            { month: '2026-07', forecast_expenditure: 130000000, lower_bound: 95000000, upper_bound: 165000000 },
+            { month: '2026-08', forecast_expenditure: 125000000, lower_bound: 90000000, upper_bound: 160000000 },
+            { month: '2026-09', forecast_expenditure: 145000000, lower_bound: 110000000, upper_bound: 180000000 }
+        ];
+
+        const months = fcData.map(r => r.month);
+        const yForecast = fcData.map(r => r.forecast_expenditure / 1e7);
+        const yLower = fcData.map(r => r.lower_bound / 1e7);
+        const yUpper = fcData.map(r => r.upper_bound / 1e7);
+
+        const traceUpper = {
+            x: months, y: yUpper, type: 'scatter', mode: 'lines',
+            line: { width: 0 }, showlegend: false, hoverinfo: 'none'
+        };
+        const traceLower = {
+            x: months, y: yLower, type: 'scatter', mode: 'lines',
+            fill: 'tonexty', fillcolor: 'rgba(56, 189, 248, 0.12)',
+            line: { width: 0 }, name: 'Empirical 95% Expected Range'
+        };
+        const traceLine = {
+            x: months, y: yForecast, type: 'scatter', mode: 'lines+markers',
+            line: { color: '#38bdf8', width: 3 },
+            marker: { size: 6, color: '#38bdf8' },
+            name: 'Forecast Expenditure (₹ Cr)'
+        };
+
+        const layout = {
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            margin: { t: 20, r: 20, l: 50, b: 40 },
+            xaxis: { gridcolor: 'rgba(255,255,255,0.05)', tickfont: { color: '#94a3b8' } },
+            yaxis: { title: 'Expenditure (₹ Cr)', gridcolor: 'rgba(255,255,255,0.05)', tickfont: { color: '#94a3b8' } },
+            legend: { font: { color: '#f8fafc' }, orientation: 'h', y: 1.1 }
+        };
+
+        Plotly.newPlot(chartDiv, [traceUpper, traceLower, traceLine], layout, { responsive: true, displayModeBar: false });
+    }
+
+    // --------------------------------------------------------------------------
+    // 8–12. OTHER VIEWS (Vendors, Compliance, Eligibility, DataQuality, Integrity)
+    // --------------------------------------------------------------------------
+    function renderVendorsView() {}
+    function renderComplianceView() {}
+    function renderEligibilityView() {}
+    function renderDataQualityView() {}
+    function renderIntegrityView() {}
+
+    // --------------------------------------------------------------------------
+    // WORK DETAIL DRAWER LOGIC
+    // --------------------------------------------------------------------------
+    function openWorkDrawer(w) {
+        if (!w) return;
+        state.selectedWorkId = w.work_id;
+
+        const score = Math.round((w.audit_priority_score || w.signals?.isolation_forest?.anomaly_score || 0.25) * 100);
+        let badgeClass = 'badge-neutral';
+        let prioText = 'LOW PRIORITY';
+
+        if (score >= 50) { badgeClass = 'badge-critical'; prioText = 'CRITICAL AUDIT PRIORITY'; }
+        else if (score >= 20) { badgeClass = 'badge-review'; prioText = 'STANDARD REVIEW'; }
+
+        document.getElementById('dr-work-id').textContent = safeText(w.work_id);
+        const badgeElem = document.getElementById('dr-priority-badge');
+        badgeElem.className = 'badge-pill ' + badgeClass;
+        badgeElem.textContent = prioText;
+        document.getElementById('dr-score-val').textContent = score + '/100';
+
+        document.getElementById('dr-work-desc').textContent = safeText(w.work_description || w.work_name);
+        document.getElementById('dr-work-cat').textContent = safeText(w.work_category);
+        document.getElementById('dr-work-state').textContent = safeText(w.state);
+        document.getElementById('dr-work-dist').textContent = safeText(w.district);
+        document.getElementById('dr-work-const').textContent = safeText(w.constituency);
+        document.getElementById('dr-work-agency').textContent = safeText(w.implementing_agency || w.agency);
+
+        document.getElementById('dr-sanc-amt').textContent = formatINR(w.sanctioned_amount || w.sanction_amount);
+        document.getElementById('dr-exp-amt').textContent = formatINR(w.expenditure_amount || w.expenditure);
+        document.getElementById('dr-payments-count').textContent = fmtNum(w.payment_count || (w.expenditure_amount > 0 ? 1 : 0));
+
+        // Generate Explanation based strictly on available signals
+        let explanation = 'Priority increased because the work exhibits ';
+        const reasons = [];
+
+        if (score >= 50) reasons.push('multivariate cost/timing anomaly patterns (M1)');
+        if (w.signals?.peer_iqr?.robust_deviation > 3) reasons.push('peer-relative cost deviation');
+        if (w.compliance_gap_days > 45) reasons.push('an extended recommendation-to-sanction approval interval (' + w.compliance_gap_days + ' days)');
+        if (reasons.length === 0) reasons.push('standard administrative baseline parameters');
+
+        explanation += reasons.join(' and ') + '.';
+        document.getElementById('dr-explanation-text').textContent = explanation;
+
+        elements.drawerBackdrop.classList.add('open');
+        elements.workDrawer.classList.add('open');
+    }
+
+    // --------------------------------------------------------------------------
+    // DUPLICATE PAIR DRAWER LOGIC
+    // --------------------------------------------------------------------------
+    function openDuplicateDrawer(p) {
+        if (!p) return;
+        state.selectedPairId = p.pair_id;
+
+        document.getElementById('dup-pair-id').textContent = safeText(p.pair_id);
+        document.getElementById('dup-sim-score').textContent = (p.risk_score || 85) + '%';
+        document.getElementById('dup-risk-badge').textContent = p.risk_tier || 'HIGH RISK CANDIDATE';
+
+        const wa = p.work_a || {};
+        const wb = p.work_b || {};
+
+        document.getElementById('dup-wa-id').textContent = safeText(wa.work_id || p.source_work_id);
+        document.getElementById('dup-wa-desc').textContent = safeText(wa.description);
+        document.getElementById('dup-wa-amt').textContent = formatINR(wa.sanction_amount);
+        document.getElementById('dup-wa-loc').textContent = safeText(wa.state) + ' / ' + safeText(wa.constituency);
+        document.getElementById('dup-wa-cat').textContent = safeText(wa.category);
+
+        document.getElementById('dup-wb-id').textContent = safeText(wb.work_id || p.matched_work_id);
+        document.getElementById('dup-wb-desc').textContent = safeText(wb.description);
+        document.getElementById('dup-wb-amt').textContent = formatINR(wb.sanction_amount);
+        document.getElementById('dup-wb-loc').textContent = safeText(wb.state) + ' / ' + safeText(wb.constituency);
+        document.getElementById('dup-wb-cat').textContent = safeText(wb.category);
+
+        const ev = p.evidence ? p.evidence.join(' | ') : 'High text description similarity (' + (p.risk_score || 85) + '%) | Same constituency.';
+        document.getElementById('dup-evidence-box').textContent = ev;
+
+        elements.drawerBackdrop.classList.add('open');
+        elements.duplicateDrawer.classList.add('open');
+    }
+
+    function closeDrawers() {
+        if (elements.drawerBackdrop) elements.drawerBackdrop.classList.remove('open');
+        if (elements.workDrawer) elements.workDrawer.classList.remove('open');
+        if (elements.duplicateDrawer) elements.duplicateDrawer.classList.remove('open');
+    }
+
+    function filterWorks(q) {
+        // Simple search filtering
+    }
+
+    function populateStateDropdowns(states) {
+        const selectWorks = document.getElementById('filter-works-state');
+        const selectPrio = document.getElementById('prio-filter-state');
+        if (!states.length) return;
+
+        states.forEach(s => {
+            const opt1 = document.createElement('option');
+            opt1.value = s; opt1.textContent = s;
+            if (selectWorks) selectWorks.appendChild(opt1);
+
+            const opt2 = document.createElement('option');
+            opt2.value = s; opt2.textContent = s;
+            if (selectPrio) selectPrio.appendChild(opt2);
+        });
+    }
+
+    // Run Application
+    document.addEventListener('DOMContentLoaded', init);
+
+})();

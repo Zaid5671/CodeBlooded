@@ -3,440 +3,1056 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anomalous Cost Estimate & Cost Overrun Detection Engine - Temporary Demo</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>MPLADS Audit Intelligence Dashboard — SIH26102</title>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Plotly.js for Visualizations -->
+    <!-- Plotly.js for Premium Visualizations -->
     <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.24.1/plotly.min.js"></script>
-    <!-- Custom Stylesheet -->
+    <!-- Apple-Inspired Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-dark text-light">
+<body>
 
-    <!-- Navbar / Header -->
-    <nav class="navbar navbar-expand-lg navbar-dark border-bottom border-secondary bg-slate-900 sticky-top px-3">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-                <i class="fa-solid fa-shield-halved text-indigo me-2 fs-4"></i>
+    <div class="app-container">
+
+        <!-- =================================================-----------------
+             LEFT SIDEBAR NAVIGATION
+             ================================================------------------ -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-icon">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
                 <div>
-                    <span class="fs-5">Anomalous Cost Estimate & Cost Overrun Detection Engine</span>
-                    <div class="text-secondary small fw-normal">SIH 2026 Problem Statement 102 (MPLADS) — Lok Sabha 18th</div>
-                </div>
-            </a>
-            <div class="d-flex align-items-center gap-2">
-                <span class="badge bg-indigo text-white px-3 py-2 fs-6 rounded-pill"><i class="fa-solid fa-brain me-1"></i> UNSUPERVISED ML</span>
-                <span class="badge bg-secondary text-white px-3 py-2 fs-6 rounded-pill">Lok Sabha 18th ONLY</span>
-                <span class="badge bg-warning text-dark px-3 py-2 fs-6 rounded-pill"><i class="fa-solid fa-flask me-1"></i> Temporary Demo</span>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container-fluid px-4 py-3">
-
-        <!-- Human Investigation Disclaimer Banner -->
-        <div class="alert alert-indigo border-indigo-subtle shadow-sm mb-4">
-            <div class="d-flex align-items-start">
-                <i class="fa-solid fa-circle-info fs-4 text-indigo me-3 mt-1"></i>
-                <div>
-                    <h6 class="fw-bold text-indigo mb-1">Human Investigation Disclaimer & Methodological Principle</h6>
-                    <p class="mb-0 small text-slate-300">
-                        This system is an <b>Unsupervised Anomaly Detection Engine</b> designed to flag statistical anomalies and financial cost overruns requiring human administrative investigation. 
-                        A <b>HIGH</b> or <b>MEDIUM</b> risk score does <b>NOT</b> indicate confirmed fraud or wrongdoing; it signifies that multiple statistical signals (state peer IQR variance, Isolation Forest multivariate patterns, or actual cost overruns) have triggered for review.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 1. TOP KPI CARDS -->
-        <div class="row g-3 mb-4 text-center">
-            <div class="col-6 col-md-3 col-lg-3">
-                <div class="card card-dark p-3 h-100 border-primary">
-                    <div class="kpi-title"><i class="fa-solid fa-database text-primary me-1"></i> Total Works</div>
-                    <div class="kpi-value text-white" id="kpi-total">79,220</div>
-                    <div class="kpi-sub">Lok Sabha 18th Sanctioned</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 col-lg-3">
-                <div class="card card-dark p-3 h-100 border-danger">
-                    <div class="kpi-title"><i class="fa-solid fa-triangle-exclamation text-danger me-1"></i> HIGH Risk</div>
-                    <div class="kpi-value text-danger" id="kpi-high">2,849</div>
-                    <div class="kpi-sub">≥ 2 Positive Signals (3.60%)</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 col-lg-3">
-                <div class="card card-dark p-3 h-100 border-warning">
-                    <div class="kpi-title"><i class="fa-solid fa-circle-exclamation text-warning me-1"></i> MEDIUM Risk</div>
-                    <div class="kpi-value text-warning" id="kpi-medium">1,924</div>
-                    <div class="kpi-sub">1 Positive Signal (2.43%)</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 col-lg-3">
-                <div class="card card-dark p-3 h-100 border-success">
-                    <div class="kpi-title"><i class="fa-solid fa-circle-check text-success me-1"></i> LOW / Normal</div>
-                    <div class="kpi-value text-success" id="kpi-low">74,443</div>
-                    <div class="kpi-sub">0 Signals Triggered (93.97%)</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 col-lg-3">
-                <div class="card card-dark p-3 h-100 border-purple">
-                    <div class="kpi-title"><i class="fa-solid fa-tree text-purple me-1"></i> Isolation Forest ML</div>
-                    <div class="kpi-value text-purple" id="kpi-iso">3,961</div>
-                    <div class="kpi-sub">Multivariate Flags (5.00%)</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 col-lg-3">
-                <div class="card card-dark p-3 h-100 border-orange">
-                    <div class="kpi-title"><i class="fa-solid fa-chart-line text-orange me-1"></i> Peer IQR Flags</div>
-                    <div class="kpi-value text-orange" id="kpi-iqr">3,661</div>
-                    <div class="kpi-sub">Robust Dev > 3.0 (4.62%)</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 col-lg-3">
-                <div class="card card-dark p-3 h-100 border-info">
-                    <div class="kpi-title"><i class="fa-solid fa-sack-dollar text-info me-1"></i> Cost Overrun > 10%</div>
-                    <div class="kpi-value text-info" id="kpi-overrun">0</div>
-                    <div class="kpi-sub">Actual > Sanctioned + 10%</div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 col-lg-3">
-                <div class="card card-dark p-3 h-100 border-pink">
-                    <div class="kpi-title"><i class="fa-solid fa-diagram-project text-pink me-1"></i> Jaccard Overlap</div>
-                    <div class="kpi-value text-pink" id="kpi-jaccard">0.5969</div>
-                    <div class="kpi-sub">Peer IQR vs ML Similarity</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. MODEL PIPELINE VISUALIZATION -->
-        <div class="card card-dark mb-4 p-4">
-            <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-diagram-next text-indigo me-2"></i> End-to-End Model Architecture & Consensus Pipeline</h5>
-            <div class="pipeline-flow text-center py-2">
-                <div class="flow-step"><div class="step-title">Original CSV Data</div><div class="step-desc">Works Sanctioned_LokSabha_18.csv</div></div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-step"><div class="step-title">Ingestion & Preprocessing</div><div class="step-desc">79,220 Sanctioned Records</div></div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-step step-highlight"><div class="step-title">Data Quality Floor</div><div class="step-desc">Sanction < ₹1,000 (4 Works)</div></div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-split">
-                    <div class="split-box border-warning"><i class="fa-solid fa-chart-line text-warning"></i> Peer IQR (3,661 Flags)</div>
-                    <div class="split-box border-purple"><i class="fa-solid fa-tree text-purple"></i> Isolation Forest (3,961 Flags)</div>
-                </div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-step step-consensus"><div class="step-title">Consensus Engine</div><div class="step-desc">Signals ≥ 2 → HIGH Risk</div></div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-step step-risk"><div class="step-title">Risk Output</div><div class="step-desc">HIGH: 2,849 | MED: 1,924 | LOW: 74,443</div></div>
-            </div>
-        </div>
-
-        <!-- 3. ANOMALY EXPLANATION & RISK LOGIC -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-8">
-                <div class="card card-dark h-100 p-4">
-                    <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-magnifying-glass-chart text-warning me-2"></i> How the Model Detects Anomalies (3 Independent Signals)</h5>
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <div class="signal-card p-3 border-start border-4 border-info bg-slate-800 rounded">
-                                <h6 class="fw-bold text-info mb-1"><i class="fa-solid fa-calculator me-1"></i> Signal 1: Cost Overrun</h6>
-                                <p class="small text-slate-300 mb-2">Compares actual expenditure against sanctioned budget. Rule: <code>Actual > Sanctioned + 10%</code>.</p>
-                                <div class="badge bg-info-subtle text-info fw-bold">0 Projects Flagged</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="signal-card p-3 border-start border-4 border-warning bg-slate-800 rounded">
-                                <h6 class="fw-bold text-warning mb-1"><i class="fa-solid fa-chart-bar me-1"></i> Signal 2: Peer IQR</h6>
-                                <p class="small text-slate-300 mb-2">Compares sanction amount to state peer median. Rule: <code>Robust Dev > 3.0 IQRs</code> (High side).</p>
-                                <div class="badge bg-warning-subtle text-warning fw-bold">3,661 Projects Flagged</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="signal-card p-3 border-start border-4 border-purple bg-slate-800 rounded">
-                                <h6 class="fw-bold text-purple mb-1"><i class="fa-solid fa-network-wired me-1"></i> Signal 3: Isolation Forest</h6>
-                                <p class="small text-slate-300 mb-2">Multivariate ML model (300 trees, 5% contamination). Evaluates cost, peer ratio, timeline & log scale.</p>
-                                <div class="badge bg-purple-subtle text-purple fw-bold">3,961 Projects Flagged</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-dark h-100 p-4">
-                    <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-scale-balanced text-indigo me-2"></i> Consensus Risk Logic</h5>
-                    <ul class="list-group list-group-flush bg-transparent small">
-                        <li class="list-group-item bg-transparent text-slate-200 d-flex justify-content-between align-items-center">
-                            <span><span class="badge bg-danger me-2">HIGH</span> <b>Signals ≥ 2</b></span>
-                            <span class="text-danger fw-bold">2,849 Works (3.60%)</span>
-                        </li>
-                        <li class="list-group-item bg-transparent text-slate-200 d-flex justify-content-between align-items-center">
-                            <span><span class="badge bg-warning text-dark me-2">MEDIUM</span> <b>Signals == 1</b></span>
-                            <span class="text-warning fw-bold">1,924 Works (2.43%)</span>
-                        </li>
-                        <li class="list-group-item bg-transparent text-slate-200 d-flex justify-content-between align-items-center">
-                            <span><span class="badge bg-success me-2">LOW</span> <b>Signals == 0</b></span>
-                            <span class="text-success fw-bold">74,443 Works (93.97%)</span>
-                        </li>
-                        <li class="list-group-item bg-transparent text-slate-200 d-flex justify-content-between align-items-center">
-                            <span><span class="badge bg-info text-dark me-2">DQ</span> <b>Sanction < ₹1,000</b></span>
-                            <span class="text-info fw-bold">4 Works (0.01%)</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. REAL PROJECT SEARCH & FILTER TABLE -->
-        <div class="card card-dark mb-4 p-4">
-            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                <h5 class="fw-bold text-white mb-0"><i class="fa-solid fa-table-list text-primary me-2"></i> Real Lok Sabha 18th Project Anomaly Explorer</h5>
-                <div class="d-flex flex-wrap gap-2">
-                    <input type="text" id="search-input" class="form-control form-control-dark form-control-sm" placeholder="Search Work ID, MP, Work..." style="width: 240px;">
-                    <select id="risk-filter" class="form-select form-select-dark form-select-sm" style="width: 150px;">
-                        <option value="ALL">All Risk Levels</option>
-                        <option value="HIGH" selected>HIGH Risk (2,849)</option>
-                        <option value="MEDIUM">MEDIUM Risk (1,924)</option>
-                        <option value="LOW">LOW Risk (74,443)</option>
-                        <option value="DATA_QUALITY_REVIEW">Data Quality (4)</option>
-                    </select>
-                    <select id="state-filter" class="form-select form-select-dark form-select-sm" style="width: 160px;">
-                        <option value="ALL">All States</option>
-                    </select>
-                    <select id="sort-filter" class="form-select form-select-dark form-select-sm" style="width: 160px;">
-                        <option value="score">Sort by ML Score</option>
-                        <option value="amount">Sort by Sanction Amt</option>
-                        <option value="deviation">Sort by Robust Dev</option>
-                    </select>
-                    <button class="btn btn-primary btn-sm" id="btn-search"><i class="fa-solid fa-filter me-1"></i> Apply</button>
+                    <div class="sidebar-brand-title">MPLADS Audit</div>
+                    <div class="sidebar-brand-sub">Intelligence Platform</div>
                 </div>
             </div>
 
-            <!-- Table -->
-            <div class="table-responsive">
-                <table class="table table-dark table-hover table-bordered align-middle text-slate-200">
-                    <thead>
-                        <tr>
-                            <th>Risk Level</th>
-                            <th>Work ID</th>
-                            <th>MP Name</th>
-                            <th>State / Constituency</th>
-                            <th>Work Description</th>
-                            <th>Sanction Amt</th>
-                            <th>Peer Median</th>
-                            <th>Robust Dev</th>
-                            <th>ML Score</th>
-                            <th>Actual Expenditure</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="works-table-body">
-                        <tr><td colspan="11" class="text-center py-4 text-secondary"><i class="fa-solid fa-spinner fa-spin me-2"></i> Loading real project records...</td></tr>
-                    </tbody>
-                </table>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" data-view="overview">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#works" class="nav-item" data-view="works">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Works</span>
+                </a>
+                <a href="#priority" class="nav-item" data-view="priority">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Audit Priority</span>
+                </a>
+                <a href="#anomalies" class="nav-item" data-view="anomalies">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Anomalies</span>
+                </a>
+                <a href="#duplicates" class="nav-item" data-view="duplicates">
+                    <i class="fa-solid fa-clone"></i>
+                    <span>Duplicate Work</span>
+                </a>
+                <a href="#expenditure" class="nav-item" data-view="expenditure">
+                    <i class="fa-solid fa-receipt"></i>
+                    <span>Expenditure</span>
+                </a>
+                <a href="#forecast" class="nav-item" data-view="forecast">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Forecast</span>
+                </a>
+                <a href="#vendors" class="nav-item" data-view="vendors">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <span>Vendor Risk</span>
+                </a>
+                <a href="#compliance" class="nav-item" data-view="compliance">
+                    <i class="fa-solid fa-clock-history"></i>
+                    <span>Compliance</span>
+                </a>
+                <a href="#eligibility" class="nav-item" data-view="eligibility">
+                    <i class="fa-solid fa-shield-cat"></i>
+                    <span>Eligibility</span>
+                </a>
+                <a href="#dataquality" class="nav-item" data-view="dataquality">
+                    <i class="fa-solid fa-database"></i>
+                    <span>Data Quality</span>
+                </a>
+                <a href="#integrity" class="nav-item" data-view="integrity">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Model Integrity</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span>Operational</span>
+                </div>
+                <div>Corpus: <strong id="lbl-sidebar-corpus">Lok Sabha 18</strong></div>
+                <div>Pipeline: <span>Live Real-Time</span></div>
             </div>
+        </aside>
 
-            <!-- Pagination -->
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <div class="small text-secondary" id="page-info">Showing 0-0 of 0 works</div>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-secondary btn-sm" id="btn-prev" disabled><i class="fa-solid fa-chevron-left"></i> Previous</button>
-                    <button class="btn btn-secondary btn-sm" id="btn-next" disabled>Next <i class="fa-solid fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </div>
+        <!-- =================================================-----------------
+             MAIN WRAPPER & HEADER
+             ================================================------------------ -->
+        <main class="main-wrapper">
 
-        <!-- 5. MODEL VALIDATION & ACCURACY DISCLAIMER -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-6">
-                <div class="card card-dark h-100 p-4">
-                    <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-check-double text-success me-2"></i> 80/20 Out-of-Sample Validation Results</h5>
-                    <div class="table-responsive">
-                        <table class="table table-dark table-sm mb-3">
-                            <thead><tr><th>Metric</th><th>80% Training Set</th><th>20% Test Set (Out-of-Sample)</th></tr></thead>
-                            <tbody>
-                                <tr><td>Record Count</td><td>63,372 works</td><td>15,844 works</td></tr>
-                                <tr><td>Anomaly Rate</td><td class="text-warning">4.99%</td><td class="text-warning">4.88% (Delta: 0.11%)</td></tr>
-                                <tr><td>Score P50 (Median)</td><td>0.0899</td><td>0.0886</td></tr>
-                                <tr><td>Score P95 (Cutoff)</td><td>0.4132</td><td>0.4108</td></tr>
-                                <tr><td>Jaccard Similarity</td><td>—</td><td class="text-info fw-bold">0.5641 (~56.4%)</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="p-3 bg-slate-800 rounded border border-slate-700">
-                        <h6 class="fw-bold text-info mb-1"><i class="fa-solid fa-repeat me-1"></i> 5-Fold Cross-Validation Repeatability</h6>
-                        <p class="small text-slate-300 mb-0">Mean Test Anomaly Rate: <b>5.03% ± 0.13%</b> | Mean Jaccard Similarity: <b>0.5659 ± 0.0086</b></p>
-                    </div>
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-title-group">
+                    <div class="header-title" id="page-title">Overview / Command Center</div>
+                    <div class="header-subtitle" id="page-subtitle">AI-assisted audit triage and risk analysis</div>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="card card-dark h-100 p-4">
-                    <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-triangle-exclamation text-warning me-2"></i> Why Accuracy Is Not Reported</h5>
-                    <div class="p-3 bg-indigo-subtle text-slate-200 rounded border border-indigo mb-3">
-                        <p class="small mb-0">
-                            This system is an <b>unsupervised anomaly detection engine</b>. The source dataset does not contain verified fraud / non-fraud ground-truth labels. Therefore, conventional supervised metrics such as <b>accuracy, precision, recall, and F1-score cannot be validly calculated</b> without introducing fabricated labels.
-                        </p>
-                    </div>
-                    <p class="small text-slate-300">
-                        Instead, the model is evaluated using <b>out-of-sample stability, anomaly-rate consistency, signal overlap (Jaccard similarity), and repeatability across random 80/20 splits</b>.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 6. VISUALIZATIONS SECTION -->
-        <div class="card card-dark mb-4 p-4">
-            <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-chart-pie text-primary me-2"></i> Interactive Visual Explanations</h5>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="card bg-slate-900 border-slate-700 p-3">
-                        <h6 class="text-slate-300 fw-bold">Risk Classification Breakdown</h6>
-                        <div id="chart-risk" style="height: 300px;"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card bg-slate-900 border-slate-700 p-3">
-                        <h6 class="text-slate-300 fw-bold">Signal Intersection & Jaccard Overlap</h6>
-                        <div id="chart-overlap" style="height: 300px;"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card bg-slate-900 border-slate-700 p-3">
-                        <h6 class="text-slate-300 fw-bold">80/20 Train vs Test Anomaly Rate Alignment</h6>
-                        <div id="chart-traintest" style="height: 280px;"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card bg-slate-900 border-slate-700 p-3">
-                        <h6 class="text-slate-300 fw-bold">5-Seed Anomaly Rate Stability (%)</h6>
-                        <div id="chart-seeds" style="height: 280px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7. MODEL PLAYGROUND -->
-        <div class="card card-dark mb-4 p-4">
-            <h5 class="fw-bold text-white mb-1"><i class="fa-solid fa-sliders text-warning me-2"></i> Interactive Model Playground</h5>
-            <p class="text-secondary small mb-3">Illustrative feature-impact visualization based on real project parameters.</p>
-
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="card bg-slate-900 border-slate-700 p-3">
-                        <label class="form-label text-slate-300 small fw-bold">Select Real Project Template:</label>
-                        <select id="pg-project-select" class="form-select form-select-dark form-select-sm mb-3">
-                            <option value="WS/MP492/2024-2025/134984">WS/MP492/2024-2025/134984 - UP (156 Highmast Lights, ₹3.79 Cr)</option>
-                            <option value="WS/MP345/2024-2025/134123">WS/MP345/2024-2025/134123 - Kerala (Tribal LP School, ₹47.4 L)</option>
-                            <option value="WS/MP620/2025-2026/133191">WS/MP620/2025-2026/133191 - Karnataka (Cultural Bhavan, ₹15 L)</option>
+                <div class="header-controls">
+                    <div class="dataset-select-wrapper">
+                        <select class="dataset-select" id="dataset-selector">
+                            <option value="LokSabha18">Lok Sabha 18 (Active)</option>
+                            <option value="LokSabha17">Lok Sabha 17 (Historical)</option>
+                            <option value="RajyaSabha_Sitting">Rajya Sabha Sitting</option>
+                            <option value="RajyaSabha_Retired">Rajya Sabha Retired</option>
                         </select>
+                        <i class="fa-solid fa-chevron-down dataset-select-icon"></i>
+                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label text-slate-300 small">Sanction Amount (₹): <span id="pg-sanc-val" class="text-warning fw-bold">₹37,908,000</span></label>
-                            <input type="range" class="form-range" id="pg-sanc-slider" min="100000" max="50000000" step="100000" value="37908000">
-                        </div>
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" class="search-input" id="global-search" placeholder="Search Work ID, MP, State...">
+                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label text-slate-300 small">State Peer Median (₹): <span id="pg-med-val" class="text-info fw-bold">₹232,198</span></label>
-                            <input type="range" class="form-range" id="pg-med-slider" min="100000" max="1000000" step="10000" value="232198">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label text-slate-300 small">Recommendation → Sanction Days: <span id="pg-days-val" class="text-purple fw-bold">153 days</span></label>
-                            <input type="range" class="form-range" id="pg-days-slider" min="1" max="365" step="1" value="153">
-                        </div>
+                    <div class="kpi-icon" style="cursor: pointer;" title="System Settings">
+                        <i class="fa-solid fa-sliders"></i>
                     </div>
                 </div>
+            </header>
 
-                <div class="col-md-6">
-                    <div class="card bg-slate-900 border-slate-700 p-3 h-100">
-                        <h6 class="text-slate-300 fw-bold mb-3">Simulated Signal & Risk Output</h6>
-                        <div class="mb-2">
-                            <span class="small text-secondary">Peer IQR Signal (> 3.0 IQRs):</span>
-                            <div class="fw-bold mt-1" id="pg-iqr-status"><span class="badge bg-danger fs-6">FLAGGED (74.03 IQRs)</span></div>
-                        </div>
-                        <div class="mb-2">
-                            <span class="small text-secondary">Isolation Forest Anomaly Score:</span>
-                            <div class="fw-bold mt-1" id="pg-iso-status"><span class="badge bg-purple fs-6">0.9972 (ANOMALOUS)</span></div>
-                        </div>
-                        <div class="mt-3 p-3 border border-slate-700 rounded bg-slate-800">
-                            <div class="small text-secondary">Simulated Consensus Risk:</div>
-                            <div class="fs-4 fw-bold text-danger" id="pg-risk-status">🚨 HIGH (2 Signals)</div>
-                            <div class="small text-slate-400 mt-1">*Illustrative feature-impact visualization</div>
+            <!-- Page Content View Containers -->
+            <div class="page-content">
+
+                <!-- -------------------------------------------------------------
+                     1. OVERVIEW / COMMAND CENTER
+                     ------------------------------------------------------------- -->
+                <section id="view-overview" class="view-section active">
+                    <!-- Hero Section -->
+                    <div class="glass-card glass-card-hero mb-4" style="margin-bottom: 24px;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h1 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 4px;">MPLADS Audit Intelligence</h1>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">
+                                    AI-assisted decision-support audit triage for <span id="hero-dataset-name" style="color: var(--text-primary); font-weight: 600;">Lok Sabha 18</span>
+                                </p>
+                            </div>
+                            <div class="badge-pill badge-healthy">
+                                <span class="status-dot"></span>
+                                <span>Data Pipeline Operational</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- 8. DATA LINEAGE SECTION -->
-        <div class="card card-dark mb-4 p-4">
-            <h5 class="fw-bold text-white mb-3"><i class="fa-solid fa-code-branch text-indigo me-2"></i> Data Lineage & Pipeline Traceability</h5>
-            <div class="lineage-box p-3 bg-slate-900 rounded border border-slate-700">
-                <code class="text-indigo fw-bold">Works Sanctioned_LokSabha_18.csv</code> (79,220 Records)
-                <span class="text-slate-400 mx-2">→</span> Preprocessing & Work ID Derivation
-                <span class="text-slate-400 mx-2">→</span> Expenditure Matching (56,605 Matched)
-                <span class="text-slate-400 mx-2">→</span> Peer IQR & Isolation Forest
-                <span class="text-slate-400 mx-2">→</span> Consensus Engine
-                <span class="text-slate-400 mx-2">→</span> <code class="text-success fw-bold">output/scored_sanctioned_works.json.gz</code>
-            </div>
-        </div>
+                    <!-- 4 Top KPI Cards -->
+                    <div class="grid-4 mb-4" style="margin-bottom: 24px;">
+                        <div class="glass-card kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-title">Total Works</span>
+                                <div class="kpi-icon"><i class="fa-solid fa-database"></i></div>
+                            </div>
+                            <div class="kpi-number" id="kpi-ov-total">79,220</div>
+                            <div class="kpi-subtitle">Sanctioned works evaluated</div>
+                        </div>
 
-    </div>
+                        <div class="glass-card kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-title">Critical Audit Priority</span>
+                                <div class="kpi-icon" style="color: var(--status-critical-text);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            </div>
+                            <div class="kpi-number" style="color: var(--status-critical-text);" id="kpi-ov-critical">1,635</div>
+                            <div class="kpi-subtitle" id="kpi-ov-critical-pct">2.06% of total works</div>
+                        </div>
 
-    <!-- PROJECT DETAIL MODAL -->
-    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content bg-slate-900 text-light border border-slate-700">
-                <div class="modal-header border-slate-800">
-                    <h5 class="modal-title fw-bold text-white" id="projectModalLabel"><i class="fa-solid fa-circle-info text-primary me-2"></i> Project Anomaly Detail View</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="p-3 bg-slate-800 rounded border border-slate-700">
-                                <h6 class="fw-bold text-indigo mb-2">Project Metadata</h6>
-                                <div class="small"><b>Work ID:</b> <code id="m-work-id" class="text-light">WS/...</code></div>
-                                <div class="small"><b>MP Name:</b> <span id="m-mp-name">...</span></div>
-                                <div class="small"><b>State:</b> <span id="m-state">...</span></div>
-                                <div class="small"><b>Constituency:</b> <span id="m-constituency">...</span></div>
-                                <div class="small mt-2"><b>Work Description:</b></div>
-                                <div class="small text-slate-300 bg-slate-900 p-2 rounded mt-1" id="m-work-desc">...</div>
+                        <div class="glass-card kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-title">Potential Anomalies</span>
+                                <div class="kpi-icon" style="color: var(--status-review-text);"><i class="fa-solid fa-chart-line"></i></div>
+                            </div>
+                            <div class="kpi-number" style="color: var(--status-review-text);" id="kpi-ov-anomalies">3,961</div>
+                            <div class="kpi-subtitle">M1 Cost & timing outliers</div>
+                        </div>
+
+                        <div class="glass-card kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-title">Potential Duplicates</span>
+                                <div class="kpi-icon" style="color: var(--text-accent);"><i class="fa-solid fa-clone"></i></div>
+                            </div>
+                            <div class="kpi-number" style="color: var(--text-accent);" id="kpi-ov-duplicates">1,812</div>
+                            <div class="kpi-subtitle">High-risk candidate pairs</div>
+                        </div>
+                    </div>
+
+                    <!-- Audit Attention Section -->
+                    <div class="glass-card mb-4" style="margin-bottom: 24px;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h2 style="font-size: 1.1rem; font-weight: 700;">AUDIT ATTENTION</h2>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">Multi-signal deterministic audit priority tier breakdown</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="p-3 bg-slate-800 rounded border border-slate-700">
-                                <h6 class="fw-bold text-indigo mb-2">Financial & ML Metrics</h6>
-                                <div class="small"><b>Sanction Amount:</b> <span id="m-sanction-amt" class="fw-bold text-warning">₹...</span></div>
-                                <div class="small"><b>Actual Expenditure:</b> <span id="m-actual-exp">₹...</span></div>
-                                <div class="small"><b>State Peer Median:</b> <span id="m-peer-median">₹...</span></div>
-                                <div class="small"><b>Robust IQR Deviation:</b> <span id="m-robust-dev">...</span></div>
-                                <div class="small"><b>Rec → Sanc Days:</b> <span id="m-days">...</span></div>
-                                <div class="small"><b>Isolation Forest Score:</b> <span id="m-ml-score" class="fw-bold text-primary">...</span></div>
+
+                        <div class="grid-3 mb-3">
+                            <div class="glass-card-sm" style="background: var(--status-critical-bg); border: 1px solid var(--status-critical-border);">
+                                <div class="kpi-title" style="color: var(--status-critical-text);">Critical Audit Priority</div>
+                                <div class="kpi-number" style="color: var(--status-critical-text);" id="att-critical-count">1,635</div>
+                                <div class="kpi-subtitle" id="att-critical-pct">2.06% of corpus</div>
+                            </div>
+
+                            <div class="glass-card-sm" style="background: var(--status-review-bg); border: 1px solid var(--status-review-border);">
+                                <div class="kpi-title" style="color: var(--status-review-text);">Standard Review</div>
+                                <div class="kpi-number" style="color: var(--status-review-text);" id="att-standard-count">58,182</div>
+                                <div class="kpi-subtitle" id="att-standard-pct">73.44% of corpus</div>
+                            </div>
+
+                            <div class="glass-card-sm" style="background: var(--status-healthy-bg); border: 1px solid var(--status-healthy-border);">
+                                <div class="kpi-title" style="color: var(--status-healthy-text);">Low Priority</div>
+                                <div class="kpi-number" style="color: var(--status-healthy-text);" id="att-low-count">19,403</div>
+                                <div class="kpi-subtitle" id="att-low-pct">24.49% of corpus</div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="p-3 bg-slate-800 rounded border border-slate-700">
+
+                        <div class="segmented-bar">
+                            <div class="seg-critical" id="bar-seg-critical" style="width: 2.06%;"></div>
+                            <div class="seg-review" id="bar-seg-standard" style="width: 73.44%;"></div>
+                            <div class="seg-low" id="bar-seg-low" style="width: 24.49%;"></div>
+                        </div>
+
+                        <div class="callout-box">
+                            <i class="fa-solid fa-circle-info me-2 text-accent"></i>
+                            Works are prioritized using multiple independent administrative, financial, compliance, and eligibility signals to assist human auditors.
+                        </div>
+                    </div>
+
+                    <!-- Model & Signal Health -->
+                    <div style="margin-bottom: 12px; font-weight: 700; font-size: 1.05rem;">Model & Signal Health</div>
+                    <div class="grid-5 mb-4">
+                        <div class="glass-card glass-card-sm">
+                            <div class="d-flex justify-content-between mb-2">
+                                <strong>M1 Cost Anomaly</strong>
+                                <span class="badge-pill badge-healthy">Operational</span>
+                            </div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary);">
+                                OOS Rate: <strong>4.46%</strong><br>
+                                Test Jaccard: <strong>0.3862</strong>
+                            </div>
+                        </div>
+
+                        <div class="glass-card glass-card-sm">
+                            <div class="d-flex justify-content-between mb-2">
+                                <strong>M2 Duplicate Work</strong>
+                                <span class="badge-pill badge-healthy">Operational</span>
+                            </div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary);">
+                                Scored Pairs: <strong>5,000</strong><br>
+                                Blocking: State + Dist + Cat
+                            </div>
+                        </div>
+
+                        <div class="glass-card glass-card-sm">
+                            <div class="d-flex justify-content-between mb-2">
+                                <strong>M3 Expenditure</strong>
+                                <span class="badge-pill badge-healthy">Operational</span>
+                            </div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary);">
+                                Transactions: <strong>84,172</strong><br>
+                                Structuring: <strong>0 candidates</strong>
+                            </div>
+                        </div>
+
+                        <div class="glass-card glass-card-sm">
+                            <div class="d-flex justify-content-between mb-2">
+                                <strong>M4 Forecast</strong>
+                                <span class="badge-pill badge-healthy">Operational</span>
+                            </div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary);">
+                                Horizon: <strong>6 Months</strong><br>
+                                Empirical 95% Range
+                            </div>
+                        </div>
+
+                        <div class="glass-card glass-card-sm">
+                            <div class="d-flex justify-content-between mb-2">
+                                <strong>M5 Audit Priority</strong>
+                                <span class="badge-pill badge-healthy">Operational</span>
+                            </div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary);">
+                                Weight Sum: <strong>1.0000</strong><br>
+                                Deterministic Triage
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     2. WORKS EXPLORER
+                     ------------------------------------------------------------- -->
+                <section id="view-works" class="view-section">
+                    <div class="glass-card mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 style="font-size: 1.1rem; font-weight: 700;">Works Inventory Explorer</h2>
+                            <div class="d-flex gap-2">
+                                <select class="dataset-select" id="filter-works-risk">
+                                    <option value="ALL">All Risk Tiers</option>
+                                    <option value="HIGH">Critical / High</option>
+                                    <option value="MEDIUM">Medium / Standard</option>
+                                    <option value="LOW">Low / Normal</option>
+                                </select>
+                                <select class="dataset-select" id="filter-works-state">
+                                    <option value="ALL">All States</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="data-table-container">
+                            <table class="apple-table" id="tbl-works">
+                                <thead>
+                                    <tr>
+                                        <th>Priority</th>
+                                        <th>Score</th>
+                                        <th>Work ID</th>
+                                        <th>State</th>
+                                        <th>District</th>
+                                        <th>Category</th>
+                                        <th>Sanction Amount</th>
+                                        <th>Signals</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamic Rows -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pagination-wrapper">
+                            <div id="tbl-works-info">Showing 1 to 50 of 79,220 works</div>
+                            <div class="pagination-btns">
+                                <button class="page-btn" id="btn-works-prev"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                                <button class="page-btn" id="btn-works-next">Next <i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     3. AUDIT PRIORITY EXPLORER
+                     ------------------------------------------------------------- -->
+                <section id="view-priority" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Audit Priority Queue</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Find the works that deserve administrative attention first based on multi-signal synthesis.</p>
+
+                        <div class="grid-4 mb-4">
+                            <div>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">PRIORITY TIER</label>
+                                <select class="dataset-select" style="width: 100%; margin-top: 4px;" id="prio-filter-tier">
+                                    <option value="ALL">All Priority Tiers</option>
+                                    <option value="CRITICAL_AUDIT_PRIORITY">Critical Audit Priority</option>
+                                    <option value="STANDARD_REVIEW">Standard Review</option>
+                                    <option value="LOW_PRIORITY">Low Priority</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">STATE</label>
+                                <select class="dataset-select" style="width: 100%; margin-top: 4px;" id="prio-filter-state">
+                                    <option value="ALL">All States</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">CATEGORY</label>
+                                <select class="dataset-select" style="width: 100%; margin-top: 4px;" id="prio-filter-cat">
+                                    <option value="ALL">All Categories</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">SEARCH WORK ID</label>
+                                <input type="text" class="search-input" style="width: 100%; margin-top: 4px;" id="prio-filter-search" placeholder="Filter Work ID...">
+                            </div>
+                        </div>
+
+                        <div class="data-table-container">
+                            <table class="apple-table" id="tbl-priority">
+                                <thead>
+                                    <tr>
+                                        <th>Priority</th>
+                                        <th>Score (0–100)</th>
+                                        <th>Work ID</th>
+                                        <th>State</th>
+                                        <th>District</th>
+                                        <th>Category</th>
+                                        <th>Sanction Amount</th>
+                                        <th>Fired Signals</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamic Rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     4. ANOMALIES EXPLORER
+                     ------------------------------------------------------------- -->
+                <section id="view-anomalies" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 12px;">Multi-Dimensional Anomaly Explorer</h2>
+                        
+                        <div class="tab-group">
+                            <button class="tab-btn active" data-tab="tab-anom-cost">Cost Anomaly (M1)</button>
+                            <button class="tab-btn" data-tab="tab-anom-dup">Duplicate Work (M2)</button>
+                            <button class="tab-btn" data-tab="tab-anom-exp">Expenditure (M3)</button>
+                            <button class="tab-btn" data-tab="tab-anom-delay">Delay SLA (Rule)</button>
+                            <button class="tab-btn" data-tab="tab-anom-comp">Compliance (Rule)</button>
+                            <button class="tab-btn" data-tab="tab-anom-elig">Eligibility (Module)</button>
+                            <button class="tab-btn" data-tab="tab-anom-vendor">Vendor Risk (Module)</button>
+                        </div>
+
+                        <div id="tab-anom-content">
+                            <!-- Dynamic Tab Content -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     5. DUPLICATE WORK DETECTION
+                     ------------------------------------------------------------- -->
+                <section id="view-duplicates" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Potential Duplicate Works</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Candidate works are generated using geographic blocking and ranked using text similarity and structural signals.</p>
+
+                        <div class="grid-3 mb-4">
+                            <div class="glass-card-sm" style="background: var(--status-critical-bg); border: 1px solid var(--status-critical-border);">
+                                <div class="kpi-title" style="color: var(--status-critical-text);">High Risk Pairs</div>
+                                <div class="kpi-number" style="color: var(--status-critical-text);" id="dup-high-count">1,812</div>
+                                <div class="kpi-subtitle">Cosine Similarity ≥ 85%</div>
+                            </div>
+
+                            <div class="glass-card-sm" style="background: var(--status-review-bg); border: 1px solid var(--status-review-border);">
+                                <div class="kpi-title" style="color: var(--status-review-text);">Medium Risk Pairs</div>
+                                <div class="kpi-number" style="color: var(--status-review-text);" id="dup-med-count">2,141</div>
+                                <div class="kpi-subtitle">Cosine Similarity 65–84%</div>
+                            </div>
+
+                            <div class="glass-card-sm" style="background: var(--status-healthy-bg); border: 1px solid var(--status-healthy-border);">
+                                <div class="kpi-title" style="color: var(--status-healthy-text);">Low Risk Pairs</div>
+                                <div class="kpi-number" style="color: var(--status-healthy-text);" id="dup-low-count">1,047</div>
+                                <div class="kpi-subtitle">Cosine Similarity < 65%</div>
+                            </div>
+                        </div>
+
+                        <div class="data-table-container">
+                            <table class="apple-table" id="tbl-duplicates">
+                                <thead>
+                                    <tr>
+                                        <th>Pair ID</th>
+                                        <th>Work A</th>
+                                        <th>Work B</th>
+                                        <th>State / District</th>
+                                        <th>Category</th>
+                                        <th>Similarity</th>
+                                        <th>Risk Tier</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamic Pairs -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     6. EXPENDITURE INTELLIGENCE
+                     ------------------------------------------------------------- -->
+                <section id="view-expenditure" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Expenditure Intelligence</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Voucher-level disbursement velocity and payment structure analytics.</p>
+
+                        <div class="grid-4 mb-4">
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Transactions Evaluated</div>
+                                <div class="kpi-number" id="exp-trans-count">84,172</div>
+                                <div class="kpi-subtitle">Disbursement vouchers</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Works with Expenditure</div>
+                                <div class="kpi-number" id="exp-works-count">56,604</div>
+                                <div class="kpi-subtitle">Unique work entities</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Single Payment (Lump Sum)</div>
+                                <div class="kpi-number">74.2%</div>
+                                <div class="kpi-subtitle">Single disbursement tranche</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Multi Payment</div>
+                                <div class="kpi-number">25.8%</div>
+                                <div class="kpi-subtitle">Multiple tranches</div>
+                            </div>
+                        </div>
+
+                        <div class="segmented-bar mb-4">
+                            <div class="seg-low" style="width: 74.2%;"></div>
+                            <div class="seg-review" style="width: 25.8%;"></div>
+                        </div>
+
+                        <div class="glass-card glass-card-sm mb-4">
+                            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 8px;">Analytical Payment Structuring Screening</h3>
+                            <p style="font-size: 0.82rem; color: var(--text-secondary);">
+                                Identified <strong>0 candidate works</strong> matching payment fragmentation heuristics.
+                            </p>
+                            <div class="callout-box" style="margin-top: 12px;">
+                                <i class="fa-solid fa-circle-info me-2 text-accent"></i>
+                                Screening parameters are analytical heuristics, NOT MPLADS statutory limits.<br>
+                                <strong>Parameters evaluated:</strong> Number of payments ≥ 5, Total spent > ₹500,000, Maximum single payment < ₹200,000.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     7. FORECAST
+                     ------------------------------------------------------------- -->
+                <section id="view-forecast" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Expenditure Forecast</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Six-month empirical expenditure projection baseline.</p>
+
+                        <div id="chart-forecast" style="width: 100%; height: 380px; margin-bottom: 24px;"></div>
+
+                        <div class="grid-3 mb-4">
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Model 6-Month MAE</div>
+                                <div class="kpi-number" style="font-size: 1.4rem;">₹55.21 Cr</div>
+                                <div class="kpi-subtitle">vs Naïve Prev-Month: ₹55.36 Cr</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Model 6-Month RMSE</div>
+                                <div class="kpi-number" style="font-size: 1.4rem;">₹72.13 Cr</div>
+                                <div class="kpi-subtitle">vs Naïve Prev-Month: ₹71.30 Cr</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Model 6-Month MAPE</div>
+                                <div class="kpi-number" style="font-size: 1.4rem;">79.18%</div>
+                                <div class="kpi-subtitle">vs Naïve Prev-Month: 78.14%</div>
+                            </div>
+                        </div>
+
+                        <div class="callout-box">
+                            <i class="fa-solid fa-circle-info me-2 text-accent"></i>
+                            Forecasts are decision-support baselines based on available historical monthly expenditure data. Projections use a <strong>Recursive 3-Month Rolling Average</strong> with an <strong>Empirical 95% Expected Range</strong> band.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     8. VENDORS
+                     ------------------------------------------------------------- -->
+                <section id="view-vendors" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Vendor & Agency Risk</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Herfindahl-Hirschman Index (HHI) concentration analytics with government entity safeguards.</p>
+
+                        <div class="grid-3 mb-4">
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">High Concentration Agencies</div>
+                                <div class="kpi-number" style="color: var(--status-review-text);">67</div>
+                                <div class="kpi-subtitle">HHI Concentration Index > 0.25</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Payment Fragmentation Candidates</div>
+                                <div class="kpi-number" style="color: var(--status-review-text);">651</div>
+                                <div class="kpi-subtitle">Small-value tranche clusters</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Whitelisted Government Entities</div>
+                                <div class="kpi-number" style="color: var(--status-healthy-text);">34</div>
+                                <div class="kpi-subtitle">Protected public departments</div>
+                            </div>
+                        </div>
+
+                        <div class="callout-box">
+                            <i class="fa-solid fa-shield-halved me-2 text-accent"></i>
+                            <strong>Government Entity Safeguard:</strong> Public engineering departments (e.g., PWD, Zilla Parishad, Executive Engineer) are protected from false vendor collusion triggers under automatic entity classification.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     9. COMPLIANCE
+                     ------------------------------------------------------------- -->
+                <section id="view-compliance" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Statutory & Administrative Review</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Recommendation-to-sanction approval gaps measured against the configured 45-day statutory benchmark.</p>
+
+                        <div class="grid-4 mb-4">
+                            <div class="glass-card-sm" style="border-left: 3px solid var(--status-healthy-text);">
+                                <div class="kpi-title">Compliant (≤ 45 Days)</div>
+                                <div class="kpi-number" style="color: var(--status-healthy-text);">23,337</div>
+                                <div class="kpi-subtitle">29.46% of evaluated works</div>
+                            </div>
+
+                            <div class="glass-card-sm" style="border-left: 3px solid var(--status-review-text);">
+                                <div class="kpi-title">Minor Deviation (46–90 Days)</div>
+                                <div class="kpi-number" style="color: var(--status-review-text);">20,937</div>
+                                <div class="kpi-subtitle">26.43% of evaluated works</div>
+                            </div>
+
+                            <div class="glass-card-sm" style="border-left: 3px solid var(--status-review-text);">
+                                <div class="kpi-title">Moderate Deviation (91–180 Days)</div>
+                                <div class="kpi-number" style="color: var(--status-review-text);">21,611</div>
+                                <div class="kpi-subtitle">27.28% of evaluated works</div>
+                            </div>
+
+                            <div class="glass-card-sm" style="border-left: 3px solid var(--status-critical-text);">
+                                <div class="kpi-title">Severe Deviation (> 180 Days)</div>
+                                <div class="kpi-number" style="color: var(--status-critical-text);">13,334</div>
+                                <div class="kpi-subtitle">16.83% of evaluated works</div>
+                            </div>
+                        </div>
+
+                        <div class="callout-box">
+                            <i class="fa-solid fa-circle-info me-2 text-accent"></i>
+                            Timeline gaps beyond 45 days require administrative review. Negative gaps (invalid dates) are excluded.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     10. ELIGIBILITY
+                     ------------------------------------------------------------- -->
+                <section id="view-eligibility" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Eligibility & Beneficiary Signals</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Screening for statutory negative-list prohibited assets and commercial entity mentions.</p>
+
+                        <div class="grid-2 mb-4">
+                            <div class="glass-card-sm">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="fw-bold text-danger mb-0"><i class="fa-solid fa-list-check me-1"></i> Generated Evidence & Signals</h6>
-                                    <span id="m-risk-badge" class="badge bg-danger fs-6">HIGH</span>
+                                    <h3 style="font-size: 1rem; font-weight: 700;">Potentially Inadmissible Works</h3>
+                                    <span class="badge-pill badge-review">Requires Review</span>
                                 </div>
-                                <div id="m-evidence-list" class="small text-slate-200">
-                                    <ul class="mb-0 ps-3"></ul>
+                                <div class="kpi-number" style="color: var(--status-review-text);">5,027</div>
+                                <div class="kpi-subtitle">Syntactic match with direct religious institution terms</div>
+                                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 8px;">
+                                    *Note: Landmark location references (e.g., "Road near Temple") are safeguarded via syntactic parsing.*
+                                </p>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h3 style="font-size: 1rem; font-weight: 700;">Potential Private Beneficiaries</h3>
+                                    <span class="badge-pill badge-review">Requires Review</span>
                                 </div>
+                                <div class="kpi-number" style="color: var(--status-review-text);">198</div>
+                                <div class="kpi-subtitle">Private / commercial entity mentions</div>
+                                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 8px;">
+                                    *Note: Evaluates commercial keywords in work descriptions.*
+                                </p>
                             </div>
                         </div>
                     </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     11. DATA QUALITY & INVENTORY
+                     ------------------------------------------------------------- -->
+                <section id="view-dataquality" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Data Quality & Multi-Corpus Inventory</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Scanned raw datasets and administrative record missingness tracking.</p>
+
+                        <div class="grid-4 mb-4">
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">CSV Files Scanned</div>
+                                <div class="kpi-number">23</div>
+                                <div class="kpi-subtitle">Under data/original/</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Total Scanned Rows</div>
+                                <div class="kpi-number">862,949</div>
+                                <div class="kpi-subtitle">Raw administrative records</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Sanctioned Works</div>
+                                <div class="kpi-number">210,551</div>
+                                <div class="kpi-subtitle">Clean work entities</div>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <div class="kpi-title">Data Status</div>
+                                <div class="kpi-number" style="color: var(--status-healthy-text); font-size: 1.4rem;">Real Data Only</div>
+                                <div class="kpi-subtitle">Zero synthetic records</div>
+                            </div>
+                        </div>
+
+                        <div class="data-table-container">
+                            <table class="apple-table">
+                                <thead>
+                                    <tr>
+                                        <th>Dataset Identifier</th>
+                                        <th>Scope</th>
+                                        <th>Files</th>
+                                        <th>Scanned Rows</th>
+                                        <th>Sanctioned Works</th>
+                                        <th>Missing Amounts</th>
+                                        <th>Missing Dates</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>LokSabha18</strong></td>
+                                        <td>18th Lok Sabha (Active Corpus)</td>
+                                        <td>6</td>
+                                        <td>305,413</td>
+                                        <td>79,220</td>
+                                        <td>0</td>
+                                        <td>2</td>
+                                        <td><span class="badge-pill badge-healthy">Healthy</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LokSabha17</strong></td>
+                                        <td>17th Lok Sabha (Historical Full Term)</td>
+                                        <td>5</td>
+                                        <td>397,241</td>
+                                        <td>92,117</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td><span class="badge-pill badge-healthy">Healthy</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RajyaSabha_Sitting</strong></td>
+                                        <td>Rajya Sabha Sitting (Upper House)</td>
+                                        <td>6</td>
+                                        <td>80,220</td>
+                                        <td>19,607</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td><span class="badge-pill badge-healthy">Healthy</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RajyaSabha_Retired</strong></td>
+                                        <td>Rajya Sabha Retired (Upper House)</td>
+                                        <td>6</td>
+                                        <td>80,158</td>
+                                        <td>19,607</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td><span class="badge-pill badge-healthy">Healthy</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- -------------------------------------------------------------
+                     12. MODEL INTEGRITY & AUDIT VERIFICATION
+                     ------------------------------------------------------------- -->
+                <section id="view-integrity" class="view-section">
+                    <div class="glass-card mb-4">
+                        <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Model Integrity & Methodology Audit</h2>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Technical methodology and validation specifications for auditors and judges.</p>
+
+                        <div class="grid-2 mb-4">
+                            <div class="glass-card-sm">
+                                <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">M1_COST_ANOMALY</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">
+                                    • Chronological 80/20 train/test split<br>
+                                    • Train: 63,372 works | Test: 15,844 works<br>
+                                    • Out-of-Sample Anomaly Rate: <strong>4.46%</strong> (Delta: 0.54 pp)<br>
+                                    • Test Cross-Detector Concordance (Jaccard): <strong>0.3862</strong>
+                                </p>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">M2_DUPLICATE_WORK</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">
+                                    • Geographic Candidate Blocking: State + District + Work Category<br>
+                                    • Top 5,000 Candidate Pairs scored<br>
+                                    • TF-IDF Representation Stability Diagnostic:<br>
+                                      Train P99 = 0.1896, Test P99 = 0.1837 (Delta: 0.0059)
+                                </p>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">M3_EXPENDITURE_ANOMALY</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">
+                                    • 84,172 transaction vouchers evaluated<br>
+                                    • 56,604 unique works with recorded expenditure<br>
+                                    • Payment structuring heuristic candidates: <strong>0</strong>
+                                </p>
+                            </div>
+
+                            <div class="glass-card-sm">
+                                <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">M5_AUDIT_PRIORITY WEIGHTS</h3>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">
+                                    • Cost Anomaly = <strong>0.30</strong><br>
+                                    • Delay SLA = <strong>0.25</strong><br>
+                                    • Statutory Compliance = <strong>0.25</strong><br>
+                                    • Vendor Risk = <strong>0.10</strong><br>
+                                    • Eligibility = <strong>0.10</strong> (Sum = <strong>1.0000</strong>)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Prominent Audit Disclaimer Callout -->
+                        <div class="callout-box mb-4" style="border-left-color: var(--status-healthy-text);">
+                            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Authoritative Governance Principle</h4>
+                            <p style="margin-bottom: 4px;">
+                                These models support administrative audit prioritization. They do NOT establish fraud, wrongdoing, or criminal liability.
+                            </p>
+                            <div><strong>Ground-truth fraud labels: Not available</strong> (Unsupervised Anomaly Triage Engine).</div>
+                        </div>
+
+                        <!-- Rajya Sabha Snapshot Comparison -->
+                        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 12px;">Rajya Sabha Source Snapshot Comparison</h3>
+                        <div class="data-table-container">
+                            <table class="apple-table">
+                                <thead>
+                                    <tr>
+                                        <th>Table Type</th>
+                                        <th>Sitting Rows</th>
+                                        <th>Retired Rows</th>
+                                        <th>Row Difference</th>
+                                        <th>Hash Match</th>
+                                        <th>Primary ID Overlap</th>
+                                        <th>Snapshot Finding</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>Works Recommended</code></td>
+                                        <td>26,450</td>
+                                        <td>26,414</td>
+                                        <td>+36</td>
+                                        <td>DIFFERS</td>
+                                        <td>26,414 common</td>
+                                        <td>Row-count variance (+36 rows)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Works Sanctioned</code></td>
+                                        <td>19,607</td>
+                                        <td>19,607</td>
+                                        <td>+0</td>
+                                        <td>DIFFERS</td>
+                                        <td>19,607 common</td>
+                                        <td>Identical count; 11 desc & 7 cat updates</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Works Completed</code></td>
+                                        <td>12,790</td>
+                                        <td>12,775</td>
+                                        <td>+15</td>
+                                        <td>DIFFERS</td>
+                                        <td>12,775 common</td>
+                                        <td>Row-count variance (+15 rows)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Expenditure</code></td>
+                                        <td>21,373</td>
+                                        <td>21,362</td>
+                                        <td>+11</td>
+                                        <td>DIFFERS</td>
+                                        <td>21,362 common</td>
+                                        <td>Row-count variance (+11 rows)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- =================================================-----------------
+         RIGHT SLIDING GLASS DRAWER (Work Detail)
+         ================================================------------------ -->
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+
+    <div class="glass-drawer" id="work-detail-drawer">
+        <div class="drawer-header">
+            <div>
+                <div class="drawer-title" id="dr-work-id">WS/MP18001/2024-2025/10001</div>
+                <div class="d-flex align-items-center gap-2 mt-1">
+                    <span class="badge-pill badge-critical" id="dr-priority-badge">CRITICAL AUDIT PRIORITY</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Score: <strong id="dr-score-val" style="color: var(--text-primary);">85/100</strong></span>
                 </div>
-                <div class="modal-footer border-slate-800">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+            <button class="drawer-close" id="dr-close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="drawer-body">
+            <!-- Work Metadata -->
+            <div>
+                <div class="kpi-title mb-2">WORK INFORMATION</div>
+                <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px;" id="dr-work-desc">Construction of CC Road</div>
+                <div class="grid-2" style="font-size: 0.82rem; color: var(--text-secondary);">
+                    <div>Category: <strong id="dr-work-cat" style="color: var(--text-primary);">Normal/Others</strong></div>
+                    <div>State: <strong id="dr-work-state" style="color: var(--text-primary);">Andhra Pradesh</strong></div>
+                    <div>District: <strong id="dr-work-dist" style="color: var(--text-primary);">Visakhapatnam</strong></div>
+                    <div>Constituency: <strong id="dr-work-const" style="color: var(--text-primary);">Visakhapatnam</strong></div>
+                    <div style="grid-column: span 2;">Agency: <strong id="dr-work-agency" style="color: var(--text-primary);">District Engineer</strong></div>
+                </div>
+            </div>
+
+            <!-- Financials -->
+            <div>
+                <div class="kpi-title mb-2">FINANCIAL DETAILS</div>
+                <div class="grid-3">
+                    <div class="glass-card-sm">
+                        <div class="kpi-title">Sanctioned</div>
+                        <div style="font-size: 1.1rem; font-weight: 700;" id="dr-sanc-amt">₹500,000.00</div>
+                    </div>
+                    <div class="glass-card-sm">
+                        <div class="kpi-title">Expenditure</div>
+                        <div style="font-size: 1.1rem; font-weight: 700;" id="dr-exp-amt">₹480,000.00</div>
+                    </div>
+                    <div class="glass-card-sm">
+                        <div class="kpi-title">Payments</div>
+                        <div style="font-size: 1.1rem; font-weight: 700;" id="dr-payments-count">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div>
+                <div class="kpi-title mb-2">LIFECYCLE TIMELINE</div>
+                <div class="timeline-stepper">
+                    <div class="timeline-step completed">
+                        <div class="timeline-circle"><i class="fa-solid fa-check"></i></div>
+                        <div class="timeline-label">Recommendation</div>
+                        <div class="timeline-date" id="dr-date-rec">2024-05-10</div>
+                    </div>
+                    <div class="timeline-step completed">
+                        <div class="timeline-circle"><i class="fa-solid fa-check"></i></div>
+                        <div class="timeline-label">Sanction</div>
+                        <div class="timeline-date" id="dr-date-sanc">2024-07-15</div>
+                    </div>
+                    <div class="timeline-step active">
+                        <div class="timeline-circle">3</div>
+                        <div class="timeline-label">First Payment</div>
+                        <div class="timeline-date" id="dr-date-pay">2024-09-01</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-circle">4</div>
+                        <div class="timeline-label">Completion</div>
+                        <div class="timeline-date" id="dr-date-comp">Ongoing</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audit Signals Status -->
+            <div>
+                <div class="kpi-title mb-2">AUDIT SIGNALS BREAKDOWN</div>
+                <div class="d-flex flex-column gap-2" style="font-size: 0.82rem;">
+                    <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background: rgba(255,255,255,0.03);">
+                        <span>Cost Anomaly (M1)</span>
+                        <span class="badge-pill badge-review" id="sig-cost-badge">Elevated</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background: rgba(255,255,255,0.03);">
+                        <span>Delay SLA (Rule)</span>
+                        <span class="badge-pill badge-healthy" id="sig-delay-badge">Normal</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background: rgba(255,255,255,0.03);">
+                        <span>Statutory Compliance (Rule)</span>
+                        <span class="badge-pill badge-review" id="sig-comp-badge">Elevated</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background: rgba(255,255,255,0.03);">
+                        <span>Vendor Risk (Module)</span>
+                        <span class="badge-pill badge-neutral" id="sig-vendor-badge">Normal</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background: rgba(255,255,255,0.03);">
+                        <span>Eligibility Signal (Module)</span>
+                        <span class="badge-pill badge-neutral" id="sig-elig-badge">Normal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Prioritized Callout -->
+            <div>
+                <div class="kpi-title mb-2">WHY THIS WORK IS PRIORITIZED</div>
+                <div class="callout-box" id="dr-explanation-text">
+                    Priority increased because the work exhibits a peer-relative cost deviation and an extended recommendation-to-sanction approval interval.
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/bootstrap.bundle.min.js"></script>
-    <!-- Custom Application JS -->
+    <!-- =================================================-----------------
+         DUPLICATE PAIR COMPARISON DRAWER
+         ================================================------------------ -->
+    <div class="glass-drawer glass-drawer-lg" id="duplicate-pair-drawer">
+        <div class="drawer-header">
+            <div>
+                <div class="drawer-title" id="dup-pair-id">PAIR_00001</div>
+                <div class="d-flex align-items-center gap-2 mt-1">
+                    <span class="badge-pill badge-critical" id="dup-risk-badge">HIGH RISK CANDIDATE</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Similarity: <strong id="dup-sim-score" style="color: var(--text-accent);">95.0%</strong></span>
+                </div>
+            </div>
+            <button class="drawer-close" id="dup-close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="drawer-body">
+            <div class="grid-2">
+                <!-- Work A -->
+                <div class="glass-card-sm">
+                    <div class="kpi-title mb-2" style="color: var(--text-accent);">WORK A</div>
+                    <div style="font-size: 0.9rem; font-weight: 700; margin-bottom: 6px;" id="dup-wa-id">WS/MP18001/2024-2025/10001</div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 12px;" id="dup-wa-desc">Construction of CC road from Main Road to Temple</p>
+                    <div style="font-size: 0.78rem; color: var(--text-muted);">
+                        Amount: <strong id="dup-wa-amt" style="color: var(--text-primary);">₹500,000.00</strong><br>
+                        State/Dist: <span id="dup-wa-loc">Andhra Pradesh / Visakhapatnam</span><br>
+                        Category: <span id="dup-wa-cat">Normal/Others</span>
+                    </div>
+                </div>
+
+                <!-- Work B -->
+                <div class="glass-card-sm">
+                    <div class="kpi-title mb-2" style="color: var(--text-accent);">WORK B</div>
+                    <div style="font-size: 0.9rem; font-weight: 700; margin-bottom: 6px;" id="dup-wb-id">WS/MP18001/2025-2026/10002</div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 12px;" id="dup-wb-desc">Construction of CC road Reach-2 from Main Road to Temple</p>
+                    <div style="font-size: 0.78rem; color: var(--text-muted);">
+                        Amount: <strong id="dup-wb-amt" style="color: var(--text-primary);">₹500,000.00</strong><br>
+                        State/Dist: <span id="dup-wb-loc">Andhra Pradesh / Visakhapatnam</span><br>
+                        Category: <span id="dup-wb-cat">Normal/Others</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="kpi-title mb-2">TRIGGERED SIMILARITY EVIDENCE</div>
+                <div class="callout-box" id="dup-evidence-box">
+                    High text description similarity (95.0%) | Identical location tokens ('cc', 'road', 'temple') | Identical sanction amounts | Same constituency.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
     <script src="app.js"></script>
 </body>
 </html>
