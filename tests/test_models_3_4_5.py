@@ -4,9 +4,9 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-from backend.delay_detection.delayed_projects import run_delay_detection
-from backend.compliance_detection.approval_compliance import run_compliance_detection, build_ia_watchlist
-from backend.audit_engine.misuse_priority import run_audit_priority_aggregation
+from audit_rules.delay.delayed_projects import run_delay_detection
+from audit_rules.statutory_compliance.approval_compliance import run_compliance_detection, build_ia_watchlist
+from ml.model_5_audit_priority.misuse_priority import run_audit_priority_aggregation
 
 class TestModels345(unittest.TestCase):
 

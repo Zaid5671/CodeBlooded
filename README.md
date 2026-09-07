@@ -49,17 +49,52 @@ This system is an **Audit Decision-Support & Statistical Anomaly Triage Engine**
 
 ---
 
+---
+
+## Repository Structure
+
+```
+├── frontend/                     # Apple-inspired Web Interface (index.html, style.css, app.js)
+├── backend/                      # Flask REST API & Canonical Model Registry (app.py, canonical_registry.py)
+├── ml/                           # Production Machine Learning Models
+│   ├── model_1_cost_anomaly/     # M1: Peer IQR/MAD & Isolation Forest Cost Anomaly Detection
+│   ├── model_2_duplicate_work/    # M2: Record Linkage & Multi-Signal Double-Dipping Detector
+│   ├── model_3_expenditure_anomaly/ # M3: Expenditure Aggregation & Duplicate Voucher Engine
+│   ├── model_4_forecasting/      # M4: Recursive Rolling Mean Time-Series Forecaster
+│   └── model_5_audit_priority/   # M5: Audit Misuse Priority Aggregator & Consensus Engine
+├── feature_engineering/          # Data Preprocessing, Normalization & Taxonomy Classifier
+├── data_pipeline/                # Data Loaders & Master Lifecycle Reconciliation Engine
+├── audit_rules/                  # Deterministic Statutory Audit Rules
+│   ├── delay/                    # Delayed Projects Detection
+│   ├── statutory_compliance/     # SLA & Approval Compliance Rules
+│   ├── eligibility/              # Inadmissible Works & Private Beneficiaries Engine
+│   ├── vendor_risk/              # Vendor Concentration HHI & Agency Network Analytics
+│   ├── fund_utilization/         # Fund Utilization Engine
+│   └── evidence.py               # Human-Readable Audit Evidence Generator
+├── scripts/                      # Data, Training, Evaluation, Validation & Dashboard Scripts
+├── tests/                        # Comprehensive Production Unit Test Suite (134 tests)
+├── docs/                         # System Documentation & Model Cards
+├── reports/                      # Validation, Audit & Phase Reports
+├── data/                         # Original Raw Government Datasets (Read-Only)
+└── output/                       # Generated Output Artifacts & JSON Reports
+```
+
+---
+
 ## Execution Instructions
 
 ```bash
-# Run full pipeline and validation assertions
-PYTHONPATH=vendor /opt/anaconda3/bin/python3 run_pipeline.py
+# Run full audit & ML pipeline
+python3 run_pipeline.py
 
-# Run leak-free 80/20 train-test validation experiment
-PYTHONPATH=vendor /opt/anaconda3/bin/python3 test_80_20_split.py
+# Run complete 134-test production unit test suite
+python3 -m pytest tests/ -v
 
-# Generate interactive HTML visual dashboard
-PYTHONPATH=vendor /opt/anaconda3/bin/python3 dashboard.py
+# Run leak-free 80/20 train-test split validation experiment
+python3 scripts/validation/test_80_20_split.py
+
+# Launch Flask API Backend server (Port 5051)
+python3 backend/app.py
 ```
 
 All generated output artifacts are saved in `output/`:

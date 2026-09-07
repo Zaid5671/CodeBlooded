@@ -5,7 +5,7 @@ import pytest
 import numpy as np
 import pandas as pd
 
-from cost_detection.config import (
+from ml.config import (
     AUDIT_COST_HIGH_WEIGHT,
     AUDIT_DELAY_WEIGHT,
     AUDIT_COMPLIANCE_WEIGHT,
@@ -13,7 +13,7 @@ from cost_detection.config import (
     MODEL_5_WEIGHT_SUM,
     VENDOR_HHI_ALERT_THRESHOLD
 )
-from cost_detection.double_dipping_candidates import generate_candidate_pairs, extract_district_from_ida
+from ml.model_2_duplicate_work.double_dipping_candidates import generate_candidate_pairs, extract_district_from_ida
 from backend.canonical_registry import get_canonical_registry
 
 class TestMethodologyAndEvidenceAuditSuite:
@@ -136,7 +136,7 @@ class TestMethodologyAndEvidenceAuditSuite:
 
     # 13. Empirical Expected Range terminology
     def test_13_empirical_expected_range_wording(self):
-        report_path = 'data/reports/phase4_model_evaluation.md'
+        report_path = 'reports/phase_4/phase4_model_evaluation.md' if os.path.exists('reports/phase_4/phase4_model_evaluation.md') else 'data/reports/phase4_model_evaluation.md'
         if os.path.exists(report_path):
             with open(report_path) as f:
                 content = f.read()
@@ -145,7 +145,7 @@ class TestMethodologyAndEvidenceAuditSuite:
 
     # 14. No fabricated rejection dates
     def test_14_no_fabricated_rejection_dates(self):
-        report_path = 'data/reports/phase3_final_verification.md'
+        report_path = 'reports/phase_3/phase3_final_verification.md' if os.path.exists('reports/phase_3/phase3_final_verification.md') else 'data/reports/phase3_final_verification.md'
         if os.path.exists(report_path):
             with open(report_path) as f:
                 content = f.read()
@@ -154,7 +154,7 @@ class TestMethodologyAndEvidenceAuditSuite:
     # 15. Safe terminology
     def test_15_safe_terminology_audit(self):
         prohibited = ['fraud detected', 'fraud confirmed', 'guilty vendor', 'criminal activity', 'confirmed scam']
-        reports = glob.glob('data/reports/*.md')
+        reports = glob.glob('reports/**/*.md', recursive=True) + glob.glob('data/reports/*.md')
         for r in reports:
             with open(r) as f:
                 content = f.read().lower()
@@ -163,7 +163,7 @@ class TestMethodologyAndEvidenceAuditSuite:
 
     # 16. Dynamic report generation
     def test_16_dynamic_report_generation(self):
-        report_path = 'data/reports/final_system_verification.md'
+        report_path = 'reports/final/final_system_verification.md' if os.path.exists('reports/final/final_system_verification.md') else 'data/reports/final_system_verification.md'
         assert os.path.exists(report_path)
         with open(report_path) as f:
             content = f.read()

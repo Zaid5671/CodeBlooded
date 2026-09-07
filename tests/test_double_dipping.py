@@ -3,7 +3,7 @@ import unittest
 import pandas as pd
 import numpy as np
 
-from cost_detection.double_dipping_similarity import (
+from ml.model_2_duplicate_work.double_dipping_similarity import (
     normalize_text_for_matching,
     normalize_vendor_name,
     is_generic_description,
@@ -11,9 +11,9 @@ from cost_detection.double_dipping_similarity import (
     compute_pairwise_features,
     get_or_create_embeddings_cache
 )
-from cost_detection.double_dipping_scoring import compute_double_dipping_risk
-from cost_detection.double_dipping_candidates import generate_candidate_pairs
-from cost_detection.double_dipping import calculate_score_distribution_diagnostics
+from ml.model_2_duplicate_work.double_dipping_scoring import compute_double_dipping_risk
+from ml.model_2_duplicate_work.double_dipping_candidates import generate_candidate_pairs
+from ml.model_2_duplicate_work.double_dipping import calculate_score_distribution_diagnostics
 
 class TestDoubleDipping25V2Suite(unittest.TestCase):
 
@@ -346,7 +346,7 @@ class TestDoubleDipping25V2Suite(unittest.TestCase):
 
     def test_21_v2_model_version_exposed(self):
         """TEST 21: Model version is V2."""
-        from cost_detection.config import DOUBLE_DIPPING_V2_CONFIG
+        from ml.config import DOUBLE_DIPPING_V2_CONFIG
         self.assertEqual(DOUBLE_DIPPING_V2_CONFIG['model_version'], 'double_dipping_v2')
 
     def test_22_convergence_bonus_applied(self):

@@ -8,10 +8,10 @@ vendor_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file
 if os.path.exists(vendor_dir) and vendor_dir not in sys.path:
     sys.path.insert(0, vendor_dir)
 
-from backend.reconciliation.reconciliation_engine import run_master_reconciliation
-from backend.vendor_risk.vendor_agency_network import run_vendor_agency_network_analysis, classify_vendor_entity_type
-from backend.forecasting.expenditure_forecaster import run_expenditure_forecasting
-from backend.audit_engine.misuse_priority import run_audit_priority_aggregation
+from data_pipeline.reconciliation_engine import run_master_reconciliation
+from audit_rules.vendor_risk.vendor_agency_network import run_vendor_agency_network_analysis, classify_vendor_entity_type
+from ml.model_4_forecasting.expenditure_forecaster import run_expenditure_forecasting
+from ml.model_5_audit_priority.misuse_priority import run_audit_priority_aggregation
 
 class TestFullSystemProductionSuite(unittest.TestCase):
 

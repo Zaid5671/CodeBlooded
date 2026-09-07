@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 
-from cost_detection.config import (
+from ml.config import (
     AUDIT_COST_HIGH_WEIGHT,
     AUDIT_COST_MEDIUM_WEIGHT,
     AUDIT_DELAY_WEIGHT,
@@ -16,8 +16,8 @@ from cost_detection.config import (
     OUTPUT_DIR,
     FORECAST_HORIZON_MONTHS
 )
-from cost_detection.isolation_forest import NUMERIC_FEATURES
-from cost_detection.double_dipping_candidates import extract_district_from_ida
+from ml.model_1_cost_anomaly.isolation_forest import NUMERIC_FEATURES
+from ml.model_2_duplicate_work.double_dipping_candidates import extract_district_from_ida
 from backend.canonical_registry import get_canonical_registry
 
 class TestFinalModelIntegritySuite:
@@ -131,7 +131,7 @@ class TestFinalModelIntegritySuite:
         assert len(s_rec) != len(r_rec), "Sitting and Retired Recommended Works must reflect genuine source row differences (36 rows)."
 
     def test_11_cross_house_isolation_enabled(self):
-        from cost_detection.config import CROSS_HOUSE_ENABLED
+        from ml.config import CROSS_HOUSE_ENABLED
         assert CROSS_HOUSE_ENABLED is False, "Cross-house automatic matching must remain disabled in production without verified metadata."
 
     def test_12_deep_evaluation_report_exists_and_dynamic(self):
@@ -150,7 +150,7 @@ class TestFinalModelIntegritySuite:
             assert m5.get("supporting_only_critical_count", 0) == 0, f"Supporting only critical count in {k} must be 0."
 
     def test_13_m3_expenditure_heuristic_and_no_fabricated_metrics(self):
-        from scripts.test_all_datasets_deep_evaluation import evaluate_m3_expenditure_anomaly
+        from scripts.evaluation.test_all_datasets_deep_evaluation import evaluate_m3_expenditure_anomaly
         df_exp = pd.read_csv("data/original/LokSabha18/Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv", low_memory=False)
         res = evaluate_m3_expenditure_anomaly(df_exp, None)
         assert res["model_id"] == "M3_EXPENDITURE_ANOMALY"
@@ -168,7 +168,7 @@ class TestFinalModelIntegritySuite:
         assert "duplicate-detection accuracy" not in content.lower() or "not establish duplicate-detection accuracy" in content
 
     def test_15_delay_rule_lifecycle_awareness(self):
-        from scripts.test_all_datasets_deep_evaluation import evaluate_rule_delay_sla
+        from scripts.evaluation.test_all_datasets_deep_evaluation import evaluate_rule_delay_sla
         sanc_df = pd.DataFrame({
             'sanction_dt': [pd.Timestamp('2024-01-01'), pd.Timestamp('2024-01-01')],
             'work_id': ['WORK_A', 'WORK_B']

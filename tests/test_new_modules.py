@@ -2,20 +2,20 @@ import unittest
 import pandas as pd
 import numpy as np
 
-from backend.eligibility_detection.inadmissible_works import (
+from audit_rules.eligibility.inadmissible_works import (
     classify_inadmissible_work_description,
     run_inadmissible_work_detection
 )
-from backend.eligibility_detection.private_beneficiaries import (
+from audit_rules.eligibility.private_beneficiaries import (
     classify_entity_beneficiary,
     run_private_beneficiary_detection
 )
-from backend.expenditure_detection.duplicate_expenditure import run_duplicate_expenditure_detection
-from backend.fund_utilization.fund_utilization import run_fund_utilization_analysis
-from backend.vendor_risk.vendor_agency_network import run_vendor_agency_network_analysis
-from backend.audit_engine.misuse_priority import run_audit_priority_aggregation
-from backend.forecasting.expenditure_forecast import generate_expenditure_forecast
-from cost_detection.double_dipping import run_double_dipping_detection
+from ml.model_3_expenditure_anomaly.duplicate_expenditure import run_duplicate_expenditure_detection
+from audit_rules.fund_utilization.fund_utilization import run_fund_utilization_analysis
+from audit_rules.vendor_risk.vendor_agency_network import run_vendor_agency_network_analysis
+from ml.model_5_audit_priority.misuse_priority import run_audit_priority_aggregation
+from ml.model_4_forecasting.expenditure_forecast import generate_expenditure_forecast
+from ml.model_2_duplicate_work.double_dipping import run_double_dipping_detection
 
 class TestNewModulesSuite(unittest.TestCase):
 
@@ -193,7 +193,7 @@ class TestNewModulesSuite(unittest.TestCase):
 
     # 9. Model 5 Weight Sum & Model 1 District Extraction Tests
     def test_17_model_5_weights_sum_to_one(self):
-        from cost_detection.config import (
+        from ml.config import (
             AUDIT_COST_HIGH_WEIGHT,
             AUDIT_COST_MEDIUM_WEIGHT,
             AUDIT_DELAY_WEIGHT,
@@ -207,21 +207,21 @@ class TestNewModulesSuite(unittest.TestCase):
         self.assertAlmostEqual(max_dim_sum, 1.00, places=4)
 
     def test_18_district_extraction_from_ida(self):
-        from cost_detection.double_dipping_candidates import extract_district_from_ida
+        from ml.model_2_duplicate_work.double_dipping_candidates import extract_district_from_ida
         self.assertEqual(extract_district_from_ida('JAUNPUR(DISTRICT MAGISTRATE JAUNPUR_IDA)'), 'JAUNPUR')
         self.assertEqual(extract_district_from_ida('DHARWAD(DEPUTY COMMISSIONER DHARWAR_IDA)'), 'DHARWAD')
         self.assertEqual(extract_district_from_ida('Dakshin Dinajpur(DISTRICT MAGISTRATE DINAJPUR DAKSHIN_IDA)'), 'DAKSHIN DINAJPUR')
         self.assertEqual(extract_district_from_ida('Khargone (West Nimar)(DISTRICT COLLECTOR KHARGONE_IDA)'), 'KHARGONE (WEST NIMAR)')
 
     def test_19_district_extraction_edge_cases(self):
-        from cost_detection.double_dipping_candidates import extract_district_from_ida
+        from ml.model_2_duplicate_work.double_dipping_candidates import extract_district_from_ida
         self.assertEqual(extract_district_from_ida(None), 'UNKNOWN_DISTRICT')
         self.assertEqual(extract_district_from_ida(''), 'UNKNOWN_DISTRICT')
         self.assertEqual(extract_district_from_ida('   '), 'UNKNOWN_DISTRICT')
         self.assertEqual(extract_district_from_ida(12345), '12345')
 
     def test_20_candidate_blocking_key(self):
-        from cost_detection.double_dipping_candidates import _generate_intra_candidate_pairs
+        from ml.model_2_duplicate_work.double_dipping_candidates import _generate_intra_candidate_pairs
         df_dummy = pd.DataFrame([
             {'clean_work_id': 'W1', 'State': 'UP', 'Constituency': 'JAUNPUR', 'IDA': 'JAUNPUR(DISTRICT MAGISTRATE_IDA)', 'work_name': 'Road construction at Village A'},
             {'clean_work_id': 'W2', 'State': 'UP', 'Constituency': 'JAUNPUR', 'IDA': 'JAUNPUR(DISTRICT MAGISTRATE_IDA)', 'work_name': 'Road construction at Village A'}

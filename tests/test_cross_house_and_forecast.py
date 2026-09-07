@@ -4,10 +4,10 @@ import unittest
 import pandas as pd
 import numpy as np
 
-from cost_detection.config import OUTPUT_DIR
-from cost_detection.double_dipping import compare_works, run_double_dipping_detection
-from cost_detection.double_dipping_candidates import generate_candidate_pairs
-from backend.forecasting.expenditure_forecast import generate_expenditure_forecast
+from ml.config import OUTPUT_DIR
+from ml.model_2_duplicate_work.double_dipping import compare_works, run_double_dipping_detection
+from ml.model_2_duplicate_work.double_dipping_candidates import generate_candidate_pairs
+from ml.model_4_forecasting.expenditure_forecast import generate_expenditure_forecast
 
 class TestCrossHouseAndForecast(unittest.TestCase):
 

@@ -12,7 +12,7 @@ except ImportError:
     if os.path.exists(vendor_dir) and vendor_dir not in sys.path and sys.version_info[:2] == (3, 13):
         sys.path.insert(0, vendor_dir)
 
-from cost_detection.config import (
+from ml.config import (
     OUTPUT_DIR,
     MODEL_NAME,
     MODEL_VERSION,
@@ -24,21 +24,21 @@ from cost_detection.config import (
     IF_CONTAMINATION,
     RANDOM_STATE,
 )
-from cost_detection.pipeline import run_detection_pipeline
-from cost_detection.validation import run_validation_and_sanity_checks
-from cost_detection.evidence import build_output_json_structure
-from cost_detection.double_dipping import run_double_dipping_detection
-from backend.reconciliation.reconciliation_engine import run_master_reconciliation
-from backend.delay_detection.delayed_projects import run_delay_detection
-from backend.compliance_detection.approval_compliance import run_compliance_detection, build_ia_watchlist
-from backend.vendor_risk.vendor_agency_network import run_vendor_agency_network_analysis
-from backend.eligibility_detection.inadmissible_works import run_inadmissible_work_detection
-from backend.eligibility_detection.private_beneficiaries import run_private_beneficiary_detection
-from backend.expenditure_detection.duplicate_expenditure import run_duplicate_expenditure_detection
-from backend.fund_utilization.fund_utilization import run_fund_utilization_analysis
-from backend.forecasting.expenditure_forecaster import run_expenditure_forecasting
-from backend.audit_engine.misuse_priority import run_audit_priority_aggregation
-from dashboard import generate_static_html_dashboard
+from ml.pipeline import run_detection_pipeline
+from ml.validation import run_validation_and_sanity_checks
+from audit_rules.evidence import build_output_json_structure
+from ml.model_2_duplicate_work.double_dipping import run_double_dipping_detection
+from data_pipeline.reconciliation_engine import run_master_reconciliation
+from audit_rules.delay.delayed_projects import run_delay_detection
+from audit_rules.statutory_compliance.approval_compliance import run_compliance_detection, build_ia_watchlist
+from audit_rules.vendor_risk.vendor_agency_network import run_vendor_agency_network_analysis
+from audit_rules.eligibility.inadmissible_works import run_inadmissible_work_detection
+from audit_rules.eligibility.private_beneficiaries import run_private_beneficiary_detection
+from ml.model_3_expenditure_anomaly.duplicate_expenditure import run_duplicate_expenditure_detection
+from audit_rules.fund_utilization.fund_utilization import run_fund_utilization_analysis
+from ml.model_4_forecasting.expenditure_forecaster import run_expenditure_forecasting
+from ml.model_5_audit_priority.misuse_priority import run_audit_priority_aggregation
+from scripts.dashboard import generate_static_html_dashboard
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
