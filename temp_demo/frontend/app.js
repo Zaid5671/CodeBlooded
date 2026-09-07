@@ -11,6 +11,7 @@
         currentDataset: 'LokSabha18',
         summaryData: null,
         priorityData: null,
+        corporaData: null,
         worksData: [],
         duplicatesData: null,
         forecastData: null,
@@ -84,6 +85,7 @@
         if (window.__EMBEDDED_DATA__) {
             const keyMap = {
                 'summary': 'summary',
+                'corpora': 'corpora',
                 'audit-priority': 'priority',
                 'double-dipping': 'double_dipping',
                 'forecast': 'forecast',
@@ -120,6 +122,7 @@
         setupEventListeners();
 
         // Load core data
+        state.corporaData = await fetchData('corpora');
         state.summaryData = await fetchData('summary');
         state.priorityData = await fetchData('audit-priority');
         state.duplicatesData = await fetchData('double-dipping');
@@ -128,12 +131,18 @@
         state.vendorData = await fetchData('vendor-risk');
         state.deepEvalData = await fetchData('deep-evaluation');
 
-        // Load paginated works
-        const worksRes = await fetchData('works?page=1&limit=500');
-        if (worksRes && worksRes.data) {
-            state.worksData = worksRes.data;
-            populateStateDropdowns(worksRes.available_states || []);
+        // Load dataset-specific works
+        const corpusData = (state.corporaData && state.corporaData[state.currentDataset]) ||
+                           (window.__EMBEDDED_DATA__ && window.__EMBEDDED_DATA__.corpora && window.__EMBEDDED_DATA__.corpora[state.currentDataset]);
+        if (corpusData && corpusData.works && corpusData.works.length > 0) {
+            state.worksData = corpusData.works;
+        } else {
+            const worksRes = await fetchData('works?page=1&limit=500');
+            if (worksRes && worksRes.data) {
+                state.worksData = worksRes.data;
+            }
         }
+        populateStateDropdowns([...new Set(state.worksData.map(w => w.state).filter(Boolean))]);
 
         // Check URL hash for direct view navigation
         const hash = window.location.hash.replace('#', '');
@@ -157,14 +166,32 @@
 
         // Dataset Selector
         if (elements.datasetSelector) {
-            elements.datasetSelector.addEventListener('change', (e) => {
+            elements.datasetSelector.addEventListener('change', async (e) => {
                 state.currentDataset = e.target.value;
                 const dsName = e.target.options[e.target.selectedIndex].text;
-                elements.heroDatasetName.textContent = dsName;
-                elements.sidebarCorpus.textContent = dsName;
+                if (elements.heroDatasetName) elements.heroDatasetName.textContent = dsName;
+                if (elements.sidebarCorpus) elements.sidebarCorpus.textContent = dsName;
 
                 if (state.currentDataset.includes('RajyaSabha')) {
                     alert('Cross-house duplicate matching: Disabled under ' + dsName + ' pending verified MP linkage metadata.');
+                }
+
+                // Update summaryData via API if available
+                const datasetSummary = await fetchData('summary?dataset=' + state.currentDataset);
+                if (datasetSummary) {
+                    state.summaryData = datasetSummary;
+                }
+
+                // Update worksData for selected dataset
+                const corpusData = (state.corporaData && state.corporaData[state.currentDataset]) ||
+                                   (window.__EMBEDDED_DATA__ && window.__EMBEDDED_DATA__.corpora && window.__EMBEDDED_DATA__.corpora[state.currentDataset]);
+                if (corpusData && corpusData.works && corpusData.works.length > 0) {
+                    state.worksData = corpusData.works;
+                } else {
+                    const worksRes = await fetchData('works?dataset=' + state.currentDataset + '&page=1&limit=500');
+                    if (worksRes && worksRes.data) {
+                        state.worksData = worksRes.data;
+                    }
                 }
                 renderCurrentView();
             });
@@ -249,30 +276,56 @@
     function renderOverview() {
         const sum = state.summaryData || {};
         const prio = state.priorityData || {};
+        const currentKey = state.currentDataset || 'LokSabha18';
+        const corpusData = (state.corporaData && state.corporaData[currentKey]) ||
+                           (window.__EMBEDDED_DATA__ && window.__EMBEDDED_DATA__.corpora && window.__EMBEDDED_DATA__.corpora[currentKey]);
 
-        document.getElementById('kpi-ov-total').textContent = fmtNum(sum.reconciliation?.master_work_entities || 79220);
-        document.getElementById('kpi-ov-critical').textContent = fmtNum(prio.summary?.critical_audit_priority_count || 1635);
-        document.getElementById('kpi-ov-anomalies').textContent = fmtNum(sum.signals?.isolation_forest_flags || 3961);
-        document.getElementById('kpi-ov-duplicates').textContent = fmtNum(sum.model_1_double_dipping?.high_risk_pairs || 1812);
+        let totalWorks = corpusData ? corpusData.total_works : (sum.reconciliation?.master_work_entities || 79220);
+        let criticalCount = corpusData ? corpusData.critical_count : (prio.summary?.critical_audit_priority_count || 1635);
+        let anomaliesCount = corpusData ? corpusData.anomalies_count : (sum.signals?.isolation_forest_flags || 3961);
+        let duplicatesCount = corpusData ? corpusData.duplicates_count : (sum.model_1_double_dipping?.high_risk_pairs || 1812);
+        let standardCount = corpusData ? corpusData.standard_count : (prio.summary?.standard_review_count || 58182);
+        let lowCount = corpusData ? corpusData.low_count : (prio.summary?.low_priority_count || 19403);
+
+        const elTotal = document.getElementById('kpi-ov-total');
+        const elCrit = document.getElementById('kpi-ov-critical');
+        const elAnom = document.getElementById('kpi-ov-anomalies');
+        const elDups = document.getElementById('kpi-ov-duplicates');
+
+        if (elTotal) elTotal.textContent = fmtNum(totalWorks);
+        if (elCrit) elCrit.textContent = fmtNum(criticalCount);
+        if (elAnom) elAnom.textContent = fmtNum(anomaliesCount);
+        if (elDups) elDups.textContent = fmtNum(duplicatesCount);
 
         // Audit Attention
-        const crit = prio.summary?.critical_audit_priority_count || 1635;
-        const std = prio.summary?.standard_review_count || 58182;
-        const low = prio.summary?.low_priority_count || 19403;
-        const tot = crit + std + low || 79220;
+        const crit = criticalCount;
+        const std = standardCount;
+        const low = lowCount;
+        const tot = totalWorks > 0 ? totalWorks : (crit + std + low);
 
-        document.getElementById('att-critical-count').textContent = fmtNum(crit);
-        document.getElementById('att-critical-pct').textContent = ((crit / tot) * 100).toFixed(2) + '% of corpus';
+        const elCritCnt = document.getElementById('att-critical-count');
+        const elCritPct = document.getElementById('att-critical-pct');
+        const elStdCnt = document.getElementById('att-standard-count');
+        const elStdPct = document.getElementById('att-standard-pct');
+        const elLowCnt = document.getElementById('att-low-count');
+        const elLowPct = document.getElementById('att-low-pct');
 
-        document.getElementById('att-standard-count').textContent = fmtNum(std);
-        document.getElementById('att-standard-pct').textContent = ((std / tot) * 100).toFixed(2) + '% of corpus';
+        if (elCritCnt) elCritCnt.textContent = fmtNum(crit);
+        if (elCritPct) elCritPct.textContent = ((crit / tot) * 100).toFixed(2) + '% of corpus';
 
-        document.getElementById('att-low-count').textContent = fmtNum(low);
-        document.getElementById('att-low-pct').textContent = ((low / tot) * 100).toFixed(2) + '% of corpus';
+        if (elStdCnt) elStdCnt.textContent = fmtNum(std);
+        if (elStdPct) elStdPct.textContent = ((std / tot) * 100).toFixed(2) + '% of corpus';
 
-        document.getElementById('bar-seg-critical').style.width = ((crit / tot) * 100) + '%';
-        document.getElementById('bar-seg-standard').style.width = ((std / tot) * 100) + '%';
-        document.getElementById('bar-seg-low').style.width = ((low / tot) * 100) + '%';
+        if (elLowCnt) elLowCnt.textContent = fmtNum(low);
+        if (elLowPct) elLowPct.textContent = ((low / tot) * 100).toFixed(2) + '% of corpus';
+
+        const segCrit = document.getElementById('bar-seg-critical');
+        const segStd = document.getElementById('bar-seg-standard');
+        const segLow = document.getElementById('bar-seg-low');
+
+        if (segCrit) segCrit.style.width = ((crit / tot) * 100) + '%';
+        if (segStd) segStd.style.width = ((std / tot) * 100) + '%';
+        if (segLow) segLow.style.width = ((low / tot) * 100) + '%';
     }
 
     // --------------------------------------------------------------------------

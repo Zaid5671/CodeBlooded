@@ -24,6 +24,7 @@ INADMISSIBLE_JSON_PATH = os.path.join(OUTPUT_DIR, "inadmissible_works_results.js
 PRIVATE_JSON_PATH = os.path.join(OUTPUT_DIR, "private_beneficiaries_results.json")
 DUP_EXP_JSON_PATH = os.path.join(OUTPUT_DIR, "duplicate_expenditure_results.json")
 FUND_UTIL_JSON_PATH = os.path.join(OUTPUT_DIR, "fund_utilization_results.json")
+CORPORA_JSON_PATH = os.path.join(OUTPUT_DIR, "corpora_summary.json")
 DEEP_EVAL_JSON_PATH = os.path.join(OUTPUT_DIR, "ALL_DATASETS_DEEP_EVALUATION.json")
 
 def generate_static_html_dashboard():
@@ -35,6 +36,7 @@ def generate_static_html_dashboard():
     with open(SUMMARY_JSON_PATH) as f:
         summary = json.load(f)
 
+    corpora_data = json.load(open(CORPORA_JSON_PATH)) if os.path.exists(CORPORA_JSON_PATH) else {}
     dd_data = json.load(open(DOUBLE_DIPPING_JSON_PATH)) if os.path.exists(DOUBLE_DIPPING_JSON_PATH) else {}
     compliance_data = json.load(open(COMPLIANCE_JSON_PATH)) if os.path.exists(COMPLIANCE_JSON_PATH) else {}
     vendor_data = json.load(open(VENDOR_JSON_PATH)) if os.path.exists(VENDOR_JSON_PATH) else {}
@@ -81,6 +83,7 @@ def generate_static_html_dashboard():
 
     embedded_payload = {
         "summary": summary,
+        "corpora": corpora_data,
         "priority": priority_sample,
         "double_dipping": dd_sample,
         "compliance": compliance_sample,

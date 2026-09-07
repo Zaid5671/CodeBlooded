@@ -20,6 +20,7 @@ OUTPUT_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "..", "output"))
 # Data Cache
 CACHE = {
     "summary": None,
+    "corpora": None,
     "validation": None,
     "config": None,
     "works": None,
@@ -33,6 +34,12 @@ def load_data():
     if os.path.exists(summary_path):
         with open(summary_path) as f:
             CACHE["summary"] = json.load(f)
+
+    # 1b. Load Corpora Summary JSON
+    corpora_path = os.path.join(OUTPUT_DIR, "corpora_summary.json")
+    if os.path.exists(corpora_path):
+        with open(corpora_path) as f:
+            CACHE["corpora"] = json.load(f)
 
     # 2. Load Validation Results JSON
     val_path = os.path.join(OUTPUT_DIR, "validation_results.json")
@@ -70,9 +77,41 @@ load_data()
 # REST API ENDPOINTS
 # ==============================================================================
 
+@app.route("/api/corpora", methods=["GET"])
+def get_corpora():
+    """GET /api/corpora - Returns metrics and sample works across all 4 parliamentary corpora."""
+    if not CACHE["corpora"]:
+        load_data()
+    return jsonify(CACHE["corpora"] or {})
+
 @app.route("/api/summary", methods=["GET"])
 def get_summary():
-    """GET /api/summary - Returns top-level KPI metrics."""
+    """GET /api/summary - Returns top-level KPI metrics for all or a specific dataset."""
+    dataset = request.args.get("dataset") or request.args.get("corpus")
+    if dataset and CACHE.get("corpora") and dataset in CACHE["corpora"]:
+        c = CACHE["corpora"][dataset]
+        return jsonify({
+            "corpus_name": c.get("corpus_name"),
+            "display_name": c.get("display_name"),
+            "reconciliation": {
+                "master_work_entities": c.get("total_works", 0),
+                "sanctioned_count": c.get("total_works", 0),
+                "expenditure_count": c.get("expenditure_records", 0),
+                "completed_count": c.get("completed_records", 0),
+                "recommended_count": c.get("recommended_records", 0)
+            },
+            "signals": {
+                "isolation_forest_flags": c.get("anomalies_count", 0),
+                "peer_iqr_flags": c.get("anomalies_count", 0),
+                "cost_overrun_flags": 0
+            },
+            "model_1_double_dipping": {
+                "high_risk_pairs": c.get("duplicates_count", 0)
+            },
+            "critical_audit_priority_count": c.get("critical_count", 0),
+            "standard_review_count": c.get("standard_count", 0),
+            "low_priority_count": c.get("low_count", 0)
+        })
     if not CACHE["summary"]:
         load_data()
     return jsonify(CACHE["summary"] or {})
@@ -134,8 +173,9 @@ def get_signals():
 def get_works():
     """
     GET /api/works - Returns paginated, searchable, filterable project records.
-    Query params: page, limit, risk, state, search, sort_by, order
+    Query params: dataset, page, limit, risk, state, search, sort_by, order
     """
+    dataset = request.args.get("dataset") or request.args.get("corpus")
     page = int(request.args.get("page", 1))
     limit = int(request.args.get("limit", 50))
     risk_filter = request.args.get("risk", "").strip().upper()
@@ -144,7 +184,10 @@ def get_works():
     sort_by = request.args.get("sort_by", "score").strip()
     order = request.args.get("order", "desc").strip().lower()
 
-    filtered = CACHE["works"] or []
+    if dataset and CACHE.get("corpora") and dataset in CACHE["corpora"] and CACHE["corpora"][dataset].get("works"):
+        filtered = list(CACHE["corpora"][dataset]["works"])
+    else:
+        filtered = CACHE["works"] or []
 
     # 1. Risk Filter
     if risk_filter and risk_filter != "ALL":
