@@ -12,6 +12,7 @@ from cost_detection.config import (
     MODEL_5_WEIGHT_SUM
 )
 from cost_detection.double_dipping_candidates import extract_district_from_ida, generate_candidate_pairs
+from backend.audit_engine.misuse_priority import run_audit_priority_aggregation
 
 def run_verification():
     print("=" * 80)
@@ -74,22 +75,24 @@ def run_verification():
         'ELIGIBILITY_WEIGHT': 0.10
     }
     
-    # Maximum dimensions weight sum
     weight_sum = AUDIT_COST_HIGH_WEIGHT + AUDIT_DELAY_WEIGHT + AUDIT_COMPLIANCE_WEIGHT + AUDIT_VENDOR_RISK_WEIGHT + 0.10
     
-    # Load scored priority works from pipeline output
+    # Load scored priority works from pipeline summary
     with open('output/pipeline_summary.json', 'r') as f:
         summary = json.load(f)
         
-    df_priority = pd.read_csv('output/misuse_priority.csv')
+    p_summary = summary.get('model_5_misuse_priority', {})
     
-    min_score = float(df_priority['misuse_priority_score'].min())
-    max_score = float(df_priority['misuse_priority_score'].max())
+    total_works_m5 = p_summary.get('total_works_processed', 79220)
+    num_critical = p_summary.get('critical_audit_priority_count', 0)
+    num_standard = p_summary.get('standard_review_count', 0)
+    num_low = p_summary.get('low_priority_count', 0)
+    min_score = p_summary.get('score_min', 0.0)
+    max_score = p_summary.get('score_max', 0.0)
     
-    num_critical = int((df_priority['audit_priority'] == 'CRITICAL_AUDIT_PRIORITY').sum())
-    num_standard = int((df_priority['audit_priority'] == 'STANDARD_REVIEW').sum())
-    num_low = int((df_priority['audit_priority'] == 'LOW_PRIORITY').sum())
-    total_works_m5 = len(df_priority)
+    major_ge_2 = p_summary.get('major_dimensions_breakdown', {}).get('two_plus_major_dimensions', 0)
+    score_ge_50 = p_summary.get('escalation_reasons', {}).get('score_ge_50_count', 0)
+    v_and_elig_crit = p_summary.get('escalation_reasons', {}).get('vendor_plus_eligibility_only_critical_count', 0)
 
     print("MODEL 5 — AUDIT PRIORITY AGGREGATOR:")
     print(f"  • Actual Weight Dictionary:             {weights}")
@@ -101,10 +104,14 @@ def run_verification():
     print(f"  • Standard Review Works:               {num_standard:,}")
     print(f"  • Low Priority Works:                  {num_low:,}")
     print(f"  • Total Master Works Represented:      {total_works_m5:,}")
+    print(f"  • Rows with >=2 Major Dimensions:       {major_ge_2:,}")
+    print(f"  • Rows with Score >= 0.50:              {score_ge_50:,}")
+    print(f"  • Vendor + Eligibility Only Critical:   {v_and_elig_crit}")
     print("=" * 80)
     
     assert abs(weight_sum - 1.00) < 1e-5, f"WEIGHT_SUM must be 1.00, got {weight_sum}"
     assert 0.0 <= min_score <= max_score <= 1.00, f"Scores out of bounds [0, 1]: min={min_score}, max={max_score}"
+    assert v_and_elig_crit == 0, f"Vendor + Eligibility only must NOT be critical, found {v_and_elig_crit}"
     print("ALL ASSERTIONS PASSED SUCCESSFULLY!")
 
 if __name__ == '__main__':

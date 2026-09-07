@@ -231,5 +231,131 @@ class TestNewModulesSuite(unittest.TestCase):
         self.assertEqual(metrics['retained_candidate_pairs'], 1)
         self.assertIn('JAUNPUR', pairs[0]['blocking_path'])
 
+    # 10. Model 5 Deterministic Tier Assignment Suite (Cases A through L)
+    def test_21_cases_a_through_l_tier_assignment(self):
+        # Case A: Vendor only (Score: 0.10, Major: 0) -> LOW
+        df_s = pd.DataFrame([{'clean_work_id': 'WA', 'risk_level': 'LOW', 'IDA': 'AG_V'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WA', 'signal_delay': False}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WA', 'signal_compliance': False}])
+        df_v = pd.DataFrame([{'implementing_agency': 'AG_V', 'concentration_risk': True}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c, df_vendor_risk=df_v)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.10)
+        self.assertEqual(row['major_dimension_count'], 0)
+        self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
+
+        # Case B: Eligibility only (Score: 0.10, Major: 0) -> LOW
+        df_s = pd.DataFrame([{'clean_work_id': 'WB', 'risk_level': 'LOW'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WB', 'signal_delay': False}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WB', 'signal_compliance': False}])
+        df_inad = pd.DataFrame([{'clean_work_id': 'WB', 'inadmissible_signal': True, 'eligibility_status': 'POTENTIALLY_INADMISSIBLE'}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c, df_inadmissible=df_inad)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.10)
+        self.assertEqual(row['major_dimension_count'], 0)
+        self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
+
+        # Case C: Vendor + Eligibility (Score: 0.20, Major: 0) -> STANDARD (Key regression test)
+        df_s = pd.DataFrame([{'clean_work_id': 'WC', 'risk_level': 'LOW', 'IDA': 'AG_V'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WC', 'signal_delay': False}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WC', 'signal_compliance': False}])
+        df_inad = pd.DataFrame([{'clean_work_id': 'WC', 'inadmissible_signal': True, 'eligibility_status': 'POTENTIALLY_INADMISSIBLE'}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c, df_vendor_risk=df_v, df_inadmissible=df_inad)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.20)
+        self.assertEqual(row['major_dimension_count'], 0)
+        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+
+        # Case D: Cost only (Score: 0.30, Major: 1) -> STANDARD
+        df_s = pd.DataFrame([{'clean_work_id': 'WD', 'risk_level': 'HIGH'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WD', 'signal_delay': False}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WD', 'signal_compliance': False}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.30)
+        self.assertEqual(row['major_dimension_count'], 1)
+        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+
+        # Case E: Delay only (Score: 0.25, Major: 1) -> STANDARD
+        df_s = pd.DataFrame([{'clean_work_id': 'WE', 'risk_level': 'LOW'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WE', 'signal_delay': True}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WE', 'signal_compliance': False}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.25)
+        self.assertEqual(row['major_dimension_count'], 1)
+        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+
+        # Case F: Cost + Delay (Score: 0.55, Major: 2) -> CRITICAL
+        df_s = pd.DataFrame([{'clean_work_id': 'WF', 'risk_level': 'HIGH'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WF', 'signal_delay': True}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WF', 'signal_compliance': False}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.55)
+        self.assertEqual(row['major_dimension_count'], 2)
+        self.assertEqual(row['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+
+        # Case G: Cost + Compliance (Score: 0.55, Major: 2) -> CRITICAL
+        df_s = pd.DataFrame([{'clean_work_id': 'WG', 'risk_level': 'HIGH'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WG', 'signal_delay': False}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WG', 'signal_compliance': True, 'compliance_severity': 'SEVERE_DEVIATION'}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.55)
+        self.assertEqual(row['major_dimension_count'], 2)
+        self.assertEqual(row['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+
+        # Case H: Delay + Compliance (Score: 0.50, Major: 2) -> CRITICAL
+        df_s = pd.DataFrame([{'clean_work_id': 'WH', 'risk_level': 'LOW'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WH', 'signal_delay': True}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WH', 'signal_compliance': True, 'compliance_severity': 'SEVERE_DEVIATION'}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.50)
+        self.assertEqual(row['major_dimension_count'], 2)
+        self.assertEqual(row['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+
+        # Case I: Cost + Vendor (Score: 0.40, Major: 1) -> STANDARD
+        df_s = pd.DataFrame([{'clean_work_id': 'WI', 'risk_level': 'HIGH', 'IDA': 'AG_V'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WI', 'signal_delay': False}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WI', 'signal_compliance': False}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c, df_vendor_risk=df_v)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.40)
+        self.assertEqual(row['major_dimension_count'], 1)
+        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+
+        # Case J: Delay + Eligibility (Score: 0.35, Major: 1) -> STANDARD
+        df_s = pd.DataFrame([{'clean_work_id': 'WJ', 'risk_level': 'LOW'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WJ', 'signal_delay': True}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WJ', 'signal_compliance': False}])
+        df_inad_j = pd.DataFrame([{'clean_work_id': 'WJ', 'inadmissible_signal': True, 'eligibility_status': 'POTENTIALLY_INADMISSIBLE'}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c, df_inadmissible=df_inad_j)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.35)
+        self.assertEqual(row['major_dimension_count'], 1)
+        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+
+        # Case K: Compliance + Vendor (Score: 0.35, Major: 1) -> STANDARD
+        df_s = pd.DataFrame([{'clean_work_id': 'WK', 'risk_level': 'LOW', 'IDA': 'AG_V'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WK', 'signal_delay': False}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WK', 'signal_compliance': True, 'compliance_severity': 'SEVERE_DEVIATION'}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c, df_vendor_risk=df_v)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.35)
+        self.assertEqual(row['major_dimension_count'], 1)
+        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+
+        # Case L: No signals (Score: 0.00, Major: 0) -> LOW
+        df_s = pd.DataFrame([{'clean_work_id': 'WL', 'risk_level': 'LOW'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'WL', 'signal_delay': False}])
+        df_c = pd.DataFrame([{'clean_work_id': 'WL', 'signal_compliance': False}])
+        df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
+        row = df_p.iloc[0]
+        self.assertEqual(row['misuse_priority_score'], 0.00)
+        self.assertEqual(row['major_dimension_count'], 0)
+        self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
+
 if __name__ == '__main__':
     unittest.main()

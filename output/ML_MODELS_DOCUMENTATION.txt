@@ -236,9 +236,9 @@ CONSENSUS MATHEMATICS & NORMALIZED WEIGHTS:
     (Strictly bounded 0.00 <= Priority Score <= 1.00)
 
 AUDIT PRIORITY TIERS:
-- CRITICAL AUDIT PRIORITY: Score >= 0.50 (or >= 2 independent high risk signals)
-- STANDARD REVIEW: Score >= 0.20 (or 1 independent signal)
-- LOW PRIORITY: Score < 0.20
+- CRITICAL AUDIT PRIORITY: Score >= 0.50 OR >= 2 major dimensions fired (Cost Risk, Speed & Delay, Statutory Compliance with weight >= 0.20)
+- STANDARD REVIEW: 0.20 <= Score < 0.50 OR 1 major dimension fired
+- LOW PRIORITY: Score < 0.20 and 0 major dimensions fired
 
 GOVERNANCE DISCLAIMER ENFORCEMENT:
 All outputs utilize strict non-incriminating audit labels:
@@ -248,9 +248,9 @@ All outputs utilize strict non-incriminating audit labels:
   - "VENDOR CONCENTRATION RISK"
 
 AUTHORITATIVE PRODUCTION METRICS (LS 18th Data):
-  • CRITICAL AUDIT PRIORITY: 11,399 works
-  • STANDARD REVIEW: 49,979 works
-  • LOW PRIORITY: 17,842 works
+  • CRITICAL AUDIT PRIORITY: 1,635 works
+  • STANDARD REVIEW: 58,182 works
+  • LOW PRIORITY: 19,403 works
   • TOTAL MASTER WORKS: 79,220 sanctioned (79,221 master entities)
 
 ================================================================================

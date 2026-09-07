@@ -120,10 +120,10 @@ def run_audit_priority_aggregation(
         # 1. Cost Risk Dimension (Max Weight: 0.30)
         cost_level = str(row.get('risk_level', 'LOW')).upper()
         if cost_level == 'HIGH':
-            cost_score = AUDIT_COST_HIGH_WEIGHT  # 0.30
+            cost_score = AUDIT_COST_HIGH_WEIGHT  # 0.30 (Major Dimension)
             cost_signal = True
         elif cost_level == 'MEDIUM':
-            cost_score = AUDIT_COST_MEDIUM_WEIGHT  # 0.10
+            cost_score = AUDIT_COST_MEDIUM_WEIGHT  # 0.10 (Supporting Component)
             cost_signal = False
         else:
             cost_score = 0.0
@@ -133,13 +133,13 @@ def run_audit_priority_aggregation(
         sig_delay = bool(row.get('signal_delay', False))
         idle_util_info = idle_util_map.get(cid, {})
         idle_util_signal = idle_util_info.get('signal', False)
-        delay_score = AUDIT_DELAY_WEIGHT if (sig_delay or idle_util_signal) else 0.0  # 0.25
+        delay_score = AUDIT_DELAY_WEIGHT if (sig_delay or idle_util_signal) else 0.0  # 0.25 (Major Dimension)
         
         # 3. Statutory Compliance Dimension (Max Weight: 0.25)
         sig_comp = bool(row.get('signal_compliance', False))
         comp_severity = str(row.get('compliance_severity', '')).upper()
         if sig_comp:
-            comp_score = AUDIT_COMPLIANCE_WEIGHT if ('SEVERE' in comp_severity or 'MODERATE' in comp_severity) else 0.10  # 0.25 / 0.10
+            comp_score = AUDIT_COMPLIANCE_WEIGHT if ('SEVERE' in comp_severity or 'MODERATE' in comp_severity) else 0.10  # 0.25 (Major) / 0.10 (Supporting)
         else:
             comp_score = 0.0
         
@@ -149,31 +149,68 @@ def run_audit_priority_aggregation(
         v_frag_risk = bool(v_info.get('payment_structuring_risk', False))
         dup_exp_info = dup_exp_map.get(cid, {})
         dup_exp_signal = dup_exp_info.get('signal', False)
-        v_score = AUDIT_VENDOR_RISK_WEIGHT if (v_conc_risk or v_frag_risk or dup_exp_signal) else 0.0  # 0.10
+        v_score = AUDIT_VENDOR_RISK_WEIGHT if (v_conc_risk or v_frag_risk or dup_exp_signal) else 0.0  # 0.10 (Supporting Dimension)
         
         # 5. Eligibility & Beneficiary Dimension (Max Weight: 0.10)
         inad_info = inadmissible_map.get(cid, {})
         inad_signal = inad_info.get('signal', False)
         priv_info = priv_map.get(cid, {})
         priv_signal = priv_info.get('signal', False)
-        eligibility_score = 0.10 if (inad_signal or priv_signal) else 0.0
+        eligibility_score = 0.10 if (inad_signal or priv_signal) else 0.0  # 0.10 (Supporting Dimension)
+
+        # Dimension Classification: Major (Weight >= 0.20) vs Supporting (Weight < 0.20)
+        fired_major_dimensions = []
+        fired_supporting_dimensions = []
+
+        if cost_score >= 0.20:
+            fired_major_dimensions.append("Cost Risk")
+        elif cost_score > 0:
+            fired_supporting_dimensions.append("Cost Risk (Moderate)")
+
+        if delay_score >= 0.20:
+            fired_major_dimensions.append("Speed & Delay")
+        elif delay_score > 0:
+            fired_supporting_dimensions.append("Speed & Delay")
+
+        if comp_score >= 0.20:
+            fired_major_dimensions.append("Statutory Compliance")
+        elif comp_score > 0:
+            fired_supporting_dimensions.append("Statutory Compliance (Minor)")
+
+        if v_score > 0:
+            fired_supporting_dimensions.append("Vendor & Payment")
+
+        if eligibility_score > 0:
+            fired_supporting_dimensions.append("Eligibility & Beneficiary")
+
+        major_dimension_count = len(fired_major_dimensions)
+        supporting_dimension_count = len(fired_supporting_dimensions)
 
         # Priority Score Calculation (Strictly bounded 0.00 <= Priority Score <= 1.00)
         raw_score = cost_score + delay_score + comp_score + v_score + eligibility_score
         misuse_priority_score = min(1.00, max(0.00, round(raw_score, 4)))
         display_score = round(misuse_priority_score * 100, 1)
-        
-        # Independent Fired Signal Counts
-        fired_signal_count = int(cost_signal) + int(sig_delay) + int(sig_comp)
-        all_signals_count = sum(int(s) for s in [cost_signal, sig_delay, sig_comp, v_conc_risk, inad_signal, priv_signal, dup_exp_signal, idle_util_signal])
-        
-        if display_score >= 50.0 or all_signals_count >= 2:
+
+        # Deterministic Tier Assignment Logic
+        if misuse_priority_score >= 0.50:
             audit_priority = "CRITICAL_AUDIT_PRIORITY"
-        elif display_score >= 20.0 or all_signals_count == 1:
+            tier_reason = "Score >= 0.50"
+        elif major_dimension_count >= 2:
+            audit_priority = "CRITICAL_AUDIT_PRIORITY"
+            tier_reason = f"{major_dimension_count} major dimensions fired: {', '.join(fired_major_dimensions)}"
+        elif misuse_priority_score >= 0.20:
             audit_priority = "STANDARD_REVIEW"
+            tier_reason = "Score 0.20-0.49"
+        elif major_dimension_count >= 1:
+            audit_priority = "STANDARD_REVIEW"
+            tier_reason = f"1 major dimension fired: {', '.join(fired_major_dimensions)}"
         else:
             audit_priority = "LOW_PRIORITY"
+            tier_reason = "No major dimensions and score < 0.20"
             
+        # Core Fired Independent Signal Count (Historical 3-Signal Standard preserved)
+        fired_signal_count = int(cost_signal) + int(sig_delay) + int(sig_comp)
+        
         # Build Combined Evidence
         combined_evidence = []
         
@@ -215,7 +252,7 @@ def run_audit_priority_aggregation(
             combined_evidence.extend(idle_util_info['evidence'])
             
         if audit_priority != "LOW_PRIORITY" and len(combined_evidence) == 0:
-            combined_evidence.append(f"Audit priority flagged based on score {display_score}/100.")
+            combined_evidence.append(f"Audit priority flagged based on score {display_score}/100 ({tier_reason}).")
             
         records.append({
             'clean_work_id': cid,
@@ -233,6 +270,15 @@ def run_audit_priority_aggregation(
             'private_beneficiary_signal': priv_signal,
             'duplicate_expenditure_signal': dup_exp_signal,
             'idle_utilization_signal': idle_util_signal,
+            'cost_risk_component': round(cost_score, 4),
+            'delay_component': round(delay_score, 4),
+            'compliance_component': round(comp_score, 4),
+            'vendor_payment_component': round(v_score, 4),
+            'eligibility_beneficiary_component': round(eligibility_score, 4),
+            'fired_major_dimensions': fired_major_dimensions,
+            'fired_supporting_dimensions': fired_supporting_dimensions,
+            'major_dimension_count': major_dimension_count,
+            'tier_reason': tier_reason,
             'misuse_priority_score': misuse_priority_score,
             'display_score': display_score,
             'audit_priority': audit_priority,
@@ -246,26 +292,39 @@ def run_audit_priority_aggregation(
         
     df_priority = pd.DataFrame(records)
     
+    # Vendor + Eligibility only cases validation count
+    v_and_elig_only_crit = int((
+        (df_priority['cost_risk_component'] == 0) &
+        (df_priority['delay_component'] == 0) &
+        (df_priority['compliance_component'] == 0) &
+        (df_priority['vendor_payment_component'] > 0) &
+        (df_priority['eligibility_beneficiary_component'] > 0) &
+        (df_priority['audit_priority'] == 'CRITICAL_AUDIT_PRIORITY')
+    ).sum())
+    
     summary = {
         'total_works_processed': len(df_priority),
         'critical_audit_priority_count': int((df_priority['audit_priority'] == 'CRITICAL_AUDIT_PRIORITY').sum()),
         'standard_review_count': int((df_priority['audit_priority'] == 'STANDARD_REVIEW').sum()),
         'low_priority_count': int((df_priority['audit_priority'] == 'LOW_PRIORITY').sum()),
-        'fired_signals_breakdown': {
-            'three_plus_signals': int((df_priority['fired_signal_count'] >= 3).sum()),
-            'two_signals': int((df_priority['fired_signal_count'] == 2).sum()),
-            'one_signal': int((df_priority['fired_signal_count'] == 1).sum()),
-            'zero_signals': int((df_priority['fired_signal_count'] == 0).sum())
+        'score_min': float(df_priority['misuse_priority_score'].min()),
+        'score_max': float(df_priority['misuse_priority_score'].max()),
+        'major_dimensions_breakdown': {
+            'two_plus_major_dimensions': int((df_priority['major_dimension_count'] >= 2).sum()),
+            'one_major_dimension': int((df_priority['major_dimension_count'] == 1).sum()),
+            'zero_major_dimensions': int((df_priority['major_dimension_count'] == 0).sum())
         },
-        'contributing_signals': {
-            'cost_high_signals': int(df_priority['cost_signal'].sum()),
-            'delay_signals': int(df_priority['delay_signal'].sum()),
-            'compliance_signals': int(df_priority['compliance_signal'].sum()),
-            'vendor_concentration_signals': int(df_priority['vendor_concentration_risk'].sum()),
-            'inadmissible_work_signals': int(df_priority['inadmissible_work_signal'].sum()),
-            'private_beneficiary_signals': int(df_priority['private_beneficiary_signal'].sum()),
-            'duplicate_expenditure_signals': int(df_priority['duplicate_expenditure_signal'].sum()),
-            'idle_utilization_signals': int(df_priority['idle_utilization_signal'].sum())
+        'escalation_reasons': {
+            'score_ge_50_count': int((df_priority['misuse_priority_score'] >= 0.50).sum()),
+            'major_dimensions_ge_2_count': int((df_priority['major_dimension_count'] >= 2).sum()),
+            'vendor_plus_eligibility_only_critical_count': v_and_elig_only_crit
+        },
+        'contributing_dimensions': {
+            'cost_risk_major_signals': int((df_priority['cost_risk_component'] >= 0.20).sum()),
+            'delay_major_signals': int((df_priority['delay_component'] >= 0.20).sum()),
+            'compliance_major_signals': int((df_priority['compliance_component'] >= 0.20).sum()),
+            'vendor_payment_signals': int((df_priority['vendor_payment_component'] > 0).sum()),
+            'eligibility_beneficiary_signals': int((df_priority['eligibility_beneficiary_component'] > 0).sum())
         },
         'disclaimer': DISCLAIMER_TEXT
     }
