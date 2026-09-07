@@ -40,7 +40,7 @@ class TestFullSystemProductionSuite(unittest.TestCase):
     # 3. EXPENDITURE FORECASTING TESTS
     def test_05_expenditure_forecasting_projections(self):
         df_fc, summary = run_expenditure_forecasting()
-        self.assertEqual(len(df_fc), 12)
+        self.assertEqual(len(df_fc), 6)
         self.assertIn('total_expected_expenditure', summary)
         self.assertTrue((df_fc['upper_bound'] >= df_fc['lower_bound']).all())
 

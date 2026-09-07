@@ -4,10 +4,10 @@
   "aggregation_level": "NATIONAL",
   "historical_start": "2024-07",
   "historical_end": "2026-09",
-  "forecast_horizon": 12,
-  "forecasting_method": "Seasonal Rolling Baseline with Empirical 95% Prediction Bounds",
+  "forecast_horizon": 6,
+  "forecasting_method": "Seasonal Rolling Baseline with Empirical 95% Expected Range",
   "observations_used": 27,
-  "total_expected_expenditure": 16055000409.36,
+  "total_expected_expenditure": 8027500204.68,
   "total_actual_expenditure": 27787500708.45,
   "anomaly_count": 1,
   "status": "SUCCESS",
@@ -26,7 +26,7 @@
       "deviation_pct": -99.96,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-08",
@@ -41,7 +41,7 @@
       "deviation_pct": -99.07,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-09",
@@ -56,7 +56,7 @@
       "deviation_pct": -90.76,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-10",
@@ -71,7 +71,7 @@
       "deviation_pct": 341.21,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-11",
@@ -86,7 +86,7 @@
       "deviation_pct": 244.93,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-12",
@@ -101,7 +101,7 @@
       "deviation_pct": 66.56,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-01",
@@ -116,7 +116,7 @@
       "deviation_pct": 89.3,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-02",
@@ -131,7 +131,7 @@
       "deviation_pct": 29.61,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-03",
@@ -146,7 +146,7 @@
       "deviation_pct": 73.53,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-04",
@@ -161,7 +161,7 @@
       "deviation_pct": -12.38,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-05",
@@ -176,7 +176,7 @@
       "deviation_pct": 50.06,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-06",
@@ -191,7 +191,7 @@
       "deviation_pct": 33.33,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-07",
@@ -206,7 +206,7 @@
       "deviation_pct": 99.42,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-08",
@@ -221,7 +221,7 @@
       "deviation_pct": 18.92,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-09",
@@ -236,7 +236,7 @@
       "deviation_pct": 29.37,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-10",
@@ -251,7 +251,7 @@
       "deviation_pct": 7.64,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-11",
@@ -266,7 +266,7 @@
       "deviation_pct": -7.17,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-12",
@@ -281,7 +281,7 @@
       "deviation_pct": 7.03,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-01",
@@ -296,7 +296,7 @@
       "deviation_pct": 13.66,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-02",
@@ -311,7 +311,7 @@
       "deviation_pct": 23.75,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-03",
@@ -326,7 +326,7 @@
       "deviation_pct": 10.41,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-04",
@@ -341,7 +341,7 @@
       "deviation_pct": -30.18,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-05",
@@ -356,7 +356,7 @@
       "deviation_pct": -19.67,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-06",
@@ -371,7 +371,7 @@
       "deviation_pct": -4.76,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-07",
@@ -386,7 +386,7 @@
       "deviation_pct": 58.07,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-08",
@@ -401,7 +401,7 @@
       "deviation_pct": 6.47,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-09",
@@ -416,7 +416,7 @@
       "deviation_pct": -78.24,
       "deviation_status": "BELOW_EXPECTED_TREND",
       "utilization_warning": true,
-      "evidence": "Monthly expenditure was 78.2% below the forecasted utilization level and outside the expected prediction interval."
+      "evidence": "Monthly expenditure was 78.2% below the forecasted utilization level and outside the empirical 95% expected range."
     },
     {
       "month": "2026-10",
@@ -496,96 +496,6 @@
     {
       "month": "2027-03",
       "forecast_date": "2027-03",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-04",
-      "forecast_date": "2027-04",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-05",
-      "forecast_date": "2027-05",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-06",
-      "forecast_date": "2027-06",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-07",
-      "forecast_date": "2027-07",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-08",
-      "forecast_date": "2027-08",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-09",
-      "forecast_date": "2027-09",
       "type": "FUTURE_FORECAST",
       "expected_expenditure": 1337916700.78,
       "actual_expenditure": null,
@@ -613,7 +523,7 @@
       "deviation_pct": -99.96,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-08",
@@ -628,7 +538,7 @@
       "deviation_pct": -99.07,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-09",
@@ -643,7 +553,7 @@
       "deviation_pct": -90.76,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-10",
@@ -658,7 +568,7 @@
       "deviation_pct": 341.21,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-11",
@@ -673,7 +583,7 @@
       "deviation_pct": 244.93,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2024-12",
@@ -688,7 +598,7 @@
       "deviation_pct": 66.56,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-01",
@@ -703,7 +613,7 @@
       "deviation_pct": 89.3,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-02",
@@ -718,7 +628,7 @@
       "deviation_pct": 29.61,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-03",
@@ -733,7 +643,7 @@
       "deviation_pct": 73.53,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-04",
@@ -748,7 +658,7 @@
       "deviation_pct": -12.38,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-05",
@@ -763,7 +673,7 @@
       "deviation_pct": 50.06,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-06",
@@ -778,7 +688,7 @@
       "deviation_pct": 33.33,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-07",
@@ -793,7 +703,7 @@
       "deviation_pct": 99.42,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-08",
@@ -808,7 +718,7 @@
       "deviation_pct": 18.92,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-09",
@@ -823,7 +733,7 @@
       "deviation_pct": 29.37,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-10",
@@ -838,7 +748,7 @@
       "deviation_pct": 7.64,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-11",
@@ -853,7 +763,7 @@
       "deviation_pct": -7.17,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2025-12",
@@ -868,7 +778,7 @@
       "deviation_pct": 7.03,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-01",
@@ -883,7 +793,7 @@
       "deviation_pct": 13.66,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-02",
@@ -898,7 +808,7 @@
       "deviation_pct": 23.75,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-03",
@@ -913,7 +823,7 @@
       "deviation_pct": 10.41,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-04",
@@ -928,7 +838,7 @@
       "deviation_pct": -30.18,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-05",
@@ -943,7 +853,7 @@
       "deviation_pct": -19.67,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-06",
@@ -958,7 +868,7 @@
       "deviation_pct": -4.76,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-07",
@@ -973,7 +883,7 @@
       "deviation_pct": 58.07,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-08",
@@ -988,7 +898,7 @@
       "deviation_pct": 6.47,
       "deviation_status": "WITHIN_EXPECTED_RANGE",
       "utilization_warning": false,
-      "evidence": "Expenditure tracking within expected historical prediction bounds."
+      "evidence": "Expenditure tracking within empirical 95% expected range."
     },
     {
       "month": "2026-09",
@@ -1003,7 +913,7 @@
       "deviation_pct": -78.24,
       "deviation_status": "BELOW_EXPECTED_TREND",
       "utilization_warning": true,
-      "evidence": "Monthly expenditure was 78.2% below the forecasted utilization level and outside the expected prediction interval."
+      "evidence": "Monthly expenditure was 78.2% below the forecasted utilization level and outside the empirical 95% expected range."
     },
     {
       "month": "2026-10",
@@ -1083,96 +993,6 @@
     {
       "month": "2027-03",
       "forecast_date": "2027-03",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-04",
-      "forecast_date": "2027-04",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-05",
-      "forecast_date": "2027-05",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-06",
-      "forecast_date": "2027-06",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-07",
-      "forecast_date": "2027-07",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-08",
-      "forecast_date": "2027-08",
-      "type": "FUTURE_FORECAST",
-      "expected_expenditure": 1337916700.78,
-      "actual_expenditure": null,
-      "forecast_expenditure": 1337916700.78,
-      "lower_bound": 29136896.53,
-      "upper_bound": 2646696505.03,
-      "deviation": 0.0,
-      "deviation_pct": 0.0,
-      "deviation_status": "PROJECTED_FORECAST",
-      "utilization_warning": false,
-      "evidence": "Projected utilization trend based on historical monthly expenditure patterns."
-    },
-    {
-      "month": "2027-09",
-      "forecast_date": "2027-09",
       "type": "FUTURE_FORECAST",
       "expected_expenditure": 1337916700.78,
       "actual_expenditure": null,

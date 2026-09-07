@@ -13,7 +13,7 @@ from cost_detection.config import (
 )
 from cost_detection.preprocessing import clean_monetary_field
 
-def generate_expenditure_forecast(df_master=None, horizon_months=12, data_dir=DATA_DIR):
+def generate_expenditure_forecast(df_master=None, horizon_months=FORECAST_HORIZON_MONTHS, data_dir=DATA_DIR):
     """
     MPLADS Expenditure Forecasting Module.
     Predictive time-series model analyzing actual monthly expenditure utilization trends
@@ -137,14 +137,14 @@ def generate_expenditure_forecast(df_master=None, horizon_months=12, data_dir=DA
         if actual_val > upper_b:
             status = "ABOVE_EXPECTED_TREND"
             anomaly_count += 1
-            ev_text = f"Monthly expenditure was {abs(dev_pct):.1f}% above the forecasted utilization level and outside the expected prediction interval."
+            ev_text = f"Monthly expenditure was {abs(dev_pct):.1f}% above the forecasted utilization level and outside the empirical 95% expected range."
         elif actual_val < lower_b:
             status = "BELOW_EXPECTED_TREND"
             anomaly_count += 1
-            ev_text = f"Monthly expenditure was {abs(dev_pct):.1f}% below the forecasted utilization level and outside the expected prediction interval."
+            ev_text = f"Monthly expenditure was {abs(dev_pct):.1f}% below the forecasted utilization level and outside the empirical 95% expected range."
         else:
             status = "WITHIN_EXPECTED_RANGE"
-            ev_text = "Expenditure tracking within expected historical prediction bounds."
+            ev_text = "Expenditure tracking within empirical 95% expected range."
             
         rec = {
             'month': ym,
@@ -163,7 +163,7 @@ def generate_expenditure_forecast(df_master=None, horizon_months=12, data_dir=DA
         }
         all_records.append(rec)
         
-    # 3. Generate future forecast horizon (e.g. 12 months)
+    # 3. Generate future forecast horizon (e.g. 6 months)
     last_dt = pd.to_datetime(historical_end + "-01")
     future_dates = pd.date_range(start=last_dt + pd.DateOffset(months=1), periods=horizon_months, freq="MS")
     
@@ -207,7 +207,7 @@ def generate_expenditure_forecast(df_master=None, horizon_months=12, data_dir=DA
         'historical_start': historical_start,
         'historical_end': historical_end,
         'forecast_horizon': horizon_months,
-        'forecasting_method': 'Seasonal Rolling Baseline with Empirical 95% Prediction Bounds',
+        'forecasting_method': 'Seasonal Rolling Baseline with Empirical 95% Expected Range',
         'observations_used': obs_count,
         'total_expected_expenditure': round(total_expected, 2),
         'total_actual_expenditure': round(total_actual, 2),

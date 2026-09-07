@@ -171,7 +171,7 @@ def generate_static_html_dashboard():
                     <h4 class="fw-bold text-white mb-2">🔍 Model 1 — Double-Dipping & Model 2 — Cost Overrun Engine</h4>
                     <p class="text-secondary small mb-3">Record linkage for distinct potential duplicate work pairs alongside hierarchical peer IQR/MAD and Isolation Forest ML cost estimate anomaly detection.</p>
     """
-    cross_msg = "Cross-House LS↔RS Detection: Ready — Rajya Sabha data not currently available"
+    cross_msg = "Cross-House LS↔RS Detection: Architecture Ready — Rajya Sabha data pending"
     if dd_data and 'cross_house_display_message' in dd_data:
         cross_msg = dd_data['cross_house_display_message']
     html_content += f"""
@@ -194,7 +194,7 @@ def generate_static_html_dashboard():
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">📈 MPLADS Expenditure Forecasting Model</h4>
                     <span class="badge bg-secondary mb-2" style="width: fit-content;">Predictive Insight — Not Fraud Detection</span>
-                    <p class="text-secondary small mb-3">12-month expected spending trend timeline with empirical 95% prediction bounds based on actual monthly expenditure utilization patterns.</p>
+                    <p class="text-secondary small mb-3">6-month expected spending trend timeline with empirical 95% expected range based on actual monthly expenditure utilization patterns.</p>
     """
     if forecast_data:
         timeline = forecast_data.get('forecast_records', forecast_data.get('timeline', []))
@@ -210,7 +210,7 @@ def generate_static_html_dashboard():
                     <div class="table-responsive">
                         <table class="table table-dark table-hover table-bordered align-middle">
                             <thead>
-                                <tr><th>Month</th><th>Type</th><th>Forecast Expenditure</th><th>Lower Bound (95%)</th><th>Upper Bound (95%)</th><th>Actual Expenditure</th><th>Status & Evidence</th></tr>
+                                <tr><th>Month</th><th>Type</th><th>Forecast Expenditure</th><th>Lower Bound (95% Expected Range)</th><th>Upper Bound (95% Expected Range)</th><th>Actual Expenditure</th><th>Status & Evidence</th></tr>
                             </thead>
                             <tbody>
             """
