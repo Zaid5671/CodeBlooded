@@ -1,5 +1,5 @@
 # 3-MODEL RIGOROUS 80/20 TRAIN/TEST EVALUATION REPORT
-**Generated At**: 2026-09-07T15:05:31.791354 | **Methodology Freeze**: SIH26102 Production Integrity
+**Generated At**: 2026-09-07T15:19:32.032639 | **Methodology Freeze**: SIH26102 Production Integrity
 
 ## 1. Executive Summary: Leak-Free 80/20 Train/Test Splits
 
