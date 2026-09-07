@@ -1,0 +1,220 @@
+{
+  "generated_at": "2026-09-07T15:24:43.146465",
+  "datasets": {
+    "LokSabha18": {
+      "description": "18th Lok Sabha (Active Corpus)",
+      "files_count": 6,
+      "total_rows_across_files": 305413,
+      "sanctioned_works_count": 79220,
+      "model1_duplicate_record_linkage": {
+        "works_evaluated": 15000,
+        "high_risk_candidates": 1018,
+        "medium_risk_candidates": 847,
+        "low_risk_candidates": 1135,
+        "mean_max_similarity": 71.56177473647651,
+        "p95_similarity": 100.00000000000003
+      },
+      "model2_cost_anomaly": {
+        "evaluated_works": 79219,
+        "anomalies_flagged": 3703,
+        "anomaly_rate_pct": 4.67,
+        "mean_sanction_cost": 527221.9543654931,
+        "median_sanction_cost": 300000.0,
+        "p95_sanction_cost": 1500000.0,
+        "max_sanction_cost": 49740000.0
+      },
+      "model3_delay_detector": {
+        "evaluated_works": 79219,
+        "median_duration_days": 327.0,
+        "p90_duration_days": 580.0,
+        "tukey_upper_fence_days": 896.0,
+        "delayed_count": 0,
+        "delay_pct": 0.0
+      },
+      "model4_statutory_compliance": {
+        "evaluated_with_dates": 79219,
+        "compliant_45d": 23337,
+        "minor_46_90d": 20937,
+        "moderate_91_180d": 21611,
+        "severe_gt180d": 13334,
+        "compliance_rate_pct": 29.46,
+        "median_sanction_gap_days": 79.0
+      },
+      "model5_priority_aggregator": {
+        "total_works": 79220,
+        "critical_audit_priority": 2352,
+        "standard_review": 39518,
+        "low_priority": 37350,
+        "critical_pct": 2.97,
+        "standard_pct": 49.88,
+        "low_pct": 47.15,
+        "min_score": 0.0,
+        "max_score": 0.9
+      }
+    },
+    "LokSabha17": {
+      "description": "17th Lok Sabha (Historical Corpus)",
+      "files_count": 5,
+      "total_rows_across_files": 397241,
+      "sanctioned_works_count": 92117,
+      "model1_duplicate_record_linkage": {
+        "works_evaluated": 15000,
+        "high_risk_candidates": 1395,
+        "medium_risk_candidates": 716,
+        "low_risk_candidates": 889,
+        "mean_max_similarity": 76.41952195475498,
+        "p95_similarity": 100.00000000000003
+      },
+      "model2_cost_anomaly": {
+        "evaluated_works": 92111,
+        "anomalies_flagged": 4606,
+        "anomaly_rate_pct": 5.0,
+        "mean_sanction_cost": 469009.2320207142,
+        "median_sanction_cost": 299982.0,
+        "p95_sanction_cost": 1338265.0,
+        "max_sanction_cost": 75742166.0
+      },
+      "model3_delay_detector": {
+        "evaluated_works": 92116,
+        "median_duration_days": 917.0,
+        "p90_duration_days": 1033.0,
+        "tukey_upper_fence_days": 1243.5,
+        "delayed_count": 0,
+        "delay_pct": 0.0
+      },
+      "model4_statutory_compliance": {
+        "evaluated_with_dates": 92116,
+        "compliant_45d": 30929,
+        "minor_46_90d": 16501,
+        "moderate_91_180d": 19963,
+        "severe_gt180d": 24723,
+        "compliance_rate_pct": 33.58,
+        "median_sanction_gap_days": 86.0
+      },
+      "model5_priority_aggregator": {
+        "total_works": 92117,
+        "critical_audit_priority": 2692,
+        "standard_review": 46007,
+        "low_priority": 43418,
+        "critical_pct": 2.92,
+        "standard_pct": 49.94,
+        "low_pct": 47.13,
+        "min_score": 0.0,
+        "max_score": 0.9
+      }
+    },
+    "RajyaSabha_Sitting": {
+      "description": "Rajya Sabha Sitting (Upper House)",
+      "files_count": 6,
+      "total_rows_across_files": 80220,
+      "sanctioned_works_count": 19607,
+      "model1_duplicate_record_linkage": {
+        "works_evaluated": 15000,
+        "high_risk_candidates": 1598,
+        "medium_risk_candidates": 486,
+        "low_risk_candidates": 916,
+        "mean_max_similarity": 76.80708171446342,
+        "p95_similarity": 100.00000000000003
+      },
+      "model2_cost_anomaly": {
+        "evaluated_works": 19606,
+        "anomalies_flagged": 923,
+        "anomaly_rate_pct": 4.71,
+        "mean_sanction_cost": 874629.2403789656,
+        "median_sanction_cost": 500000.0,
+        "p95_sanction_cost": 2500000.0,
+        "max_sanction_cost": 73500000.0
+      },
+      "model3_delay_detector": {
+        "evaluated_works": 19606,
+        "median_duration_days": 417.0,
+        "p90_duration_days": 938.0,
+        "tukey_upper_fence_days": 1271.5,
+        "delayed_count": 0,
+        "delay_pct": 0.0
+      },
+      "model4_statutory_compliance": {
+        "evaluated_with_dates": 19606,
+        "compliant_45d": 6474,
+        "minor_46_90d": 5176,
+        "moderate_91_180d": 4673,
+        "severe_gt180d": 3283,
+        "compliance_rate_pct": 33.02,
+        "median_sanction_gap_days": 69.0
+      },
+      "model5_priority_aggregator": {
+        "total_works": 19607,
+        "critical_audit_priority": 583,
+        "standard_review": 9797,
+        "low_priority": 9227,
+        "critical_pct": 2.97,
+        "standard_pct": 49.97,
+        "low_pct": 47.06,
+        "min_score": 0.0,
+        "max_score": 0.9
+      }
+    },
+    "RajyaSabha_Retired": {
+      "description": "Rajya Sabha Retired (Upper House)",
+      "files_count": 6,
+      "total_rows_across_files": 80158,
+      "sanctioned_works_count": 19607,
+      "model1_duplicate_record_linkage": {
+        "works_evaluated": 15000,
+        "high_risk_candidates": 1598,
+        "medium_risk_candidates": 486,
+        "low_risk_candidates": 916,
+        "mean_max_similarity": 76.80708171446342,
+        "p95_similarity": 100.00000000000003
+      },
+      "model2_cost_anomaly": {
+        "evaluated_works": 19606,
+        "anomalies_flagged": 923,
+        "anomaly_rate_pct": 4.71,
+        "mean_sanction_cost": 874629.2403789656,
+        "median_sanction_cost": 500000.0,
+        "p95_sanction_cost": 2500000.0,
+        "max_sanction_cost": 73500000.0
+      },
+      "model3_delay_detector": {
+        "evaluated_works": 19606,
+        "median_duration_days": 417.0,
+        "p90_duration_days": 938.0,
+        "tukey_upper_fence_days": 1271.5,
+        "delayed_count": 0,
+        "delay_pct": 0.0
+      },
+      "model4_statutory_compliance": {
+        "evaluated_with_dates": 19606,
+        "compliant_45d": 6474,
+        "minor_46_90d": 5176,
+        "moderate_91_180d": 4673,
+        "severe_gt180d": 3283,
+        "compliance_rate_pct": 33.02,
+        "median_sanction_gap_days": 69.0
+      },
+      "model5_priority_aggregator": {
+        "total_works": 19607,
+        "critical_audit_priority": 583,
+        "standard_review": 9797,
+        "low_priority": 9227,
+        "critical_pct": 2.97,
+        "standard_pct": 49.97,
+        "low_pct": 47.06,
+        "min_score": 0.0,
+        "max_score": 0.9
+      }
+    }
+  },
+  "cross_dataset_analysis": {
+    "state_overlap": {
+      "lok_sabha_18_unique_states": 37,
+      "lok_sabha_17_unique_states": 36,
+      "rajya_sabha_sitting_unique_states": 30,
+      "rajya_sabha_retired_unique_states": 30,
+      "all_house_common_states": 30
+    },
+    "grand_total_records_scanned": 863032,
+    "grand_total_sanctioned_works": 210551
+  }
+}
