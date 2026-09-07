@@ -31,9 +31,9 @@
   },
   "candidates_generated": 5000,
   "risk_tier_counts": {
-    "HIGH RISK \u2014 REQUIRES AUDIT REVIEW": 1812,
-    "MEDIUM RISK": 2144,
-    "LOW RISK": 1044
+    "HIGH RISK \u2014 REQUIRES AUDIT REVIEW": 1810,
+    "MEDIUM RISK": 2142,
+    "LOW RISK": 1048
   },
   "score_distribution": {
     "count": 5000,
@@ -41,14 +41,14 @@
     "p25": 73.0,
     "median": 90.0,
     "p75": 100.0,
-    "mean": 84.4,
+    "mean": 84.37,
     "p90": 100.0,
     "p95": 100.0,
     "p99": 100.0,
     "max": 100.0,
-    "pct_gte_85": 61.96,
-    "pct_gte_90": 50.8,
-    "pct_gte_95": 37.92,
+    "pct_gte_85": 61.92,
+    "pct_gte_90": 50.76,
+    "pct_gte_95": 37.9,
     "pct_eq_100": 26.66
   },
   "weights_configuration": {
@@ -69,10 +69,10 @@
     "image_similarity_available": false
   },
   "performance_metrics_seconds": {
-    "ingestion_reconciliation": 8.183,
-    "embedding_generation": 2.668,
-    "candidate_blocking_scoring": 7.947,
-    "total_runtime": 18.798
+    "ingestion_reconciliation": 7.673,
+    "embedding_generation": 2.612,
+    "candidate_blocking_scoring": 8.905,
+    "total_runtime": 19.19
   },
   "top_suspicious_pairs": [
     {
@@ -156486,136 +156486,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_03128",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18052/2025-2026/212842",
-      "matched_work_id": "WS/MP18052/2025-2026/220275",
-      "work_a": {
-        "entity_id": "ENT_041607",
-        "work_id": "WS/MP18052/2025-2026/212842",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to ADARSH V.V. HIGH SCHOOL, Margao as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 819800.0,
-        "expenditure_amount": 819800.0,
-        "vendors": [
-          "A S ENTERPRISES"
-        ],
-        "sanction_date": "19-Nov-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_045063",
-        "work_id": "WS/MP18052/2025-2026/220275",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to TUDAL HIGH SCHOOL at Tudal, Gaondongrem, Canacona, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 904063.0,
-        "expenditure_amount": 904063.0,
-        "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
-        ],
-        "sanction_date": "19-Nov-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 99,
-      "risk_score_display": "99/100",
-      "risk_tier": "HIGH RISK \u2014 REQUIRES AUDIT REVIEW",
-      "similarity_score": 99,
-      "amount_similarity": 90.7,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": true,
-      "convergence_count": 4,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 75.5,
-        "amount_similarity_pct": 90.7,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.754571674925848,
-        "title_similarity": 0.8333333333333334,
-        "description_similarity": 0.7948717948717948,
-        "fuzzy_text_similarity": 0.8102564102564103,
-        "amount_similarity": 0.90679521228056,
-        "amount_difference": 84263.0,
-        "amount_ratio": 0.9067952122805601,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 24,
-        "shared_location_tokens": [
-          "and",
-          "center",
-          "complete",
-          "comprehensive",
-          "end",
-          "for",
-          "herewith",
-          "high",
-          "indicated",
-          "local",
-          "minimum",
-          "onsite",
-          "per",
-          "provide",
-          "service",
-          "specifications",
-          "support",
-          "systems",
-          "testing",
-          "training",
-          "user",
-          "warranty",
-          "with",
-          "years"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": true,
-        "convergence_count": 4
-      },
-      "triggered_evidence": [
-        "High semantic text similarity (75.5%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "evidence": [
-        "High semantic text similarity (75.5%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "missing_evidence": [
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_04086",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -162596,17 +162466,17 @@
         "sanction_amount": 456780.0,
         "expenditure_amount": 456780.0,
         "vendors": [
-          "Rewa International",
-          "M K Sports",
-          "LOT INTERNATIONAL",
-          "Neha Creations",
           "NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED",
-          "Brar Associates",
           "Pritam Singh and Sons",
-          "INDIA SALES CORPORATION",
-          "VM Enterprises",
           "R v Sports",
-          "UNLIMITED INC"
+          "VM Enterprises",
+          "Brar Associates",
+          "LOT INTERNATIONAL",
+          "INDIA SALES CORPORATION",
+          "Neha Creations",
+          "M K Sports",
+          "UNLIMITED INC",
+          "Rewa International"
         ],
         "sanction_date": "28-Feb-2025",
         "status": "Physical Inspection"
@@ -162622,17 +162492,17 @@
         "sanction_amount": 456530.0,
         "expenditure_amount": 456530.0,
         "vendors": [
-          "Rewa International",
-          "M K Sports",
-          "LOT INTERNATIONAL",
-          "Neha Creations",
           "NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED",
-          "Brar Associates",
           "Pritam Singh and Sons",
-          "INDIA SALES CORPORATION",
-          "VM Enterprises",
           "R v Sports",
-          "UNLIMITED INC"
+          "VM Enterprises",
+          "Brar Associates",
+          "LOT INTERNATIONAL",
+          "INDIA SALES CORPORATION",
+          "Neha Creations",
+          "M K Sports",
+          "UNLIMITED INC",
+          "Rewa International"
         ],
         "sanction_date": "28-Feb-2025",
         "status": "Physical Inspection"
@@ -162698,13 +162568,13 @@
       "triggered_evidence": [
         "Matching location tokens found ('air', 'campus', 'chandigarh')",
         "Identical or near-identical sanction amount (\u20b9456,780.00 vs \u20b9456,530.00)",
-        "Identical vendor involved ('Rewa International, M K Sports, LOT INTERNATIONAL, Neha Creations, NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED, Brar Associates, Pritam Singh and Sons, INDIA SALES CORPORATION, VM Enterprises, R v Sports, UNLIMITED INC')",
+        "Identical vendor involved ('NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED, Pritam Singh and Sons, R v Sports, VM Enterprises, Brar Associates, LOT INTERNATIONAL, INDIA SALES CORPORATION, Neha Creations, M K Sports, UNLIMITED INC, Rewa International')",
         "Sanctioned within same constituency ('CHANDIGARH')"
       ],
       "evidence": [
         "Matching location tokens found ('air', 'campus', 'chandigarh')",
         "Identical or near-identical sanction amount (\u20b9456,780.00 vs \u20b9456,530.00)",
-        "Identical vendor involved ('Rewa International, M K Sports, LOT INTERNATIONAL, Neha Creations, NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED, Brar Associates, Pritam Singh and Sons, INDIA SALES CORPORATION, VM Enterprises, R v Sports, UNLIMITED INC')",
+        "Identical vendor involved ('NEHA PLAYWAYS EQUIPMENTS PRIVATE LIMITED, Pritam Singh and Sons, R v Sports, VM Enterprises, Brar Associates, LOT INTERNATIONAL, INDIA SALES CORPORATION, Neha Creations, M K Sports, UNLIMITED INC, Rewa International')",
         "Sanctioned within same constituency ('CHANDIGARH')"
       ],
       "missing_evidence": [
@@ -225022,117 +224892,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04969",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18379/2025-2026/208949",
-      "matched_work_id": "WS/MP18379/2025-2026/208951",
-      "work_a": {
-        "entity_id": "ENT_039442",
-        "work_id": "WS/MP18379/2025-2026/208949",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of sports gears for sports teams of Bandipora Assembly Constituency.",
-        "sanction_amount": 300000.0,
-        "expenditure_amount": 300000.0,
-        "vendors": [
-          "KOHINOOR TRADERS"
-        ],
-        "sanction_date": "08-Aug-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_039444",
-        "work_id": "WS/MP18379/2025-2026/208951",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing sports gears for sports teams of Sonawari Assembly Constituency.",
-        "sanction_amount": 250000.0,
-        "expenditure_amount": 246025.0,
-        "vendors": [
-          "KOHINOOR TRADERS",
-          "SYED GH RABBANI"
-        ],
-        "sanction_date": "08-Aug-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 94,
-      "risk_score_display": "94/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 94,
-      "amount_similarity": 83.3,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 68.9,
-        "amount_similarity_pct": 83.3,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.6892640071386378,
-        "title_similarity": 0.75,
-        "description_similarity": 0.8,
-        "fuzzy_text_similarity": 0.78,
-        "amount_similarity": 0.8333333333333334,
-        "amount_difference": 50000.0,
-        "amount_ratio": 0.8333333333333334,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 7,
-        "shared_location_tokens": [
-          "assembly",
-          "constituency",
-          "for",
-          "gears",
-          "providing",
-          "sports",
-          "teams"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('assembly', 'constituency', 'for')",
-        "Identical vendor involved ('KOHINOOR TRADERS')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('assembly', 'constituency', 'for')",
-        "Identical vendor involved ('KOHINOOR TRADERS')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "missing_evidence": [
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_00592",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -240167,136 +239926,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_03123",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18052/2025-2026/188867",
-      "matched_work_id": "WS/MP18052/2025-2026/220275",
-      "work_a": {
-        "entity_id": "ENT_028986",
-        "work_id": "WS/MP18052/2025-2026/188867",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to BETHANY CONVENT HIGH SCHOOL as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 1265600.0,
-        "expenditure_amount": 1265600.0,
-        "vendors": [
-          "A S ENTERPRISES"
-        ],
-        "sanction_date": "06-Nov-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_045063",
-        "work_id": "WS/MP18052/2025-2026/220275",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to TUDAL HIGH SCHOOL at Tudal, Gaondongrem, Canacona, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 904063.0,
-        "expenditure_amount": 904063.0,
-        "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
-        ],
-        "sanction_date": "19-Nov-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 93,
-      "risk_score_display": "93/100",
-      "risk_tier": "HIGH RISK \u2014 REQUIRES AUDIT REVIEW",
-      "similarity_score": 93,
-      "amount_similarity": 71.4,
-      "location_similarity": 100.0,
-      "date_similarity": 86.6,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": true,
-      "convergence_count": 4,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 75.1,
-        "amount_similarity_pct": 71.4,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.7511863957684471,
-        "title_similarity": 0.8333333333333334,
-        "description_similarity": 0.8157894736842105,
-        "fuzzy_text_similarity": 0.8228070175438597,
-        "amount_similarity": 0.7143354930467762,
-        "amount_difference": 361537.0,
-        "amount_ratio": 0.7143354930467762,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.865502994567177,
-        "date_difference_days": 13,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 24,
-        "shared_location_tokens": [
-          "and",
-          "center",
-          "complete",
-          "comprehensive",
-          "end",
-          "for",
-          "herewith",
-          "high",
-          "indicated",
-          "local",
-          "minimum",
-          "onsite",
-          "per",
-          "provide",
-          "service",
-          "specifications",
-          "support",
-          "systems",
-          "testing",
-          "training",
-          "user",
-          "warranty",
-          "with",
-          "years"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": true,
-        "convergence_count": 4
-      },
-      "triggered_evidence": [
-        "High semantic text similarity (75.1%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "evidence": [
-        "High semantic text similarity (75.1%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "missing_evidence": [
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_02691",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -240957,6 +240586,117 @@
       "evidence": [
         "Matching location tokens found ('assembly', 'constituency', 'different')",
         "Identical vendor involved ('ACD Baramulla')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "missing_evidence": [
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04971",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18379/2025-2026/208950",
+      "matched_work_id": "WS/MP18379/2025-2026/208951",
+      "work_a": {
+        "entity_id": "ENT_039443",
+        "work_id": "WS/MP18379/2025-2026/208950",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of sports gears for sports teams of Gurez Assembly Constituency.",
+        "sanction_amount": 200000.0,
+        "expenditure_amount": 200000.0,
+        "vendors": [
+          "SYED GH RABBANI"
+        ],
+        "sanction_date": "08-Aug-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_039444",
+        "work_id": "WS/MP18379/2025-2026/208951",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing sports gears for sports teams of Sonawari Assembly Constituency.",
+        "sanction_amount": 250000.0,
+        "expenditure_amount": 246025.0,
+        "vendors": [
+          "SYED GH RABBANI",
+          "KOHINOOR TRADERS"
+        ],
+        "sanction_date": "08-Aug-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 93,
+      "risk_score_display": "93/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 93,
+      "amount_similarity": 80.0,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 68.0,
+        "amount_similarity_pct": 80.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.6796850665615455,
+        "title_similarity": 0.75,
+        "description_similarity": 0.8,
+        "fuzzy_text_similarity": 0.78,
+        "amount_similarity": 0.8,
+        "amount_difference": 50000.0,
+        "amount_ratio": 0.8,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 7,
+        "shared_location_tokens": [
+          "assembly",
+          "constituency",
+          "for",
+          "gears",
+          "providing",
+          "sports",
+          "teams"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('assembly', 'constituency', 'for')",
+        "Identical vendor involved ('SYED GH RABBANI')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('assembly', 'constituency', 'for')",
+        "Identical vendor involved ('SYED GH RABBANI')",
         "Sanctioned within same constituency ('BARAMULLAH')"
       ],
       "missing_evidence": [
@@ -276653,8 +276393,8 @@
         "sanction_amount": 271441.0,
         "expenditure_amount": 271441.0,
         "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
         ],
         "sanction_date": "22-Apr-2026",
         "status": "Physical Inspection"
@@ -276670,8 +276410,8 @@
         "sanction_amount": 526388.0,
         "expenditure_amount": 526388.0,
         "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
         ],
         "sanction_date": "22-Apr-2026",
         "status": "Physical Inspection"
@@ -276752,12 +276492,12 @@
       },
       "triggered_evidence": [
         "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
+        "Identical vendor involved ('INFO TECH CORPORATION OF LIMITED, A S ENTERPRISES')",
         "Sanctioned within same constituency ('SOUTH GOA')"
       ],
       "evidence": [
         "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
+        "Identical vendor involved ('INFO TECH CORPORATION OF LIMITED, A S ENTERPRISES')",
         "Sanctioned within same constituency ('SOUTH GOA')"
       ],
       "missing_evidence": [
@@ -328890,8 +328630,8 @@
         "sanction_amount": 200000.0,
         "expenditure_amount": 200000.0,
         "vendors": [
-          "BDO Pachhad",
-          "GP Dhar Tikkari"
+          "GP Dhar Tikkari",
+          "BDO Pachhad"
         ],
         "sanction_date": "17-Oct-2025",
         "status": "Work partially Completed"
@@ -328907,8 +328647,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 300000.0,
         "vendors": [
-          "BDO Pachhad",
-          "GP Dhar Tikkari"
+          "GP Dhar Tikkari",
+          "BDO Pachhad"
         ],
         "sanction_date": "17-Oct-2025",
         "status": "Physical Inspection"
@@ -328970,12 +328710,12 @@
       },
       "triggered_evidence": [
         "Matching location tokens found ('agency', 'ambulance', 'bdo')",
-        "Identical vendor involved ('BDO Pachhad, GP Dhar Tikkari')",
+        "Identical vendor involved ('GP Dhar Tikkari, BDO Pachhad')",
         "Sanctioned within same constituency ('SHIMLA (SC)')"
       ],
       "evidence": [
         "Matching location tokens found ('agency', 'ambulance', 'bdo')",
-        "Identical vendor involved ('BDO Pachhad, GP Dhar Tikkari')",
+        "Identical vendor involved ('GP Dhar Tikkari, BDO Pachhad')",
         "Sanctioned within same constituency ('SHIMLA (SC)')"
       ],
       "missing_evidence": [
@@ -347435,137 +347175,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_03143",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18052/2025-2026/188139",
-      "matched_work_id": "WS/MP18052/2025-2026/212160",
-      "work_a": {
-        "entity_id": "ENT_028474",
-        "work_id": "WS/MP18052/2025-2026/188139",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to Government Primary School Vaghon, Kirlapal, Dharbandora, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 295137.0,
-        "expenditure_amount": 295137.0,
-        "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
-        ],
-        "sanction_date": "13-Jan-2026",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_041179",
-        "work_id": "WS/MP18052/2025-2026/212160",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to ABHINAV VIDYAMANDIR at Molem, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 638200.0,
-        "expenditure_amount": 638200.0,
-        "vendors": [
-          "A S ENTERPRISES"
-        ],
-        "sanction_date": "19-Nov-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 84,
-      "risk_score_display": "84/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 84,
-      "amount_similarity": 46.2,
-      "location_similarity": 100.0,
-      "date_similarity": 54.3,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": true,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 77.1,
-        "amount_similarity_pct": 46.2,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.7712101731299602,
-        "title_similarity": 0.8333333333333334,
-        "description_similarity": 0.75,
-        "fuzzy_text_similarity": 0.7833333333333333,
-        "amount_similarity": 0.4624522093387653,
-        "amount_difference": 343063.0,
-        "amount_ratio": 0.4624522093387653,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.5427474811642219,
-        "date_difference_days": 55,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 24,
-        "shared_location_tokens": [
-          "and",
-          "center",
-          "complete",
-          "comprehensive",
-          "end",
-          "for",
-          "goa",
-          "herewith",
-          "indicated",
-          "local",
-          "minimum",
-          "onsite",
-          "per",
-          "provide",
-          "service",
-          "specifications",
-          "support",
-          "systems",
-          "testing",
-          "training",
-          "user",
-          "warranty",
-          "with",
-          "years"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": true,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "High semantic text similarity (77.1%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "evidence": [
-        "High semantic text similarity (77.1%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "missing_evidence": [
-        "Substantially different sanction amounts (\u20b9295,137.00 vs \u20b9638,200.00)",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_01832",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -360413,136 +360022,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_03145",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18052/2025-2026/188139",
-      "matched_work_id": "WS/MP18052/2025-2026/212842",
-      "work_a": {
-        "entity_id": "ENT_028474",
-        "work_id": "WS/MP18052/2025-2026/188139",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to Government Primary School Vaghon, Kirlapal, Dharbandora, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 295137.0,
-        "expenditure_amount": 295137.0,
-        "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
-        ],
-        "sanction_date": "13-Jan-2026",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_041607",
-        "work_id": "WS/MP18052/2025-2026/212842",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to ADARSH V.V. HIGH SCHOOL, Margao as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 819800.0,
-        "expenditure_amount": 819800.0,
-        "vendors": [
-          "A S ENTERPRISES"
-        ],
-        "sanction_date": "19-Nov-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 82,
-      "risk_score_display": "82/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 82,
-      "amount_similarity": 36.0,
-      "location_similarity": 100.0,
-      "date_similarity": 54.3,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": true,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 76.3,
-        "amount_similarity_pct": 36.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.7625819734356871,
-        "title_similarity": 0.8333333333333334,
-        "description_similarity": 0.75,
-        "fuzzy_text_similarity": 0.7833333333333333,
-        "amount_similarity": 0.36001097828738715,
-        "amount_difference": 524663.0,
-        "amount_ratio": 0.36001097828738715,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.5427474811642219,
-        "date_difference_days": 55,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 23,
-        "shared_location_tokens": [
-          "and",
-          "center",
-          "complete",
-          "comprehensive",
-          "end",
-          "for",
-          "herewith",
-          "indicated",
-          "local",
-          "minimum",
-          "onsite",
-          "per",
-          "provide",
-          "service",
-          "specifications",
-          "support",
-          "systems",
-          "testing",
-          "training",
-          "user",
-          "warranty",
-          "with",
-          "years"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": true,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "High semantic text similarity (76.3%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "evidence": [
-        "High semantic text similarity (76.3%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "missing_evidence": [
-        "Substantially different sanction amounts (\u20b9295,137.00 vs \u20b9819,800.00)",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_00091",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -360645,6 +360124,135 @@
       ],
       "missing_evidence": [
         "Expenditure vendor records missing or partial",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_03128",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18052/2025-2026/212842",
+      "matched_work_id": "WS/MP18052/2025-2026/220275",
+      "work_a": {
+        "entity_id": "ENT_041607",
+        "work_id": "WS/MP18052/2025-2026/212842",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to ADARSH V.V. HIGH SCHOOL, Margao as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 819800.0,
+        "expenditure_amount": 819800.0,
+        "vendors": [
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "19-Nov-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_045063",
+        "work_id": "WS/MP18052/2025-2026/220275",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to TUDAL HIGH SCHOOL at Tudal, Gaondongrem, Canacona, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 904063.0,
+        "expenditure_amount": 904063.0,
+        "vendors": [
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "19-Nov-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 82,
+      "risk_score_display": "82/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 82,
+      "amount_similarity": 90.7,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": true,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 75.5,
+        "amount_similarity_pct": 90.7,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.754571674925848,
+        "title_similarity": 0.8333333333333334,
+        "description_similarity": 0.7948717948717948,
+        "fuzzy_text_similarity": 0.8102564102564103,
+        "amount_similarity": 0.90679521228056,
+        "amount_difference": 84263.0,
+        "amount_ratio": 0.9067952122805601,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 24,
+        "shared_location_tokens": [
+          "and",
+          "center",
+          "complete",
+          "comprehensive",
+          "end",
+          "for",
+          "herewith",
+          "high",
+          "indicated",
+          "local",
+          "minimum",
+          "onsite",
+          "per",
+          "provide",
+          "service",
+          "specifications",
+          "support",
+          "systems",
+          "testing",
+          "training",
+          "user",
+          "warranty",
+          "with",
+          "years"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": true,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "High semantic text similarity (75.5%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "evidence": [
+        "High semantic text similarity (75.5%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "missing_evidence": [
+        "Different vendors recorded across works",
         "No image comparison available (Image field contains placeholder strings)"
       ],
       "dampeners_applied": [],
@@ -371834,8 +371442,8 @@
         "sanction_amount": 99929.0,
         "expenditure_amount": 99929.0,
         "vendors": [
-          "SHRI KANHA TRADERS",
-          "The Brick Liners Co Operative Labour and Construction Society Ltd"
+          "The Brick Liners Co Operative Labour and Construction Society Ltd",
+          "SHRI KANHA TRADERS"
         ],
         "sanction_date": "03-Jan-2025",
         "status": "Physical Inspection"
@@ -375267,6 +374875,116 @@
       "missing_evidence": [
         "Low semantic description overlap (34.3%)",
         "Expenditure vendor records missing or partial",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04608",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18064/2024-2025/154954",
+      "matched_work_id": "WS/MP18064/2024-2025/154955",
+      "work_a": {
+        "entity_id": "ENT_010587",
+        "work_id": "WS/MP18064/2024-2025/154954",
+        "state": "Haryana",
+        "constituency": "KURUKSHETRA",
+        "mp": "NAVEEN JINDAL",
+        "category": "Normal/Others",
+        "description": "Construction of street from Main street to h/o Guljar Singh s/o Ram Sarup",
+        "sanction_amount": 96944.0,
+        "expenditure_amount": 96944.0,
+        "vendors": [
+          "KUBER CONCRETE SOLUTIONS",
+          "SHIV KUMAR CONTRACTOR"
+        ],
+        "sanction_date": "03-Jan-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_010588",
+        "work_id": "WS/MP18064/2024-2025/154955",
+        "state": "Haryana",
+        "constituency": "KURUKSHETRA",
+        "mp": "NAVEEN JINDAL",
+        "category": "Normal/Others",
+        "description": "Construction of street from main street to h/o Jaipal Singh s/o Atma Ram",
+        "sanction_amount": 79228.0,
+        "expenditure_amount": 79228.0,
+        "vendors": [
+          "KUBER CONCRETE SOLUTIONS",
+          "Jai Shree Ram Enterprises",
+          "SHIV KUMAR CONTRACTOR"
+        ],
+        "sanction_date": "03-Jan-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 80,
+      "risk_score_display": "80/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 80,
+      "amount_similarity": 81.7,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 100.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 32.7,
+        "amount_similarity_pct": 81.7,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 100.0
+      },
+      "features": {
+        "semantic_similarity": 0.32736683792840127,
+        "title_similarity": 0.8571428571428571,
+        "description_similarity": 0.7142857142857143,
+        "fuzzy_text_similarity": 0.7714285714285714,
+        "amount_similarity": 0.817255322660505,
+        "amount_difference": 17716.0,
+        "amount_ratio": 0.817255322660505,
+        "vendor_similarity": 1.0,
+        "vendor_exact_match": true,
+        "vendor_status": "MATCHING_VENDOR",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 3,
+        "shared_location_tokens": [
+          "main",
+          "ram",
+          "singh"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('main', 'ram', 'singh')",
+        "Identical vendor involved ('KUBER CONCRETE SOLUTIONS, SHIV KUMAR CONTRACTOR')",
+        "Sanctioned within same constituency ('KURUKSHETRA')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('main', 'ram', 'singh')",
+        "Identical vendor involved ('KUBER CONCRETE SOLUTIONS, SHIV KUMAR CONTRACTOR')",
+        "Sanctioned within same constituency ('KURUKSHETRA')"
+      ],
+      "missing_evidence": [
+        "Low semantic description overlap (32.7%)",
         "No image comparison available (Image field contains placeholder strings)"
       ],
       "dampeners_applied": [],
@@ -381780,136 +381498,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_03142",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18052/2025-2026/188139",
-      "matched_work_id": "WS/MP18052/2025-2026/188867",
-      "work_a": {
-        "entity_id": "ENT_028474",
-        "work_id": "WS/MP18052/2025-2026/188139",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to Government Primary School Vaghon, Kirlapal, Dharbandora, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 295137.0,
-        "expenditure_amount": 295137.0,
-        "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
-        ],
-        "sanction_date": "13-Jan-2026",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_028986",
-        "work_id": "WS/MP18052/2025-2026/188867",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide IT systems to BETHANY CONVENT HIGH SCHOOL as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 1265600.0,
-        "expenditure_amount": 1265600.0,
-        "vendors": [
-          "A S ENTERPRISES"
-        ],
-        "sanction_date": "06-Nov-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 78,
-      "risk_score_display": "78/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 78,
-      "amount_similarity": 23.3,
-      "location_similarity": 100.0,
-      "date_similarity": 47.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": true,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 75.9,
-        "amount_similarity_pct": 23.3,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.7591607572063137,
-        "title_similarity": 0.8333333333333334,
-        "description_similarity": 0.7692307692307693,
-        "fuzzy_text_similarity": 0.7948717948717949,
-        "amount_similarity": 0.23319927307206068,
-        "amount_difference": 970463.0,
-        "amount_ratio": 0.23319927307206068,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.46974957024142655,
-        "date_difference_days": 68,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 23,
-        "shared_location_tokens": [
-          "and",
-          "center",
-          "complete",
-          "comprehensive",
-          "end",
-          "for",
-          "herewith",
-          "indicated",
-          "local",
-          "minimum",
-          "onsite",
-          "per",
-          "provide",
-          "service",
-          "specifications",
-          "support",
-          "systems",
-          "testing",
-          "training",
-          "user",
-          "warranty",
-          "with",
-          "years"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": true,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "High semantic text similarity (75.9%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "evidence": [
-        "High semantic text similarity (75.9%)",
-        "Matching location tokens found ('and', 'center', 'complete')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "missing_evidence": [
-        "Substantially different sanction amounts (\u20b9295,137.00 vs \u20b91,265,600.00)",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_00570",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -386338,117 +385926,6 @@
       "missing_evidence": [
         "Low semantic description overlap (37.2%)",
         "Expenditure vendor records missing or partial",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_04401",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18066/2026-2027/285627",
-      "matched_work_id": "WS/MP18066/2026-2027/285645",
-      "work_a": {
-        "entity_id": "ENT_076273",
-        "work_id": "WS/MP18066/2026-2027/285627",
-        "state": "Haryana",
-        "constituency": "SIRSA(SC)",
-        "mp": "SELJA",
-        "category": "Normal/Others",
-        "description": "Construction of IPB flooring under shed at Govt School in Village Nathwan",
-        "sanction_amount": 358000.0,
-        "expenditure_amount": 358000.0,
-        "vendors": [
-          "DPC SSA FATEHABAD",
-          "LILU RAM",
-          "PREET STEEL WORKS",
-          "VIJAY PAL"
-        ],
-        "sanction_date": "10-Aug-2026",
-        "status": "Vendor Identification"
-      },
-      "work_b": {
-        "entity_id": "ENT_076275",
-        "work_id": "WS/MP18066/2026-2027/285645",
-        "state": "Haryana",
-        "constituency": "SIRSA(SC)",
-        "mp": "SELJA",
-        "category": "Normal/Others",
-        "description": "Construction of Shed at Govt School in Village Hamjapur",
-        "sanction_amount": 500000.0,
-        "expenditure_amount": 499164.0,
-        "vendors": [
-          "DPC SSA FATEHABAD",
-          "LILU RAM",
-          "PREET STEEL WORKS"
-        ],
-        "sanction_date": "10-Aug-2026",
-        "status": "Vendor Identification"
-      },
-      "risk_score": 78,
-      "risk_score_display": "78/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 78,
-      "amount_similarity": 71.6,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 33.9,
-        "amount_similarity_pct": 71.6,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.33936180786667464,
-        "title_similarity": 0.7777777777777778,
-        "description_similarity": 0.6153846153846154,
-        "fuzzy_text_similarity": 0.6803418803418804,
-        "amount_similarity": 0.716,
-        "amount_difference": 142000.0,
-        "amount_ratio": 0.716,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 2,
-        "shared_location_tokens": [
-          "govt",
-          "shed"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('govt', 'shed')",
-        "Identical vendor involved ('DPC SSA FATEHABAD, LILU RAM, PREET STEEL WORKS, VIJAY PAL')",
-        "Sanctioned within same constituency ('SIRSA(SC)')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('govt', 'shed')",
-        "Identical vendor involved ('DPC SSA FATEHABAD, LILU RAM, PREET STEEL WORKS, VIJAY PAL')",
-        "Sanctioned within same constituency ('SIRSA(SC)')"
-      ],
-      "missing_evidence": [
-        "Low semantic description overlap (33.9%)",
         "No image comparison available (Image field contains placeholder strings)"
       ],
       "dampeners_applied": [],
@@ -394317,8 +393794,8 @@
         "sanction_amount": 904063.0,
         "expenditure_amount": 904063.0,
         "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
         ],
         "sanction_date": "19-Nov-2025",
         "status": "Physical Inspection"
@@ -394334,8 +393811,8 @@
         "sanction_amount": 271441.0,
         "expenditure_amount": 271441.0,
         "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
         ],
         "sanction_date": "22-Apr-2026",
         "status": "Physical Inspection"
@@ -394417,13 +393894,13 @@
       "triggered_evidence": [
         "High semantic text similarity (78.4%)",
         "Matching location tokens found ('and', 'canacona', 'center')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
+        "Identical vendor involved ('INFO TECH CORPORATION OF LIMITED, A S ENTERPRISES')",
         "Sanctioned within same constituency ('SOUTH GOA')"
       ],
       "evidence": [
         "High semantic text similarity (78.4%)",
         "Matching location tokens found ('and', 'canacona', 'center')",
-        "Identical vendor involved ('A S ENTERPRISES, INFO TECH CORPORATION OF LIMITED')",
+        "Identical vendor involved ('INFO TECH CORPORATION OF LIMITED, A S ENTERPRISES')",
         "Sanctioned within same constituency ('SOUTH GOA')"
       ],
       "missing_evidence": [
@@ -399007,6 +398484,135 @@
         "Matching location tokens found ('chahardiwari', 'ewam', 'karya')",
         "Identical or near-identical sanction amount (\u20b9495,631.00 vs \u20b9499,471.00)",
         "Sanctioned within same constituency ('PURVI CHAMPARAN')"
+      ],
+      "missing_evidence": [
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_03123",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18052/2025-2026/188867",
+      "matched_work_id": "WS/MP18052/2025-2026/220275",
+      "work_a": {
+        "entity_id": "ENT_028986",
+        "work_id": "WS/MP18052/2025-2026/188867",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to BETHANY CONVENT HIGH SCHOOL as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 1265600.0,
+        "expenditure_amount": 1265600.0,
+        "vendors": [
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "06-Nov-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_045063",
+        "work_id": "WS/MP18052/2025-2026/220275",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to TUDAL HIGH SCHOOL at Tudal, Gaondongrem, Canacona, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 904063.0,
+        "expenditure_amount": 904063.0,
+        "vendors": [
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "19-Nov-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 76,
+      "risk_score_display": "76/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 76,
+      "amount_similarity": 71.4,
+      "location_similarity": 100.0,
+      "date_similarity": 86.6,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": true,
+      "convergence_count": 3,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 75.1,
+        "amount_similarity_pct": 71.4,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.7511863957684471,
+        "title_similarity": 0.8333333333333334,
+        "description_similarity": 0.8157894736842105,
+        "fuzzy_text_similarity": 0.8228070175438597,
+        "amount_similarity": 0.7143354930467762,
+        "amount_difference": 361537.0,
+        "amount_ratio": 0.7143354930467762,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.865502994567177,
+        "date_difference_days": 13,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 24,
+        "shared_location_tokens": [
+          "and",
+          "center",
+          "complete",
+          "comprehensive",
+          "end",
+          "for",
+          "herewith",
+          "high",
+          "indicated",
+          "local",
+          "minimum",
+          "onsite",
+          "per",
+          "provide",
+          "service",
+          "specifications",
+          "support",
+          "systems",
+          "testing",
+          "training",
+          "user",
+          "warranty",
+          "with",
+          "years"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": true,
+        "convergence_count": 3
+      },
+      "triggered_evidence": [
+        "High semantic text similarity (75.1%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "evidence": [
+        "High semantic text similarity (75.1%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
       ],
       "missing_evidence": [
         "Different vendors recorded across works",
@@ -410664,136 +410270,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_03130",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18052/2026-2027/220268",
-      "matched_work_id": "WS/MP18052/2026-2027/222927",
-      "work_a": {
-        "entity_id": "ENT_045058",
-        "work_id": "WS/MP18052/2026-2027/220268",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide following IT systems to ST. THERESA OF JESUS HIGH SCHOOL, Chaudi, Canacona as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 931610.0,
-        "expenditure_amount": 931610.0,
-        "vendors": [
-          "A S ENTERPRISES"
-        ],
-        "sanction_date": "21-May-2026",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_046662",
-        "work_id": "WS/MP18052/2026-2027/222927",
-        "state": "Goa",
-        "constituency": "SOUTH GOA",
-        "mp": "CAPTAIN VIRIATO FERNANDES",
-        "category": "Normal/Others",
-        "description": "To provide following IT systems to Nirakar Primary School, Kinalkatta Gaondongrem, Canacona, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
-        "sanction_amount": 271441.0,
-        "expenditure_amount": 271441.0,
-        "vendors": [
-          "A S ENTERPRISES",
-          "INFO TECH CORPORATION OF LIMITED"
-        ],
-        "sanction_date": "22-Apr-2026",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 74,
-      "risk_score_display": "74/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 74,
-      "amount_similarity": 29.1,
-      "location_similarity": 100.0,
-      "date_similarity": 72.5,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 73.4,
-        "amount_similarity_pct": 29.1,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.7337164818151912,
-        "title_similarity": 0.8333333333333334,
-        "description_similarity": 0.7441860465116279,
-        "fuzzy_text_similarity": 0.7798449612403101,
-        "amount_similarity": 0.2913676323783557,
-        "amount_difference": 660169.0,
-        "amount_ratio": 0.2913676323783557,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 0.7245371641800644,
-        "date_difference_days": 29,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 25,
-        "shared_location_tokens": [
-          "and",
-          "canacona",
-          "center",
-          "complete",
-          "comprehensive",
-          "end",
-          "following",
-          "for",
-          "herewith",
-          "indicated",
-          "local",
-          "minimum",
-          "onsite",
-          "per",
-          "provide",
-          "service",
-          "specifications",
-          "support",
-          "systems",
-          "testing",
-          "training",
-          "user",
-          "warranty",
-          "with",
-          "years"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('and', 'canacona', 'center')",
-        "Identical vendor involved ('A S ENTERPRISES')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('and', 'canacona', 'center')",
-        "Identical vendor involved ('A S ENTERPRISES')",
-        "Sanctioned within same constituency ('SOUTH GOA')"
-      ],
-      "missing_evidence": [
-        "Substantially different sanction amounts (\u20b9931,610.00 vs \u20b9271,441.00)",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_04214",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -419908,8 +419384,8 @@
         "expenditure_amount": 798919.0,
         "vendors": [
           "Rajul Ahmed",
-          "SHAIWON ENTERPRISE",
-          "Abduk Rajak"
+          "Abduk Rajak",
+          "SHAIWON ENTERPRISE"
         ],
         "sanction_date": "22-Dec-2025",
         "status": "Work partially Completed"
@@ -429738,6 +429214,116 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_04969",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18379/2025-2026/208949",
+      "matched_work_id": "WS/MP18379/2025-2026/208951",
+      "work_a": {
+        "entity_id": "ENT_039442",
+        "work_id": "WS/MP18379/2025-2026/208949",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing of sports gears for sports teams of Bandipora Assembly Constituency.",
+        "sanction_amount": 300000.0,
+        "expenditure_amount": 300000.0,
+        "vendors": [
+          "KOHINOOR TRADERS"
+        ],
+        "sanction_date": "08-Aug-2025",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_039444",
+        "work_id": "WS/MP18379/2025-2026/208951",
+        "state": "Jammu And Kashmir",
+        "constituency": "BARAMULLAH",
+        "mp": "ABDUL RASHID SHEIKH",
+        "category": "Normal/Others",
+        "description": "Providing sports gears for sports teams of Sonawari Assembly Constituency.",
+        "sanction_amount": 250000.0,
+        "expenditure_amount": 246025.0,
+        "vendors": [
+          "SYED GH RABBANI",
+          "KOHINOOR TRADERS"
+        ],
+        "sanction_date": "08-Aug-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 71,
+      "risk_score_display": "71/100",
+      "risk_tier": "MEDIUM RISK",
+      "similarity_score": 71,
+      "amount_similarity": 83.3,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 68.9,
+        "amount_similarity_pct": 83.3,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.6892640071386378,
+        "title_similarity": 0.75,
+        "description_similarity": 0.8,
+        "fuzzy_text_similarity": 0.78,
+        "amount_similarity": 0.8333333333333334,
+        "amount_difference": 50000.0,
+        "amount_ratio": 0.8333333333333334,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 7,
+        "shared_location_tokens": [
+          "assembly",
+          "constituency",
+          "for",
+          "gears",
+          "providing",
+          "sports",
+          "teams"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('assembly', 'constituency', 'for')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('assembly', 'constituency', 'for')",
+        "Sanctioned within same constituency ('BARAMULLAH')"
+      ],
+      "missing_evidence": [
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_03101",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -432650,8 +432236,8 @@
         "expenditure_amount": 499669.0,
         "vendors": [
           "VINOD KUMAR GOVT CONTRACTOR",
-          "THE KHARAL SHRI RAM CO OP LC SOCIETY",
-          "THASKA GRAM UDYOG SAMITI"
+          "THASKA GRAM UDYOG SAMITI",
+          "THE KHARAL SHRI RAM CO OP LC SOCIETY"
         ],
         "sanction_date": "03-Apr-2026",
         "status": "Vendor Identification"
@@ -434559,116 +434145,6 @@
       ],
       "missing_evidence": [
         "Expenditure vendor records missing or partial",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
-      "pair_id": "PAIR_04971",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18379/2025-2026/208950",
-      "matched_work_id": "WS/MP18379/2025-2026/208951",
-      "work_a": {
-        "entity_id": "ENT_039443",
-        "work_id": "WS/MP18379/2025-2026/208950",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing of sports gears for sports teams of Gurez Assembly Constituency.",
-        "sanction_amount": 200000.0,
-        "expenditure_amount": 200000.0,
-        "vendors": [
-          "SYED GH RABBANI"
-        ],
-        "sanction_date": "08-Aug-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_039444",
-        "work_id": "WS/MP18379/2025-2026/208951",
-        "state": "Jammu And Kashmir",
-        "constituency": "BARAMULLAH",
-        "mp": "ABDUL RASHID SHEIKH",
-        "category": "Normal/Others",
-        "description": "Providing sports gears for sports teams of Sonawari Assembly Constituency.",
-        "sanction_amount": 250000.0,
-        "expenditure_amount": 246025.0,
-        "vendors": [
-          "KOHINOOR TRADERS",
-          "SYED GH RABBANI"
-        ],
-        "sanction_date": "08-Aug-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 70,
-      "risk_score_display": "70/100",
-      "risk_tier": "MEDIUM RISK",
-      "similarity_score": 70,
-      "amount_similarity": 80.0,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 68.0,
-        "amount_similarity_pct": 80.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.6796850665615455,
-        "title_similarity": 0.75,
-        "description_similarity": 0.8,
-        "fuzzy_text_similarity": 0.78,
-        "amount_similarity": 0.8,
-        "amount_difference": 50000.0,
-        "amount_ratio": 0.8,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 7,
-        "shared_location_tokens": [
-          "assembly",
-          "constituency",
-          "for",
-          "gears",
-          "providing",
-          "sports",
-          "teams"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('assembly', 'constituency', 'for')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('assembly', 'constituency', 'for')",
-        "Sanctioned within same constituency ('BARAMULLAH')"
-      ],
-      "missing_evidence": [
-        "Different vendors recorded across works",
         "No image comparison available (Image field contains placeholder strings)"
       ],
       "dampeners_applied": [],
@@ -458737,115 +458213,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04603",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18064/2025-2026/203141",
-      "matched_work_id": "WS/MP18064/2025-2026/226026",
-      "work_a": {
-        "entity_id": "ENT_036147",
-        "work_id": "WS/MP18064/2025-2026/203141",
-        "state": "Haryana",
-        "constituency": "KURUKSHETRA",
-        "mp": "NAVEEN JINDAL",
-        "category": "Normal/Others",
-        "description": "Construction of shed on first floor of Agarwal  Dharmshala and Floor Tiles",
-        "sanction_amount": 1100000.0,
-        "expenditure_amount": 807096.0,
-        "vendors": [
-          "The S and R Group Cooperative Labour And Construction Society Limited Kaithal",
-          "RAJINDER KUMAR CONTRACTOR"
-        ],
-        "sanction_date": "24-Dec-2025",
-        "status": "Work partially Completed"
-      },
-      "work_b": {
-        "entity_id": "ENT_048400",
-        "work_id": "WS/MP18064/2025-2026/226026",
-        "state": "Haryana",
-        "constituency": "KURUKSHETRA",
-        "mp": "NAVEEN JINDAL",
-        "category": "Trust and Society",
-        "description": "Construction of Shed and floor for cycle in school",
-        "sanction_amount": 176351.0,
-        "expenditure_amount": 176351.0,
-        "vendors": [
-          "The S and R Group Cooperative Labour And Construction Society Limited Kaithal"
-        ],
-        "sanction_date": "24-Dec-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 66,
-      "risk_score_display": "66/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 66,
-      "amount_similarity": 16.0,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 100.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 3,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 34.7,
-        "amount_similarity_pct": 16.0,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 100.0
-      },
-      "features": {
-        "semantic_similarity": 0.34744217312651854,
-        "title_similarity": 0.07692307692307693,
-        "description_similarity": 0.35714285714285715,
-        "fuzzy_text_similarity": 0.24505494505494504,
-        "amount_similarity": 0.1603190909090909,
-        "amount_difference": 923649.0,
-        "amount_ratio": 0.1603190909090909,
-        "vendor_similarity": 1.0,
-        "vendor_exact_match": true,
-        "vendor_status": "MATCHING_VENDOR",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 0.5,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 3,
-        "shared_location_tokens": [
-          "and",
-          "floor",
-          "shed"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 3
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('and', 'floor', 'shed')",
-        "Identical vendor involved ('The S and R Group Cooperative Labour And Construction Society Limited Kaithal, RAJINDER KUMAR CONTRACTOR')",
-        "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('and', 'floor', 'shed')",
-        "Identical vendor involved ('The S and R Group Cooperative Labour And Construction Society Limited Kaithal, RAJINDER KUMAR CONTRACTOR')",
-        "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "missing_evidence": [
-        "Low semantic description overlap (34.7%)",
-        "Substantially different sanction amounts (\u20b91,100,000.00 vs \u20b9176,351.00)",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_01680",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -477827,6 +477194,136 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_03143",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18052/2025-2026/188139",
+      "matched_work_id": "WS/MP18052/2025-2026/212160",
+      "work_a": {
+        "entity_id": "ENT_028474",
+        "work_id": "WS/MP18052/2025-2026/188139",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to Government Primary School Vaghon, Kirlapal, Dharbandora, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 295137.0,
+        "expenditure_amount": 295137.0,
+        "vendors": [
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "13-Jan-2026",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_041179",
+        "work_id": "WS/MP18052/2025-2026/212160",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to ABHINAV VIDYAMANDIR at Molem, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 638200.0,
+        "expenditure_amount": 638200.0,
+        "vendors": [
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "19-Nov-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 62,
+      "risk_score_display": "62/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 62,
+      "amount_similarity": 46.2,
+      "location_similarity": 100.0,
+      "date_similarity": 54.3,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": true,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 77.1,
+        "amount_similarity_pct": 46.2,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.7712101731299602,
+        "title_similarity": 0.8333333333333334,
+        "description_similarity": 0.75,
+        "fuzzy_text_similarity": 0.7833333333333333,
+        "amount_similarity": 0.4624522093387653,
+        "amount_difference": 343063.0,
+        "amount_ratio": 0.4624522093387653,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.5427474811642219,
+        "date_difference_days": 55,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 24,
+        "shared_location_tokens": [
+          "and",
+          "center",
+          "complete",
+          "comprehensive",
+          "end",
+          "for",
+          "goa",
+          "herewith",
+          "indicated",
+          "local",
+          "minimum",
+          "onsite",
+          "per",
+          "provide",
+          "service",
+          "specifications",
+          "support",
+          "systems",
+          "testing",
+          "training",
+          "user",
+          "warranty",
+          "with",
+          "years"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": true,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "High semantic text similarity (77.1%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "evidence": [
+        "High semantic text similarity (77.1%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "missing_evidence": [
+        "Substantially different sanction amounts (\u20b9295,137.00 vs \u20b9638,200.00)",
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_03199",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -482289,9 +481786,9 @@
         "sanction_amount": 500000.0,
         "expenditure_amount": 500000.0,
         "vendors": [
-          "TABOM MIZE",
+          "JYOTI NYIGANG",
           "ALOM NYIGANG",
-          "JYOTI NYIGANG"
+          "TABOM MIZE"
         ],
         "sanction_date": "20-Jan-2026",
         "status": "Work Completed"
@@ -484018,8 +483515,8 @@
         "sanction_amount": 999648.0,
         "expenditure_amount": 984086.0,
         "vendors": [
-          "MS Sanjay Construction Kharak Bainsi Meham",
-          "KAPIL DALAL"
+          "KAPIL DALAL",
+          "MS Sanjay Construction Kharak Bainsi Meham"
         ],
         "sanction_date": "28-May-2025",
         "status": "Work partially Completed"
@@ -486241,9 +485738,9 @@
         "sanction_amount": 400000.0,
         "expenditure_amount": 400000.0,
         "vendors": [
+          "TAKAR GAO",
           "NONGGER GAO",
-          "MINKENG NONANG",
-          "TAKAR GAO"
+          "MINKENG NONANG"
         ],
         "sanction_date": "23-Dec-2025",
         "status": "Work Completed"
@@ -486259,8 +485756,8 @@
         "sanction_amount": 400000.0,
         "expenditure_amount": 400000.0,
         "vendors": [
-          "AMUM MOYONG",
-          "Ms BT Enterprise"
+          "Ms BT Enterprise",
+          "AMUM MOYONG"
         ],
         "sanction_date": "20-Nov-2025",
         "status": "Work Completed"
@@ -486684,11 +486181,11 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 999614.0,
         "vendors": [
-          "Variety Stationary Store",
           "M M Technologies",
-          "Evolve",
           "FUTURE SYSTEM",
-          "Variety Book Store"
+          "Variety Stationary Store",
+          "Variety Book Store",
+          "Evolve"
         ],
         "sanction_date": "25-Feb-2026",
         "status": "Physical Inspection"
@@ -491472,6 +490969,264 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_03145",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18052/2025-2026/188139",
+      "matched_work_id": "WS/MP18052/2025-2026/212842",
+      "work_a": {
+        "entity_id": "ENT_028474",
+        "work_id": "WS/MP18052/2025-2026/188139",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to Government Primary School Vaghon, Kirlapal, Dharbandora, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 295137.0,
+        "expenditure_amount": 295137.0,
+        "vendors": [
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "13-Jan-2026",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_041607",
+        "work_id": "WS/MP18052/2025-2026/212842",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to ADARSH V.V. HIGH SCHOOL, Margao as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 819800.0,
+        "expenditure_amount": 819800.0,
+        "vendors": [
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "19-Nov-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 59,
+      "risk_score_display": "59/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 59,
+      "amount_similarity": 36.0,
+      "location_similarity": 100.0,
+      "date_similarity": 54.3,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": true,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 76.3,
+        "amount_similarity_pct": 36.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.7625819734356871,
+        "title_similarity": 0.8333333333333334,
+        "description_similarity": 0.75,
+        "fuzzy_text_similarity": 0.7833333333333333,
+        "amount_similarity": 0.36001097828738715,
+        "amount_difference": 524663.0,
+        "amount_ratio": 0.36001097828738715,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.5427474811642219,
+        "date_difference_days": 55,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 23,
+        "shared_location_tokens": [
+          "and",
+          "center",
+          "complete",
+          "comprehensive",
+          "end",
+          "for",
+          "herewith",
+          "indicated",
+          "local",
+          "minimum",
+          "onsite",
+          "per",
+          "provide",
+          "service",
+          "specifications",
+          "support",
+          "systems",
+          "testing",
+          "training",
+          "user",
+          "warranty",
+          "with",
+          "years"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": true,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "High semantic text similarity (76.3%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "evidence": [
+        "High semantic text similarity (76.3%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "missing_evidence": [
+        "Substantially different sanction amounts (\u20b9295,137.00 vs \u20b9819,800.00)",
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_03130",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18052/2026-2027/220268",
+      "matched_work_id": "WS/MP18052/2026-2027/222927",
+      "work_a": {
+        "entity_id": "ENT_045058",
+        "work_id": "WS/MP18052/2026-2027/220268",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide following IT systems to ST. THERESA OF JESUS HIGH SCHOOL, Chaudi, Canacona as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 931610.0,
+        "expenditure_amount": 931610.0,
+        "vendors": [
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "21-May-2026",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_046662",
+        "work_id": "WS/MP18052/2026-2027/222927",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide following IT systems to Nirakar Primary School, Kinalkatta Gaondongrem, Canacona, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 271441.0,
+        "expenditure_amount": 271441.0,
+        "vendors": [
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "22-Apr-2026",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 59,
+      "risk_score_display": "59/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 59,
+      "amount_similarity": 29.1,
+      "location_similarity": 100.0,
+      "date_similarity": 72.5,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 1,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 73.4,
+        "amount_similarity_pct": 29.1,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.7337164818151912,
+        "title_similarity": 0.8333333333333334,
+        "description_similarity": 0.7441860465116279,
+        "fuzzy_text_similarity": 0.7798449612403101,
+        "amount_similarity": 0.2913676323783557,
+        "amount_difference": 660169.0,
+        "amount_ratio": 0.2913676323783557,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.7245371641800644,
+        "date_difference_days": 29,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 25,
+        "shared_location_tokens": [
+          "and",
+          "canacona",
+          "center",
+          "complete",
+          "comprehensive",
+          "end",
+          "following",
+          "for",
+          "herewith",
+          "indicated",
+          "local",
+          "minimum",
+          "onsite",
+          "per",
+          "provide",
+          "service",
+          "specifications",
+          "support",
+          "systems",
+          "testing",
+          "training",
+          "user",
+          "warranty",
+          "with",
+          "years"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 1
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('and', 'canacona', 'center')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('and', 'canacona', 'center')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "missing_evidence": [
+        "Substantially different sanction amounts (\u20b9931,610.00 vs \u20b9271,441.00)",
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_00880",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -494171,8 +493926,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 240000.0,
         "vendors": [
-          "SHAIWON ENTERPRISE",
-          "Abduk Rajak"
+          "Abduk Rajak",
+          "SHAIWON ENTERPRISE"
         ],
         "sanction_date": "16-Dec-2025",
         "status": "Work partially Completed"
@@ -494188,8 +493943,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 300000.0,
         "vendors": [
-          "Ashiqur Rahman",
-          "MOHD IKRAMUL HUSSAIN"
+          "MOHD IKRAMUL HUSSAIN",
+          "Ashiqur Rahman"
         ],
         "sanction_date": "19-Feb-2026",
         "status": "Physical Inspection"
@@ -495377,8 +495132,8 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 1000000.0,
         "vendors": [
-          "AMUM MOYONG",
-          "Ms Siang Youth Enterprises"
+          "Ms Siang Youth Enterprises",
+          "AMUM MOYONG"
         ],
         "sanction_date": "14-Nov-2025",
         "status": "Work Completed"
@@ -498231,115 +497986,6 @@
       "review_status": "UNREVIEWED"
     },
     {
-      "pair_id": "PAIR_04608",
-      "chamber_a": "LS",
-      "chamber_b": "LS",
-      "chamber_pair": "LS-LS",
-      "source_work_id": "WS/MP18064/2024-2025/154954",
-      "matched_work_id": "WS/MP18064/2024-2025/154955",
-      "work_a": {
-        "entity_id": "ENT_010587",
-        "work_id": "WS/MP18064/2024-2025/154954",
-        "state": "Haryana",
-        "constituency": "KURUKSHETRA",
-        "mp": "NAVEEN JINDAL",
-        "category": "Normal/Others",
-        "description": "Construction of street from Main street to h/o Guljar Singh s/o Ram Sarup",
-        "sanction_amount": 96944.0,
-        "expenditure_amount": 96944.0,
-        "vendors": [
-          "KUBER CONCRETE SOLUTIONS",
-          "SHIV KUMAR CONTRACTOR"
-        ],
-        "sanction_date": "03-Jan-2025",
-        "status": "Physical Inspection"
-      },
-      "work_b": {
-        "entity_id": "ENT_010588",
-        "work_id": "WS/MP18064/2024-2025/154955",
-        "state": "Haryana",
-        "constituency": "KURUKSHETRA",
-        "mp": "NAVEEN JINDAL",
-        "category": "Normal/Others",
-        "description": "Construction of street from main street to h/o Jaipal Singh s/o Atma Ram",
-        "sanction_amount": 79228.0,
-        "expenditure_amount": 79228.0,
-        "vendors": [
-          "Jai Shree Ram Enterprises",
-          "KUBER CONCRETE SOLUTIONS",
-          "SHIV KUMAR CONTRACTOR"
-        ],
-        "sanction_date": "03-Jan-2025",
-        "status": "Physical Inspection"
-      },
-      "risk_score": 58,
-      "risk_score_display": "58/100",
-      "risk_tier": "LOW RISK",
-      "similarity_score": 58,
-      "amount_similarity": 81.7,
-      "location_similarity": 100.0,
-      "date_similarity": 100.0,
-      "vendor_similarity": 0.0,
-      "has_contextual_anchor": false,
-      "convergence_count": 2,
-      "similarity_breakdown": {
-        "semantic_similarity_pct": 32.7,
-        "amount_similarity_pct": 81.7,
-        "location_similarity_pct": 100.0,
-        "vendor_similarity_pct": 0.0
-      },
-      "features": {
-        "semantic_similarity": 0.32736683792840127,
-        "title_similarity": 0.8571428571428571,
-        "description_similarity": 0.7142857142857143,
-        "fuzzy_text_similarity": 0.7714285714285714,
-        "amount_similarity": 0.817255322660505,
-        "amount_difference": 17716.0,
-        "amount_ratio": 0.817255322660505,
-        "vendor_similarity": 0.0,
-        "vendor_exact_match": false,
-        "vendor_status": "DIFFERENT_VENDORS",
-        "vendor_evidence_available": true,
-        "date_similarity": 1.0,
-        "date_difference_days": 0,
-        "category_similarity": 1.0,
-        "state_match": true,
-        "constituency_match": true,
-        "location_similarity": 1.0,
-        "location_token_overlap": 3,
-        "shared_location_tokens": [
-          "main",
-          "ram",
-          "singh"
-        ],
-        "location_evidence_available": true,
-        "location_confidence": "HIGH",
-        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
-        "same_master_work": false,
-        "same_canonical_work_id": false,
-        "is_generic_description": false,
-        "generic_description_flag": false,
-        "image_similarity_available": false,
-        "has_contextual_anchor": false,
-        "convergence_count": 2
-      },
-      "triggered_evidence": [
-        "Matching location tokens found ('main', 'ram', 'singh')",
-        "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "evidence": [
-        "Matching location tokens found ('main', 'ram', 'singh')",
-        "Sanctioned within same constituency ('KURUKSHETRA')"
-      ],
-      "missing_evidence": [
-        "Low semantic description overlap (32.7%)",
-        "Different vendors recorded across works",
-        "No image comparison available (Image field contains placeholder strings)"
-      ],
-      "dampeners_applied": [],
-      "review_status": "UNREVIEWED"
-    },
-    {
       "pair_id": "PAIR_04454",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -500402,9 +500048,9 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 296426.0,
         "vendors": [
+          "MANOJ RATILAL SAGAR",
           "LABOUR CESS MPLADS DUDCTION",
-          "AMRUT ENTERPRISE",
-          "MANOJ RATILAL SAGAR"
+          "AMRUT ENTERPRISE"
         ],
         "sanction_date": "17-Dec-2025",
         "status": "Vendor Identification"
@@ -504224,6 +503870,135 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_03142",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18052/2025-2026/188139",
+      "matched_work_id": "WS/MP18052/2025-2026/188867",
+      "work_a": {
+        "entity_id": "ENT_028474",
+        "work_id": "WS/MP18052/2025-2026/188139",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to Government Primary School Vaghon, Kirlapal, Dharbandora, Goa as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 295137.0,
+        "expenditure_amount": 295137.0,
+        "vendors": [
+          "INFO TECH CORPORATION OF LIMITED",
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "13-Jan-2026",
+        "status": "Physical Inspection"
+      },
+      "work_b": {
+        "entity_id": "ENT_028986",
+        "work_id": "WS/MP18052/2025-2026/188867",
+        "state": "Goa",
+        "constituency": "SOUTH GOA",
+        "mp": "CAPTAIN VIRIATO FERNANDES",
+        "category": "Normal/Others",
+        "description": "To provide IT systems to BETHANY CONVENT HIGH SCHOOL as per specifications indicated herewith complete with supply, installation, testing end user training, local support service center for minimum 3 years, and minimum 3 years comprehensive onsite warranty.",
+        "sanction_amount": 1265600.0,
+        "expenditure_amount": 1265600.0,
+        "vendors": [
+          "A S ENTERPRISES"
+        ],
+        "sanction_date": "06-Nov-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 56,
+      "risk_score_display": "56/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 56,
+      "amount_similarity": 23.3,
+      "location_similarity": 100.0,
+      "date_similarity": 47.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": true,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 75.9,
+        "amount_similarity_pct": 23.3,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.7591607572063137,
+        "title_similarity": 0.8333333333333334,
+        "description_similarity": 0.7692307692307693,
+        "fuzzy_text_similarity": 0.7948717948717949,
+        "amount_similarity": 0.23319927307206068,
+        "amount_difference": 970463.0,
+        "amount_ratio": 0.23319927307206068,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 0.46974957024142655,
+        "date_difference_days": 68,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 23,
+        "shared_location_tokens": [
+          "and",
+          "center",
+          "complete",
+          "comprehensive",
+          "end",
+          "for",
+          "herewith",
+          "indicated",
+          "local",
+          "minimum",
+          "onsite",
+          "per",
+          "provide",
+          "service",
+          "specifications",
+          "support",
+          "systems",
+          "testing",
+          "training",
+          "user",
+          "warranty",
+          "with",
+          "years"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": true,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "High semantic text similarity (75.9%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "evidence": [
+        "High semantic text similarity (75.9%)",
+        "Matching location tokens found ('and', 'center', 'complete')",
+        "Sanctioned within same constituency ('SOUTH GOA')"
+      ],
+      "missing_evidence": [
+        "Substantially different sanction amounts (\u20b9295,137.00 vs \u20b91,265,600.00)",
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_03314",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -506029,12 +505804,12 @@
         "sanction_amount": 1343000.0,
         "expenditure_amount": 981712.0,
         "vendors": [
+          "Amar Ujala Ltd",
           "JP Brothers",
           "Venus Sales Corporation",
-          "Amar Ujala Ltd",
-          "The Hind Samachar Ltd",
           "Sham Electrical Engineering Works",
-          "The Tribune Trust"
+          "The Tribune Trust",
+          "The Hind Samachar Ltd"
         ],
         "sanction_date": "20-Jun-2025",
         "status": "Work partially Completed"
@@ -506989,8 +506764,8 @@
         "sanction_amount": 199924.0,
         "expenditure_amount": 199924.0,
         "vendors": [
-          "PRANJAL BORGOHAIN",
-          "OM ENTERPRISE"
+          "OM ENTERPRISE",
+          "PRANJAL BORGOHAIN"
         ],
         "sanction_date": "16-May-2025",
         "status": "Physical Inspection"
@@ -507291,6 +507066,116 @@
       ],
       "missing_evidence": [
         "Low semantic description overlap (37.1%)",
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "pair_id": "PAIR_04401",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18066/2026-2027/285627",
+      "matched_work_id": "WS/MP18066/2026-2027/285645",
+      "work_a": {
+        "entity_id": "ENT_076273",
+        "work_id": "WS/MP18066/2026-2027/285627",
+        "state": "Haryana",
+        "constituency": "SIRSA(SC)",
+        "mp": "SELJA",
+        "category": "Normal/Others",
+        "description": "Construction of IPB flooring under shed at Govt School in Village Nathwan",
+        "sanction_amount": 358000.0,
+        "expenditure_amount": 358000.0,
+        "vendors": [
+          "VIJAY PAL",
+          "DPC SSA FATEHABAD",
+          "LILU RAM",
+          "PREET STEEL WORKS"
+        ],
+        "sanction_date": "10-Aug-2026",
+        "status": "Vendor Identification"
+      },
+      "work_b": {
+        "entity_id": "ENT_076275",
+        "work_id": "WS/MP18066/2026-2027/285645",
+        "state": "Haryana",
+        "constituency": "SIRSA(SC)",
+        "mp": "SELJA",
+        "category": "Normal/Others",
+        "description": "Construction of Shed at Govt School in Village Hamjapur",
+        "sanction_amount": 500000.0,
+        "expenditure_amount": 499164.0,
+        "vendors": [
+          "DPC SSA FATEHABAD",
+          "LILU RAM",
+          "PREET STEEL WORKS"
+        ],
+        "sanction_date": "10-Aug-2026",
+        "status": "Vendor Identification"
+      },
+      "risk_score": 56,
+      "risk_score_display": "56/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 56,
+      "amount_similarity": 71.6,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 33.9,
+        "amount_similarity_pct": 71.6,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.33936180786667464,
+        "title_similarity": 0.7777777777777778,
+        "description_similarity": 0.6153846153846154,
+        "fuzzy_text_similarity": 0.6803418803418804,
+        "amount_similarity": 0.716,
+        "amount_difference": 142000.0,
+        "amount_ratio": 0.716,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 1.0,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 2,
+        "shared_location_tokens": [
+          "govt",
+          "shed"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('govt', 'shed')",
+        "Sanctioned within same constituency ('SIRSA(SC)')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('govt', 'shed')",
+        "Sanctioned within same constituency ('SIRSA(SC)')"
+      ],
+      "missing_evidence": [
+        "Low semantic description overlap (33.9%)",
         "Different vendors recorded across works",
         "No image comparison available (Image field contains placeholder strings)"
       ],
@@ -510624,10 +510509,10 @@
         "sanction_amount": 185006.0,
         "expenditure_amount": 185006.0,
         "vendors": [
-          "MS Guru Nanak Traders",
-          "MS New Shiv Shakti Paint Store",
           "Shiva Building Material",
-          "The Kuber Co Op LC Soc Ltd"
+          "MS New Shiv Shakti Paint Store",
+          "The Kuber Co Op LC Soc Ltd",
+          "MS Guru Nanak Traders"
         ],
         "sanction_date": "13-Dec-2024",
         "status": "Physical Inspection"
@@ -512762,8 +512647,8 @@
         "sanction_amount": 577100.0,
         "expenditure_amount": 577100.0,
         "vendors": [
-          "A S ENTERPRISES",
-          "Paramount Softech"
+          "Paramount Softech",
+          "A S ENTERPRISES"
         ],
         "sanction_date": "13-Jan-2026",
         "status": "Physical Inspection"
@@ -513223,8 +513108,8 @@
         "sanction_amount": 200000.0,
         "expenditure_amount": 199828.0,
         "vendors": [
-          "Bidyut Bharali",
-          "Binud Gogoi"
+          "Binud Gogoi",
+          "Bidyut Bharali"
         ],
         "sanction_date": "06-Jan-2026",
         "status": "Physical Inspection"
@@ -513642,9 +513527,9 @@
         "sanction_amount": 98912.0,
         "expenditure_amount": 98912.0,
         "vendors": [
-          "KUBER CONCRETE SOLUTIONS",
           "CHEEMA ENTERPRISES",
-          "MS Balaji Enterprises"
+          "MS Balaji Enterprises",
+          "KUBER CONCRETE SOLUTIONS"
         ],
         "sanction_date": "16-Jan-2025",
         "status": "Physical Inspection"
@@ -514057,8 +513942,8 @@
         "sanction_amount": 500000.0,
         "expenditure_amount": 500000.0,
         "vendors": [
-          "MS W M TRADERS",
-          "MS DHANRAJ ENTERPRISES"
+          "MS DHANRAJ ENTERPRISES",
+          "MS W M TRADERS"
         ],
         "sanction_date": "09-Sep-2025",
         "status": "Physical Inspection"
@@ -514914,8 +514799,8 @@
         "sanction_amount": 700000.0,
         "expenditure_amount": 700000.0,
         "vendors": [
-          "RK ENTERPRISE",
-          "NK INFRA"
+          "NK INFRA",
+          "RK ENTERPRISE"
         ],
         "sanction_date": "30-Jan-2026",
         "status": "Work partially Completed"
@@ -517570,10 +517455,10 @@
         "sanction_amount": 951024.0,
         "expenditure_amount": 951024.0,
         "vendors": [
-          "The Hind Samachar Ltd",
-          "Versatile",
           "Amar Ujala Ltd",
-          "Bennett Coleman and Co Ltd"
+          "Bennett Coleman and Co Ltd",
+          "Versatile",
+          "The Hind Samachar Ltd"
         ],
         "sanction_date": "24-Feb-2025",
         "status": "Physical Inspection"
@@ -517589,8 +517474,8 @@
         "sanction_amount": 999000.0,
         "expenditure_amount": 999000.0,
         "vendors": [
-          "AVICHAL TRADERS",
-          "ULTIMATE SOLUTION"
+          "ULTIMATE SOLUTION",
+          "AVICHAL TRADERS"
         ],
         "sanction_date": "24-Jun-2026",
         "status": "Physical Inspection"
@@ -521170,10 +521055,10 @@
         "sanction_amount": 185006.0,
         "expenditure_amount": 185006.0,
         "vendors": [
-          "MS Guru Nanak Traders",
-          "MS New Shiv Shakti Paint Store",
           "Shiva Building Material",
-          "The Kuber Co Op LC Soc Ltd"
+          "MS New Shiv Shakti Paint Store",
+          "The Kuber Co Op LC Soc Ltd",
+          "MS Guru Nanak Traders"
         ],
         "sanction_date": "13-Dec-2024",
         "status": "Physical Inspection"
@@ -521189,8 +521074,8 @@
         "sanction_amount": 99929.0,
         "expenditure_amount": 99929.0,
         "vendors": [
-          "SHRI KANHA TRADERS",
-          "The Brick Liners Co Operative Labour and Construction Society Ltd"
+          "The Brick Liners Co Operative Labour and Construction Society Ltd",
+          "SHRI KANHA TRADERS"
         ],
         "sanction_date": "03-Jan-2025",
         "status": "Physical Inspection"
@@ -527733,8 +527618,8 @@
         "expenditure_amount": 499031.0,
         "vendors": [
           "BAVALIYA NATHUBHAI VAGHABHAI",
-          "MPLADS HOLDING ACCOUNT TALUKA PANCHAYT KACHERY SAYLA",
-          "DHANJIBHAI VITHALBHAI ZAPADIYA"
+          "DHANJIBHAI VITHALBHAI ZAPADIYA",
+          "MPLADS HOLDING ACCOUNT TALUKA PANCHAYT KACHERY SAYLA"
         ],
         "sanction_date": "01-May-2025",
         "status": "Work Completed"
@@ -528380,9 +528265,9 @@
         "sanction_amount": 279802.0,
         "expenditure_amount": 278791.0,
         "vendors": [
+          "JAI BABA KHAK NATH WELDING WORKSHOP",
           "SHREE KRISHNA ENTERPRISES",
-          "RAHUL",
-          "JAI BABA KHAK NATH WELDING WORKSHOP"
+          "RAHUL"
         ],
         "sanction_date": "28-Jan-2026",
         "status": "Work partially Completed"
@@ -534829,8 +534714,8 @@
         "sanction_amount": 99929.0,
         "expenditure_amount": 99929.0,
         "vendors": [
-          "SHRI KANHA TRADERS",
-          "The Brick Liners Co Operative Labour and Construction Society Ltd"
+          "The Brick Liners Co Operative Labour and Construction Society Ltd",
+          "SHRI KANHA TRADERS"
         ],
         "sanction_date": "03-Jan-2025",
         "status": "Physical Inspection"
@@ -539700,6 +539585,114 @@
       "review_status": "UNREVIEWED"
     },
     {
+      "pair_id": "PAIR_04603",
+      "chamber_a": "LS",
+      "chamber_b": "LS",
+      "chamber_pair": "LS-LS",
+      "source_work_id": "WS/MP18064/2025-2026/203141",
+      "matched_work_id": "WS/MP18064/2025-2026/226026",
+      "work_a": {
+        "entity_id": "ENT_036147",
+        "work_id": "WS/MP18064/2025-2026/203141",
+        "state": "Haryana",
+        "constituency": "KURUKSHETRA",
+        "mp": "NAVEEN JINDAL",
+        "category": "Normal/Others",
+        "description": "Construction of shed on first floor of Agarwal  Dharmshala and Floor Tiles",
+        "sanction_amount": 1100000.0,
+        "expenditure_amount": 807096.0,
+        "vendors": [
+          "RAJINDER KUMAR CONTRACTOR",
+          "The S and R Group Cooperative Labour And Construction Society Limited Kaithal"
+        ],
+        "sanction_date": "24-Dec-2025",
+        "status": "Work partially Completed"
+      },
+      "work_b": {
+        "entity_id": "ENT_048400",
+        "work_id": "WS/MP18064/2025-2026/226026",
+        "state": "Haryana",
+        "constituency": "KURUKSHETRA",
+        "mp": "NAVEEN JINDAL",
+        "category": "Trust and Society",
+        "description": "Construction of Shed and floor for cycle in school",
+        "sanction_amount": 176351.0,
+        "expenditure_amount": 176351.0,
+        "vendors": [
+          "The S and R Group Cooperative Labour And Construction Society Limited Kaithal"
+        ],
+        "sanction_date": "24-Dec-2025",
+        "status": "Physical Inspection"
+      },
+      "risk_score": 45,
+      "risk_score_display": "45/100",
+      "risk_tier": "LOW RISK",
+      "similarity_score": 45,
+      "amount_similarity": 16.0,
+      "location_similarity": 100.0,
+      "date_similarity": 100.0,
+      "vendor_similarity": 0.0,
+      "has_contextual_anchor": false,
+      "convergence_count": 2,
+      "similarity_breakdown": {
+        "semantic_similarity_pct": 34.7,
+        "amount_similarity_pct": 16.0,
+        "location_similarity_pct": 100.0,
+        "vendor_similarity_pct": 0.0
+      },
+      "features": {
+        "semantic_similarity": 0.34744217312651854,
+        "title_similarity": 0.07692307692307693,
+        "description_similarity": 0.35714285714285715,
+        "fuzzy_text_similarity": 0.24505494505494504,
+        "amount_similarity": 0.1603190909090909,
+        "amount_difference": 923649.0,
+        "amount_ratio": 0.1603190909090909,
+        "vendor_similarity": 0.0,
+        "vendor_exact_match": false,
+        "vendor_status": "DIFFERENT_VENDORS",
+        "vendor_evidence_available": true,
+        "date_similarity": 1.0,
+        "date_difference_days": 0,
+        "category_similarity": 0.5,
+        "state_match": true,
+        "constituency_match": true,
+        "location_similarity": 1.0,
+        "location_token_overlap": 3,
+        "shared_location_tokens": [
+          "and",
+          "floor",
+          "shed"
+        ],
+        "location_evidence_available": true,
+        "location_confidence": "HIGH",
+        "location_method": "CONSTITUENCY_AND_LOCATION_TOKENS",
+        "same_master_work": false,
+        "same_canonical_work_id": false,
+        "is_generic_description": false,
+        "generic_description_flag": false,
+        "image_similarity_available": false,
+        "has_contextual_anchor": false,
+        "convergence_count": 2
+      },
+      "triggered_evidence": [
+        "Matching location tokens found ('and', 'floor', 'shed')",
+        "Sanctioned within same constituency ('KURUKSHETRA')"
+      ],
+      "evidence": [
+        "Matching location tokens found ('and', 'floor', 'shed')",
+        "Sanctioned within same constituency ('KURUKSHETRA')"
+      ],
+      "missing_evidence": [
+        "Low semantic description overlap (34.7%)",
+        "Substantially different sanction amounts (\u20b91,100,000.00 vs \u20b9176,351.00)",
+        "Different vendors recorded across works",
+        "No image comparison available (Image field contains placeholder strings)"
+      ],
+      "dampeners_applied": [],
+      "review_status": "UNREVIEWED"
+    },
+    {
       "pair_id": "PAIR_04606",
       "chamber_a": "LS",
       "chamber_b": "LS",
@@ -542337,8 +542330,8 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 999711.0,
         "vendors": [
-          "The Malik Co Op L C Society Ltd Dabodha Khurd",
-          "BABA HARIDAS TRADERS"
+          "BABA HARIDAS TRADERS",
+          "The Malik Co Op L C Society Ltd Dabodha Khurd"
         ],
         "sanction_date": "01-Sep-2025",
         "status": "Physical Inspection"
@@ -544973,8 +544966,8 @@
         "sanction_amount": 1944320.0,
         "expenditure_amount": 1944320.0,
         "vendors": [
-          "EXECUTIVE ENGINEER PANCHYATI RAJ REWARI",
-          "The Jai Baba Bhaiya Cooperative Labour and Construction"
+          "The Jai Baba Bhaiya Cooperative Labour and Construction",
+          "EXECUTIVE ENGINEER PANCHYATI RAJ REWARI"
         ],
         "sanction_date": "19-Dec-2024",
         "status": "Physical Inspection"
@@ -546243,8 +546236,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 300000.0,
         "vendors": [
-          "Ashiqur Rahman",
-          "MOHD IKRAMUL HUSSAIN"
+          "MOHD IKRAMUL HUSSAIN",
+          "Ashiqur Rahman"
         ],
         "sanction_date": "19-Feb-2026",
         "status": "Physical Inspection"
@@ -546349,8 +546342,8 @@
         "sanction_amount": 300000.0,
         "expenditure_amount": 240000.0,
         "vendors": [
-          "SHAIWON ENTERPRISE",
-          "Abduk Rajak"
+          "Abduk Rajak",
+          "SHAIWON ENTERPRISE"
         ],
         "sanction_date": "16-Dec-2025",
         "status": "Work partially Completed"
@@ -547704,8 +547697,8 @@
         "sanction_amount": 99929.0,
         "expenditure_amount": 99929.0,
         "vendors": [
-          "SHRI KANHA TRADERS",
-          "The Brick Liners Co Operative Labour and Construction Society Ltd"
+          "The Brick Liners Co Operative Labour and Construction Society Ltd",
+          "SHRI KANHA TRADERS"
         ],
         "sanction_date": "03-Jan-2025",
         "status": "Physical Inspection"
@@ -548021,10 +548014,10 @@
         "sanction_amount": 1000000.0,
         "expenditure_amount": 1000000.0,
         "vendors": [
-          "MS ANAS HARDWARE",
           "BHARAT NIRMAN  CO",
+          "VIKASH ELECTRICALS",
           "RK ENTERPRISE",
-          "VIKASH ELECTRICALS"
+          "MS ANAS HARDWARE"
         ],
         "sanction_date": "28-Aug-2025",
         "status": "Physical Inspection"

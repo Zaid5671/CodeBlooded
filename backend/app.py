@@ -452,6 +452,124 @@ def get_canonical_registry_api():
     from backend.canonical_registry import get_canonical_registry
     return jsonify(get_canonical_registry())
 
+# ==============================================================================
+# S++ TOP-TIER EXTENSION ENDPOINTS (NL QUERY, MULTI-AGENT TRIAGE, ALERTS)
+# ==============================================================================
+
+@app.route("/api/query", methods=["GET", "POST"])
+def natural_language_query():
+    """
+    GET/POST /api/query - Natural language audit query parser & filter.
+    Example: ?q=road+in+jaunpur+with+high+risk
+    """
+    if not CACHE["works"]:
+        load_data()
+        
+    query_text = request.args.get("q") or (request.json.get("query") if request.is_json else "")
+    if not query_text:
+        return jsonify({"query": "", "results_count": 0, "works": []})
+
+    q_lower = query_text.lower().strip()
+    words = q_lower.split()
+
+    filtered = []
+    for w in CACHE["works"]:
+        w_text = f"{w.get('work_id', '')} {w.get('work_name', '')} {w.get('State', '')} {w.get('District', '')} {w.get('Constituency', '')} {w.get('standardized_category', '')} {w.get('audit_priority_tier', '')}".lower()
+        
+        # Check if all query terms match
+        if all(term in w_text for term in words):
+            filtered.append(w)
+            if len(filtered) >= 100:  # Top 100 matches
+                break
+
+    return jsonify({
+        "query": query_text,
+        "results_count": len(filtered),
+        "works": filtered
+    })
+
+@app.route("/api/agents/triage", methods=["GET", "POST"])
+def multi_agent_triage():
+    """
+    GET/POST /api/agents/triage - Multi-Agent Audit Consensus Engine.
+    Simulates specialized agent responses (Financial, SLA, Vendor Risk, Eligibility) for a work ID.
+    """
+    work_id = request.args.get("work_id") or (request.json.get("work_id") if request.is_json else "")
+    if not CACHE["works_map"]:
+        load_data()
+        
+    work_data = CACHE["works_map"].get(work_id) or (CACHE["works"][0] if CACHE["works"] else {})
+    
+    score = work_data.get("audit_priority_score", 0.0)
+    tier = work_data.get("audit_priority_tier", "LOW PRIORITY")
+    evidence = work_data.get("evidence", [])
+
+    agents_consensus = {
+        "work_id": work_id or work_data.get("work_id"),
+        "overall_priority_tier": tier,
+        "overall_score": score,
+        "agent_evaluations": [
+            {
+                "agent_name": "FinancialAuditAgent",
+                "role": "Cost & Overrun Specialist",
+                "status": "FLAGGED" if work_data.get("isolation_forest_flag") or work_data.get("peer_iqr_flag") else "CLEARED",
+                "confidence": 0.92,
+                "findings": "Significant variance against peer cost baseline." if work_data.get("peer_iqr_flag") else "Sanction estimate within normal peer bounds."
+            },
+            {
+                "agent_name": "SLAComplianceAgent",
+                "role": "Approval & Execution Timing Inspector",
+                "status": "FLAGGED" if work_data.get("compliance_flag") or work_data.get("delay_flag") else "CLEARED",
+                "confidence": 0.95,
+                "findings": "Statutory approval delay detected." if work_data.get("compliance_flag") else "Approval and execution timelines compliant."
+            },
+            {
+                "agent_name": "VendorRiskAgent",
+                "role": "Market Concentration & Graph Network Inspector",
+                "status": "FLAGGED" if work_data.get("vendor_fragmentation_flag") or work_data.get("hhi_alert") else "CLEARED",
+                "confidence": 0.88,
+                "findings": "Payment fragmentation within 7-day window." if work_data.get("vendor_fragmentation_flag") else "No high vendor concentration detected."
+            },
+            {
+                "agent_name": "EligibilityAgent",
+                "role": "Negative List & Beneficiary Filter",
+                "status": "FLAGGED" if work_data.get("inadmissible_flag") or work_data.get("private_beneficiary_flag") else "CLEARED",
+                "confidence": 0.90,
+                "findings": "Syntactic landmark safeguard applied." if work_data.get("inadmissible_flag") else "Fully admissible public community work."
+            }
+        ],
+        "evidence_summary": evidence,
+        "governance_disclaimer": "Multi-agent consensus classification for administrative audit triage. Not legal proof of fraud."
+    }
+
+    return jsonify(agents_consensus)
+
+@app.route("/api/notifications/dispatch", methods=["POST"])
+def dispatch_audit_notification():
+    """
+    POST /api/notifications/dispatch - Generates WhatsApp Business & Webhook alert payloads.
+    """
+    data = request.json or {}
+    work_id = data.get("work_id")
+    phone = data.get("phone", "+919876543210")
+    
+    if not CACHE["works_map"]:
+        load_data()
+        
+    work_data = CACHE["works_map"].get(work_id) or data.get("work") or (CACHE["works"][0] if CACHE["works"] else {})
+    
+    from audit_rules.notifications.alert_dispatcher import generate_whatsapp_alert_payload, generate_webhook_event_payload
+    
+    wa_payload = generate_whatsapp_alert_payload(work_data, phone)
+    wh_payload = generate_webhook_event_payload(work_data)
+
+    return jsonify({
+        "status": "DISPATCH_READY",
+        "work_id": work_data.get("clean_work_id") or work_data.get("work_id"),
+        "whatsapp_payload": wa_payload,
+        "webhook_payload": wh_payload
+    })
+
 # Serve Frontend Static Assets
 @app.route("/")
 def index():
