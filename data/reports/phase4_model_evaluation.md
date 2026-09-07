@@ -1,11 +1,11 @@
 # PHASE 4 — MODEL EVALUATION REPORT
 **SIH 2026 | SIH26102 MPLADS Audit Intelligence Platform**
-**Run Timestamp**: 2026-09-07 16:57:12
+**Execution Timestamp**: 2026-09-07 16:59:06
 
 ---
 
 ## 1. M1 — ANOMALOUS COST ESTIMATE DETECTION MODEL
-- **Architecture**: Peer-Group Robust Statistics (IQR / MAD) + Isolation Forest Anomaly Screening.
+- **Architecture**: Robust Peer-Group IQR/MAD + Isolation Forest Anomaly Screening.
 - **Predictive Leakage Fencing**: Zero post-sanction expenditure or payment fields used in sanction-stage predictions.
 
 ## 2. M2 — DUPLICATE WORK DETECTION MODEL

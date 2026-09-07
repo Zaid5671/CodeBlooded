@@ -1,6 +1,6 @@
 # SIH26102 MPLADS AUDIT INTELLIGENCE — PHASE 3 VERIFICATION REPORT
 
-**Evaluation Timestamp**: 2026-09-07 16:57:12
+**Execution Timestamp**: 2026-09-07 16:59:06
 **System Status**: PRODUCTION READY & VERIFIED
 
 ---
@@ -15,9 +15,9 @@
 - **Classification**: `PROCUREMENT CONCENTRATION INDICATOR` (not proof of collusion or corruption).
 
 ## 3. DUPLICATE CANDIDATE PAIRS
-- Total Pairs Analyzed: 5,000
+- Total Retained Candidate Pairs Scored: 5,000
 - Self-pairs: 0
-- Bidirectional duplicates: 0
+- Bidirectional Duplicate Pair Keys: 0
 - Canonical Ordering: Enforced (`pair_key = tuple(sorted([work_id_1, work_id_2]))`)
 
 ---
