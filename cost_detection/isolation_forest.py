@@ -80,11 +80,23 @@ def train_and_score_isolation_forest(df, fitted_imputer=None, fitted_model=None)
     df_valid['robust_dev_filled'] = df_valid['robust_deviation'].fillna(0.0)
     df_valid['peer_dev_ratio_filled'] = df_valid['peer_deviation_ratio'].fillna(0.0)
 
+    # Payment behavior features safely filled for ML imputer
+    df_valid['num_payments_filled'] = df_valid['num_payments'].fillna(0.0) if 'num_payments' in df_valid.columns else 0.0
+    df_valid['max_payment_ratio_filled'] = df_valid['max_payment_ratio'].fillna(1.0) if 'max_payment_ratio' in df_valid.columns else 1.0
+    df_valid['payment_var_filled'] = df_valid['payment_variance'].fillna(0.0) if 'payment_variance' in df_valid.columns else 0.0
+    
+    med_time = df_valid['median_time_between_payments'].median() if 'median_time_between_payments' in df_valid.columns and pd.notnull(df_valid['median_time_between_payments'].median()) else 0.0
+    df_valid['median_time_between_payments_filled'] = df_valid['median_time_between_payments'].fillna(med_time) if 'median_time_between_payments' in df_valid.columns else 0.0
+
     features = [
         'log_sanction_amount',
         'peer_dev_ratio_filled',
         'robust_dev_filled',
-        'days_filled'
+        'days_filled',
+        'num_payments_filled',
+        'max_payment_ratio_filled',
+        'payment_var_filled',
+        'median_time_between_payments_filled'
     ]
 
     X_raw = df_valid[features]

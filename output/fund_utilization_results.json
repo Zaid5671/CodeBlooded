@@ -1,0 +1,15 @@
+{
+  "total_works_processed": 16,
+  "works_with_usable_sanction_date": 16,
+  "works_with_usable_first_payment_date": 16,
+  "works_with_usable_sanction_to_payment_duration": 16,
+  "single_payment_works_count": 16,
+  "single_payment_works_pct": 100.0,
+  "multi_payment_works_count": 0,
+  "multi_payment_works_pct": 0.0,
+  "zero_payment_works_count": 0,
+  "zero_payment_works_pct": 0.0,
+  "idle_utilization_delay_count": 1,
+  "coverage_disclosure": "For works with only one recorded payment (lump-sum), intermediate utilization milestones cannot be inferred from the available transaction data.",
+  "disclaimer": "Statistical/financial anomaly requiring human investigation. Not proof of fraud or wrongdoing."
+}

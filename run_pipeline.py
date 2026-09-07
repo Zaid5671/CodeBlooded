@@ -32,6 +32,10 @@ from backend.reconciliation.reconciliation_engine import run_master_reconciliati
 from backend.delay_detection.delayed_projects import run_delay_detection
 from backend.compliance_detection.approval_compliance import run_compliance_detection, build_ia_watchlist
 from backend.vendor_risk.vendor_agency_network import run_vendor_agency_network_analysis
+from backend.eligibility_detection.inadmissible_works import run_inadmissible_work_detection
+from backend.eligibility_detection.private_beneficiaries import run_private_beneficiary_detection
+from backend.expenditure_detection.duplicate_expenditure import run_duplicate_expenditure_detection
+from backend.fund_utilization.fund_utilization import run_fund_utilization_analysis
 from backend.forecasting.expenditure_forecaster import run_expenditure_forecasting
 from backend.audit_engine.misuse_priority import run_audit_priority_aggregation
 from dashboard import generate_static_html_dashboard
@@ -40,15 +44,15 @@ def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     # 1. Master Data Reconciliation
-    print("--> [1/9] Loading and reconciling Lok Sabha 18 lifecycle data...", flush=True)
+    print("--> [1/13] Loading and reconciling Lok Sabha 18 lifecycle data...", flush=True)
     df_master, reco_report = run_master_reconciliation()
 
     # 2. Run Model 2 — Cost Overrun Detection Pipeline
-    print("--> [2/9] Executing Model 2 (Cost Overrun Engine)...", flush=True)
+    print("--> [2/13] Executing Model 2 (Cost Overrun Engine with Payment Features)...", flush=True)
     df_scored, iso_model = run_detection_pipeline()
 
     # 3. Run Model 1 — Double-Dipping / Potential Duplicate Work Detection Engine
-    print("--> [3/9] Executing Model 1 (Double-Dipping Engine)...", flush=True)
+    print("--> [3/13] Executing Model 1 (Double-Dipping Engine)...", flush=True)
     double_dipping_summary = run_double_dipping_detection()
     dd_results_path = os.path.join(OUTPUT_DIR, "double_dipping_results.json")
     double_dipping_data = None
@@ -57,30 +61,50 @@ def main():
             double_dipping_data = json.load(f)
 
     # 4. Run Model 3 — Delayed Projects Detector
-    print("--> [4/9] Executing Model 3 (Delayed Projects Detector)...", flush=True)
+    print("--> [4/13] Executing Model 3 (Delayed Projects Detector)...", flush=True)
     df_delay, delay_summary = run_delay_detection(df_master)
 
     # 5. Run Model 4 — Compliance Deviation Detector & IA Watchlist
-    print("--> [5/9] Executing Model 4 (Compliance Deviation Detector)...", flush=True)
+    print("--> [5/13] Executing Model 4 (Compliance Deviation Detector)...", flush=True)
     df_compliance, compliance_summary = run_compliance_detection(df_master)
     df_ia_watchlist = build_ia_watchlist(df_master)
 
-    # 6. Run New Module — Vendor–Agency Network Risk Analyzer
-    print("--> [6/9] Executing Vendor-Agency Network Risk Analyzer...", flush=True)
+    # 6. Run Vendor–Agency Network Risk Analyzer
+    print("--> [6/13] Executing Vendor-Agency Network Risk Analyzer (Graph & HHI)...", flush=True)
     df_vendor_risk, vendor_summary = run_vendor_agency_network_analysis(df_master)
 
-    # 7. Run New Module — Expenditure Forecasting Model
-    print("--> [7/9] Executing Expenditure Forecasting Model...", flush=True)
+    # 7. Run Module 2 — Inadmissible Work / Eligibility Anomaly Engine
+    print("--> [7/13] Executing Module 2 (Inadmissible Work / Eligibility Engine)...", flush=True)
+    df_inadmissible, inadmissible_summary = run_inadmissible_work_detection(df_master)
+
+    # 8. Run Module 3 — Private / Commercial Beneficiary Detector
+    print("--> [8/13] Executing Module 3 (Private / Commercial Beneficiary Detector)...", flush=True)
+    df_private_beneficiaries, private_summary = run_private_beneficiary_detection(df_master)
+
+    # 9. Run Module 6 — Duplicate / Repeated Expenditure Detector
+    exp_csv_path = os.path.join("data", "original", "LokSabha18", "Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv")
+    df_raw_exp = pd.read_csv(exp_csv_path, low_memory=False) if os.path.exists(exp_csv_path) else None
+    print("--> [9/13] Executing Module 6 (Duplicate Expenditure Detector)...", flush=True)
+    df_duplicate_expenditure, dup_exp_summary = run_duplicate_expenditure_detection(df_raw_exp, df_master)
+
+    # 10. Run Module 7 — Idle / Inefficient Fund Utilization Engine
+    print("--> [10/13] Executing Module 7 (Fund Utilization Engine)...", flush=True)
+    df_fund_utilization, fund_util_summary = run_fund_utilization_analysis(df_master, df_raw_exp)
+
+    # 11. Run Expenditure Forecasting Model
+    print("--> [11/13] Executing Expenditure Forecasting Model...", flush=True)
     df_forecast, forecast_summary = run_expenditure_forecasting(df_master)
 
-    # 8. Run Model 5 — Audit Priority / Potential Misuse Aggregator
-    print("--> [8/9] Executing Model 5 (Audit Priority Aggregator)...", flush=True)
+    # 12. Run Model 5 — Audit Priority / Potential Misuse Aggregator
+    print("--> [12/13] Executing Model 5 (Audit Priority Aggregator)...", flush=True)
     df_priority, priority_summary = run_audit_priority_aggregation(
-        df_scored, df_delay, df_compliance, double_dipping_data, df_vendor_risk, df_forecast
+        df_scored, df_delay, df_compliance, double_dipping_data,
+        df_vendor_risk, df_forecast, df_inadmissible,
+        df_private_beneficiaries, df_duplicate_expenditure, df_fund_utilization
     )
 
-    # 9. Run Validation & Sanity Checks
-    print("--> [9/9] Running Sanity & Validation Checks...", flush=True)
+    # 13. Run Validation & Sanity Checks
+    print("--> [13/13] Running Sanity & Validation Checks...", flush=True)
     validation_results = run_validation_and_sanity_checks(df_scored)
 
     # -------------------------------------------------------------------------
@@ -155,6 +179,10 @@ def main():
         "model_3_delay_detection": delay_summary,
         "model_4_compliance": compliance_summary,
         "vendor_agency_network_risk": vendor_summary,
+        "inadmissible_works_eligibility": inadmissible_summary,
+        "private_beneficiaries": private_summary,
+        "duplicate_expenditure": dup_exp_summary,
+        "fund_utilization": fund_util_summary,
         "expenditure_forecasting": forecast_summary,
         "model_5_misuse_priority": priority_summary,
         "all_sanity_checks_passed": validation_results['all_sanity_checks_passed']
@@ -165,8 +193,6 @@ def main():
     # Generate Standalone HTML Dashboard
     generate_static_html_dashboard()
 
-    # -------------------------------------------------------------------------
-    # PRINT SECTION Q MANDATORY FINAL SUMMARY REPORT
     # -------------------------------------------------------------------------
     # PRINT PART G MANDATORY FINAL VALIDATION REPORT
     # -------------------------------------------------------------------------
@@ -204,7 +230,26 @@ def main():
     print("VENDOR–AGENCY NETWORK RISK ANALYZER:", flush=True)
     print(f"  • High Concentration Agencies:    {vendor_summary['high_concentration_agencies']:,}", flush=True)
     print(f"  • Payment Structuring Candidates: {vendor_summary['payment_structuring_candidate_agencies']:,}", flush=True)
+    print(f"  • Cross-Constituency Reach:       {vendor_summary.get('cross_constituency_reach_agencies', 0):,}", flush=True)
     print(f"  • Whitelisted Govt Entities:      {vendor_summary['government_entity_vendors']:,}", flush=True)
+    print("--------------------------------------------------------------------------------", flush=True)
+    print("MODULE 2 — INADMISSIBLE WORK / ELIGIBILITY ANOMALY ENGINE:", flush=True)
+    print(f"  • Raw Religious Mentions:        {inadmissible_summary['raw_religious_keyword_mentions']:,}", flush=True)
+    print(f"  • Landmark Location References:  {inadmissible_summary['location_reference_mentions']:,}", flush=True)
+    print(f"  • Direct Inadmissible Candidates: {inadmissible_summary['direct_religious_object_candidates']:,}", flush=True)
+    print(f"  • Final Potentially Inadmissible: {inadmissible_summary['final_potentially_inadmissible_count']:,}", flush=True)
+    print("--------------------------------------------------------------------------------", flush=True)
+    print("MODULE 3 — PRIVATE / COMMERCIAL BENEFICIARY DETECTOR:", flush=True)
+    print(f"  • Private / Commercial Candidates:{private_summary['private_commercial_candidate_count']:,}", flush=True)
+    print("--------------------------------------------------------------------------------", flush=True)
+    print("MODULE 6 — DUPLICATE EXPENDITURE DETECTOR:", flush=True)
+    print(f"  • Exact Duplicate Vouchers:       {dup_exp_summary['exact_duplicate_payment_works']:,}", flush=True)
+    print(f"  • Near-Repeat Payment Patterns:   {dup_exp_summary['near_repeat_pattern_works']:,}", flush=True)
+    print("--------------------------------------------------------------------------------", flush=True)
+    print("MODULE 7 — FUND UTILIZATION ENGINE:", flush=True)
+    print(f"  • Single-Payment Works (Lump Sum):{fund_util_summary['single_payment_works_count']:,} ({fund_util_summary['single_payment_works_pct']}%)", flush=True)
+    print(f"  • Multi-Payment Works:           {fund_util_summary['multi_payment_works_count']:,} ({fund_util_summary['multi_payment_works_pct']}%)", flush=True)
+    print(f"  • Idle Utilization Delays:        {fund_util_summary['idle_utilization_delay_count']:,}", flush=True)
     print("--------------------------------------------------------------------------------", flush=True)
     print("EXPENDITURE FORECASTING MODEL:", flush=True)
     print(f"  • Historical Observations:       {forecast_summary.get('observations_used', 0)} months", flush=True)
@@ -223,6 +268,10 @@ def main():
     print("  • delayed_projects_results.json, delayed_projects.csv", flush=True)
     print("  • compliance_results.json, compliance_ia_watchlist.csv", flush=True)
     print("  • vendor_agency_risk.json, vendor_agency_risk.csv, vendor_network_summary.csv", flush=True)
+    print("  • inadmissible_works_results.json, inadmissible_works.csv", flush=True)
+    print("  • private_beneficiaries_results.json, private_beneficiaries.csv", flush=True)
+    print("  • duplicate_expenditure_results.json, duplicate_expenditure.csv", flush=True)
+    print("  • fund_utilization_results.json, fund_utilization.csv", flush=True)
     print("  • expenditure_forecast_results.json, expenditure_forecast.csv", flush=True)
     print("  • misuse_priority_results.json, misuse_priority.csv, pipeline_summary.json", flush=True)
     print("  • dashboard.html", flush=True)
@@ -230,7 +279,7 @@ def main():
     print("GOVERNANCE DISCLAIMER:", flush=True)
     print("Statistical/financial anomaly — requires human investigation.", flush=True)
     print("Not proof of fraud or wrongdoing.", flush=True)
-    print("================================================================结论\n", flush=True)
+    print("================================================================\n", flush=True)
 
 if __name__ == '__main__':
     main()

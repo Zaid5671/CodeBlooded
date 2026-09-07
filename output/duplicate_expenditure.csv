@@ -1,0 +1,2 @@
+clean_work_id,duplicate_expenditure_signal,exact_duplicate_payment,near_repeated_payment_pattern,duplicate_expenditure_status,duplicate_expenditure_evidence,disclaimer
+W_NEAR,True,False,True,POTENTIAL DUPLICATE PAYMENT — REQUIRES AUDIT REVIEW,['REPEATED PAYMENT PATTERN REQUIRING REVIEW: Near-identical payment amounts to same vendor within 30-day window.'],Statistical/financial anomaly requiring human investigation. Not proof of fraud or wrongdoing.

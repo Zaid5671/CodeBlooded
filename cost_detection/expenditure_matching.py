@@ -35,40 +35,64 @@ def process_and_aggregate_expenditure(df_exp):
     # Filter out missing Work IDs
     valid_exp = df_e[df_e['clean_work_id'].notnull()].copy()
 
-    # 3. Group by clean_work_id
-    agg_dict = {
-        'expenditure_amount': ['sum', 'count'],
-        'exp_dt': ['min', 'max']
-    }
-    
-    # Store vendor list if present
-    if 'Vendor Name' in df_e.columns:
-        agg_df = valid_exp.groupby('clean_work_id').agg(
-            actual_expenditure=('expenditure_amount', 'sum'),
-            expenditure_record_count=('expenditure_amount', 'count'),
-            first_expenditure_date=('exp_dt', 'min'),
-            last_expenditure_date=('exp_dt', 'max'),
-            vendor_names=('Vendor Name', lambda s: [v for v in s.dropna().tolist() if str(v).strip()])
-        ).reset_index()
-    else:
-        agg_df = valid_exp.groupby('clean_work_id').agg(
-            actual_expenditure=('expenditure_amount', 'sum'),
-            expenditure_record_count=('expenditure_amount', 'count'),
-            first_expenditure_date=('exp_dt', 'min'),
-            last_expenditure_date=('exp_dt', 'max')
-        ).reset_index()
+    # Custom per-work payment behavior calculation
+    def calc_payment_features(group):
+        n = len(group)
+        amts = group['expenditure_amount'].values
+        tot = float(amts.sum())
+        mean_amt = tot / n if n > 0 else 0.0
+        max_amt = float(amts.max()) if n > 0 else 0.0
+        max_ratio = max_amt / tot if tot > 0 else 1.0
+        
+        if n > 1:
+            var_amt = float(np.var(amts, ddof=1)) if n > 1 else np.nan
+            dts = sorted([d for d in group['exp_dt'] if pd.notnull(d)])
+            if len(dts) > 1:
+                diffs = [(dts[i] - dts[i-1]).days for i in range(1, len(dts))]
+                med_diff = float(np.median(diffs))
+            else:
+                med_diff = np.nan
+        else:
+            var_amt = np.nan
+            med_diff = np.nan
+            
+        vendors = [str(v).strip() for v in group.get('Vendor Name', pd.Series(dtype=object)).dropna() if str(v).strip()]
+        first_dt = group['exp_dt'].min()
+        last_dt = group['exp_dt'].max()
+        
+        return pd.Series({
+            'actual_expenditure': tot,
+            'expenditure_record_count': n,
+            'num_payments': n,
+            'mean_payment_amount': round(mean_amt, 2),
+            'max_payment_amount': round(max_amt, 2),
+            'max_payment_ratio': round(max_ratio, 4),
+            'payment_variance': round(var_amt, 2) if pd.notnull(var_amt) else np.nan,
+            'median_time_between_payments': round(med_diff, 2) if pd.notnull(med_diff) else np.nan,
+            'HAS_MULTIPLE_PAYMENTS': n > 1,
+            'PAYMENT_FEATURES_AVAILABLE': n > 0,
+            'first_expenditure_date': first_dt,
+            'last_expenditure_date': last_dt,
+            'vendor_names': vendors
+        })
+
+    agg_df = valid_exp.groupby('clean_work_id').apply(calc_payment_features).reset_index()
 
     # Print Validation Statistics
     total_rows = len(df_exp)
     unique_works = len(agg_df)
-    multi_row_works = (agg_df['expenditure_record_count'] > 1).sum()
-    max_rows = agg_df['expenditure_record_count'].max() if len(agg_df) > 0 else 0
+    multi_row_works = int((agg_df['num_payments'] > 1).sum())
+    single_row_works = int((agg_df['num_payments'] == 1).sum())
+    max_rows = int(agg_df['num_payments'].max()) if len(agg_df) > 0 else 0
     total_agg_amount = agg_df['actual_expenditure'].sum()
+    pct_multi = (multi_row_works / unique_works * 100.0) if unique_works > 0 else 0.0
+    pct_single = (single_row_works / unique_works * 100.0) if unique_works > 0 else 0.0
 
     print(f"  [Expenditure Aggregation Validation]")
     print(f"    • Total Raw Expenditure Rows:      {total_rows:,}")
     print(f"    • Unique Expenditure Work IDs:     {unique_works:,}")
-    print(f"    • Works with Multi-Vouchers (>1):   {multi_row_works:,}")
+    print(f"    • Single-Payment Works (1):        {single_row_works:,} ({pct_single:.1f}%)")
+    print(f"    • Multi-Payment Works (>1):        {multi_row_works:,} ({pct_multi:.1f}%)")
     print(f"    • Max Vouchers for Single Work:    {max_rows}")
     print(f"    • Total Aggregated Disbursed Amt:  ₹{total_agg_amount:,.2f}")
 

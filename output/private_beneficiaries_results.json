@@ -1,0 +1,13 @@
+{
+  "total_works_analyzed": 79221,
+  "category_breakdown": {
+    "GOVERNMENT_ENTITY": 12005,
+    "PRIVATE_OR_COMMERCIAL_CANDIDATE": 198,
+    "NONPROFIT_TRUST_CANDIDATE": 773,
+    "AMBIGUOUS_ENTITY": 3508,
+    "UNKNOWN_OWNERSHIP": 62737
+  },
+  "private_commercial_candidate_count": 198,
+  "limitations": "Entity classification is derived from text heuristics. An authoritative government institutional registry is not currently available in MPLADS dataset.",
+  "disclaimer": "Statistical/financial anomaly requiring human investigation. Not proof of fraud or wrongdoing."
+}

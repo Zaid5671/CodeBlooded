@@ -1,0 +1,9 @@
+{
+  "total_vouchers_analyzed": 2,
+  "unique_works_analyzed": 1,
+  "exact_duplicate_payment_works": 0,
+  "near_repeat_pattern_works": 1,
+  "total_flagged_duplicate_expenditure_works": 1,
+  "limitations": "Expenditure dataset lacks unique transaction GUIDs. Duplicate payments represent statistical pattern alerts requiring statutory voucher verification.",
+  "disclaimer": "Statistical/financial anomaly requiring human investigation. Not proof of fraud or wrongdoing."
+}

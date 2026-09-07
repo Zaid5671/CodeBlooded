@@ -18,18 +18,19 @@ COMPLIANCE_JSON_PATH = os.path.join(OUTPUT_DIR, "compliance_results.json")
 VENDOR_JSON_PATH = os.path.join(OUTPUT_DIR, "vendor_agency_risk.json")
 FORECAST_JSON_PATH = os.path.join(OUTPUT_DIR, "expenditure_forecast.json")
 PRIORITY_JSON_PATH = os.path.join(OUTPUT_DIR, "misuse_priority_results.json")
+INADMISSIBLE_JSON_PATH = os.path.join(OUTPUT_DIR, "inadmissible_works_results.json")
+PRIVATE_JSON_PATH = os.path.join(OUTPUT_DIR, "private_beneficiaries_results.json")
+DUP_EXP_JSON_PATH = os.path.join(OUTPUT_DIR, "duplicate_expenditure_results.json")
+FUND_UTIL_JSON_PATH = os.path.join(OUTPUT_DIR, "fund_utilization_results.json")
 
 def generate_static_html_dashboard():
-    """Generates a standalone HTML dashboard organized into DETECT, PREDICT, VERIFY, and PRIORITIZE tabs."""
+    """Generates a standalone, comprehensive HTML dashboard organized into executive audit tabs."""
     if not os.path.exists(SUMMARY_JSON_PATH) or not os.path.exists(SCORED_JSON_PATH):
         print("Scored output files not found. Run pipeline first.")
         return
 
     with open(SUMMARY_JSON_PATH) as f:
         summary = json.load(f)
-        
-    with open(SCORED_JSON_PATH) as f:
-        works = json.load(f)
 
     dd_data = json.load(open(DOUBLE_DIPPING_JSON_PATH)) if os.path.exists(DOUBLE_DIPPING_JSON_PATH) else None
     delay_data = json.load(open(DELAYED_JSON_PATH)) if os.path.exists(DELAYED_JSON_PATH) else None
@@ -37,6 +38,10 @@ def generate_static_html_dashboard():
     vendor_data = json.load(open(VENDOR_JSON_PATH)) if os.path.exists(VENDOR_JSON_PATH) else None
     forecast_data = json.load(open(FORECAST_JSON_PATH)) if os.path.exists(FORECAST_JSON_PATH) else None
     priority_data = json.load(open(PRIORITY_JSON_PATH)) if os.path.exists(PRIORITY_JSON_PATH) else None
+    inadmissible_data = json.load(open(INADMISSIBLE_JSON_PATH)) if os.path.exists(INADMISSIBLE_JSON_PATH) else None
+    private_data = json.load(open(PRIVATE_JSON_PATH)) if os.path.exists(PRIVATE_JSON_PATH) else None
+    dup_exp_data = json.load(open(DUP_EXP_JSON_PATH)) if os.path.exists(DUP_EXP_JSON_PATH) else None
+    fund_util_data = json.load(open(FUND_UTIL_JSON_PATH)) if os.path.exists(FUND_UTIL_JSON_PATH) else None
 
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -55,7 +60,6 @@ def generate_static_html_dashboard():
         .badge-medium {{ background-color: #f59e0b; color: #fff; font-size: 0.85rem; padding: 6px 12px; }}
         .badge-low {{ background-color: #10b981; color: #fff; font-size: 0.85rem; padding: 6px 12px; }}
         .disclaimer-box {{ background-color: #1e1b4b; border-left: 4px solid #6366f1; padding: 15px; border-radius: 6px; margin-bottom: 25px; }}
-        .pipeline-flow {{ background-color: #0f172a; border: 1px dashed #475569; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #38bdf8; }}
         table {{ color: #cbd5e1 !important; }}
         th {{ background-color: #334155 !important; color: #f8fafc !important; font-size: 0.85rem; }}
         td {{ font-size: 0.85rem; border-color: #334155 !important; }}
@@ -123,7 +127,9 @@ def generate_static_html_dashboard():
             <li class="nav-item"><button class="nav-link active" id="prioritize-tab" data-bs-toggle="tab" data-bs-target="#prioritize" type="button">1. PRIORITIZE (Model 5)</button></li>
             <li class="nav-item"><button class="nav-link" id="detect-tab" data-bs-toggle="tab" data-bs-target="#detect" type="button">2. DETECT (Models 1 & 2)</button></li>
             <li class="nav-item"><button class="nav-link" id="verify-tab" data-bs-toggle="tab" data-bs-target="#verify" type="button">3. VERIFY (Models 3, 4 & Vendor Risk)</button></li>
-            <li class="nav-item"><button class="nav-link" id="predict-tab" data-bs-toggle="tab" data-bs-target="#predict" type="button">4. PREDICT (Forecasting)</button></li>
+            <li class="nav-item"><button class="nav-link" id="utilization-tab" data-bs-toggle="tab" data-bs-target="#utilization" type="button">4. UTILIZATION & ELIGIBILITY (Modules 2, 3, 6, 7)</button></li>
+            <li class="nav-item"><button class="nav-link" id="predict-tab" data-bs-toggle="tab" data-bs-target="#predict" type="button">5. PREDICT (Forecasting)</button></li>
+            <li class="nav-item"><button class="nav-link" id="coverage-tab" data-bs-toggle="tab" data-bs-target="#coverage" type="button">6. DATA QUALITY & COVERAGE</button></li>
         </ul>
 
         <div class="tab-content" id="auditTabsContent">
@@ -131,11 +137,11 @@ def generate_static_html_dashboard():
             <div class="tab-pane fade show active" id="prioritize" role="tabpanel">
                 <div class="card p-4 mb-4" style="border: 2px solid #ef4444;">
                     <h4 class="fw-bold text-white mb-2">🎯 Model 5 — Audit Priority & Misuse Aggregator</h4>
-                    <p class="text-secondary small mb-3">Multi-signal priority scoring combining Cost Overrun, Peer Delay, Statutory Compliance, Vendor Concentration, and Duplicate Record Linkage.</p>
+                    <p class="text-secondary small mb-3">Multi-signal priority scoring combining Cost Overrun, Peer Delay, Statutory Compliance, Vendor Concentration, Inadmissible Asset Candidates, Private Beneficiary Candidates, Duplicate Expenditure, and Idle Utilization.</p>
                     <div class="table-responsive">
                         <table class="table table-dark table-hover table-bordered align-middle">
                             <thead>
-                                <tr><th>#</th><th>Work ID</th><th>MP / Constituency</th><th>Sanction Amt</th><th>Cost</th><th>Delay</th><th>Compliance</th><th>Display Score</th><th>Priority Tier</th><th>Combined Evidence</th></tr>
+                                <tr><th>#</th><th>Work ID</th><th>MP / Constituency</th><th>Sanction Amt</th><th>Cost Risk</th><th>Delay</th><th>Compliance</th><th>Display Score</th><th>Priority Tier</th><th>Combined Evidence</th></tr>
                             </thead>
                             <tbody>
     """
@@ -168,7 +174,7 @@ def generate_static_html_dashboard():
             <!-- TAB 2: DETECT -->
             <div class="tab-pane fade" id="detect" role="tabpanel">
                 <div class="card p-4 mb-4">
-                    <h4 class="fw-bold text-white mb-2">🔍 Model 1 — Double-Dipping & Model 2 — Cost Overrun Engine</h4>
+                    <h4 class="fw-bold text-white mb-2">🔍 Model 1 — Double-Dipping & Model 2 — Cost Anomaly Engine</h4>
                     <p class="text-secondary small mb-3">Record linkage for distinct potential duplicate work pairs alongside hierarchical peer IQR/MAD and Isolation Forest ML cost estimate anomaly detection.</p>
     """
     cross_msg = "Cross-House LS↔RS Detection: Architecture Ready — Rajya Sabha data pending"
@@ -185,11 +191,50 @@ def generate_static_html_dashboard():
             <div class="tab-pane fade" id="verify" role="tabpanel">
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">⏱️ Model 3 — Peer Delay, Model 4 — Statutory Compliance & Vendor Risk</h4>
-                    <p class="text-secondary small mb-3">Peer-relative Tukey IQR delay baseline checks, statutory 45-day approval window deviations, Implementing Agency (IDA) Watchlist, and Vendor Concentration Risk (HHI).</p>
+                    <p class="text-secondary small mb-3">Peer-relative Tukey IQR delay baseline checks, statutory 45-day approval window deviations, Implementing Agency (IDA) Watchlist, and Vendor Concentration Risk (HHI & Graph Reach).</p>
                 </div>
             </div>
 
-            <!-- TAB 4: PREDICT -->
+            <!-- TAB 4: UTILIZATION & ELIGIBILITY -->
+            <div class="tab-pane fade" id="utilization" role="tabpanel">
+                <div class="card p-4 mb-4">
+                    <h4 class="fw-bold text-white mb-2">🏛️ Fund Utilization, Eligibility & Payment Behavior Modules</h4>
+                    <p class="text-secondary small mb-4">Syntactic landmark filters, entity beneficiary analysis, voucher duplicate payment scans, and sanction-to-payment utilization fencing.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="p-3 card text-center">
+                                <div class="kpi-title">Raw Religious Mentions</div>
+                                <div class="kpi-val text-info">{inadmissible_data.get('raw_religious_keyword_mentions', 0) if inadmissible_data else 0:,}</div>
+                                <small class="text-muted">Keyword Scans</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3 card text-center">
+                                <div class="kpi-title">Landmark Location References</div>
+                                <div class="kpi-val text-success">{inadmissible_data.get('location_reference_mentions', 0) if inadmissible_data else 0:,}</div>
+                                <small class="text-muted">Civic Work Landmarks</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3 card text-center">
+                                <div class="kpi-title">Potentially Inadmissible</div>
+                                <div class="kpi-val text-warning">{inadmissible_data.get('final_potentially_inadmissible_count', 0) if inadmissible_data else 0:,}</div>
+                                <small class="text-muted">Direct Object Candidates</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3 card text-center">
+                                <div class="kpi-title">Private / Commercial Candidates</div>
+                                <div class="kpi-val text-danger">{private_data.get('private_commercial_candidate_count', 0) if private_data else 0:,}</div>
+                                <small class="text-muted">Explicit Pvt Ltd Markers</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: PREDICT -->
             <div class="tab-pane fade" id="predict" role="tabpanel">
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">📈 MPLADS Expenditure Forecasting Model</h4>
@@ -252,7 +297,37 @@ def generate_static_html_dashboard():
                         <b>Forecast unavailable — insufficient historical observations</b>
                     </div>
         """
-    html_content += """
+    html_content += f"""
+                </div>
+            </div>
+
+            <!-- TAB 6: DATA QUALITY & COVERAGE -->
+            <div class="tab-pane fade" id="coverage" role="tabpanel">
+                <div class="card p-4 mb-4">
+                    <h4 class="fw-bold text-white mb-2">📊 Data Quality & Coverage Panel</h4>
+                    <p class="text-secondary small mb-3">Transparency report on dataset completeness, missing fields, and payment trajectory feature coverage.</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card p-3 mb-3">
+                                <h6>Single vs Multi-Payment Breakdown</h6>
+                                <ul>
+                                    <li><b>Single-Payment Works (Lump Sum):</b> {fund_util_data.get('single_payment_works_count', 0) if fund_util_data else 0:,} ({fund_util_data.get('single_payment_works_pct', 0) if fund_util_data else 0}%)</li>
+                                    <li><b>Multi-Payment Works (>1 Vouchers):</b> {fund_util_data.get('multi_payment_works_count', 0) if fund_util_data else 0:,} ({fund_util_data.get('multi_payment_works_pct', 0) if fund_util_data else 0}%)</li>
+                                </ul>
+                                <small class="text-muted">Note: For single-payment works, intermediate milestone trajectories are not computable.</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 mb-3">
+                                <h6>Date Completeness Coverage</h6>
+                                <ul>
+                                    <li><b>Works with Usable Sanction Date:</b> {fund_util_data.get('works_with_usable_sanction_date', 0) if fund_util_data else 0:,}</li>
+                                    <li><b>Works with Usable Payment Date:</b> {fund_util_data.get('works_with_usable_first_payment_date', 0) if fund_util_data else 0:,}</li>
+                                    <li><b>Usable Sanction-to-Payment Duration:</b> {fund_util_data.get('works_with_usable_sanction_to_payment_duration', 0) if fund_util_data else 0:,}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -268,4 +343,3 @@ def generate_static_html_dashboard():
 
 if __name__ == '__main__':
     generate_static_html_dashboard()
-

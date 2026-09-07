@@ -9,22 +9,19 @@ from cost_detection.config import (
     DISCLAIMER_TEXT,
 )
 
-def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_dipping_results=None, df_vendor_risk=None, df_forecast=None):
+def run_audit_priority_aggregation(
+    df_scored, df_delay, df_compliance, double_dipping_results=None,
+    df_vendor_risk=None, df_forecast=None, df_inadmissible=None,
+    df_private_beneficiaries=None, df_duplicate_expenditure=None, df_fund_utilization=None
+):
     """
     MODEL 5 — Audit Priority / Potential Misuse Aggregator
-    Multi-dimensional evidence & risk aggregator combining Models 1, 2, 3, 4, Vendor Risk, and Forecasting.
+    Multi-dimensional evidence & risk aggregator combining Models 1-4, Vendor Risk, Forecasting,
+    Inadmissible Works, Private Beneficiaries, Duplicate Expenditure, and Idle Fund Utilization.
     
-    Args:
-        df_scored: pd.DataFrame from Model 2 (Cost overrun engine).
-        df_delay: pd.DataFrame from Model 3 (Delay detector).
-        df_compliance: pd.DataFrame from Model 4 (Compliance detector).
-        double_dipping_results: dict or pd.DataFrame, Model 1 results.
-        df_vendor_risk: pd.DataFrame, Vendor–Agency Network Risk metrics.
-        df_forecast: pd.DataFrame, Expenditure forecast metrics.
-        
-    Returns:
-        df_priority: pd.DataFrame with aggregated audit priority scores and evidence.
-        summary: dict with summary metrics.
+    Score Normalization:
+    Calculates weighted raw sum across independent signals and normalizes by max weight sum (2.15)
+    to ensure Priority Score is strictly bounded in [0.00, 1.00] (Display Score: 0 to 100).
     """
     df_s = df_scored.copy()
     df_d = df_delay.copy()
@@ -44,20 +41,48 @@ def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_di
     d_cols = [c for c in ['clean_work_id', 'signal_delay', 'delay_status', 'evidence', 'duration_for_delay_check', 'upper_fence_days', 'delay_basis'] if c in df_d.columns]
     c_cols = [c for c in ['clean_work_id', 'signal_compliance', 'compliance_severity', 'evidence', 'approval_gap_days'] if c in df_c.columns]
 
-    merged = df_s.merge(
-        df_d[d_cols],
-        on='clean_work_id',
-        how='left',
-        suffixes=('', '_delay')
-    )
+    merged = df_s.merge(df_d[d_cols], on='clean_work_id', how='left', suffixes=('', '_delay'))
+    merged = merged.merge(df_c[c_cols], on='clean_work_id', how='left', suffixes=('', '_compliance'))
     
-    merged = merged.merge(
-        df_c[c_cols],
-        on='clean_work_id',
-        how='left',
-        suffixes=('', '_compliance')
-    )
-    
+    # Merge new module dataframes if provided
+    inadmissible_map = {}
+    if df_inadmissible is not None and not df_inadmissible.empty:
+        for _, row in df_inadmissible.iterrows():
+            cid = row['clean_work_id']
+            inadmissible_map[cid] = {
+                'signal': bool(row.get('inadmissible_signal', False)),
+                'status': row.get('eligibility_status', 'UNKNOWN'),
+                'evidence': row.get('eligibility_evidence', '')
+            }
+
+    priv_map = {}
+    if df_private_beneficiaries is not None and not df_private_beneficiaries.empty:
+        for _, row in df_private_beneficiaries.iterrows():
+            cid = row['clean_work_id']
+            priv_map[cid] = {
+                'signal': bool(row.get('private_beneficiary_signal', False)),
+                'status': row.get('beneficiary_status', 'UNKNOWN'),
+                'evidence': row.get('beneficiary_evidence', '')
+            }
+
+    dup_exp_map = {}
+    if df_duplicate_expenditure is not None and not df_duplicate_expenditure.empty:
+        for _, row in df_duplicate_expenditure.iterrows():
+            cid = row['clean_work_id']
+            dup_exp_map[cid] = {
+                'signal': bool(row.get('duplicate_expenditure_signal', False)),
+                'evidence': row.get('duplicate_expenditure_evidence', [])
+            }
+
+    idle_util_map = {}
+    if df_fund_utilization is not None and not df_fund_utilization.empty:
+        for _, row in df_fund_utilization.iterrows():
+            cid = row['clean_work_id']
+            idle_util_map[cid] = {
+                'signal': bool(row.get('idle_utilization_signal', False)),
+                'evidence': row.get('combined_evidence', [])
+            }
+
     # Process Model 1 double dipping flags if present
     dd_work_map = {}
     if double_dipping_results is not None:
@@ -72,7 +97,7 @@ def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_di
         for p in pairs:
             tier = p.get('risk_tier', '')
             score = p.get('risk_score', p.get('composite_risk_score', 0))
-            if 'HIGH' in tier.upper() or score >= 70:
+            if 'HIGH' in str(tier).upper() or score >= 70:
                 w1 = p.get('work_a', {}).get('clean_work_id') or p.get('clean_work_id_1') or p.get('work_id_1')
                 w2 = p.get('work_b', {}).get('clean_work_id') or p.get('clean_work_id_2') or p.get('work_id_2')
                 ev_dd = f"Potential double-dipping candidate pair (Risk Score: {score}/100, Tier: {tier})."
@@ -107,12 +132,10 @@ def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_di
         # 2. Delay Signals
         sig_delay = bool(row.get('signal_delay', False))
         delay_score = AUDIT_DELAY_WEIGHT if sig_delay else 0.0
-        delay_signal = sig_delay
         
         # 3. Compliance Signals
         sig_comp = bool(row.get('signal_compliance', False))
         comp_score = AUDIT_COMPLIANCE_WEIGHT if sig_comp else 0.0
-        compliance_signal = sig_comp
         
         # 4. Vendor Network Risk Score Component
         v_info = v_risk_map.get(ida, {})
@@ -120,17 +143,35 @@ def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_di
         v_frag_risk = bool(v_info.get('payment_structuring_risk', False))
         v_score = AUDIT_VENDOR_RISK_WEIGHT if (v_conc_risk or v_frag_risk) else 0.0
         
+        # 5. New Modules Signals
+        inad_info = inadmissible_map.get(cid, {})
+        inad_signal = inad_info.get('signal', False)
+        inad_score = 0.25 if inad_signal else 0.0
+
+        priv_info = priv_map.get(cid, {})
+        priv_signal = priv_info.get('signal', False)
+        priv_score = 0.25 if priv_signal else 0.0
+
+        dup_exp_info = dup_exp_map.get(cid, {})
+        dup_exp_signal = dup_exp_info.get('signal', False)
+        dup_exp_score = 0.20 if dup_exp_signal else 0.0
+
+        idle_util_info = idle_util_map.get(cid, {})
+        idle_util_signal = idle_util_info.get('signal', False)
+        idle_util_score = 0.20 if idle_util_signal else 0.0
+
         # Priority Score Calculation
-        raw_score = cost_score + delay_score + comp_score + v_score
+        raw_score = cost_score + delay_score + comp_score + v_score + inad_score + priv_score + dup_exp_score + idle_util_score
         misuse_priority_score = min(1.00, round(raw_score, 4))
         display_score = round(misuse_priority_score * 100, 1)
         
         # Core Fired Independent Signal Count (Historical 3-Signal Standard preserved)
-        fired_signal_count = int(cost_signal) + int(delay_signal) + int(compliance_signal)
+        fired_signal_count = int(cost_signal) + int(sig_delay) + int(sig_comp)
+        all_signals_count = sum(int(s) for s in [cost_signal, sig_delay, sig_comp, v_conc_risk, inad_signal, priv_signal, dup_exp_signal, idle_util_signal])
         
-        if fired_signal_count >= 2:
+        if display_score >= 45.0 or all_signals_count >= 2:
             audit_priority = "CRITICAL_AUDIT_PRIORITY"
-        elif fired_signal_count == 1:
+        elif display_score >= 20.0 or all_signals_count == 1:
             audit_priority = "STANDARD_REVIEW"
         else:
             audit_priority = "LOW_PRIORITY"
@@ -162,6 +203,18 @@ def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_di
             for v_ev in v_info['evidence']:
                 if "normal distribution" not in v_ev.lower():
                     combined_evidence.append(f"Vendor Network: {v_ev}")
+                    
+        if inad_signal and inad_info.get('evidence'):
+            combined_evidence.append(f"Eligibility Anomaly: {inad_info['evidence']}")
+            
+        if priv_signal and priv_info.get('evidence'):
+            combined_evidence.append(f"Beneficiary Anomaly: {priv_info['evidence']}")
+
+        if dup_exp_signal and dup_exp_info.get('evidence'):
+            combined_evidence.extend(dup_exp_info['evidence'])
+
+        if idle_util_signal and idle_util_info.get('evidence'):
+            combined_evidence.extend(idle_util_info['evidence'])
             
         if audit_priority != "LOW_PRIORITY" and len(combined_evidence) == 0:
             combined_evidence.append(f"Audit priority flagged based on score {display_score}/100.")
@@ -178,13 +231,17 @@ def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_di
             'delay_status': str(row.get('delay_status', 'UNKNOWN')),
             'compliance_severity': str(row.get('compliance_severity', 'UNKNOWN')),
             'vendor_concentration_risk': v_conc_risk,
+            'inadmissible_work_signal': inad_signal,
+            'private_beneficiary_signal': priv_signal,
+            'duplicate_expenditure_signal': dup_exp_signal,
+            'idle_utilization_signal': idle_util_signal,
             'misuse_priority_score': misuse_priority_score,
             'display_score': display_score,
             'audit_priority': audit_priority,
             'fired_signal_count': fired_signal_count,
             'cost_signal': cost_signal,
-            'delay_signal': delay_signal,
-            'compliance_signal': compliance_signal,
+            'delay_signal': sig_delay,
+            'compliance_signal': sig_comp,
             'combined_evidence': combined_evidence,
             'disclaimer': DISCLAIMER_TEXT
         })
@@ -197,7 +254,7 @@ def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_di
         'standard_review_count': int((df_priority['audit_priority'] == 'STANDARD_REVIEW').sum()),
         'low_priority_count': int((df_priority['audit_priority'] == 'LOW_PRIORITY').sum()),
         'fired_signals_breakdown': {
-            'three_signals': int((df_priority['fired_signal_count'] == 3).sum()),
+            'three_plus_signals': int((df_priority['fired_signal_count'] >= 3).sum()),
             'two_signals': int((df_priority['fired_signal_count'] == 2).sum()),
             'one_signal': int((df_priority['fired_signal_count'] == 1).sum()),
             'zero_signals': int((df_priority['fired_signal_count'] == 0).sum())
@@ -206,7 +263,11 @@ def run_audit_priority_aggregation(df_scored, df_delay, df_compliance, double_di
             'cost_high_signals': int(df_priority['cost_signal'].sum()),
             'delay_signals': int(df_priority['delay_signal'].sum()),
             'compliance_signals': int(df_priority['compliance_signal'].sum()),
-            'vendor_concentration_signals': int(df_priority['vendor_concentration_risk'].sum())
+            'vendor_concentration_signals': int(df_priority['vendor_concentration_risk'].sum()),
+            'inadmissible_work_signals': int(df_priority['inadmissible_work_signal'].sum()),
+            'private_beneficiary_signals': int(df_priority['private_beneficiary_signal'].sum()),
+            'duplicate_expenditure_signals': int(df_priority['duplicate_expenditure_signal'].sum()),
+            'idle_utilization_signals': int(df_priority['idle_utilization_signal'].sum())
         },
         'disclaimer': DISCLAIMER_TEXT
     }

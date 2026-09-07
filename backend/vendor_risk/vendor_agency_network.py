@@ -172,10 +172,44 @@ def run_vendor_agency_network_analysis(df_master=None, data_dir="data/original/L
     df_ia_risk = pd.DataFrame(ia_stats)
     df_ia_risk = df_ia_risk.sort_values(by=['network_risk_score', 'total_expenditure'], ascending=[False, False]).reset_index(drop=True)
     
+    # -------------------------------------------------------------------------
+    # 3. GRAPH NETWORK ANALYTICS (MP -> WORK -> VENDOR -> CONSTITUENCY)
+    # -------------------------------------------------------------------------
+    v_graph_stats = {}
+    if df_master is not None and not df_master.empty:
+        df_m = df_master.copy()
+        if 'vendors' in df_m.columns and 'Constituency' in df_m.columns:
+            for idx, m_row in df_m.iterrows():
+                const_val = str(m_row.get('Constituency', m_row.get('constituency', ''))).strip().upper()
+                mp_val = str(m_row.get("Hon'ble Members of Parliament", m_row.get('mp', ''))).strip().upper()
+                v_list = m_row.get('vendors', [])
+                if isinstance(v_list, list):
+                    for v in v_list:
+                        v_norm = normalize_vendor_name_advanced(v)
+                        if v_norm and v_norm != "NAN":
+                            if v_norm not in v_graph_stats:
+                                v_graph_stats[v_norm] = {'constituencies': set(), 'mps': set(), 'works': 0}
+                            v_graph_stats[v_norm]['constituencies'].add(const_val)
+                            v_graph_stats[v_norm]['mps'].add(mp_val)
+                            v_graph_stats[v_norm]['works'] += 1
+
+    # Attach graph metrics to IA summary if available
+    df_ia_risk['cross_constituency_vendor_reach'] = False
+    for idx, row in df_ia_risk.iterrows():
+        top_v = row['top_vendor']
+        if top_v in v_graph_stats:
+            g_data = v_graph_stats[top_v]
+            n_const = len(g_data['constituencies'])
+            n_mps = len(g_data['mps'])
+            if n_const >= 3 and row['top_vendor_entity_type'] != 'GOVERNMENT_ENTITY':
+                df_ia_risk.at[idx, 'cross_constituency_vendor_reach'] = True
+                df_ia_risk.at[idx, 'evidence'].append(f"CROSS-CONSTITUENCY VENDOR REACH: Top vendor '{top_v}' operates across {n_const} constituencies and {n_mps} MPs. Requires administrative audit review.")
+
     summary = {
         'total_implementing_agencies_analyzed': len(df_ia_risk),
         'high_concentration_agencies': int(df_ia_risk['concentration_risk'].sum()),
         'payment_structuring_candidate_agencies': int(df_ia_risk['payment_structuring_risk'].sum()),
+        'cross_constituency_reach_agencies': int(df_ia_risk['cross_constituency_vendor_reach'].sum()),
         'government_entity_vendors': int((df_ia_risk['top_vendor_entity_type'] == 'GOVERNMENT_ENTITY').sum()),
         'private_entity_vendors': int((df_ia_risk['top_vendor_entity_type'] == 'PRIVATE_ENTITY').sum()),
         'disclaimer': "Vendor concentration and network analysis identify structural patterns for administrative audit review. They do not prove collusion or fraud."

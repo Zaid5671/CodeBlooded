@@ -1,0 +1,9 @@
+{
+  "total_works_analyzed": 79221,
+  "raw_religious_keyword_mentions": 8828,
+  "location_reference_mentions": 3801,
+  "direct_religious_object_candidates": 1352,
+  "ambiguous_candidates": 3675,
+  "final_potentially_inadmissible_count": 5027,
+  "disclaimer": "Statistical/financial anomaly requiring human investigation. Not proof of fraud or wrongdoing."
+}

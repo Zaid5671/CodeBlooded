@@ -244,4 +244,30 @@ AUTHORITATIVE PRODUCTION METRICS (LS 18th Data):
   • STANDARD REVIEW: 54,753 works
   • LOW PRIORITY: 21,809 works
   • TOTAL MASTER WORKS: 79,220 sanctioned (79,221 master entities)
+
 ================================================================================
+8. ADDITIONAL AUDIT ENGINES (MODULES 2, 3, 6, 7)
+================================================================================
+
+8.1 INADMISSIBLE WORKS DETECTOR (MODULE 2)
+  - 3-Stage Syntactic Landmark Filter: Identifies works funding ineligible assets under statutory guidelines.
+  - Stage 1: Explicit Exclusion Keywords (e.g. mandir, masjid, church, gurudwara, ashram, private trust).
+  - Stage 2: Public Exception Fencing (e.g. public path, approach road near landmark, community hall).
+  - Stage 3: Syntactic Structural Parsing (disambiguates direct religious asset creation vs. adjacent public utility).
+
+8.2 PRIVATE & COMMERCIAL BENEFICIARY DETECTOR (MODULE 3)
+  - Identifies works where private/commercial entities or individuals are named as beneficiaries.
+  - Public Entity Safeguard: Exempts government bodies (Zilla Parishad, PWD, CPWD, Municipal Corporation, etc.).
+  - Risk Classification: Flags works for manual audit review where non-public entities receive direct capital assets.
+
+8.3 DUPLICATE EXPENDITURE DETECTOR (MODULE 6)
+  - Detects duplicate financial transactions across works and vendors.
+  - Exact Payment Matches: Identifies identical amount, date, and vendor payment disbursements.
+  - Near-Repeat Patterns: Detects recurring disbursements occurring within narrow time windows (e.g. 7 days).
+
+8.4 FUND UTILIZATION & EXPENDITURE SPEED ENGINE (MODULE 7)
+  - Evaluates milestone payment trajectories and expenditure velocity.
+  - Single vs Multi-Payment Handling: Distinguishes single lump-sum disbursements (MILESTONE_NOT_REACHED) from phased multi-payment projects.
+  - First Payment Delay Fencing: Tracks elapsed days between work sanction date and initial expenditure disbursement.
+================================================================================
+
