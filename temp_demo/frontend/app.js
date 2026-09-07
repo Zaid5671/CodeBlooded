@@ -173,7 +173,7 @@
                 if (elements.sidebarCorpus) elements.sidebarCorpus.textContent = dsName;
 
                 if (state.currentDataset.includes('RajyaSabha')) {
-                    alert('Cross-house duplicate matching: Disabled under ' + dsName + ' pending verified MP linkage metadata.');
+                    console.info('[Corpus Switch] Cross-house duplicate matching disabled under ' + dsName + ' pending verified MP linkage metadata.');
                 }
 
                 // Update summaryData via API if available
