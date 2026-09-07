@@ -1,6 +1,6 @@
 # SIH26102 — ALL-DATASET DEEP FORENSIC & MODEL EVALUATION REPORT
 
-**Generated At**: `2026-09-07T15:39:21.543834` | **Status**: ALL REAL DATA — ZERO SYNTHETIC FALLBACKS
+**Generated At**: `2026-09-07T15:46:19.314497` | **Status**: ALL REAL DATA — ZERO SYNTHETIC FALLBACKS
 
 **Governance Notice**: *All identified patterns are statistical and financial anomalies requiring human administrative audit investigation. Not proof of fraud, crime, or wrongdoing.*
 
@@ -11,18 +11,18 @@
 
 | Canonical Business ID | Model Title | Architecture / Algorithm | Operating Point / Scope |
 | :--- | :--- | :--- | :--- |
-| **`M1_COST_ANOMALY`** | Anomalous Cost Estimate Detection | Robust Peer-Group IQR/MAD + Isolation Forest (8 Non-Redundant Features) | AUDIT-TIME ANOMALY DETECTION / PRE-SANCTION COST SCREENING |
-| **`M2_DUPLICATE_WORK`** | Double-Dipping / Duplicate Work Detection | Geographic Candidate Blocking (State+District+Category) + TF-IDF Vectorizer + Token Cosine Similarity | INTRA-HOUSE & CROSS-HOUSE WORK DEDUPLICATION |
-| **`M3_EXPENDITURE_ANOMALY`** | Expenditure & Fund Utilization Anomaly Detection | Transaction-Grain Lifecycle Analysis (Payment Structuring, Velocity, First-Payment Delay) | POST-SANCTION DISBURSEMENT & EXPENDITURE AUDIT |
-| **`M4_FORECAST`** | MPLADS Expenditure Forecasting | Recursive 3-Month Rolling Average Baseline (Multi-Step 6-Month Horizon) | EMPIRICAL DECISION-SUPPORT EXPENDITURE PROJECTION |
-| **`M5_AUDIT_PRIORITY`** | Unified Audit Priority Aggregator | Multi-Dimensional Weighted Priority Aggregation (Sum = 1.00) | MULTI-CRITERIA RISK TRIAGE & AUDIT ALLOCATION |
-| **`RULE_DELAY_SLA`** | Execution Delay & SLA Benchmark | Peer Group Duration Tukey IQR Upper Fence | Supporting Deterministic Logic |
-| **`RULE_STATUTORY_COMPLIANCE`** | Recommendation-to-Sanction 45-Day Statutory Benchmark | Configured 45-day statutory approval threshold review | Supporting Deterministic Logic |
-| **`VENDOR_RISK`** | Vendor & Implementing Agency Concentration Analyzer | Herfindahl-Hirschman Index (HHI) + Bipartite Network Graph Metrics | Supporting Deterministic Logic |
+| **`M1_COST_ANOMALY`** | Anomalous Cost Estimate Detection | Robust Peer-Group IQR/MAD + Isolation Forest (8 Non-Redundant Features) | AUDIT-TIME ANOMALY DETECTION (Sanction-time features support pre-sanction screening where available; payment-derived features available post-expenditure) |
+| **`M2_DUPLICATE_WORK`** | Double-Dipping / Duplicate Work Detection | Geographic Candidate Blocking (State + District + Work Category) + TF-IDF Vectorizer + Cosine Similarity | INTRA-HOUSE & CROSS-HOUSE WORK DEDUPLICATION (Top candidate-pair ranking; hold-out representation stability diagnostic reported separately) |
+| **`M3_EXPENDITURE_ANOMALY`** | Expenditure & Fund Utilization Anomaly Detection | Transaction-Grain Lifecycle Analysis (Payment Structuring Heuristic, Velocity, First-Payment Delay) | POST-SANCTION DISBURSEMENT & EXPENDITURE AUDIT (Analytical screening heuristic: num_payments >= 5, total_spent > 500k, max_payment < 200k — not statutory limits) |
+| **`M4_FORECAST`** | MPLADS Expenditure Forecasting | Recursive 3-Month Rolling Average Baseline (Multi-Step 6-Month Horizon) | EMPIRICAL DECISION-SUPPORT EXPENDITURE PROJECTION (Empirical 95% Expected Range; evaluated against naïve previous-month baseline) |
+| **`M5_AUDIT_PRIORITY`** | Unified Audit Priority Aggregator | Multi-Dimensional Weighted Priority Aggregation (Sum = 1.0000; Deterministic Real Signals Only) | MULTI-CRITERIA RISK TRIAGE & AUDIT ALLOCATION (Internal Score [0.00, 0.90] in [0.00, 1.00]; UI Display 0-100; Supporting-only signals never Critical) |
+| **`RULE_DELAY_SLA`** | Execution Delay & SLA Benchmark | Peer Group Duration Tukey IQR Upper Fence (Lifecycle-aware: completed vs ongoing) | Supporting Deterministic Logic |
+| **`RULE_STATUTORY_COMPLIANCE`** | Recommendation-to-Sanction 45-Day Statutory Benchmark | Configured 45-day statutory approval review benchmark (Excludes negative gaps; requires administrative review) | Supporting Deterministic Logic |
+| **`VENDOR_RISK`** | Vendor & Implementing Agency Concentration Analyzer | Herfindahl-Hirschman Index (HHI) + Bipartite Network Graph Metrics with Government Entity Safeguards | Supporting Deterministic Logic |
 | **`MODULE_DUPLICATE_EXPENDITURE`** | Duplicate / Repeat Transaction Detector | Exact & Near-Repeat Amount / Date Transaction Matching | Supporting Deterministic Logic |
 | **`MODULE_FUND_UTILIZATION`** | Fund Utilization & Idle Balances Engine | Disbursement-to-Sanction Ratio & Inactivity Thresholds | Supporting Deterministic Logic |
-| **`MODULE_ELIGIBILITY`** | Inadmissible Work / Eligibility Filter | Negative List Syntactic & Keyword Parser with Context Filters | Supporting Deterministic Logic |
-| **`MODULE_PRIVATE_BENEFICIARY`** | Private & Commercial Beneficiary Detector | Entity Ownership Classifier with Government Entity Safeguards | Supporting Deterministic Logic |
+| **`MODULE_ELIGIBILITY`** | Inadmissible Work / Eligibility Filter | Negative List Syntactic & Landmark Context Filter (Distinguishes funded object vs location reference) | Supporting Deterministic Logic |
+| **`MODULE_PRIVATE_BENEFICIARY`** | Private & Commercial Beneficiary Detector | Entity Ownership Classifier with Public Institution Safeguards (Schools/Hospitals protected) | Supporting Deterministic Logic |
 
 ---
 
@@ -43,10 +43,10 @@
 
 | Dataset | Records Evaluated | Anomalies Flagged | Anomaly Operating Rate | Median Sanction Cost | P95 Sanction Cost | Max Sanction Cost |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **LokSabha18** | 79,219 | 3,703 | **4.67%** (Param: 5%) | ₹300,000.00 | ₹1,500,000.00 | ₹49,740,000.00 |
+| **LokSabha18** | 79,219 | 3,961 | **5.00%** (Param: 5%) | ₹300,000.00 | ₹1,500,000.00 | ₹49,740,000.00 |
 | **LokSabha17** | 92,111 | 4,606 | **5.00%** (Param: 5%) | ₹299,982.00 | ₹1,338,265.00 | ₹75,742,166.00 |
-| **RajyaSabha_Sitting** | 19,606 | 923 | **4.71%** (Param: 5%) | ₹500,000.00 | ₹2,500,000.00 | ₹73,500,000.00 |
-| **RajyaSabha_Retired** | 19,606 | 923 | **4.71%** (Param: 5%) | ₹500,000.00 | ₹2,500,000.00 | ₹73,500,000.00 |
+| **RajyaSabha_Sitting** | 19,606 | 981 | **5.00%** (Param: 5%) | ₹500,000.00 | ₹2,500,000.00 | ₹73,500,000.00 |
+| **RajyaSabha_Retired** | 19,606 | 981 | **5.00%** (Param: 5%) | ₹500,000.00 | ₹2,500,000.00 | ₹73,500,000.00 |
 
 ---
 
@@ -63,7 +63,7 @@
 
 ## 5. M3_EXPENDITURE_ANOMALY, RULE_DELAY_SLA & RULE_STATUTORY_COMPLIANCE
 
-| Dataset | Works with Expenditure | Structuring Candidates | Delayed Works Flagged (Tukey Fence) | 45-Day Statutory Compliance Rate | Median Approval Gap |
+| Dataset | Works with Expenditure | Structuring Candidates (Heuristic) | Delayed Works Flagged (Tukey Fence) | 45-Day Statutory Compliance Rate | Median Approval Gap |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **LokSabha18** | 111 | 0 | 0 (0.00%) | 29.46% (23,337 works) | 79.0 days |
 | **LokSabha17** | 113 | 0 | 0 (0.00%) | 33.58% (30,929 works) | 86.0 days |
@@ -79,10 +79,10 @@
 
 | Dataset | Total Works Evaluated | Critical Audit Priority Tier | Standard Review Tier | Low Priority Tier | Priority Score Range |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **LokSabha18** | 79,220 | **2,578 (3.25%)** | 54,429 (68.71%) | 22,213 (28.04%) | [0.00, 0.65] |
-| **LokSabha17** | 92,117 | **2,993 (3.25%)** | 59,807 (64.93%) | 29,317 (31.83%) | [0.00, 0.65] |
-| **RajyaSabha_Sitting** | 19,607 | **659 (3.36%)** | 12,737 (64.96%) | 6,211 (31.68%) | [0.00, 0.65] |
-| **RajyaSabha_Retired** | 19,607 | **659 (3.36%)** | 12,737 (64.96%) | 6,211 (31.68%) | [0.00, 0.65] |
+| **LokSabha18** | 79,220 | **2,864 (3.62%)** | 54,115 (68.31%) | 22,241 (28.07%) | [0.00, 0.55] |
+| **LokSabha17** | 92,117 | **3,470 (3.77%)** | 58,853 (63.89%) | 29,794 (32.34%) | [0.00, 0.55] |
+| **RajyaSabha_Sitting** | 19,607 | **725 (3.70%)** | 12,663 (64.58%) | 6,219 (31.72%) | [0.00, 0.55] |
+| **RajyaSabha_Retired** | 19,607 | **725 (3.70%)** | 12,663 (64.58%) | 6,219 (31.72%) | [0.00, 0.55] |
 
 ---
 
@@ -99,15 +99,15 @@
 
 ## 8. Rajya Sabha Sitting vs Retired Source Parity Forensic Audit
 
-Source files between `RajyaSabha_Sitting` and `RajyaSabha_Retired` were compared byte-for-byte:
+Source files between `RajyaSabha_Sitting` and `RajyaSabha_Retired` were compared dynamically:
 
-| Table Type | Sitting Rows | Retired Rows | Row Difference | Hash Match | Forensic Finding |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| `Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv` | 232 | 0 | +232 | DIFFERS | Slight lifecycle variance (+232 rows) |
-| `Amount_consented_for_Calamity_Rajya_Sitting.csv` | 21 | 0 | +21 | DIFFERS | Slight lifecycle variance (+21 rows) |
-| `Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv` | 25,141 | 0 | +25141 | DIFFERS | Slight lifecycle variance (+25141 rows) |
-| `Works_Completed_Rajya_Sitting.csv` | 9,979 | 0 | +9979 | DIFFERS | Slight lifecycle variance (+9979 rows) |
-| `Works_Recommended_Rajya_Sitting.csv` | 25,240 | 0 | +25240 | DIFFERS | Slight lifecycle variance (+25240 rows) |
-| `Works_Sanctioned_Rajya_Sitting.csv` | 19,607 | 0 | +19607 | DIFFERS | Slight lifecycle variance (+19607 rows) |
+| Table Type | Sitting Rows | Retired Rows | Row Difference | Hash Match | Primary ID Overlap | Forensic Finding |
+| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| `Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv` | 232 | 0 | +232 | DIFFERS | 0 common | Row-count variance (+232 rows) |
+| `Amount_consented_for_Calamity_Rajya_Sitting.csv` | 21 | 0 | +21 | DIFFERS | 0 common | Row-count variance (+21 rows) |
+| `Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv` | 25,141 | 0 | +25141 | DIFFERS | 0 common | Row-count variance (+25141 rows) |
+| `Works_Completed_Rajya_Sitting.csv` | 9,979 | 0 | +9979 | DIFFERS | 0 common | Row-count variance (+9979 rows) |
+| `Works_Recommended_Rajya_Sitting.csv` | 25,240 | 0 | +25240 | DIFFERS | 0 common | Row-count variance (+25240 rows) |
+| `Works_Sanctioned_Rajya_Sitting.csv` | 19,607 | 0 | +19607 | DIFFERS | 0 common | Row-count variance (+19607 rows) |
 
-> **Conclusion**: The Sitting and Retired Rajya Sabha directories are distinct historical snapshots from the official portal with slight lifecycle variance across transaction, recommendation, and completion records.
+> **Conclusion**: Source comparison identified row-count and field-level differences between the Sitting and Retired datasets. These datasets are therefore not treated as byte-identical snapshots.

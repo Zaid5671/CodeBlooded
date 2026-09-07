@@ -142,7 +142,7 @@ def generate_reports():
                 "- **Primary Datasets**: `Allocated Limit for Honble MPs_LokSabha_18.csv` ⟕ `Works Sanctioned_LokSabha_18.csv` ⟕ `Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv`\n"
                 "- **Logic**: Computes MP-level fund utilization percentage and disbursement velocity ratios.\n\n"
                 "### MODEL 5: Multi-Signal Audit Priority Aggregator\n"
-                "- **Inputs**: Synthesizes output signals from Models 1, 2, 4, Vendor, Module 6, and Module 7 into a single normalized score $\in [0, 1]$ using validated weights summing to 1.00 (`0.30` Cost + `0.25` Delay + `0.25` Compliance + `0.10` Vendor + `0.10` Eligibility).\n")
+                r"- **Inputs**: Synthesizes output signals from Models 1, 2, 4, Vendor, Module 6, and Module 7 into a single normalized score $\in [0, 1]$ using validated weights summing to 1.00 (`0.30` Cost + `0.25` Delay + `0.25` Compliance + `0.10` Vendor + `0.10` Eligibility)." + "\n\n")
 
     with open("output/3_MODEL_DATA_UTILIZATION.md", "w", encoding="utf-8") as f:
         f.write("\n".join(md_u))

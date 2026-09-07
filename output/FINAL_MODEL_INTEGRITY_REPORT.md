@@ -1,6 +1,6 @@
 # SIH26102 — FINAL MODEL INTEGRITY & RECONCILIATION REPORT
 
-**Generated At**: 2026-09-07T15:40:50.373307 | **Status**: ALL REAL DATA — ZERO SYNTHETIC FALLBACKS
+**Generated At**: 2026-09-07T15:46:27.041059 | **Status**: ALL REAL DATA — ZERO SYNTHETIC FALLBACKS
 
 ## 0. Canonical Model & Module Architecture
 
@@ -8,29 +8,29 @@
 
 | :--- | :--- | :--- |
 
-| **`M1_COST_ANOMALY`** | Anomalous Cost Estimate Detection | Robust Peer-Group IQR/MAD + Isolation Forest (8 Non-Redundant Features) (AUDIT-TIME ANOMALY DETECTION / PRE-SANCTION COST SCREENING) |
+| **`M1_COST_ANOMALY`** | Anomalous Cost Estimate Detection | Robust Peer-Group IQR/MAD + Isolation Forest (8 Non-Redundant Features) (AUDIT-TIME ANOMALY DETECTION (Sanction-time features support pre-sanction screening where available; payment-derived features available post-expenditure)) |
 
-| **`M2_DUPLICATE_WORK`** | Double-Dipping / Duplicate Work Detection | Geographic Candidate Blocking (State+District+Category) + TF-IDF Vectorizer + Token Cosine Similarity (INTRA-HOUSE & CROSS-HOUSE WORK DEDUPLICATION) |
+| **`M2_DUPLICATE_WORK`** | Double-Dipping / Duplicate Work Detection | Geographic Candidate Blocking (State + District + Work Category) + TF-IDF Vectorizer + Cosine Similarity (INTRA-HOUSE & CROSS-HOUSE WORK DEDUPLICATION (Top candidate-pair ranking; hold-out representation stability diagnostic reported separately)) |
 
-| **`M3_EXPENDITURE_ANOMALY`** | Expenditure & Fund Utilization Anomaly Detection | Transaction-Grain Lifecycle Analysis (Payment Structuring, Velocity, First-Payment Delay) (POST-SANCTION DISBURSEMENT & EXPENDITURE AUDIT) |
+| **`M3_EXPENDITURE_ANOMALY`** | Expenditure & Fund Utilization Anomaly Detection | Transaction-Grain Lifecycle Analysis (Payment Structuring Heuristic, Velocity, First-Payment Delay) (POST-SANCTION DISBURSEMENT & EXPENDITURE AUDIT (Analytical screening heuristic: num_payments >= 5, total_spent > 500k, max_payment < 200k — not statutory limits)) |
 
-| **`M4_FORECAST`** | MPLADS Expenditure Forecasting | Recursive 3-Month Rolling Average Baseline (Multi-Step 6-Month Horizon) (EMPIRICAL DECISION-SUPPORT EXPENDITURE PROJECTION) |
+| **`M4_FORECAST`** | MPLADS Expenditure Forecasting | Recursive 3-Month Rolling Average Baseline (Multi-Step 6-Month Horizon) (EMPIRICAL DECISION-SUPPORT EXPENDITURE PROJECTION (Empirical 95% Expected Range; evaluated against naïve previous-month baseline)) |
 
-| **`M5_AUDIT_PRIORITY`** | Unified Audit Priority Aggregator | Multi-Dimensional Weighted Priority Aggregation (Sum = 1.00) (MULTI-CRITERIA RISK TRIAGE & AUDIT ALLOCATION) |
+| **`M5_AUDIT_PRIORITY`** | Unified Audit Priority Aggregator | Multi-Dimensional Weighted Priority Aggregation (Sum = 1.0000; Deterministic Real Signals Only) (MULTI-CRITERIA RISK TRIAGE & AUDIT ALLOCATION (Internal Score [0.00, 0.90] in [0.00, 1.00]; UI Display 0-100; Supporting-only signals never Critical)) |
 
-| **`RULE_DELAY_SLA`** | Execution Delay & SLA Benchmark | Peer Group Duration Tukey IQR Upper Fence |
+| **`RULE_DELAY_SLA`** | Execution Delay & SLA Benchmark | Peer Group Duration Tukey IQR Upper Fence (Lifecycle-aware: completed vs ongoing) |
 
-| **`RULE_STATUTORY_COMPLIANCE`** | Recommendation-to-Sanction 45-Day Statutory Benchmark | Configured 45-day statutory approval threshold review |
+| **`RULE_STATUTORY_COMPLIANCE`** | Recommendation-to-Sanction 45-Day Statutory Benchmark | Configured 45-day statutory approval review benchmark (Excludes negative gaps; requires administrative review) |
 
-| **`VENDOR_RISK`** | Vendor & Implementing Agency Concentration Analyzer | Herfindahl-Hirschman Index (HHI) + Bipartite Network Graph Metrics |
+| **`VENDOR_RISK`** | Vendor & Implementing Agency Concentration Analyzer | Herfindahl-Hirschman Index (HHI) + Bipartite Network Graph Metrics with Government Entity Safeguards |
 
 | **`MODULE_DUPLICATE_EXPENDITURE`** | Duplicate / Repeat Transaction Detector | Exact & Near-Repeat Amount / Date Transaction Matching |
 
 | **`MODULE_FUND_UTILIZATION`** | Fund Utilization & Idle Balances Engine | Disbursement-to-Sanction Ratio & Inactivity Thresholds |
 
-| **`MODULE_ELIGIBILITY`** | Inadmissible Work / Eligibility Filter | Negative List Syntactic & Keyword Parser with Context Filters |
+| **`MODULE_ELIGIBILITY`** | Inadmissible Work / Eligibility Filter | Negative List Syntactic & Landmark Context Filter (Distinguishes funded object vs location reference) |
 
-| **`MODULE_PRIVATE_BENEFICIARY`** | Private & Commercial Beneficiary Detector | Entity Ownership Classifier with Government Entity Safeguards |
+| **`MODULE_PRIVATE_BENEFICIARY`** | Private & Commercial Beneficiary Detector | Entity Ownership Classifier with Public Institution Safeguards (Schools/Hospitals protected) |
 
 
 ---
