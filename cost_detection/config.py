@@ -20,6 +20,7 @@ SANCTION_AMOUNT_FLOOR = 1000.0  # ₹1,000 minimum analytical floor
 PEER_MIN_SIZE = 20              # Minimum state peer group size before national fallback
 IQR_MULTIPLIER = 3.0            # Robust IQR deviation threshold (high-side only)
 COST_OVERRUN_THRESHOLD = 0.10   # 10% threshold for actual expenditure > sanctioned
+VENDOR_HHI_ALERT_THRESHOLD = 0.40 # 0.40 threshold for Procurement Concentration Indicator
 
 # Isolation Forest ML Parameters
 IF_N_ESTIMATORS = 300
