@@ -212,24 +212,24 @@ class TestModels345(unittest.TestCase):
     # -------------------------------------------------------------------------
     # MODEL 5 TESTS (22-34)
     # -------------------------------------------------------------------------
-    def test_22_high_cost_contributes_0_35(self):
+    def test_22_high_cost_contributes_0_30(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH', 'evidence_list': ['Cost high']}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False, 'delay_status': 'ONGOING_ON_SCHEDULE'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False, 'compliance_severity': 'COMPLIANT'}])
         
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
-        self.assertEqual(row['misuse_priority_score'], 0.35)
+        self.assertEqual(row['misuse_priority_score'], 0.30)
         self.assertTrue(row['cost_signal'])
 
-    def test_23_medium_cost_contributes_0_15(self):
+    def test_23_medium_cost_contributes_0_10(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'MEDIUM', 'evidence_list': ['Cost medium']}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False, 'delay_status': 'ONGOING_ON_SCHEDULE'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False, 'compliance_severity': 'COMPLIANT'}])
         
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
-        self.assertEqual(row['misuse_priority_score'], 0.15)
+        self.assertEqual(row['misuse_priority_score'], 0.10)
 
     def test_24_medium_cost_does_not_count_as_fired_independent_signal(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'MEDIUM', 'evidence_list': ['Cost medium']}])
@@ -242,24 +242,24 @@ class TestModels345(unittest.TestCase):
         self.assertEqual(row['fired_signal_count'], 0)
         self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
 
-    def test_25_delay_contributes_0_30(self):
+    def test_25_delay_contributes_0_25(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'LOW'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True, 'delay_status': 'ONGOING_DELAYED', 'evidence': 'Delayed 100 days'}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False, 'compliance_severity': 'COMPLIANT'}])
         
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
-        self.assertEqual(row['misuse_priority_score'], 0.30)
+        self.assertEqual(row['misuse_priority_score'], 0.25)
         self.assertTrue(row['delay_signal'])
 
-    def test_26_compliance_contributes_0_35(self):
+    def test_26_compliance_contributes_0_25(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'LOW'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': False}])
         df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': True, 'compliance_severity': 'SEVERE_DEVIATION', 'evidence': 'Gap 200 days'}])
         
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
-        self.assertEqual(row['misuse_priority_score'], 0.35)
+        self.assertEqual(row['misuse_priority_score'], 0.25)
         self.assertTrue(row['compliance_signal'])
 
     def test_27_two_signals_gives_critical_audit_priority(self):
@@ -295,12 +295,12 @@ class TestModels345(unittest.TestCase):
     def test_30_fired_signal_count_is_correct(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH'}])
         df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True}])
-        df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': True}])
+        df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': True, 'compliance_severity': 'SEVERE_DEVIATION'}])
         
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 3)
-        self.assertEqual(row['misuse_priority_score'], 1.00)
+        self.assertEqual(row['misuse_priority_score'], 0.80)
 
     def test_31_combined_evidence_corresponds_to_fired_signals(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH', 'evidence_list': ['Cost overrun detected']}])

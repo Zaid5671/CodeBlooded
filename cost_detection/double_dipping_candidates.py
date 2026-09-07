@@ -9,6 +9,33 @@ try:
 except ImportError:
     SKLEARN_SPARSE_AVAILABLE = False
 
+def extract_district_from_ida(ida):
+    """
+    Extracts a normalized district name from IDA field strings.
+    Example: 'JAUNPUR(DISTRICT MAGISTRATE JAUNPUR_IDA)' -> 'JAUNPUR'
+             'Khargone (West Nimar)(DISTRICT COLLECTOR...)' -> 'KHARGONE (WEST NIMAR)'
+    Fallback: 'UNKNOWN_DISTRICT' when unparseable or null.
+    """
+    if pd.isna(ida) or not str(ida).strip():
+        return 'UNKNOWN_DISTRICT'
+    s = str(ida).strip()
+    m = re.search(r'^(.*?)(?=\((?:DISTRICT|DEPUTY|COLLECTOR|MAGISTRATE|PLANNING|OFFICER|District|Deputy|Collector|Magistrate)\b)', s, re.I)
+    if m:
+        dist = m.group(1).strip()
+        if dist:
+            return dist.upper()
+    if '(' in s:
+        parts = s.split('(')
+        first = parts[0].strip()
+        if len(first) > 1 and not re.search(r'\b(DISTRICT|DEPUTY|COLLECTOR|MAGISTRATE|PLANNING|OFFICER)\b', first, re.I):
+            return first.upper()
+        for p in parts:
+            p_clean = p.rstrip(')').strip()
+            if p_clean and not re.search(r'\b(DISTRICT|DEPUTY|COLLECTOR|MAGISTRATE|PLANNING|OFFICER)\b', p_clean, re.I):
+                return p_clean.upper()
+    clean = re.sub(r'[\._\-]+', ' ', s).strip()
+    return clean.upper() if clean else 'UNKNOWN_DISTRICT'
+
 def extract_location_tokens(text):
     """Extract location-like tokens (capitalized words, village, GP, Ward, Gram Panchayat, Road names)."""
     if pd.isna(text):
@@ -40,13 +67,32 @@ def _generate_intra_candidate_pairs(df_master, max_pairs_per_group=30, overall_m
     pairs_removed_lifecycle = 0
     pairs_removed_duplicate = 0
     
-    state_col = 'state' if 'state' in df_master.columns else df_master.columns[0]
-    const_col = 'constituency' if 'constituency' in df_master.columns else df_master.columns[0]
+    df = df_master.copy()
+    state_col = 'state' if 'state' in df.columns else ('State' if 'State' in df.columns else df.columns[0])
+    const_col = 'constituency' if 'constituency' in df.columns else ('Constituency' if 'Constituency' in df.columns else df.columns[0])
+    ida_col = 'IDA' if 'IDA' in df.columns else ('ida' if 'ida' in df.columns else None)
     
-    groups = df_master.groupby([state_col, const_col])
+    if 'district_normalized' not in df.columns:
+        if ida_col and ida_col in df.columns:
+            df['district_normalized'] = df[ida_col].apply(extract_district_from_ida)
+        elif 'district' in df.columns:
+            df['district_normalized'] = df['district'].fillna('UNKNOWN_DISTRICT').astype(str).str.strip().str.upper()
+        else:
+            df['district_normalized'] = 'UNKNOWN_DISTRICT'
+            
+    df['state_clean'] = df[state_col].fillna('UNKNOWN_STATE').astype(str).str.strip().str.upper()
+    df['const_clean'] = df[const_col].fillna('UNKNOWN_CONSTITUENCY').astype(str).str.strip().str.upper()
+    
+    df['blocking_key'] = np.where(
+        df['district_normalized'] != 'UNKNOWN_DISTRICT',
+        df['state_clean'] + '|' + df['district_normalized'] + '|' + df['const_clean'],
+        df['state_clean'] + '|' + df['const_clean']
+    )
+    
+    groups = df.groupby('blocking_key')
     blocked_groups_count = len(groups)
     
-    for (state, const), group_df in groups:
+    for block_key, group_df in groups:
         if len(group_df) < 2:
             continue
             
@@ -91,7 +137,7 @@ def _generate_intra_candidate_pairs(df_master, max_pairs_per_group=30, overall_m
                     pairs_removed_duplicate += 1
                     continue
                     
-                group_pairs.append((tfidf_sim, r_a, r_b, pair_key, f"CONSTITUENCY:{state}|{const}"))
+                group_pairs.append((tfidf_sim, r_a, r_b, pair_key, f"BLOCK:{block_key}"))
         else:
             for i in range(min(n, 100)):
                 words_i = set(re.findall(r'\b[a-z0-9]{3,}\b', str(descriptions[i]).lower()))
@@ -120,7 +166,7 @@ def _generate_intra_candidate_pairs(df_master, max_pairs_per_group=30, overall_m
                     if pair_key in seen_pair_keys:
                         pairs_removed_duplicate += 1
                         continue
-                    group_pairs.append((overlap, r_a, r_b, pair_key, f"CONSTITUENCY:{state}|{const}"))
+                    group_pairs.append((overlap, r_a, r_b, pair_key, f"BLOCK:{block_key}"))
                 
         group_pairs.sort(key=lambda x: x[0], reverse=True)
         for _, r_a, r_b, pair_key, block_path in group_pairs[:max_pairs_per_group]:

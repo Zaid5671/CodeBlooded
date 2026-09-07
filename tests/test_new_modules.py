@@ -191,5 +191,45 @@ class TestNewModulesSuite(unittest.TestCase):
         df_fc, res = generate_expenditure_forecast()
         self.assertEqual(res['forecast_horizon'], 6)
 
+    # 9. Model 5 Weight Sum & Model 1 District Extraction Tests
+    def test_17_model_5_weights_sum_to_one(self):
+        from cost_detection.config import (
+            AUDIT_COST_HIGH_WEIGHT,
+            AUDIT_COST_MEDIUM_WEIGHT,
+            AUDIT_DELAY_WEIGHT,
+            AUDIT_COMPLIANCE_WEIGHT,
+            AUDIT_VENDOR_RISK_WEIGHT,
+            MODEL_5_WEIGHT_SUM
+        )
+        self.assertEqual(MODEL_5_WEIGHT_SUM, 1.00)
+        # Sum of maximum weights across 5 independent physical dimensions equals 1.00
+        max_dim_sum = AUDIT_COST_HIGH_WEIGHT + AUDIT_DELAY_WEIGHT + AUDIT_COMPLIANCE_WEIGHT + AUDIT_VENDOR_RISK_WEIGHT + 0.10
+        self.assertAlmostEqual(max_dim_sum, 1.00, places=4)
+
+    def test_18_district_extraction_from_ida(self):
+        from cost_detection.double_dipping_candidates import extract_district_from_ida
+        self.assertEqual(extract_district_from_ida('JAUNPUR(DISTRICT MAGISTRATE JAUNPUR_IDA)'), 'JAUNPUR')
+        self.assertEqual(extract_district_from_ida('DHARWAD(DEPUTY COMMISSIONER DHARWAR_IDA)'), 'DHARWAD')
+        self.assertEqual(extract_district_from_ida('Dakshin Dinajpur(DISTRICT MAGISTRATE DINAJPUR DAKSHIN_IDA)'), 'DAKSHIN DINAJPUR')
+        self.assertEqual(extract_district_from_ida('Khargone (West Nimar)(DISTRICT COLLECTOR KHARGONE_IDA)'), 'KHARGONE (WEST NIMAR)')
+
+    def test_19_district_extraction_edge_cases(self):
+        from cost_detection.double_dipping_candidates import extract_district_from_ida
+        self.assertEqual(extract_district_from_ida(None), 'UNKNOWN_DISTRICT')
+        self.assertEqual(extract_district_from_ida(''), 'UNKNOWN_DISTRICT')
+        self.assertEqual(extract_district_from_ida('   '), 'UNKNOWN_DISTRICT')
+        self.assertEqual(extract_district_from_ida(12345), '12345')
+
+    def test_20_candidate_blocking_key(self):
+        from cost_detection.double_dipping_candidates import _generate_intra_candidate_pairs
+        df_dummy = pd.DataFrame([
+            {'clean_work_id': 'W1', 'State': 'UP', 'Constituency': 'JAUNPUR', 'IDA': 'JAUNPUR(DISTRICT MAGISTRATE_IDA)', 'work_name': 'Road construction at Village A'},
+            {'clean_work_id': 'W2', 'State': 'UP', 'Constituency': 'JAUNPUR', 'IDA': 'JAUNPUR(DISTRICT MAGISTRATE_IDA)', 'work_name': 'Road construction at Village A'}
+        ])
+        pairs, metrics = _generate_intra_candidate_pairs(df_dummy)
+        self.assertGreater(metrics['blocked_groups'], 0)
+        self.assertEqual(metrics['retained_candidate_pairs'], 1)
+        self.assertIn('JAUNPUR', pairs[0]['blocking_path'])
+
 if __name__ == '__main__':
     unittest.main()

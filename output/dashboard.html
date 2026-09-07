@@ -15,7 +15,6 @@
         .badge-medium { background-color: #f59e0b; color: #fff; font-size: 0.85rem; padding: 6px 12px; }
         .badge-low { background-color: #10b981; color: #fff; font-size: 0.85rem; padding: 6px 12px; }
         .disclaimer-box { background-color: #1e1b4b; border-left: 4px solid #6366f1; padding: 15px; border-radius: 6px; margin-bottom: 25px; }
-        .pipeline-flow { background-color: #0f172a; border: 1px dashed #475569; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #38bdf8; }
         table { color: #cbd5e1 !important; }
         th { background-color: #334155 !important; color: #f8fafc !important; font-size: 0.85rem; }
         td { font-size: 0.85rem; border-color: #334155 !important; }
@@ -49,13 +48,13 @@
             <div class="col-md-2">
                 <div class="card p-3">
                     <div class="kpi-title">Critical Audit Priority</div>
-                    <div class="kpi-val text-danger">2,658</div>
+                    <div class="kpi-val text-danger">11,399</div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="card p-3">
                     <div class="kpi-title">Cost Anomaly High</div>
-                    <div class="kpi-val text-warning">2,504</div>
+                    <div class="kpi-val text-warning">1,643</div>
                 </div>
             </div>
             <div class="col-md-2">
@@ -83,7 +82,9 @@
             <li class="nav-item"><button class="nav-link active" id="prioritize-tab" data-bs-toggle="tab" data-bs-target="#prioritize" type="button">1. PRIORITIZE (Model 5)</button></li>
             <li class="nav-item"><button class="nav-link" id="detect-tab" data-bs-toggle="tab" data-bs-target="#detect" type="button">2. DETECT (Models 1 & 2)</button></li>
             <li class="nav-item"><button class="nav-link" id="verify-tab" data-bs-toggle="tab" data-bs-target="#verify" type="button">3. VERIFY (Models 3, 4 & Vendor Risk)</button></li>
-            <li class="nav-item"><button class="nav-link" id="predict-tab" data-bs-toggle="tab" data-bs-target="#predict" type="button">4. PREDICT (Forecasting)</button></li>
+            <li class="nav-item"><button class="nav-link" id="utilization-tab" data-bs-toggle="tab" data-bs-target="#utilization" type="button">4. UTILIZATION & ELIGIBILITY (Modules 2, 3, 6, 7)</button></li>
+            <li class="nav-item"><button class="nav-link" id="predict-tab" data-bs-toggle="tab" data-bs-target="#predict" type="button">5. PREDICT (Forecasting)</button></li>
+            <li class="nav-item"><button class="nav-link" id="coverage-tab" data-bs-toggle="tab" data-bs-target="#coverage" type="button">6. DATA QUALITY & COVERAGE</button></li>
         </ul>
 
         <div class="tab-content" id="auditTabsContent">
@@ -91,11 +92,11 @@
             <div class="tab-pane fade show active" id="prioritize" role="tabpanel">
                 <div class="card p-4 mb-4" style="border: 2px solid #ef4444;">
                     <h4 class="fw-bold text-white mb-2">🎯 Model 5 — Audit Priority & Misuse Aggregator</h4>
-                    <p class="text-secondary small mb-3">Multi-signal priority scoring combining Cost Overrun, Peer Delay, Statutory Compliance, Vendor Concentration, and Duplicate Record Linkage.</p>
+                    <p class="text-secondary small mb-3">Multi-signal priority scoring combining Cost Overrun, Peer Delay, Statutory Compliance, Vendor Concentration, Inadmissible Asset Candidates, Private Beneficiary Candidates, Duplicate Expenditure, and Idle Utilization.</p>
                     <div class="table-responsive">
                         <table class="table table-dark table-hover table-bordered align-middle">
                             <thead>
-                                <tr><th>#</th><th>Work ID</th><th>MP / Constituency</th><th>Sanction Amt</th><th>Cost</th><th>Delay</th><th>Compliance</th><th>Display Score</th><th>Priority Tier</th><th>Combined Evidence</th></tr>
+                                <tr><th>#</th><th>Work ID</th><th>MP / Constituency</th><th>Sanction Amt</th><th>Cost Risk</th><th>Delay</th><th>Compliance</th><th>Display Score</th><th>Priority Tier</th><th>Combined Evidence</th></tr>
                             </thead>
                             <tbody>
     
@@ -107,7 +108,7 @@
                                     <td><span class='badge bg-danger'>LOW</span></td>
                                     <td><span class='badge bg-warning text-dark'>ONGOING_DELAYED</span></td>
                                     <td><span class='badge bg-info text-dark'>MINOR_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td class='fw-bold text-primary fs-6'>45.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
                                     <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work has been ongoing for 554 days, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Compliance Signal: Sanctioned 77 days after recommendation, exceeding the 45-day statutory window by 32 days (MINOR_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
                                 </tr>
@@ -120,178 +121,178 @@
                                     <td><span class='badge bg-danger'>HIGH</span></td>
                                     <td><span class='badge bg-warning text-dark'>UNKNOWN_MISSING_DATES</span></td>
                                     <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>80.0/100</td>
+                                    <td class='fw-bold text-primary fs-6'>50.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Work Category Taxonomy: COMMUNITY_BUILDING</li><li>Peer Anomaly: Sanction amount (₹1,500,000.00) is 200.0% above state category median (₹500,000.00) with IQR robust deviation of 200.00 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.7554).</li><li>Compliance Signal: Sanctioned 325 days after recommendation, exceeding the 45-day statutory window by 280 days (SEVERE_DEVIATION).</li><li>Vendor Network: High expenditure concentration (69.2%) associated with a government/entity vendor ('BOMMAI ZILLA NIRMITHI KENDRA'); concentration alone does not establish irregularity.</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Work Category Taxonomy: COMMUNITY_BUILDING</li><li>Peer Anomaly: Sanction amount (₹1,500,000.00) is 200.0% above state category median (₹500,000.00) with IQR robust deviation of 200.00 (threshold: 3.0).</li><li>ML Anomaly Detected: Isolation Forest identified anomalous cost/timing pattern (anomaly score: 0.5034).</li><li>Compliance Signal: Sanctioned 325 days after recommendation, exceeding the 45-day statutory window by 280 days (SEVERE_DEVIATION).</li><li>Vendor Network: High expenditure concentration (69.2%) associated with a government/entity vendor ('BOMMAI ZILLA NIRMITHI KENDRA'); concentration alone does not establish irregularity.</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>3</td>
+                                    <td><code>WS/MP620/2024-2025/133311</code></td>
+                                    <td><b>Pralhad Venkatesh Joshi</b><br><small class='text-secondary'>Karnataka | DHARWAD</small></td>
+                                    <td class='fw-bold text-light'>₹250,000.00</td>
+                                    <td><span class='badge bg-danger'>LOW</span></td>
+                                    <td><span class='badge bg-warning text-dark'>ONGOING_DELAYED</span></td>
+                                    <td><span class='badge bg-info text-dark'>COMPLIANT</span></td>
+                                    <td class='fw-bold text-primary fs-6'>45.0/100</td>
+                                    <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work has been ongoing for 586 days, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li><li>Eligibility Anomaly: Contains religious keyword(s) [TEMPLE] with ambiguous syntactic context. Requires manual audit review.</li></ul></td>
+                                </tr>
+            
+                                <tr>
+                                    <td>4</td>
+                                    <td><code>WS/MP577/2025-2026/133582</code></td>
+                                    <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
+                                    <td class='fw-bold text-light'>₹250,000.00</td>
+                                    <td><span class='badge bg-danger'>LOW</span></td>
+                                    <td><span class='badge bg-warning text-dark'>ONGOING_ON_SCHEDULE</span></td>
+                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>30.0/100</td>
+                                    <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Compliance Signal: Sanctioned 544 days after recommendation, exceeding the 45-day statutory window by 499 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li><li>Eligibility Anomaly: Primary funded asset appears to be religious structure [ASHRAM]. Requires statutory audit review.</li></ul></td>
+                                </tr>
+            
+                                <tr>
+                                    <td>5</td>
                                     <td><code>WS/MP577/2024-2025/133584</code></td>
                                     <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
                                     <td class='fw-bold text-light'>₹249,291.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
                                     <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
                                     <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td class='fw-bold text-primary fs-6'>45.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
                                     <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 513 days to complete, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Compliance Signal: Sanctioned 253 days after recommendation, exceeding the 45-day statutory window by 208 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
                                 </tr>
             
                                 <tr>
-                                    <td>4</td>
+                                    <td>6</td>
                                     <td><code>WS/MP577/2024-2025/133585</code></td>
                                     <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
                                     <td class='fw-bold text-light'>₹250,000.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
                                     <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
                                     <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td class='fw-bold text-primary fs-6'>45.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
                                     <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 513 days to complete, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Compliance Signal: Sanctioned 253 days after recommendation, exceeding the 45-day statutory window by 208 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
                                 </tr>
             
                                 <tr>
-                                    <td>5</td>
+                                    <td>7</td>
                                     <td><code>WS/MP577/2024-2025/133588</code></td>
                                     <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
                                     <td class='fw-bold text-light'>₹250,000.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
                                     <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
                                     <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
-                                    <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 514 days to complete, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Compliance Signal: Sanctioned 253 days after recommendation, exceeding the 45-day statutory window by 208 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
-                                </tr>
-            
-                                <tr>
-                                    <td>6</td>
-                                    <td><code>WS/MP577/2024-2025/133600</code></td>
-                                    <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
-                                    <td class='fw-bold text-light'>₹249,291.00</td>
-                                    <td><span class='badge bg-danger'>LOW</span></td>
-                                    <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
-                                    <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 512 days to complete, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Compliance Signal: Sanctioned 253 days after recommendation, exceeding the 45-day statutory window by 208 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
-                                </tr>
-            
-                                <tr>
-                                    <td>7</td>
-                                    <td><code>WS/MP577/2024-2025/133601</code></td>
-                                    <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
-                                    <td class='fw-bold text-light'>₹249,291.00</td>
-                                    <td><span class='badge bg-danger'>LOW</span></td>
-                                    <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td class='fw-bold text-primary fs-6'>45.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
                                     <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 514 days to complete, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Compliance Signal: Sanctioned 253 days after recommendation, exceeding the 45-day statutory window by 208 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>8</td>
-                                    <td><code>WS/MP18032/2024-2025/134035</code></td>
-                                    <td><b>SUDHAKAR SINGH</b><br><small class='text-secondary'>Bihar | BUXAR</small></td>
-                                    <td class='fw-bold text-light'>₹966,987.00</td>
+                                    <td><code>WS/MP577/2025-2026/133591</code></td>
+                                    <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
+                                    <td class='fw-bold text-light'>₹250,000.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
-                                    <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>MODERATE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td><span class='badge bg-warning text-dark'>COMPLETED_ON_TIME</span></td>
+                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>30.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 386 days to complete, exceeding the STATE peer upper fence of 325 days for similar completed works.</li><li>Compliance Signal: Sanctioned 178 days after recommendation, exceeding the 45-day statutory window by 133 days (MODERATE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Compliance Signal: Sanctioned 544 days after recommendation, exceeding the 45-day statutory window by 499 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li><li>Eligibility Anomaly: Contains religious keyword(s) [MANDIR] with ambiguous syntactic context. Requires manual audit review.</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>9</td>
-                                    <td><code>WS/MP18032/2024-2025/134037</code></td>
-                                    <td><b>SUDHAKAR SINGH</b><br><small class='text-secondary'>Bihar | BUXAR</small></td>
-                                    <td class='fw-bold text-light'>₹987,671.00</td>
+                                    <td><code>WS/MP577/2024-2025/133600</code></td>
+                                    <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
+                                    <td class='fw-bold text-light'>₹249,291.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
                                     <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>MINOR_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>45.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 442 days to complete, exceeding the STATE peer upper fence of 325 days for similar completed works.</li><li>Compliance Signal: Sanctioned 86 days after recommendation, exceeding the 45-day statutory window by 41 days (MINOR_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 512 days to complete, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Compliance Signal: Sanctioned 253 days after recommendation, exceeding the 45-day statutory window by 208 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>10</td>
-                                    <td><code>WS/MP632/2024-2025/134092</code></td>
-                                    <td><b>Anto Antony</b><br><small class='text-secondary'>Kerala | PATHANAMTHITTA</small></td>
-                                    <td class='fw-bold text-light'>₹216,919.00</td>
+                                    <td><code>WS/MP577/2024-2025/133601</code></td>
+                                    <td><b>Jaswantsinh Sumanbhai Bhabhor</b><br><small class='text-secondary'>Gujarat | DAHOD(ST)</small></td>
+                                    <td class='fw-bold text-light'>₹249,291.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
                                     <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>MODERATE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>45.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 500 days to complete, exceeding the STATE peer upper fence of 496 days for similar completed works.</li><li>Compliance Signal: Sanctioned 110 days after recommendation, exceeding the 45-day statutory window by 65 days (MODERATE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 514 days to complete, exceeding the STATE peer upper fence of 400 days for similar completed works.</li><li>Compliance Signal: Sanctioned 253 days after recommendation, exceeding the 45-day statutory window by 208 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>11</td>
-                                    <td><code>WS/MP632/2024-2025/134094</code></td>
-                                    <td><b>Anto Antony</b><br><small class='text-secondary'>Kerala | PATHANAMTHITTA</small></td>
-                                    <td class='fw-bold text-light'>₹218,008.00</td>
+                                    <td><code>WS/MP423/2024-2025/133947</code></td>
+                                    <td><b>Ramprit Mandal</b><br><small class='text-secondary'>Bihar | JHANJHARPUR</small></td>
+                                    <td class='fw-bold text-light'>₹994,000.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
-                                    <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>MODERATE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td><span class='badge bg-warning text-dark'>COMPLETED_ON_TIME</span></td>
+                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>30.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 499 days to complete, exceeding the STATE peer upper fence of 496 days for similar completed works.</li><li>Compliance Signal: Sanctioned 111 days after recommendation, exceeding the 45-day statutory window by 66 days (MODERATE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Compliance Signal: Sanctioned 232 days after recommendation, exceeding the 45-day statutory window by 187 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li><li>Eligibility Anomaly: Contains religious keyword(s) [MANDIR] with ambiguous syntactic context. Requires manual audit review.</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>12</td>
-                                    <td><code>WS/MP632/2024-2025/134096</code></td>
-                                    <td><b>Anto Antony</b><br><small class='text-secondary'>Kerala | PATHANAMTHITTA</small></td>
-                                    <td class='fw-bold text-light'>₹215,081.00</td>
+                                    <td><code>WS/MP423/2024-2025/133959</code></td>
+                                    <td><b>Ramprit Mandal</b><br><small class='text-secondary'>Bihar | JHANJHARPUR</small></td>
+                                    <td class='fw-bold text-light'>₹1,451,000.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
-                                    <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>MODERATE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td><span class='badge bg-warning text-dark'>COMPLETED_ON_TIME</span></td>
+                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>30.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 500 days to complete, exceeding the STATE peer upper fence of 496 days for similar completed works.</li><li>Compliance Signal: Sanctioned 110 days after recommendation, exceeding the 45-day statutory window by 65 days (MODERATE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Compliance Signal: Sanctioned 213 days after recommendation, exceeding the 45-day statutory window by 168 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li><li>Eligibility Anomaly: Contains religious keyword(s) [MANDIR] with ambiguous syntactic context. Requires manual audit review.</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>13</td>
-                                    <td><code>WS/MP632/2024-2025/134101</code></td>
-                                    <td><b>Anto Antony</b><br><small class='text-secondary'>Kerala | PATHANAMTHITTA</small></td>
-                                    <td class='fw-bold text-light'>₹250,000.00</td>
+                                    <td><code>WS/MP423/2024-2025/133973</code></td>
+                                    <td><b>Ramprit Mandal</b><br><small class='text-secondary'>Bihar | JHANJHARPUR</small></td>
+                                    <td class='fw-bold text-light'>₹994,000.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
-                                    <td><span class='badge bg-warning text-dark'>ONGOING_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>MODERATE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td><span class='badge bg-warning text-dark'>COMPLETED_ON_TIME</span></td>
+                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>30.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work has been ongoing for 505 days, exceeding the STATE peer upper fence of 496 days for similar completed works.</li><li>Compliance Signal: Sanctioned 110 days after recommendation, exceeding the 45-day statutory window by 65 days (MODERATE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Compliance Signal: Sanctioned 232 days after recommendation, exceeding the 45-day statutory window by 187 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li><li>Eligibility Anomaly: Contains religious keyword(s) [MANDIR] with ambiguous syntactic context. Requires manual audit review.</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>14</td>
-                                    <td><code>WS/MP508/2024-2025/134677</code></td>
-                                    <td><b>CN Annadurai</b><br><small class='text-secondary'>Tamil Nadu | TIRUVANNAMALAI</small></td>
-                                    <td class='fw-bold text-light'>₹435,000.00</td>
+                                    <td><code>WS/MP423/2024-2025/133976</code></td>
+                                    <td><b>Ramprit Mandal</b><br><small class='text-secondary'>Bihar | JHANJHARPUR</small></td>
+                                    <td class='fw-bold text-light'>₹994,000.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
-                                    <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>MODERATE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td><span class='badge bg-warning text-dark'>COMPLETED_ON_TIME</span></td>
+                                    <td><span class='badge bg-info text-dark'>SEVERE_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>30.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 464 days to complete, exceeding the STATE peer upper fence of 264 days for similar completed works.</li><li>Compliance Signal: Sanctioned 138 days after recommendation, exceeding the 45-day statutory window by 93 days (MODERATE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Compliance Signal: Sanctioned 232 days after recommendation, exceeding the 45-day statutory window by 187 days (SEVERE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li><li>Eligibility Anomaly: Contains religious keyword(s) [MANDIR] with ambiguous syntactic context. Requires manual audit review.</li></ul></td>
                                 </tr>
             
                                 <tr>
                                     <td>15</td>
-                                    <td><code>WS/MP508/2024-2025/134680</code></td>
-                                    <td><b>CN Annadurai</b><br><small class='text-secondary'>Tamil Nadu | TIRUVANNAMALAI</small></td>
-                                    <td class='fw-bold text-light'>₹435,000.00</td>
+                                    <td><code>WS/MP18032/2024-2025/134022</code></td>
+                                    <td><b>SUDHAKAR SINGH</b><br><small class='text-secondary'>Bihar | BUXAR</small></td>
+                                    <td class='fw-bold text-light'>₹1,496,846.00</td>
                                     <td><span class='badge bg-danger'>LOW</span></td>
-                                    <td><span class='badge bg-warning text-dark'>COMPLETED_DELAYED</span></td>
-                                    <td><span class='badge bg-info text-dark'>MODERATE_DEVIATION</span></td>
-                                    <td class='fw-bold text-primary fs-6'>75.0/100</td>
+                                    <td><span class='badge bg-warning text-dark'>COMPLETED_ON_TIME</span></td>
+                                    <td><span class='badge bg-info text-dark'>MINOR_DEVIATION</span></td>
+                                    <td class='fw-bold text-primary fs-6'>30.0/100</td>
                                     <td><span class='badge badge-high'>CRITICAL_AUDIT_PRIORITY</span></td>
-                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Delay Signal: Work took 464 days to complete, exceeding the STATE peer upper fence of 264 days for similar completed works.</li><li>Compliance Signal: Sanctioned 138 days after recommendation, exceeding the 45-day statutory window by 93 days (MODERATE_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li></ul></td>
+                                    <td class='small'><ul class='mb-0 ps-3 text-warning'><li>Compliance Signal: Sanctioned 62 days after recommendation, exceeding the 45-day statutory window by 17 days (MINOR_DEVIATION).</li><li>Vendor Network: Multiple transactions to the same vendor occurred within a 7-day window (potential payment structuring/fragmentation).</li><li>Eligibility Anomaly: Contains religious keyword(s) [MANDIR] with ambiguous syntactic context. Requires manual audit review.</li></ul></td>
                                 </tr>
             
                             </tbody>
@@ -303,7 +304,7 @@
             <!-- TAB 2: DETECT -->
             <div class="tab-pane fade" id="detect" role="tabpanel">
                 <div class="card p-4 mb-4">
-                    <h4 class="fw-bold text-white mb-2">🔍 Model 1 — Double-Dipping & Model 2 — Cost Overrun Engine</h4>
+                    <h4 class="fw-bold text-white mb-2">🔍 Model 1 — Double-Dipping & Model 2 — Cost Anomaly Engine</h4>
                     <p class="text-secondary small mb-3">Record linkage for distinct potential duplicate work pairs alongside hierarchical peer IQR/MAD and Isolation Forest ML cost estimate anomaly detection.</p>
     
                     <div class="alert alert-info py-2 small mb-3">
@@ -316,11 +317,50 @@
             <div class="tab-pane fade" id="verify" role="tabpanel">
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">⏱️ Model 3 — Peer Delay, Model 4 — Statutory Compliance & Vendor Risk</h4>
-                    <p class="text-secondary small mb-3">Peer-relative Tukey IQR delay baseline checks, statutory 45-day approval window deviations, Implementing Agency (IDA) Watchlist, and Vendor Concentration Risk (HHI).</p>
+                    <p class="text-secondary small mb-3">Peer-relative Tukey IQR delay baseline checks, statutory 45-day approval window deviations, Implementing Agency (IDA) Watchlist, and Vendor Concentration Risk (HHI & Graph Reach).</p>
                 </div>
             </div>
 
-            <!-- TAB 4: PREDICT -->
+            <!-- TAB 4: UTILIZATION & ELIGIBILITY -->
+            <div class="tab-pane fade" id="utilization" role="tabpanel">
+                <div class="card p-4 mb-4">
+                    <h4 class="fw-bold text-white mb-2">🏛️ Fund Utilization, Eligibility & Payment Behavior Modules</h4>
+                    <p class="text-secondary small mb-4">Syntactic landmark filters, entity beneficiary analysis, voucher duplicate payment scans, and sanction-to-payment utilization fencing.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="p-3 card text-center">
+                                <div class="kpi-title">Raw Religious Mentions</div>
+                                <div class="kpi-val text-info">8,828</div>
+                                <small class="text-muted">Keyword Scans</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3 card text-center">
+                                <div class="kpi-title">Landmark Location References</div>
+                                <div class="kpi-val text-success">3,801</div>
+                                <small class="text-muted">Civic Work Landmarks</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3 card text-center">
+                                <div class="kpi-title">Potentially Inadmissible</div>
+                                <div class="kpi-val text-warning">5,027</div>
+                                <small class="text-muted">Direct Object Candidates</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="p-3 card text-center">
+                                <div class="kpi-title">Private / Commercial Candidates</div>
+                                <div class="kpi-val text-danger">198</div>
+                                <small class="text-muted">Explicit Pvt Ltd Markers</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: PREDICT -->
             <div class="tab-pane fade" id="predict" role="tabpanel">
                 <div class="card p-4 mb-4">
                     <h4 class="fw-bold text-white mb-2">📈 MPLADS Expenditure Forecasting Model</h4>
@@ -668,6 +708,36 @@
                         </table>
                     </div>
             
+                </div>
+            </div>
+
+            <!-- TAB 6: DATA QUALITY & COVERAGE -->
+            <div class="tab-pane fade" id="coverage" role="tabpanel">
+                <div class="card p-4 mb-4">
+                    <h4 class="fw-bold text-white mb-2">📊 Data Quality & Coverage Panel</h4>
+                    <p class="text-secondary small mb-3">Transparency report on dataset completeness, missing fields, and payment trajectory feature coverage.</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card p-3 mb-3">
+                                <h6>Single vs Multi-Payment Breakdown</h6>
+                                <ul>
+                                    <li><b>Single-Payment Works (Lump Sum):</b> 16 (100.0%)</li>
+                                    <li><b>Multi-Payment Works (>1 Vouchers):</b> 0 (0.0%)</li>
+                                </ul>
+                                <small class="text-muted">Note: For single-payment works, intermediate milestone trajectories are not computable.</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-3 mb-3">
+                                <h6>Date Completeness Coverage</h6>
+                                <ul>
+                                    <li><b>Works with Usable Sanction Date:</b> 16</li>
+                                    <li><b>Works with Usable Payment Date:</b> 16</li>
+                                    <li><b>Usable Sanction-to-Payment Duration:</b> 16</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

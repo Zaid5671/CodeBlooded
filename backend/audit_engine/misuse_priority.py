@@ -117,59 +117,57 @@ def run_audit_priority_aggregation(
         cid = row['clean_work_id']
         ida = str(row.get('IDA', row.get('ida', ''))).strip()
         
-        # 1. Cost Risk Signals
+        # 1. Cost Risk Dimension (Max Weight: 0.30)
         cost_level = str(row.get('risk_level', 'LOW')).upper()
         if cost_level == 'HIGH':
-            cost_score = AUDIT_COST_HIGH_WEIGHT
+            cost_score = AUDIT_COST_HIGH_WEIGHT  # 0.30
             cost_signal = True
         elif cost_level == 'MEDIUM':
-            cost_score = AUDIT_COST_MEDIUM_WEIGHT
+            cost_score = AUDIT_COST_MEDIUM_WEIGHT  # 0.10
             cost_signal = False
         else:
             cost_score = 0.0
             cost_signal = False
             
-        # 2. Delay Signals
+        # 2. Execution Speed & Delay Dimension (Max Weight: 0.25)
         sig_delay = bool(row.get('signal_delay', False))
-        delay_score = AUDIT_DELAY_WEIGHT if sig_delay else 0.0
+        idle_util_info = idle_util_map.get(cid, {})
+        idle_util_signal = idle_util_info.get('signal', False)
+        delay_score = AUDIT_DELAY_WEIGHT if (sig_delay or idle_util_signal) else 0.0  # 0.25
         
-        # 3. Compliance Signals
+        # 3. Statutory Compliance Dimension (Max Weight: 0.25)
         sig_comp = bool(row.get('signal_compliance', False))
-        comp_score = AUDIT_COMPLIANCE_WEIGHT if sig_comp else 0.0
+        comp_severity = str(row.get('compliance_severity', '')).upper()
+        if sig_comp:
+            comp_score = AUDIT_COMPLIANCE_WEIGHT if ('SEVERE' in comp_severity or 'MODERATE' in comp_severity) else 0.10  # 0.25 / 0.10
+        else:
+            comp_score = 0.0
         
-        # 4. Vendor Network Risk Score Component
+        # 4. Vendor Network & Payment Structuring Dimension (Max Weight: 0.10)
         v_info = v_risk_map.get(ida, {})
         v_conc_risk = bool(v_info.get('concentration_risk', False))
         v_frag_risk = bool(v_info.get('payment_structuring_risk', False))
-        v_score = AUDIT_VENDOR_RISK_WEIGHT if (v_conc_risk or v_frag_risk) else 0.0
-        
-        # 5. New Modules Signals
-        inad_info = inadmissible_map.get(cid, {})
-        inad_signal = inad_info.get('signal', False)
-        inad_score = 0.25 if inad_signal else 0.0
-
-        priv_info = priv_map.get(cid, {})
-        priv_signal = priv_info.get('signal', False)
-        priv_score = 0.25 if priv_signal else 0.0
-
         dup_exp_info = dup_exp_map.get(cid, {})
         dup_exp_signal = dup_exp_info.get('signal', False)
-        dup_exp_score = 0.20 if dup_exp_signal else 0.0
+        v_score = AUDIT_VENDOR_RISK_WEIGHT if (v_conc_risk or v_frag_risk or dup_exp_signal) else 0.0  # 0.10
+        
+        # 5. Eligibility & Beneficiary Dimension (Max Weight: 0.10)
+        inad_info = inadmissible_map.get(cid, {})
+        inad_signal = inad_info.get('signal', False)
+        priv_info = priv_map.get(cid, {})
+        priv_signal = priv_info.get('signal', False)
+        eligibility_score = 0.10 if (inad_signal or priv_signal) else 0.0
 
-        idle_util_info = idle_util_map.get(cid, {})
-        idle_util_signal = idle_util_info.get('signal', False)
-        idle_util_score = 0.20 if idle_util_signal else 0.0
-
-        # Priority Score Calculation
-        raw_score = cost_score + delay_score + comp_score + v_score + inad_score + priv_score + dup_exp_score + idle_util_score
-        misuse_priority_score = min(1.00, round(raw_score, 4))
+        # Priority Score Calculation (Strictly bounded 0.00 <= Priority Score <= 1.00)
+        raw_score = cost_score + delay_score + comp_score + v_score + eligibility_score
+        misuse_priority_score = min(1.00, max(0.00, round(raw_score, 4)))
         display_score = round(misuse_priority_score * 100, 1)
         
-        # Core Fired Independent Signal Count (Historical 3-Signal Standard preserved)
+        # Independent Fired Signal Counts
         fired_signal_count = int(cost_signal) + int(sig_delay) + int(sig_comp)
         all_signals_count = sum(int(s) for s in [cost_signal, sig_delay, sig_comp, v_conc_risk, inad_signal, priv_signal, dup_exp_signal, idle_util_signal])
         
-        if display_score >= 45.0 or all_signals_count >= 2:
+        if display_score >= 50.0 or all_signals_count >= 2:
             audit_priority = "CRITICAL_AUDIT_PRIORITY"
         elif display_score >= 20.0 or all_signals_count == 1:
             audit_priority = "STANDARD_REVIEW"

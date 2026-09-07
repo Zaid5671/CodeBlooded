@@ -15,4 +15,6 @@ output/cache/
 # Large uncompressed pipeline output
 output/scored_sanctioned_works.csv
 output/scored_sanctioned_works.json
+output/misuse_priority_results.json
+output/misuse_priority.csv
 
