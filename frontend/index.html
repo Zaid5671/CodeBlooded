@@ -3,67 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MPLADS Audit Intelligence Platform — Government Decision Support (SIH26102)</title>
-    <!-- Google Fonts: Fira Sans, Fira Code & Inter -->
+    <title>MPLADS Audit Intelligence Platform — macOS Desktop Console (SIH26102)</title>
+    
+    <!-- Google Fonts: Inter, Fira Sans & SF Mono / Fira Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- FontAwesome Pro/Free Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Plotly.js for Data Visualizations -->
+    
+    <!-- Plotly.js for Interactive Visualizations -->
     <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.24.1/plotly.min.js"></script>
-    <!-- Custom UI/UX Pro Max Design System Stylesheet -->
+    
+    <!-- Custom macOS Tahoe Liquid Glass Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark-theme">
 
+    <!-- Ambient Liquid Environment (Background Light Fields) -->
+    <div class="ambient-container">
+        <div class="ambient-orb ambient-orb-1"></div>
+        <div class="ambient-orb ambient-orb-2"></div>
+    </div>
+
     <!-- =================================================-----------------
-         LOGIN MODAL OVERLAY (PHASE 6)
+         1. LOGIN MODAL OVERLAY (PHASE 6 / MAC AUTH)
          ================================================------------------ -->
     <div id="login-modal" class="modal-overlay active">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-brand-icon">
+        <div class="glass-modal-card">
+            <div class="text-center mb-4">
+                <div class="app-icon mx-auto mb-2" style="width: 44px; height: 44px; font-size: 1.2rem;">
                     <i class="fa-solid fa-landmark-flag"></i>
                 </div>
-                <h2>MPLADS AUDIT INTELLIGENCE</h2>
-                <p>AI-Powered Monitoring & Audit Decision-Support Platform</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700;">MPLADS AUDIT INTELLIGENCE</h2>
+                <p class="text-muted small">Government Monitoring & Decision-Support System</p>
                 <div class="badge-pill badge-neutral mt-2">SIH 2026 — Problem Statement SIH26102</div>
             </div>
 
             <form id="login-form" onsubmit="return false;">
                 <div class="form-group mb-3">
-                    <label for="login-userid">USER ID / EMAIL</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fa-solid fa-user input-icon"></i>
-                        <input type="text" id="login-userid" class="form-input" placeholder="audit.officer@nic.in" value="audit.officer@nic.in">
-                    </div>
+                    <label class="small font-weight-bold text-muted mb-1 d-block">USER ID / EMAIL</label>
+                    <input type="text" id="login-userid" class="form-input w-100" placeholder="audit.officer@nic.in" value="audit.officer@nic.in">
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="login-password">PASSWORD</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fa-solid fa-key input-icon"></i>
-                        <input type="password" id="login-password" class="form-input" placeholder="••••••••••••" value="password123">
-                    </div>
+                    <label class="small font-weight-bold text-muted mb-1 d-block">PASSWORD</label>
+                    <input type="password" id="login-password" class="form-input w-100" placeholder="••••••••••••" value="password123">
                 </div>
 
                 <div class="form-group mb-4">
-                    <label for="login-role">ADMINISTRATIVE ROLE</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fa-solid fa-user-shield input-icon"></i>
-                        <select id="login-role" class="form-select">
-                            <option value="Ministry">Ministry of Statistics & Programme Implementation (MoSPI)</option>
-                            <option value="State Nodal Authority">State Nodal Authority (SNA)</option>
-                            <option value="District Authority" selected>District Magistrate / Authority (DA)</option>
-                            <option value="MP / Constituency">Member of Parliament (MP) Office</option>
-                            <option value="SIH Judge / Evaluator">SIH Judge / Evaluator Mode</option>
-                        </select>
-                    </div>
+                    <label class="small font-weight-bold text-muted mb-1 d-block">ADMINISTRATIVE ROLE</label>
+                    <select id="login-role" class="form-select w-100">
+                        <option value="Ministry">Ministry of Statistics & Programme Implementation (MoSPI)</option>
+                        <option value="State Nodal Authority">State Nodal Authority (SNA)</option>
+                        <option value="District Authority" selected>District Magistrate / Authority (DA)</option>
+                        <option value="MP / Constituency">Member of Parliament (MP) Office</option>
+                        <option value="SIH Judge / Evaluator">SIH Judge / Evaluator Mode</option>
+                    </select>
                 </div>
 
-                <div class="login-actions">
-                    <button type="button" id="btn-signin" class="btn btn-primary w-100 mb-2">
+                <div class="d-flex flex-column gap-2">
+                    <button type="button" id="btn-signin" class="btn btn-primary w-100">
                         <i class="fa-solid fa-right-to-bracket"></i> Sign In to Audit Console
                     </button>
                     <button type="button" id="btn-explore-demo" class="btn btn-secondary w-100">
@@ -72,350 +73,273 @@
                 </div>
             </form>
 
-            <div class="login-footer text-center mt-3">
-                <small class="text-muted">Official Audit Triage System. All sessions logged for security and governance compliance.</small>
+            <div class="text-center mt-3">
+                <small class="text-muted" style="font-size: 0.7rem;">Official Audit Triage System. Session security & governance compliant.</small>
             </div>
         </div>
     </div>
 
     <!-- =================================================-----------------
-         MAIN APP CONTAINER
+         2. MAC DESKTOP APPLICATION FRAME
          ================================================------------------ -->
-    <div class="app-container">
+    <div class="mac-app-window">
 
-        <!-- LEFT SIDEBAR NAVIGATION (PHASE 5) -->
-        <aside class="sidebar">
-            <div class="sidebar-brand">
-                <div class="sidebar-brand-icon">
-                    <i class="fa-solid fa-landmark-flag"></i>
+        <!-- TOP LIQUID GLASS TOOLBAR (HIG FUNCTIONAL LAYER) -->
+        <header class="glass-toolbar">
+            <div class="toolbar-left">
+                <div class="mac-traffic-lights">
+                    <span class="traffic-dot traffic-close"></span>
+                    <span class="traffic-dot traffic-min"></span>
+                    <span class="traffic-dot traffic-max"></span>
                 </div>
+                <div class="app-identity">
+                    <div class="app-icon">
+                        <i class="fa-solid fa-landmark-flag"></i>
+                    </div>
+                    <span>MPLADS Audit Intelligence</span>
+                </div>
+            </div>
+
+            <div class="toolbar-center">
                 <div>
-                    <div class="sidebar-brand-title">MPLADS Audit</div>
-                    <div class="sidebar-brand-sub">Intelligence Platform</div>
+                    <div class="breadcrumb-title" id="page-title">Overview / Command Center</div>
+                    <div class="breadcrumb-subtitle" id="page-subtitle">AI-assisted audit triage and risk analysis</div>
                 </div>
             </div>
 
-            <nav class="sidebar-nav">
-                <a href="#overview" class="nav-item active" data-view="overview">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <span>Overview</span>
-                </a>
-                <a href="#works" class="nav-item" data-view="works">
-                    <i class="fa-solid fa-list-check"></i>
-                    <span>Works Explorer</span>
-                </a>
-                <a href="#priority" class="nav-item" data-view="priority">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <span>Audit Queue</span>
-                </a>
-                <a href="#alerts" class="nav-item" data-view="alerts">
-                    <i class="fa-solid fa-bell"></i>
-                    <span>Alert Center</span>
-                </a>
-                <a href="#expenditure" class="nav-item" data-view="expenditure">
-                    <i class="fa-solid fa-receipt"></i>
-                    <span>Expenditure</span>
-                </a>
-                <a href="#compliance" class="nav-item" data-view="compliance">
-                    <i class="fa-solid fa-clock-history"></i>
-                    <span>Compliance</span>
-                </a>
-                <a href="#duplicates" class="nav-item" data-view="duplicates">
-                    <i class="fa-solid fa-clone"></i>
-                    <span>Duplicate Works</span>
-                </a>
-                <a href="#forecast" class="nav-item" data-view="forecast">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span>Forecast</span>
-                </a>
-                <a href="#agencies" class="nav-item" data-view="agencies">
-                    <i class="fa-solid fa-network-wired"></i>
-                    <span>Agency Analytics</span>
-                </a>
-                <a href="#analytics" class="nav-item" data-view="analytics">
-                    <i class="fa-solid fa-chart-column"></i>
-                    <span>Analytics</span>
-                </a>
-                <a href="#methodology" class="nav-item" data-view="methodology">
-                    <i class="fa-solid fa-microscope"></i>
-                    <span>AI & Methodology</span>
-                </a>
-                <a href="#reports" class="nav-item" data-view="reports">
-                    <i class="fa-solid fa-file-invoice"></i>
-                    <span>Reports</span>
-                </a>
-            </nav>
+            <div class="toolbar-right">
+                <!-- Spotlight Search Trigger Button -->
+                <button type="button" id="btn-trigger-spotlight" class="glass-search-trigger" title="Quick Search (Cmd+K)">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Search works, MPs, agencies...</span>
+                    <span class="kbd-shortcut">⌘K</span>
+                </button>
 
-            <div class="sidebar-footer">
-                <div class="status-indicator">
-                    <span class="status-dot"></span>
-                    <span>System Operational</span>
-                </div>
-                <div class="text-muted small">Corpus: <strong id="lbl-sidebar-corpus">Lok Sabha 18</strong></div>
-                <div class="text-muted small">Role: <strong id="lbl-sidebar-role">District Authority</strong></div>
+                <!-- Dataset Corpus Selector -->
+                <select class="form-select" id="dataset-selector" title="Select Parliamentary Corpus" style="width: 170px;">
+                    <option value="LokSabha18" selected>Lok Sabha 18 (Primary)</option>
+                    <option value="LokSabha17">Lok Sabha 17 (Historical)</option>
+                    <option value="RajyaSabha_Sitting">Rajya Sabha Sitting</option>
+                    <option value="RajyaSabha_Retired">Rajya Sabha Retired</option>
+                </select>
+
+                <!-- Persona Switcher -->
+                <select class="form-select" id="header-role-selector" title="Switch Persona" style="width: 150px;">
+                    <option value="Ministry">Ministry (MoSPI)</option>
+                    <option value="State Nodal Authority">State Authority</option>
+                    <option value="District Authority" selected>District Authority</option>
+                    <option value="MP / Constituency">MP Office</option>
+                </select>
+
+                <!-- Auth Action Button -->
+                <button type="button" id="btn-header-auth" class="btn btn-secondary btn-sm">
+                    <i class="fa-solid fa-user-shield"></i> <span id="lbl-user-name">District Admin</span>
+                </button>
             </div>
-        </aside>
+        </header>
 
-        <!-- MAIN CONTENT AREA -->
-        <main class="main-wrapper">
+        <!-- MAIN APPLICATION BODY -->
+        <div class="app-body">
 
-            <!-- GLOBAL TOP HEADER -->
-            <header class="top-header">
-                <div class="header-title-group">
-                    <h1 class="header-title" id="page-title">Overview / Command Center</h1>
-                    <p class="header-subtitle" id="page-subtitle">AI-powered monitoring and administrative audit decision support</p>
+            <!-- FLOATING LIQUID GLASS SIDEBAR (MAC NAVIGATION) -->
+            <aside class="glass-sidebar">
+                <div>
+                    <div class="nav-section-title">Main</div>
+                    <nav class="nav-group">
+                        <a href="#overview" class="nav-item active" data-view="overview">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Overview</span>
+                        </a>
+                        <a href="#works" class="nav-item" data-view="works">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>Works Explorer</span>
+                        </a>
+                        <a href="#priority" class="nav-item" data-view="priority">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span>Audit Queue</span>
+                        </a>
+                        <a href="#alerts" class="nav-item" data-view="alerts">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>Alert Center</span>
+                        </a>
+                    </nav>
+
+                    <div class="nav-section-title">Monitoring</div>
+                    <nav class="nav-group">
+                        <a href="#expenditure" class="nav-item" data-view="expenditure">
+                            <i class="fa-solid fa-receipt"></i>
+                            <span>Expenditure</span>
+                        </a>
+                        <a href="#compliance" class="nav-item" data-view="compliance">
+                            <i class="fa-solid fa-clock-history"></i>
+                            <span>Compliance Review</span>
+                        </a>
+                    </nav>
+
+                    <div class="nav-section-title">Intelligence</div>
+                    <nav class="nav-group">
+                        <a href="#duplicates" class="nav-item" data-view="duplicates">
+                            <i class="fa-solid fa-clone"></i>
+                            <span>Duplicate Works</span>
+                        </a>
+                        <a href="#forecast" class="nav-item" data-view="forecast">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Expenditure Forecast</span>
+                        </a>
+                        <a href="#agencies" class="nav-item" data-view="agencies">
+                            <i class="fa-solid fa-network-wired"></i>
+                            <span>Agency Risk</span>
+                        </a>
+                        <a href="#analytics" class="nav-item" data-view="analytics">
+                            <i class="fa-solid fa-chart-column"></i>
+                            <span>Risk Analytics</span>
+                        </a>
+                    </nav>
+
+                    <div class="nav-section-title">Governance</div>
+                    <nav class="nav-group">
+                        <a href="#methodology" class="nav-item" data-view="methodology">
+                            <i class="fa-solid fa-microscope"></i>
+                            <span>AI & Methodology</span>
+                        </a>
+                        <a href="#reports" class="nav-item" data-view="reports">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span>Audit Reports</span>
+                        </a>
+                    </nav>
                 </div>
 
-                <div class="header-controls">
-                    <!-- Global Search (Phase 13 / S++) -->
-                    <div class="search-bar">
-                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" class="search-input" id="global-search" placeholder="Search Work ID, Description, MP, District...">
+                <div class="sidebar-footer-card">
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <span class="badge-pill badge-healthy"><i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i> System Live</span>
                     </div>
-
-                    <!-- Dataset Corpus Selector -->
-                    <div class="select-wrapper">
-                        <select class="form-select" id="dataset-selector" title="Select Parliamentary Corpus">
-                            <option value="LokSabha18" selected>Lok Sabha 18 (Primary)</option>
-                            <option value="LokSabha17">Lok Sabha 17 (Historical)</option>
-                            <option value="RajyaSabha_Sitting">Rajya Sabha Sitting</option>
-                            <option value="RajyaSabha_Retired">Rajya Sabha Retired</option>
-                        </select>
-                    </div>
-
-                    <!-- User Role Selector -->
-                    <div class="select-wrapper">
-                        <select class="form-select" id="header-role-selector" title="Switch Administrative Persona">
-                            <option value="Ministry">Ministry (MoSPI)</option>
-                            <option value="State Nodal Authority">State Authority</option>
-                            <option value="District Authority" selected>District Authority</option>
-                            <option value="MP / Constituency">MP / Constituency</option>
-                        </select>
-                    </div>
-
-                    <!-- Filter Toggle Button -->
-                    <button type="button" id="btn-toggle-filters" class="btn btn-secondary btn-icon" title="Toggle Global Filter Bar">
-                        <i class="fa-solid fa-filter"></i>
-                        <span>Filters</span>
-                    </button>
-
-                    <!-- Auth Action Button -->
-                    <button type="button" id="btn-header-auth" class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-user"></i> <span id="lbl-user-name">District Admin</span>
-                    </button>
+                    <div class="text-muted small">Corpus: <strong id="lbl-sidebar-corpus">Lok Sabha 18</strong></div>
+                    <div class="text-muted small">Role: <strong id="lbl-sidebar-role">District Authority</strong></div>
                 </div>
-            </header>
+            </aside>
 
-            <!-- GLOBAL FILTER BAR (PHASE 8) -->
-            <div id="global-filter-bar" class="global-filter-bar">
-                <div class="filter-row">
-                    <div class="filter-group">
-                        <label>STATE</label>
-                        <select id="flt-state" class="form-select form-select-sm">
-                            <option value="ALL">All States</option>
-                        </select>
-                    </div>
+            <!-- MAIN CONTENT CANVAS (SOLID HIGH-DENSITY SURFACES) -->
+            <main class="main-canvas">
 
-                    <div class="filter-group">
-                        <label>DISTRICT</label>
-                        <select id="flt-district" class="form-select form-select-sm">
-                            <option value="ALL">All Districts</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label>CONSTITUENCY</label>
-                        <select id="flt-constituency" class="form-select form-select-sm">
-                            <option value="ALL">All Constituencies</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label>CATEGORY</label>
-                        <select id="flt-category" class="form-select form-select-sm">
-                            <option value="ALL">All Categories</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label>PRIORITY TIER</label>
-                        <select id="flt-priority" class="form-select form-select-sm">
-                            <option value="ALL">All Priority Tiers</option>
-                            <option value="CRITICAL_AUDIT_PRIORITY">Critical Audit Priority</option>
-                            <option value="STANDARD_REVIEW">Standard Review</option>
-                            <option value="LOW_PRIORITY">Low Priority</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label>RISK SIGNAL</label>
-                        <select id="flt-signal" class="form-select form-select-sm">
-                            <option value="ALL">All Risk Signals</option>
-                            <option value="cost_anomaly">Cost Anomaly (M1)</option>
-                            <option value="duplicate_work">Duplicate Work (M2)</option>
-                            <option value="expenditure_pattern">Expenditure Pattern (M3)</option>
-                            <option value="delay">Execution Delay</option>
-                            <option value="compliance">Statutory SLA Compliance</option>
-                            <option value="eligibility">Potentially Inadmissible</option>
-                            <option value="beneficiary">Private/Commercial Beneficiary</option>
-                            <option value="vendor_risk">Vendor Concentration / Structuring</option>
-                        </select>
+                <!-- GLOBAL FILTER BAR -->
+                <div id="global-filter-bar" class="card card-sm mb-4" style="border: 1px solid var(--accent-light);">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="small font-weight-bold text-muted me-2"><i class="fa-solid fa-filter"></i> FILTERS:</span>
+                            <select id="flt-state" class="form-select form-select-sm"><option value="ALL">All States</option></select>
+                            <select id="flt-district" class="form-select form-select-sm"><option value="ALL">All Districts</option></select>
+                            <select id="flt-constituency" class="form-select form-select-sm"><option value="ALL">All Constituencies</option></select>
+                            <select id="flt-category" class="form-select form-select-sm"><option value="ALL">All Categories</option></select>
+                            <select id="flt-priority" class="form-select form-select-sm">
+                                <option value="ALL">All Priorities</option>
+                                <option value="CRITICAL_AUDIT_PRIORITY">Critical Audit Priority</option>
+                                <option value="STANDARD_REVIEW">Standard Review</option>
+                                <option value="LOW_PRIORITY">Low Priority</option>
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2 align-items-center">
+                            <button type="button" id="btn-apply-filters" class="btn btn-primary btn-sm"><i class="fa-solid fa-check"></i> Apply</button>
+                            <button type="button" id="btn-reset-filters" class="btn btn-secondary btn-sm"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+                            <button type="button" id="btn-save-filter" class="btn btn-secondary btn-sm"><i class="fa-solid fa-bookmark"></i> Save</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="filter-actions">
-                    <button type="button" id="btn-apply-filters" class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-check"></i> Apply Filters
-                    </button>
-                    <button type="button" id="btn-reset-filters" class="btn btn-secondary btn-sm">
-                        <i class="fa-solid fa-rotate-left"></i> Reset
-                    </button>
-                    <button type="button" id="btn-save-filter" class="btn btn-secondary btn-sm">
-                        <i class="fa-solid fa-bookmark"></i> Save Filter
-                    </button>
-                    <span id="lbl-filter-status" class="text-muted small ml-auto">Showing unfiltered corpus</span>
-                </div>
-            </div>
-
-            <!-- PAGE CONTENT CONTAINER -->
-            <div class="page-content">
-
-                <!-- 1. OVERVIEW VIEW (PHASE 7) -->
+                <!-- 1. OVERVIEW VIEW -->
                 <section id="view-overview" class="view-section active">
-                    <!-- Hero Banner -->
+                    <!-- Hero Card -->
                     <div class="card card-hero mb-4">
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                             <div>
                                 <h2>MPLADS AUDIT INTELLIGENCE</h2>
-                                <p class="text-muted mb-0">Decision-support system for statistical, financial, timing, and administrative audit prioritization.</p>
+                                <p class="text-muted mb-0">Government decision support platform for statistical, financial, timing, and administrative audit prioritization.</p>
                             </div>
                             <div class="d-flex gap-2">
-                                <div class="badge-pill badge-healthy">
-                                    <span class="status-dot"></span> Pipeline Status: Active
-                                </div>
-                                <div class="badge-pill badge-neutral" id="lbl-hero-corpus">
-                                    Corpus: Lok Sabha 18
-                                </div>
+                                <div class="badge-pill badge-healthy"><i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i> ML Pipeline Active</div>
+                                <div class="badge-pill badge-neutral" id="lbl-hero-corpus">Corpus: Lok Sabha 18</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Top Dynamic KPIs (Phase 7 - Dynamic & Clickable) -->
+                    <!-- Dynamic Top KPIs Grid -->
                     <div class="grid-4 mb-4">
-                        <div class="card kpi-card" id="kpi-card-total" style="cursor: pointer;">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Total Works</span>
-                                <i class="fa-solid fa-database kpi-icon"></i>
-                            </div>
+                        <div class="kpi-tile" id="kpi-card-total">
+                            <div class="kpi-header"><span class="kpi-title">Total Works</span><i class="fa-solid fa-database kpi-icon"></i></div>
                             <div class="kpi-number" id="kpi-ov-total">79,220</div>
                             <div class="kpi-subtitle">Evaluated sanctioned works</div>
                         </div>
-
-                        <div class="card kpi-card" id="kpi-card-sanctioned" style="cursor: pointer;">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Sanctioned Amount</span>
-                                <i class="fa-solid fa-indian-rupee-sign kpi-icon"></i>
-                            </div>
+                        <div class="kpi-tile" id="kpi-card-sanctioned">
+                            <div class="kpi-header"><span class="kpi-title">Sanctioned Amount</span><i class="fa-solid fa-indian-rupee-sign kpi-icon"></i></div>
                             <div class="kpi-number" id="kpi-ov-sanctioned">₹54,120.4 Cr</div>
                             <div class="kpi-subtitle">Total sanctioned outlay</div>
                         </div>
-
-                        <div class="card kpi-card" id="kpi-card-critical" style="cursor: pointer;">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Critical Audit Priority</span>
-                                <i class="fa-solid fa-triangle-exclamation kpi-icon text-destructive"></i>
-                            </div>
+                        <div class="kpi-tile" id="kpi-card-critical">
+                            <div class="kpi-header"><span class="kpi-title">Critical Audit Priority</span><i class="fa-solid fa-triangle-exclamation kpi-icon text-destructive"></i></div>
                             <div class="kpi-number text-destructive" id="kpi-ov-critical">1,635</div>
                             <div class="kpi-subtitle" id="kpi-ov-critical-pct">2.06% of total works</div>
                         </div>
-
-                        <div class="card kpi-card" id="kpi-card-standard" style="cursor: pointer;">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Standard Review</span>
-                                <i class="fa-solid fa-circle-notch kpi-icon text-warning"></i>
-                            </div>
+                        <div class="kpi-tile" id="kpi-card-standard">
+                            <div class="kpi-header"><span class="kpi-title">Standard Review</span><i class="fa-solid fa-circle-notch kpi-icon text-warning"></i></div>
                             <div class="kpi-number text-warning" id="kpi-ov-standard">58,182</div>
                             <div class="kpi-subtitle" id="kpi-ov-standard-pct">73.44% of total works</div>
                         </div>
                     </div>
 
-                    <!-- Secondary KPIs -->
+                    <!-- Secondary KPIs Grid -->
                     <div class="grid-4 mb-4">
-                        <div class="card kpi-card" id="kpi-card-anomalies" style="cursor: pointer;">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Works Requiring Review</span>
-                                <i class="fa-solid fa-chart-line kpi-icon text-accent"></i>
-                            </div>
+                        <div class="kpi-tile" id="kpi-card-anomalies">
+                            <div class="kpi-header"><span class="kpi-title">M1 Cost Outliers</span><i class="fa-solid fa-chart-line kpi-icon text-accent"></i></div>
                             <div class="kpi-number text-accent" id="kpi-ov-anomalies">3,961</div>
-                            <div class="kpi-subtitle">M1 Cost & timing outliers</div>
+                            <div class="kpi-subtitle">Multivariate outliers</div>
                         </div>
-
-                        <div class="card kpi-card" id="kpi-card-duplicates" style="cursor: pointer;">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Potential Duplicate Works</span>
-                                <i class="fa-solid fa-clone kpi-icon text-accent"></i>
-                            </div>
+                        <div class="kpi-tile" id="kpi-card-duplicates">
+                            <div class="kpi-header"><span class="kpi-title">Potential Duplicates</span><i class="fa-solid fa-clone kpi-icon text-accent"></i></div>
                             <div class="kpi-number text-accent" id="kpi-ov-duplicates">1,810</div>
                             <div class="kpi-subtitle">M2 Candidate pair matches</div>
                         </div>
-
-                        <div class="card kpi-card" id="kpi-card-compliance" style="cursor: pointer;">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Compliance Review</span>
-                                <i class="fa-solid fa-clock-history kpi-icon text-warning"></i>
-                            </div>
+                        <div class="kpi-tile" id="kpi-card-compliance">
+                            <div class="kpi-header"><span class="kpi-title">Compliance Review</span><i class="fa-solid fa-clock-history kpi-icon text-warning"></i></div>
                             <div class="kpi-number text-warning" id="kpi-ov-compliance">13,334</div>
-                            <div class="kpi-subtitle">Severe statutory SLA gaps</div>
+                            <div class="kpi-subtitle">Severe SLA benchmark gaps</div>
                         </div>
-
-                        <div class="card kpi-card" id="kpi-card-low" style="cursor: pointer;">
-                            <div class="kpi-header">
-                                <span class="kpi-title">Low Priority</span>
-                                <i class="fa-solid fa-circle-check kpi-icon text-success"></i>
-                            </div>
-                            <div class="kpi-number text-success" id="kpi-ov-low">19,403</div>
+                        <div class="kpi-tile" id="kpi-card-low">
+                            <div class="kpi-header"><span class="kpi-title">Low Priority</span><i class="fa-solid fa-circle-check kpi-icon text-healthy"></i></div>
+                            <div class="kpi-number text-healthy" id="kpi-ov-low">19,403</div>
                             <div class="kpi-subtitle" id="kpi-ov-low-pct">24.49% of total works</div>
                         </div>
                     </div>
 
-                    <!-- Geographic & Visual Dashboard Charts Grid -->
+                    <!-- Charts Grid -->
                     <div class="grid-2 mb-4">
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-header">
                                 <h3>Geographic Risk Distribution</h3>
-                                <small class="text-muted">Click a state to filter dashboard</small>
+                                <small class="text-muted">State-wise sanctioned outlay (₹ Cr)</small>
                             </div>
-                            <div id="chart-geo-distribution" class="chart-container"></div>
+                            <div id="chart-geo-distribution" style="height: 320px;"></div>
                         </div>
-
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-header">
                                 <h3>Audit Priority Breakdown</h3>
-                                <small class="text-muted">Multi-signal tier distribution</small>
+                                <small class="text-muted">Multi-signal tier ratio</small>
                             </div>
-                            <div id="chart-priority-donut" class="chart-container"></div>
+                            <div id="chart-priority-donut" style="height: 320px;"></div>
                         </div>
-                    </div>
-
-                    <!-- Executive Summary Callout Box -->
-                    <div class="callout-box">
-                        <i class="fa-solid fa-shield-halved text-accent me-2"></i>
-                        <strong>Governance Notice</strong>: This platform operates as an administrative audit triage engine. Flagged signals represent statistical, financial, or procedural anomalies requiring audit review, and do NOT constitute legal proof of fraud or wrongdoing.
                     </div>
                 </section>
 
-                <!-- 2. WORKS EXPLORER VIEW (PHASE 13) -->
+                <!-- 2. WORKS EXPLORER VIEW -->
                 <section id="view-works" class="view-section">
                     <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div class="card-header flex-wrap gap-2">
                             <h3>Works Inventory Explorer</h3>
                             <div class="d-flex gap-2">
-                                <input type="text" id="input-search-works" class="form-input form-input-sm" placeholder="Search description, ID, agency..." style="width: 260px;">
+                                <input type="text" id="input-search-works" class="form-input" placeholder="Filter table records..." style="width: 240px;">
                                 <button type="button" id="btn-works-export" class="btn btn-secondary btn-sm"><i class="fa-solid fa-download"></i> Export CSV</button>
                             </div>
                         </div>
 
-                        <div class="table-responsive">
+                        <div class="table-container">
                             <table class="data-table" id="tbl-works">
                                 <thead>
                                     <tr>
@@ -430,33 +354,29 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!-- Dynamic Rows -->
-                                </tbody>
+                                <tbody><!-- Dynamic Rows --></tbody>
                             </table>
                         </div>
 
-                        <div class="pagination-bar mt-3">
+                        <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="text-muted small" id="lbl-works-count">Showing 1 to 50 of 79,220 works</div>
-                            <div class="pagination-controls">
+                            <div class="d-flex gap-2 align-items-center">
                                 <button type="button" id="btn-works-prev" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-left"></i> Previous</button>
-                                <span id="lbl-works-page" class="mx-2 small">Page 1</span>
+                                <span id="lbl-works-page" class="small mx-2">Page 1</span>
                                 <button type="button" id="btn-works-next" class="btn btn-secondary btn-sm">Next <i class="fa-solid fa-chevron-right"></i></button>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- 3. AUDIT QUEUE VIEW (PHASE 9) -->
+                <!-- 3. AUDIT QUEUE VIEW -->
                 <section id="view-priority" class="view-section">
                     <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div class="card-header flex-wrap gap-2">
                             <div>
                                 <h3>Audit Priority Queue</h3>
                                 <p class="text-muted small mb-0">Prioritized work records for administrative audit investigation</p>
                             </div>
-
-                            <!-- Audit Queue Tabs (Phase 9) -->
                             <div class="tab-pills">
                                 <button type="button" class="tab-pill active" data-queue-tab="CRITICAL">Critical</button>
                                 <button type="button" class="tab-pill" data-queue-tab="STANDARD">Standard</button>
@@ -465,7 +385,7 @@
                             </div>
                         </div>
 
-                        <div class="table-responsive">
+                        <div class="table-container">
                             <table class="data-table" id="tbl-audit-queue">
                                 <thead>
                                     <tr>
@@ -482,15 +402,13 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!-- Dynamic Queue Rows -->
-                                </tbody>
+                                <tbody><!-- Dynamic Queue Rows --></tbody>
                             </table>
                         </div>
 
-                        <div class="pagination-bar mt-3">
+                        <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="text-muted small" id="lbl-queue-count">Showing top priority records</div>
-                            <div class="pagination-controls">
+                            <div class="d-flex gap-2">
                                 <button type="button" id="btn-queue-prev" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-left"></i> Previous</button>
                                 <button type="button" id="btn-queue-next" class="btn btn-secondary btn-sm">Next <i class="fa-solid fa-chevron-right"></i></button>
                             </div>
@@ -498,103 +416,62 @@
                     </div>
                 </section>
 
-                <!-- 4. ALERT CENTER VIEW (PHASE 14) -->
+                <!-- 4. ALERT CENTER VIEW -->
                 <section id="view-alerts" class="view-section">
                     <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div class="card-header flex-wrap gap-2">
                             <div>
                                 <h3>Alert Center</h3>
                                 <p class="text-muted small mb-0">Real-time signal alerts requiring verification</p>
                             </div>
-
-                            <div class="tab-pills" id="alert-category-tabs">
+                            <div class="tab-pills">
                                 <button type="button" class="tab-pill active" data-alert-cat="ALL">All</button>
                                 <button type="button" class="tab-pill" data-alert-cat="CRITICAL">Critical</button>
                                 <button type="button" class="tab-pill" data-alert-cat="COST">Cost</button>
-                                <button type="button" class="tab-pill" data-alert-cat="DELAY">Delay</button>
                                 <button type="button" class="tab-pill" data-alert-cat="DUPLICATE">Duplicate</button>
-                                <button type="button" class="tab-pill" data-alert-cat="PAYMENT">Payment</button>
                                 <button type="button" class="tab-pill" data-alert-cat="COMPLIANCE">Compliance</button>
-                                <button type="button" class="tab-pill" data-alert-cat="VENDOR">Vendor</button>
                             </div>
                         </div>
-
-                        <div id="alerts-list-container" class="alerts-container mt-3">
-                            <!-- Dynamic Alerts List -->
-                        </div>
+                        <div id="alerts-list-container" class="mt-3"><!-- Dynamic Alerts --></div>
                     </div>
                 </section>
 
-                <!-- 5. EXPENDITURE VIEW (PHASE 15) -->
+                <!-- 5. EXPENDITURE VIEW -->
                 <section id="view-expenditure" class="view-section">
                     <div class="grid-3 mb-4">
-                        <div class="card kpi-card">
-                            <span class="kpi-title">Total Sanctioned</span>
-                            <div class="kpi-number" id="exp-kpi-sanctioned">₹54,120.4 Cr</div>
-                            <span class="kpi-subtitle">Sanctioned outlay</span>
-                        </div>
-                        <div class="card kpi-card">
-                            <span class="kpi-title">Total Expenditure</span>
-                            <div class="kpi-number text-accent" id="exp-kpi-disbursed">₹2,778.75 Cr</div>
-                            <span class="kpi-subtitle">Disbursed funds</span>
-                        </div>
-                        <div class="card kpi-card">
-                            <span class="kpi-title">Disbursement Ratio</span>
-                            <div class="kpi-number text-success" id="exp-kpi-ratio">5.13%</div>
-                            <span class="kpi-subtitle">Utilization rate</span>
-                        </div>
+                        <div class="card card-sm"><span class="kpi-title">Total Sanctioned</span><div class="kpi-number" id="exp-kpi-sanctioned">₹54,120.4 Cr</div></div>
+                        <div class="card card-sm"><span class="kpi-title">Total Expenditure</span><div class="kpi-number text-accent" id="exp-kpi-disbursed">₹2,778.75 Cr</div></div>
+                        <div class="card card-sm"><span class="kpi-title">Disbursement Ratio</span><div class="kpi-number text-healthy" id="exp-kpi-ratio">5.13%</div></div>
                     </div>
-
                     <div class="grid-2 mb-4">
-                        <div class="card">
-                            <h3>Monthly Disbursement Velocity</h3>
-                            <div id="chart-expenditure-timeline" class="chart-container"></div>
-                        </div>
-                        <div class="card">
-                            <h3>Category-Wise Disbursement</h3>
-                            <div id="chart-expenditure-category" class="chart-container"></div>
-                        </div>
+                        <div class="card"><h3>Disbursement Velocity</h3><div id="chart-expenditure-timeline" style="height: 320px;"></div></div>
+                        <div class="card"><h3>Category Breakdown</h3><div id="chart-expenditure-category" style="height: 320px;"></div></div>
                     </div>
                 </section>
 
-                <!-- 6. COMPLIANCE MONITOR VIEW (PHASE 16) -->
+                <!-- 6. COMPLIANCE REVIEW VIEW -->
                 <section id="view-compliance" class="view-section">
                     <div class="card mb-4">
-                        <h3>Statutory SLA Benchmark Review</h3>
-                        <p class="text-muted small">Evaluates recommendation-to-sanction approval gaps against the 45-day statutory review benchmark.</p>
-                        
+                        <h3>Statutory Review SLA Benchmark Review</h3>
+                        <p class="text-muted small">Recommendation-to-sanction approval gap analysis against statutory 45-day review benchmark.</p>
                         <div class="grid-4 mb-4 mt-3">
-                            <div class="card kpi-card">
-                                <span class="kpi-title">Compliant (&le; 45d)</span>
-                                <div class="kpi-number text-success" id="cmp-kpi-compliant">23,337</div>
-                            </div>
-                            <div class="card kpi-card">
-                                <span class="kpi-title">Minor Deviation (46–90d)</span>
-                                <div class="kpi-number text-warning" id="cmp-kpi-minor">20,937</div>
-                            </div>
-                            <div class="card kpi-card">
-                                <span class="kpi-title">Moderate Deviation (91–180d)</span>
-                                <div class="kpi-number text-warning" id="cmp-kpi-moderate">21,611</div>
-                            </div>
-                            <div class="card kpi-card">
-                                <span class="kpi-title">Severe Deviation (&gt; 180d)</span>
-                                <div class="kpi-number text-destructive" id="cmp-kpi-severe">13,334</div>
-                            </div>
+                            <div class="card card-sm"><span class="kpi-title">Compliant (&le;45d)</span><div class="kpi-number text-healthy" id="cmp-kpi-compliant">23,337</div></div>
+                            <div class="card card-sm"><span class="kpi-title">Minor (46–90d)</span><div class="kpi-number text-warning" id="cmp-kpi-minor">20,937</div></div>
+                            <div class="card card-sm"><span class="kpi-title">Moderate (91–180d)</span><div class="kpi-number text-warning" id="cmp-kpi-moderate">21,611</div></div>
+                            <div class="card card-sm"><span class="kpi-title">Severe (&gt;180d)</span><div class="kpi-number text-destructive" id="cmp-kpi-severe">13,334</div></div>
                         </div>
-
-                        <div id="chart-compliance-gaps" class="chart-container"></div>
+                        <div id="chart-compliance-gaps" style="height: 320px;"></div>
                     </div>
                 </section>
 
-                <!-- 7. DUPLICATE WORKS COMPARISON VIEW (PHASE 17) -->
+                <!-- 7. DUPLICATE WORKS VIEW -->
                 <section id="view-duplicates" class="view-section">
                     <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="card-header">
                             <h3>Potential Duplicate Works & Record Linkage</h3>
                             <span class="badge-pill badge-neutral">M2 Model Output</span>
                         </div>
-
-                        <div class="table-responsive">
+                        <div class="table-container">
                             <table class="data-table" id="tbl-duplicates">
                                 <thead>
                                     <tr>
@@ -608,59 +485,55 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!-- Dynamic Rows -->
-                                </tbody>
+                                <tbody><!-- Dynamic Duplicate Rows --></tbody>
                             </table>
                         </div>
                     </div>
                 </section>
 
-                <!-- 8. FORECAST VIEW (PHASE 18) -->
+                <!-- 8. FORECAST VIEW -->
                 <section id="view-forecast" class="view-section">
                     <div class="card mb-4">
                         <h3>MPLADS Expenditure Outlook & Forecast</h3>
-                        <p class="text-muted small">Multi-step 6-month forecast using Recursive 3-Month Rolling Average with Empirical 95% Expected Range bounds.</p>
-                        
-                        <div id="chart-expenditure-forecast" class="chart-container" style="height: 420px;"></div>
+                        <p class="text-muted small">Multi-step 6-month forecast with Empirical 95% Expected Range bounds.</p>
+                        <div id="chart-expenditure-forecast" style="height: 380px;"></div>
                     </div>
                 </section>
 
-                <!-- 9. AGENCY ANALYTICS VIEW (PHASE 19) -->
+                <!-- 9. AGENCY RISK VIEW -->
                 <section id="view-agencies" class="view-section">
                     <div class="card mb-4">
                         <h3>Vendor Concentration & Implementing Agency Risk</h3>
-                        <p class="text-muted small">Herfindahl-Hirschman Index (HHI) concentration analytics with Public Government Entity Whitelisting safeguards.</p>
-                        <div id="chart-vendor-hhi" class="chart-container"></div>
+                        <p class="text-muted small">Herfindahl-Hirschman Index (HHI) concentration metrics with public entity whitelisting safeguards.</p>
+                        <div id="chart-vendor-hhi" style="height: 360px;"></div>
                     </div>
                 </section>
 
-                <!-- 10. CONSOLIDATED ANALYTICS VIEW (PHASE 20) -->
+                <!-- 10. RISK ANALYTICS VIEW -->
                 <section id="view-analytics" class="view-section">
                     <div class="card mb-4">
-                        <h3>Multi-Dimensional Risk Analytics</h3>
+                        <h3>Consolidated Risk Analytics</h3>
                         <div class="grid-2">
-                            <div id="chart-analytics-radar" class="chart-container"></div>
-                            <div id="chart-analytics-scatter" class="chart-container"></div>
+                            <div id="chart-analytics-radar" style="height: 340px;"></div>
+                            <div id="chart-analytics-scatter" style="height: 340px;"></div>
                         </div>
                     </div>
                 </section>
 
-                <!-- 11. AI & METHODOLOGY VIEW (PHASE 21) -->
+                <!-- 11. AI & METHODOLOGY VIEW -->
                 <section id="view-methodology" class="view-section">
                     <div class="card mb-4">
-                        <h3>AI Models & Governance Methodology</h3>
-                        <p class="text-muted small">Comprehensive documentation of models M1 through M5 for audit evaluators and judges.</p>
-
+                        <h3>AI & Methodology Governance</h3>
+                        <p class="text-muted small">Authoritative documentation of models M1 through M5 for SIH evaluators and judges.</p>
                         <div class="grid-2 gap-3 mt-3">
                             <div class="card card-sm">
                                 <h4>M1: Cost Anomaly Engine</h4>
                                 <p class="small text-muted mb-1">Hierarchical Peer IQR / Zero-IQR MAD Baseline + Unsupervised Isolation Forest (300 estimators).</p>
-                                <span class="badge-pill badge-healthy">Audit-Time Screening</span>
+                                <span class="badge-pill badge-healthy">Audit Screening</span>
                             </div>
                             <div class="card card-sm">
                                 <h4>M2: Double-Dipping Detector</h4>
-                                <p class="small text-muted mb-1">Geographic Candidate Blocking (State+District+Category) + TF-IDF Cosine Vectorizer + Multi-Signal V2 Scoring Matrix.</p>
+                                <p class="small text-muted mb-1">Geographic Candidate Blocking (State+District+Category) + TF-IDF Cosine Vectorizer.</p>
                                 <span class="badge-pill badge-healthy">Record Linkage</span>
                             </div>
                             <div class="card card-sm">
@@ -670,195 +543,176 @@
                             </div>
                             <div class="card card-sm">
                                 <h4>M4: Time-Series Forecaster</h4>
-                                <p class="small text-muted mb-1">Recursive 3-Month Rolling Average Multi-Step 6-Month Horizon with Empirical 95% Expected Range bounds.</p>
+                                <p class="small text-muted mb-1">Recursive 3-Month Rolling Average Multi-Step 6-Month Horizon with Empirical Expected Range.</p>
                                 <span class="badge-pill badge-healthy">Predictive Outlook</span>
                             </div>
                             <div class="card card-sm">
                                 <h4>M5: Audit Priority Aggregator</h4>
-                                <p class="small text-muted mb-1">Multi-Dimensional Weighted Priority Aggregation ($\sum W = 1.0000$) with supporting-only signal caps.</p>
+                                <p class="small text-muted mb-1">Multi-Dimensional Weighted Priority Aggregation ($\sum W = 1.0000$) with supporting signal caps.</p>
                                 <span class="badge-pill badge-healthy">Unified Triage</span>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- 12. REPORTS VIEW (PHASE 22) -->
+                <!-- 12. REPORTS VIEW -->
                 <section id="view-reports" class="view-section">
                     <div class="card mb-4">
                         <h3>Audit Reports & Verification Documents</h3>
-                        <p class="text-muted small">Generated system validation, performance, and compliance reports.</p>
-
                         <div class="grid-3 gap-3 mt-3">
                             <div class="card card-sm">
                                 <h4>System Verification Report</h4>
-                                <p class="small text-muted">Complete phase verification and automated test results.</p>
-                                <button type="button" class="btn btn-secondary btn-sm btn-view-report" data-report="reports/final/final_system_verification.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
+                                <button type="button" class="btn btn-secondary btn-sm mt-2 btn-view-report" data-report="reports/final/final_system_verification.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
                             </div>
                             <div class="card card-sm">
-                                <h4>Model Performance Report</h4>
-                                <p class="small text-muted">Holdout split evaluation and diagnostic metric reports.</p>
-                                <button type="button" class="btn btn-secondary btn-sm btn-view-report" data-report="reports/model_validation/final_model_performance_validation.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
+                                <h4>Model Validation Report</h4>
+                                <button type="button" class="btn btn-secondary btn-sm mt-2 btn-view-report" data-report="reports/model_validation/final_model_performance_validation.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
                             </div>
                             <div class="card card-sm">
                                 <h4>Audit Priority Report</h4>
-                                <p class="small text-muted">Model 5 priority aggregation breakdown.</p>
-                                <button type="button" class="btn btn-secondary btn-sm btn-view-report" data-report="reports/phase_6/phase6_audit_priority.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
+                                <button type="button" class="btn btn-secondary btn-sm mt-2 btn-view-report" data-report="reports/phase_6/phase6_audit_priority.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
                             </div>
                         </div>
 
-                        <!-- Report Display Container -->
+                        <!-- Report Container -->
                         <div id="report-view-container" class="card mt-4 d-none">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 id="report-title">Report Content</h4>
                                 <button type="button" id="btn-close-report" class="btn btn-secondary btn-sm"><i class="fa-solid fa-xmark"></i> Close</button>
                             </div>
-                            <pre id="report-content" class="report-pre"></pre>
+                            <pre id="report-content" style="white-space: pre-wrap; font-family: var(--font-mono); font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 16px; border-radius: var(--radius-control); max-height: 450px; overflow-y: auto;"></pre>
                         </div>
                     </div>
                 </section>
 
-            </div><!-- /.page-content -->
-        </main>
-    </div><!-- /.app-container -->
+            </main>
+        </div>
+    </div>
 
     <!-- =================================================-----------------
-         WORK INVESTIGATION DRAWER (PHASE 10 & 11)
-         ================================================------------------ -->
-    <div id="drawer-backdrop" class="drawer-backdrop"></div>
+         3. MAC SPOTLIGHT SEARCH MODAL (CMD+K)
+         ================================================================-- -->
+    <div id="spotlight-modal" class="modal-overlay">
+        <div class="glass-modal-card spotlight-card">
+            <div class="spotlight-input-wrapper">
+                <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                <input type="text" id="spotlight-input" class="spotlight-input" placeholder="Type a work ID, MP, district, or category..." autocomplete="off">
+                <span class="kbd-shortcut">ESC</span>
+            </div>
+            <div id="spotlight-results" class="spotlight-results">
+                <div class="p-3 text-center text-muted small">Start typing to search 79,220 works across all parliamentary corpora...</div>
+            </div>
+        </div>
+    </div>
 
+    <!-- WORK INVESTIGATION DRAWER -->
+    <div id="drawer-backdrop" class="drawer-backdrop"></div>
     <aside id="work-detail-drawer" class="drawer">
         <div class="drawer-header">
             <div>
                 <span class="badge-pill badge-neutral mb-1" id="dr-work-id">WORK ID</span>
-                <h3 id="dr-title" style="font-size: 1.1rem; line-height: 1.3;">Work Description</h3>
+                <h3 id="dr-title" style="font-size: 1.05rem; line-height: 1.3;">Work Description</h3>
             </div>
-            <button type="button" id="dr-close-btn" class="drawer-close-btn"><i class="fa-solid fa-xmark"></i></button>
+            <button type="button" id="dr-close-btn" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <div class="drawer-body">
-            <!-- Header Summary Cards -->
             <div class="grid-2 mb-3">
                 <div class="card card-sm">
-                    <span class="small text-muted">Sanctioned Amount</span>
+                    <span class="small text-muted">Sanctioned Outlay</span>
                     <strong id="dr-amount" style="font-size: 1.1rem; display: block;">₹0.00</strong>
                 </div>
                 <div class="card card-sm">
                     <span class="small text-muted">Audit Priority Score</span>
-                    <strong id="dr-score" style="font-size: 1.1rem; display: block;" class="text-destructive">0.0 / 100</strong>
+                    <strong id="dr-score" style="font-size: 1.1rem; display: block;" class="text-destructive">0 / 100</strong>
                 </div>
             </div>
 
             <div class="card card-sm mb-3">
-                <div class="small text-muted mb-1">Location & Category</div>
-                <div id="dr-location" style="font-size: 0.85rem; font-weight: 500;">Location Details</div>
+                <span class="small text-muted d-block mb-1">Location & Category</span>
+                <div id="dr-location" class="small font-weight-bold">Location Details</div>
             </div>
 
-            <!-- WHY IS THIS WORK BEING FLAGGED? (PHASE 10) -->
             <div class="card mb-3">
-                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 12px;" class="d-flex justify-content-between align-items-center">
-                    <span>Why is this work being flagged?</span>
-                    <button type="button" id="btn-show-technical-details" class="btn btn-secondary btn-xs"><i class="fa-solid fa-code"></i> Technical Details</button>
-                </h4>
-
-                <div id="dr-signals-container">
-                    <!-- Dynamic Signals with [ Why? ] buttons -->
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h4 style="font-size: 0.95rem; font-weight: 700;">Why is this work flagged?</h4>
+                    <button type="button" id="btn-show-technical-details" class="btn btn-secondary btn-xs"><i class="fa-solid fa-code"></i> Tech Specs</button>
                 </div>
+                <div id="dr-signals-container"><!-- Dynamic Signals --></div>
             </div>
 
-            <!-- AUDIT EVIDENCE STRINGS -->
             <div class="card mb-3">
                 <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">Triggered Audit Evidence</h4>
-                <ul id="dr-evidence-list" class="evidence-list">
-                    <!-- Dynamic Evidence Bullet Points -->
-                </ul>
+                <ul id="dr-evidence-list" style="padding-left: 18px; font-size: 0.8rem; color: var(--text-secondary);"><!-- Dynamic Bullets --></ul>
             </div>
 
-            <!-- WORK ACTIONS -->
-            <div class="d-flex gap-2 mt-4">
+            <div class="mt-4">
                 <button type="button" id="btn-dispatch-whatsapp" class="btn btn-primary w-100"><i class="fa-brands fa-whatsapp"></i> Send WhatsApp Alert</button>
             </div>
         </div>
     </aside>
 
-    <!-- SIDE-BY-SIDE DUPLICATE COMPARISON MODAL (PHASE 17) -->
+    <!-- SIDE-BY-SIDE DUPLICATE COMPARISON MODAL -->
     <div id="duplicate-modal" class="modal-overlay">
-        <div class="modal-card modal-lg">
-            <div class="modal-header d-flex justify-content-between align-items-center mb-3">
+        <div class="glass-modal-card" style="max-width: 720px;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3>Side-by-Side Duplicate Work Comparison</h3>
-                <button type="button" id="btn-close-dup-modal" class="drawer-close-btn"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" id="btn-close-dup-modal" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-body">
-                <div class="grid-2 gap-3 mb-3">
-                    <div class="card card-sm" style="border: 1px solid var(--border-highlight);">
-                        <div class="badge-pill badge-neutral mb-2">WORK A</div>
-                        <h4 id="dup-a-id" class="mb-1">ID</h4>
-                        <p id="dup-a-desc" class="small text-muted mb-2">Description</p>
-                        <div class="small"><strong>Location:</strong> <span id="dup-a-loc">Loc</span></div>
-                        <div class="small"><strong>Amount:</strong> <span id="dup-a-amt">₹0.00</span></div>
-                    </div>
-
-                    <div class="card card-sm" style="border: 1px solid var(--border-highlight);">
-                        <div class="badge-pill badge-neutral mb-2">WORK B</div>
-                        <h4 id="dup-b-id" class="mb-1">ID</h4>
-                        <p id="dup-b-desc" class="small text-muted mb-2">Description</p>
-                        <div class="small"><strong>Location:</strong> <span id="dup-b-loc">Loc</span></div>
-                        <div class="small"><strong>Amount:</strong> <span id="dup-b-amt">₹0.00</span></div>
-                    </div>
-                </div>
-
+            <div class="grid-2 gap-3 mb-3">
                 <div class="card card-sm">
-                    <h4>Similarity Feature Breakdown</h4>
-                    <div class="grid-4 text-center mt-2">
-                        <div><small class="text-muted">Overall Risk</small><div id="dup-score-overall" class="h4 text-accent">0%</div></div>
-                        <div><small class="text-muted">Text Cosine</small><div id="dup-score-text" class="h4">0%</div></div>
-                        <div><small class="text-muted">Amount Parity</small><div id="dup-score-amt" class="h4">0%</div></div>
-                        <div><small class="text-muted">Location Match</small><div id="dup-score-loc" class="h4">0%</div></div>
-                    </div>
+                    <span class="badge-pill badge-neutral mb-2">WORK A</span>
+                    <h4 id="dup-a-id" class="mb-1">ID</h4>
+                    <p id="dup-a-desc" class="small text-muted mb-2">Description</p>
+                    <div class="small"><strong>Location:</strong> <span id="dup-a-loc">Loc</span></div>
+                    <div class="small"><strong>Amount:</strong> <span id="dup-a-amt">₹0.00</span></div>
+                </div>
+                <div class="card card-sm">
+                    <span class="badge-pill badge-neutral mb-2">WORK B</span>
+                    <h4 id="dup-b-id" class="mb-1">ID</h4>
+                    <p id="dup-b-desc" class="small text-muted mb-2">Description</p>
+                    <div class="small"><strong>Location:</strong> <span id="dup-b-loc">Loc</span></div>
+                    <div class="small"><strong>Amount:</strong> <span id="dup-b-amt">₹0.00</span></div>
+                </div>
+            </div>
+            <div class="card card-sm">
+                <h4>Candidate Linkage Metrics</h4>
+                <div class="grid-4 text-center mt-2">
+                    <div><small class="text-muted">Overall Risk</small><div id="dup-score-overall" class="h4 text-accent">0%</div></div>
+                    <div><small class="text-muted">Text Cosine</small><div id="dup-score-text" class="h4">0%</div></div>
+                    <div><small class="text-muted">Amount Parity</small><div id="dup-score-amt" class="h4">0%</div></div>
+                    <div><small class="text-muted">Location Match</small><div id="dup-score-loc" class="h4">0%</div></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- TECHNICAL DETAILS MODAL (PHASE 11) -->
+    <!-- TECHNICAL DETAILS MODAL -->
     <div id="technical-details-modal" class="modal-overlay">
-        <div class="modal-card">
-            <div class="modal-header d-flex justify-content-between align-items-center mb-3">
+        <div class="glass-modal-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3>Technical Model Specifications</h3>
-                <button type="button" id="btn-close-tech-modal" class="drawer-close-btn"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" id="btn-close-tech-modal" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-body">
-                <div class="card card-sm mb-2">
-                    <strong>Algorithm:</strong> <span id="tech-algo">Peer IQR/MAD + Isolation Forest</span>
-                </div>
-                <div class="card card-sm mb-2">
-                    <strong>Features Used:</strong> <span id="tech-features">8 non-redundant monetary and timing features</span>
-                </div>
-                <div class="card card-sm mb-2">
-                    <strong>Model Version:</strong> <span id="tech-version">1.0.0 (Production Release)</span>
-                </div>
-                <div class="card card-sm mb-2">
-                    <strong>Evaluation Standard:</strong> <span>Unsupervised Anomaly Screening — No synthetic labels fabricated.</span>
-                </div>
-            </div>
+            <div class="card card-sm mb-2"><strong>Algorithm:</strong> <span>Peer IQR/MAD + Isolation Forest (300 estimators)</span></div>
+            <div class="card card-sm mb-2"><strong>Features Used:</strong> <span>8 leak-free monetary and timing features</span></div>
+            <div class="card card-sm mb-2"><strong>Model Version:</strong> <span>1.0.0 (Production Release)</span></div>
+            <div class="card card-sm mb-2"><strong>Governance Standard:</strong> <span>Unsupervised Anomaly Screening — 0 synthetic labels.</span></div>
         </div>
     </div>
 
-    <!-- EVIDENCE EXPLANATION MODAL (PHASE 10 & 11) -->
+    <!-- EVIDENCE EXPLANATION MODAL -->
     <div id="evidence-explanation-modal" class="modal-overlay">
-        <div class="modal-card">
-            <div class="modal-header d-flex justify-content-between align-items-center mb-3">
+        <div class="glass-modal-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 id="exp-modal-title">Signal Evidence Explanation</h3>
-                <button type="button" id="btn-close-exp-modal" class="drawer-close-btn"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" id="btn-close-exp-modal" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-body">
-                <div id="exp-modal-body" class="p-3 card card-sm">
-                    <!-- Dynamic Evidence Text -->
-                </div>
-            </div>
+            <div id="exp-modal-body" class="card card-sm"></div>
         </div>
     </div>
 
-    <!-- Application Script -->
+    <!-- Main Client Engine Script -->
     <script src="app.js"></script>
 </body>
 </html>

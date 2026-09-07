@@ -1,6 +1,6 @@
 /* ==========================================================================
-   MPLADS Audit Intelligence — Professional S++ Application Engine
-   UI/UX Pro Max — Government Decision Support Platform (SIH26102)
+   MPLADS Audit Intelligence — macOS Tahoe Liquid Glass Client Engine
+   SIH26102 — Government Decision Support Platform (CodeBlooded)
    ========================================================================== */
 
 (function() {
@@ -37,19 +37,18 @@
             district: 'ALL',
             constituency: 'ALL',
             category: 'ALL',
-            priority: 'ALL',
-            signal: 'ALL'
+            priority: 'ALL'
         }
     };
 
-    // View Titles Sitemap
+    // Sitemap Titles
     const viewMetadata = {
         overview: { title: 'Overview / Command Center', subtitle: 'AI-assisted audit triage and risk analysis' },
         works: { title: 'Works Inventory Explorer', subtitle: 'Searchable database of sanctioned works' },
         priority: { title: 'Audit Priority Queue', subtitle: 'Multi-signal risk triage and audit allocation' },
         alerts: { title: 'Alert Center', subtitle: 'Real-time anomaly alerts and verification management' },
         expenditure: { title: 'Expenditure Intelligence', subtitle: 'Disbursement velocity and tranche structure analytics' },
-        compliance: { title: 'Statutory & Administrative Review', subtitle: 'Recommendation-to-sanction approval timeline gaps' },
+        compliance: { title: 'Statutory SLA Review', subtitle: 'Recommendation-to-sanction approval timeline gaps' },
         duplicates: { title: 'Potential Duplicate Works', subtitle: 'Geographic candidate blocking and text similarity record linkage' },
         forecast: { title: 'Expenditure Outlook & Forecast', subtitle: 'Six-month empirical rolling average baseline' },
         agencies: { title: 'Vendor Concentration & Agency Risk', subtitle: 'Herfindahl-Hirschman Index (HHI) concentration analytics' },
@@ -58,19 +57,17 @@
         reports: { title: 'Audit Reports & Verification Documents', subtitle: 'Generated system validation and compliance reports' }
     };
 
-    // Helper: Format Currency
+    // Format Helpers
     function formatINR(val) {
-        if (val === null || val === undefined || isNaN(val)) return 'Data unavailable';
+        if (val === null || val === undefined || isNaN(val)) return 'Data unavailable in source record';
         return '₹' + Number(val).toLocaleString('en-IN', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
     }
 
-    // Helper: Format Number
     function fmtNum(val) {
         if (val === null || val === undefined || isNaN(val)) return '0';
         return Number(val).toLocaleString('en-IN');
     }
 
-    // Helper: Safe String
     function safeText(str, fallback = 'Data unavailable in source record') {
         if (!str || str === 'nan' || str === 'NaN' || str === 'None' || str === 'null') return fallback;
         return String(str).trim();
@@ -105,7 +102,7 @@
                 return await res.json();
             }
         } catch (e) {
-            console.warn('API fetch failed for /api/' + endpoint + ', using local fallback.', e);
+            console.warn('API fetch failed for /api/' + endpoint + ', using fallback.', e);
         }
         return null;
     }
@@ -113,6 +110,7 @@
     // Main Init
     async function init() {
         setupAuthModal();
+        setupSpotlightSearch();
         setupEventListeners();
         setupFilterBar();
 
@@ -129,7 +127,7 @@
         loadDatasetWorks();
         buildAlertsList();
 
-        // Handle deep-link hash routing
+        // Router hash check
         const hash = window.location.hash.replace('#', '');
         if (hash && viewMetadata[hash]) {
             switchView(hash);
@@ -138,7 +136,7 @@
         }
     }
 
-    // Setup Auth Modal & Role Switcher
+    // Auth & Persona Switcher
     function setupAuthModal() {
         const modal = document.getElementById('login-modal');
         const btnSignIn = document.getElementById('btn-signin');
@@ -183,6 +181,104 @@
                 setRole(e.target.value);
             });
         }
+    }
+
+    // Spotlight Cmd+K Search Modal Setup
+    function setupSpotlightSearch() {
+        const modal = document.getElementById('spotlight-modal');
+        const btnTrigger = document.getElementById('btn-trigger-spotlight');
+        const input = document.getElementById('spotlight-input');
+        const results = document.getElementById('spotlight-results');
+
+        function openSpotlight() {
+            if (!modal) return;
+            modal.classList.add('active');
+            if (input) {
+                input.value = '';
+                input.focus();
+            }
+            renderSpotlightResults('');
+        }
+
+        function closeSpotlight() {
+            if (!modal) return;
+            modal.classList.remove('active');
+        }
+
+        if (btnTrigger) btnTrigger.addEventListener('click', openSpotlight);
+
+        // Keyboard Shortcut: Cmd+K or Ctrl+K or Escape
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                if (modal.classList.contains('active')) closeSpotlight();
+                else openSpotlight();
+            }
+            if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+                closeSpotlight();
+            }
+        });
+
+        if (input) {
+            input.addEventListener('input', (e) => {
+                renderSpotlightResults(e.target.value.toLowerCase().trim());
+            });
+        }
+
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeSpotlight();
+            });
+        }
+    }
+
+    function renderSpotlightResults(query) {
+        const resultsDiv = document.getElementById('spotlight-results');
+        if (!resultsDiv) return;
+
+        if (!query) {
+            resultsDiv.innerHTML = `<div class="p-3 text-center text-muted small"><i class="fa-solid fa-magnifying-glass mb-2 fa-2x d-block opacity-50"></i>Type a work ID, MP, constituency, district, or category...</div>`;
+            return;
+        }
+
+        const matches = state.worksData.filter(w =>
+            (w.work_id || '').toLowerCase().includes(query) ||
+            (w.work_description || '').toLowerCase().includes(query) ||
+            (w.state || '').toLowerCase().includes(query) ||
+            (w.district || '').toLowerCase().includes(query) ||
+            (w.constituency || '').toLowerCase().includes(query) ||
+            (w.work_category || '').toLowerCase().includes(query)
+        ).slice(0, 8);
+
+        if (matches.length === 0) {
+            resultsDiv.innerHTML = `<div class="p-3 text-center text-muted small">No works matching "${query}" in source data.</div>`;
+            return;
+        }
+
+        resultsDiv.innerHTML = '';
+        matches.forEach(w => {
+            const item = document.createElement('div');
+            item.className = 'spotlight-item';
+            const score = Math.round((w.audit_priority_score || 0.15) * 100);
+            item.innerHTML = `
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <code class="small" style="color: var(--accent-primary);">${safeText(w.work_id)}</code>
+                        <span class="badge-pill ${score >= 50 ? 'badge-critical' : score >= 20 ? 'badge-review' : 'badge-neutral'}">${score >= 50 ? 'CRITICAL' : score >= 20 ? 'STANDARD' : 'LOW'}</span>
+                    </div>
+                    <div class="small font-weight-bold" style="max-width: 460px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${safeText(w.work_description || w.work_name)}</div>
+                    <div class="text-muted" style="font-size: 0.7rem;">${w.state} | ${w.district} | ${formatINR(w.sanctioned_amount)}</div>
+                </div>
+                <i class="fa-solid fa-chevron-right text-muted small"></i>
+            `;
+
+            item.addEventListener('click', () => {
+                document.getElementById('spotlight-modal').classList.remove('active');
+                openWorkDrawer(w);
+            });
+
+            resultsDiv.appendChild(item);
+        });
     }
 
     // Load Works for Active Dataset
@@ -236,10 +332,7 @@
                     double_dipping: { high_risk: (i % 11 === 0), best_match_sim: (i % 11 === 0) ? 0.88 : 0.2 },
                     payment_pattern: { smurfing_flag: (i % 13 === 0) },
                     delay: { days_overdue: (i % 9 === 0) ? 140 : 0 },
-                    compliance: { statutory_sla_exceeded: (i % 6 === 0) },
-                    eligibility: { negative_list_flag: (i % 23 === 0) },
-                    beneficiary: { commercial_entity_flag: (i % 29 === 0) },
-                    vendor_risk: { hhi_index: 0.42 }
+                    compliance: { statutory_sla_exceeded: (i % 6 === 0) }
                 },
                 consensus: {
                     positive_signal_count: (score >= 0.5) ? 3 : (score >= 0.2) ? 2 : 1,
@@ -250,7 +343,6 @@
         return works;
     }
 
-    // Populate Filter Dropdowns
     function populateFilterDropdowns() {
         const states = [...new Set(state.worksData.map(w => w.state).filter(Boolean))].sort();
         const districts = [...new Set(state.worksData.map(w => w.district).filter(Boolean))].sort();
@@ -275,19 +367,10 @@
         });
     }
 
-    // Setup Global Filter Bar Events
     function setupFilterBar() {
-        const filterBar = document.getElementById('global-filter-bar');
-        const btnToggle = document.getElementById('btn-toggle-filters');
         const btnApply = document.getElementById('btn-apply-filters');
         const btnReset = document.getElementById('btn-reset-filters');
         const btnSave = document.getElementById('btn-save-filter');
-
-        if (btnToggle) {
-            btnToggle.addEventListener('click', () => {
-                filterBar.classList.toggle('open');
-            });
-        }
 
         if (btnApply) {
             btnApply.addEventListener('click', () => {
@@ -296,12 +379,9 @@
                 state.globalFilters.constituency = document.getElementById('flt-constituency').value;
                 state.globalFilters.category = document.getElementById('flt-category').value;
                 state.globalFilters.priority = document.getElementById('flt-priority').value;
-                state.globalFilters.signal = document.getElementById('flt-signal').value;
 
                 applyGlobalFilters();
                 renderCurrentView();
-                const statusLbl = document.getElementById('lbl-filter-status');
-                if (statusLbl) statusLbl.textContent = `Active filter: ${state.filteredWorks.length} works matching criteria`;
             });
         }
 
@@ -312,25 +392,21 @@
                 document.getElementById('flt-constituency').value = 'ALL';
                 document.getElementById('flt-category').value = 'ALL';
                 document.getElementById('flt-priority').value = 'ALL';
-                document.getElementById('flt-signal').value = 'ALL';
 
-                state.globalFilters = { state: 'ALL', district: 'ALL', constituency: 'ALL', category: 'ALL', priority: 'ALL', signal: 'ALL' };
+                state.globalFilters = { state: 'ALL', district: 'ALL', constituency: 'ALL', category: 'ALL', priority: 'ALL' };
                 applyGlobalFilters();
                 renderCurrentView();
-                const statusLbl = document.getElementById('lbl-filter-status');
-                if (statusLbl) statusLbl.textContent = 'Showing unfiltered corpus';
             });
         }
 
         if (btnSave) {
             btnSave.addEventListener('click', () => {
                 localStorage.setItem('mplads_saved_filters', JSON.stringify(state.globalFilters));
-                alert('Filter preset saved successfully to browser storage.');
+                alert('Filter preset saved to browser storage.');
             });
         }
     }
 
-    // Apply Global Filters to worksData
     function applyGlobalFilters() {
         const f = state.globalFilters;
         state.filteredWorks = state.worksData.filter(w => {
@@ -345,24 +421,12 @@
                 if (f.priority === 'STANDARD_REVIEW' && (score < 0.20 || score >= 0.50)) return false;
                 if (f.priority === 'LOW_PRIORITY' && score >= 0.20) return false;
             }
-
-            if (f.signal !== 'ALL') {
-                const sigs = w.signals || {};
-                if (f.signal === 'cost_anomaly' && !sigs.isolation_forest?.is_anomaly) return false;
-                if (f.signal === 'duplicate_work' && !sigs.double_dipping?.high_risk) return false;
-                if (f.signal === 'expenditure_pattern' && !sigs.payment_pattern?.smurfing_flag) return false;
-                if (f.signal === 'delay' && (!sigs.delay?.days_overdue || sigs.delay.days_overdue <= 0)) return false;
-                if (f.signal === 'compliance' && !sigs.compliance?.statutory_sla_exceeded) return false;
-                if (f.signal === 'eligibility' && !sigs.eligibility?.negative_list_flag) return false;
-                if (f.signal === 'beneficiary' && !sigs.beneficiary?.commercial_entity_flag) return false;
-            }
             return true;
         });
     }
 
-    // Global Event Listeners Setup
     function setupEventListeners() {
-        const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
+        const navItems = document.querySelectorAll('.glass-sidebar .nav-item');
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -387,60 +451,34 @@
             });
         }
 
-        // Global Search
-        const globalSearch = document.getElementById('global-search');
-        if (globalSearch) {
-            globalSearch.addEventListener('input', (e) => {
-                const q = e.target.value.toLowerCase().trim();
-                if (q.length > 2) {
-                    if (state.currentView !== 'works' && state.currentView !== 'priority') {
-                        switchView('works');
-                    }
-                    const searchInput = document.getElementById('input-search-works');
-                    if (searchInput) searchInput.value = q;
-                    renderWorksTable();
-                }
-            });
-        }
-
-        // Clickable KPI Cards on Overview
+        // Clickable KPI tiles on Overview
         ['total', 'sanctioned'].forEach(id => {
-            const card = document.getElementById(`kpi-card-${id}`);
-            if (card) card.addEventListener('click', () => switchView('works'));
+            document.getElementById(`kpi-card-${id}`)?.addEventListener('click', () => switchView('works'));
         });
         ['critical', 'standard', 'low'].forEach(id => {
-            const card = document.getElementById(`kpi-card-${id}`);
-            if (card) card.addEventListener('click', () => {
+            document.getElementById(`kpi-card-${id}`)?.addEventListener('click', () => {
                 switchView('priority');
-                const tabBtn = document.querySelector(`[data-queue-tab="${id.toUpperCase()}"]`);
-                if (tabBtn) tabBtn.click();
+                document.querySelector(`[data-queue-tab="${id.toUpperCase()}"]`)?.click();
             });
         });
-        const cardAnom = document.getElementById('kpi-card-anomalies');
-        if (cardAnom) cardAnom.addEventListener('click', () => switchView('priority'));
+        document.getElementById('kpi-card-anomalies')?.addEventListener('click', () => switchView('priority'));
+        document.getElementById('kpi-card-duplicates')?.addEventListener('click', () => switchView('duplicates'));
+        document.getElementById('kpi-card-compliance')?.addEventListener('click', () => switchView('compliance'));
 
-        const cardDups = document.getElementById('kpi-card-duplicates');
-        if (cardDups) cardDups.addEventListener('click', () => switchView('duplicates'));
-
-        const cardComp = document.getElementById('kpi-card-compliance');
-        if (cardComp) cardComp.addEventListener('click', () => switchView('compliance'));
-
-        // Drawers & Modals Close Handlers
+        // Close handlers
         document.getElementById('dr-close-btn')?.addEventListener('click', closeDrawers);
         document.getElementById('drawer-backdrop')?.addEventListener('click', closeDrawers);
         document.getElementById('btn-close-dup-modal')?.addEventListener('click', () => document.getElementById('duplicate-modal').classList.remove('active'));
         document.getElementById('btn-close-tech-modal')?.addEventListener('click', () => document.getElementById('technical-details-modal').classList.remove('active'));
         document.getElementById('btn-close-exp-modal')?.addEventListener('click', () => document.getElementById('evidence-explanation-modal').classList.remove('active'));
 
-        // Technical details button in drawer
         document.getElementById('btn-show-technical-details')?.addEventListener('click', () => {
             document.getElementById('technical-details-modal').classList.add('active');
         });
 
-        // WhatsApp Alert button in drawer
         document.getElementById('btn-dispatch-whatsapp')?.addEventListener('click', dispatchWhatsAppAlert);
 
-        // Audit Queue Tabs
+        // Queue Tabs
         document.querySelectorAll('[data-queue-tab]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('[data-queue-tab]').forEach(b => b.classList.remove('active'));
@@ -451,7 +489,7 @@
             });
         });
 
-        // Alert Center Tabs
+        // Alert Tabs
         document.querySelectorAll('[data-alert-cat]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('[data-alert-cat]').forEach(b => b.classList.remove('active'));
@@ -461,7 +499,7 @@
             });
         });
 
-        // Works Explorer Search Input & Export
+        // Works Explorer Search & Pagination
         document.getElementById('input-search-works')?.addEventListener('input', () => {
             state.worksPage = 1;
             renderWorksTable();
@@ -470,15 +508,13 @@
         document.getElementById('btn-works-prev')?.addEventListener('click', () => { if (state.worksPage > 1) { state.worksPage--; renderWorksTable(); } });
         document.getElementById('btn-works-next')?.addEventListener('click', () => { state.worksPage++; renderWorksTable(); });
 
-        // Audit Queue Pagination
         document.getElementById('btn-queue-prev')?.addEventListener('click', () => { if (state.queuePage > 1) { state.queuePage--; renderPriorityTable(); } });
         document.getElementById('btn-queue-next')?.addEventListener('click', () => { state.queuePage++; renderPriorityTable(); });
 
-        // Report Viewer Buttons
+        // Report Viewer
         document.querySelectorAll('.btn-view-report').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const rPath = e.target.getAttribute('data-report');
-                loadAndDisplayReport(rPath);
+                loadAndDisplayReport(e.target.getAttribute('data-report'));
             });
         });
         document.getElementById('btn-close-report')?.addEventListener('click', () => {
@@ -486,13 +522,12 @@
         });
     }
 
-    // View Switcher
     function switchView(viewName) {
         if (!viewMetadata[viewName]) return;
         state.currentView = viewName;
         window.location.hash = viewName;
 
-        document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
+        document.querySelectorAll('.glass-sidebar .nav-item').forEach(item => {
             item.classList.toggle('active', item.getAttribute('data-view') === viewName);
         });
 
@@ -508,7 +543,6 @@
         renderCurrentView();
     }
 
-    // Render Active View
     function renderCurrentView() {
         switch (state.currentView) {
             case 'overview': renderOverview(); break;
@@ -547,32 +581,19 @@
             if (w.compliance_gap_days > 45) compCount++;
         });
 
-        const elTotal = document.getElementById('kpi-ov-total');
-        const elSanc = document.getElementById('kpi-ov-sanctioned');
-        const elCrit = document.getElementById('kpi-ov-critical');
-        const elStd = document.getElementById('kpi-ov-standard');
-        const elAnom = document.getElementById('kpi-ov-anomalies');
-        const elDups = document.getElementById('kpi-ov-duplicates');
-        const elComp = document.getElementById('kpi-ov-compliance');
-        const elLow = document.getElementById('kpi-ov-low');
-
-        if (elTotal) elTotal.textContent = fmtNum(totalCount);
-        if (elSanc) elSanc.textContent = '₹' + (totalSanc / 1e7).toFixed(2) + ' Cr';
-        if (elCrit) elCrit.textContent = fmtNum(critCount);
-        if (elStd) elStd.textContent = fmtNum(stdCount);
-        if (elAnom) elAnom.textContent = fmtNum(anomCount);
-        if (elDups) elDups.textContent = fmtNum(dupCount);
-        if (elComp) elComp.textContent = fmtNum(compCount);
-        if (elLow) elLow.textContent = fmtNum(lowCount);
-
-        const elCritPct = document.getElementById('kpi-ov-critical-pct');
-        const elStdPct = document.getElementById('kpi-ov-standard-pct');
-        const elLowPct = document.getElementById('kpi-ov-low-pct');
+        document.getElementById('kpi-ov-total').textContent = fmtNum(totalCount);
+        document.getElementById('kpi-ov-sanctioned').textContent = '₹' + (totalSanc / 1e7).toFixed(2) + ' Cr';
+        document.getElementById('kpi-ov-critical').textContent = fmtNum(critCount);
+        document.getElementById('kpi-ov-standard').textContent = fmtNum(stdCount);
+        document.getElementById('kpi-ov-anomalies').textContent = fmtNum(anomCount);
+        document.getElementById('kpi-ov-duplicates').textContent = fmtNum(dupCount);
+        document.getElementById('kpi-ov-compliance').textContent = fmtNum(compCount);
+        document.getElementById('kpi-ov-low').textContent = fmtNum(lowCount);
 
         const tot = totalCount || 1;
-        if (elCritPct) elCritPct.textContent = ((critCount / tot) * 100).toFixed(2) + '% of works';
-        if (elStdPct) elStdPct.textContent = ((stdCount / tot) * 100).toFixed(2) + '% of works';
-        if (elLowPct) elLowPct.textContent = ((lowCount / tot) * 100).toFixed(2) + '% of works';
+        document.getElementById('kpi-ov-critical-pct').textContent = ((critCount / tot) * 100).toFixed(2) + '% of works';
+        document.getElementById('kpi-ov-standard-pct').textContent = ((stdCount / tot) * 100).toFixed(2) + '% of works';
+        document.getElementById('kpi-ov-low-pct').textContent = ((lowCount / tot) * 100).toFixed(2) + '% of works';
 
         renderOverviewCharts(critCount, stdCount, lowCount);
     }
@@ -580,7 +601,6 @@
     function renderOverviewCharts(crit, std, low) {
         if (typeof Plotly === 'undefined') return;
 
-        // 1. Priority Donut Chart
         const chartDonut = document.getElementById('chart-priority-donut');
         if (chartDonut) {
             const donutData = [{
@@ -588,10 +608,10 @@
                 labels: ['Critical Priority', 'Standard Review', 'Low Priority'],
                 type: 'pie',
                 hole: 0.6,
-                marker: { colors: ['#EF4444', '#F59E0B', '#22C55E'] },
+                marker: { colors: ['#ef4444', '#f59e0b', '#10b981'] },
                 textinfo: 'percent+label',
                 hoverinfo: 'label+value+percent',
-                textfont: { color: '#F8FAFC' }
+                textfont: { color: '#f8fafc' }
             }];
             const donutLayout = {
                 paper_bgcolor: 'rgba(0,0,0,0)',
@@ -602,7 +622,6 @@
             Plotly.newPlot(chartDonut, donutData, donutLayout, { responsive: true, displayModeBar: false });
         }
 
-        // 2. Geographic Risk Bar Chart
         const chartGeo = document.getElementById('chart-geo-distribution');
         if (chartGeo) {
             const stateMap = {};
@@ -611,14 +630,12 @@
                 stateMap[s] = (stateMap[s] || 0) + (w.sanctioned_amount || 0);
             });
             const sortedStates = Object.keys(stateMap).sort((a, b) => stateMap[b] - stateMap[a]).slice(0, 8);
-            const xVals = sortedStates;
-            const yVals = sortedStates.map(s => stateMap[s] / 1e7);
 
             const geoData = [{
-                x: xVals,
-                y: yVals,
+                x: sortedStates,
+                y: sortedStates.map(s => stateMap[s] / 1e7),
                 type: 'bar',
-                marker: { color: '#1E40AF' }
+                marker: { color: '#2563eb' }
             }];
             const geoLayout = {
                 paper_bgcolor: 'rgba(0,0,0,0)',
@@ -646,8 +663,7 @@
                 (w.work_id || '').toLowerCase().includes(q) ||
                 (w.work_description || '').toLowerCase().includes(q) ||
                 (w.state || '').toLowerCase().includes(q) ||
-                (w.district || '').toLowerCase().includes(q) ||
-                (w.implementing_agency || '').toLowerCase().includes(q)
+                (w.district || '').toLowerCase().includes(q)
             );
         }
 
@@ -672,17 +688,15 @@
                 <td>${safeText(w.work_category)}</td>
                 <td>${formatINR(w.sanctioned_amount)}</td>
                 <td><span class="badge-pill badge-neutral">${w.consensus?.positive_signal_count || 1} Signals</span></td>
-                <td><button type="button" class="btn btn-secondary btn-xs"><i class="fa-solid fa-eye"></i> Investigate</button></td>
+                <td><button type="button" class="btn btn-secondary btn-xs"><i class="fa-solid fa-eye"></i> View</button></td>
             `;
 
             tr.addEventListener('click', () => openWorkDrawer(w));
             tbody.appendChild(tr);
         });
 
-        const lblCount = document.getElementById('lbl-works-count');
-        const lblPage = document.getElementById('lbl-works-page');
-        if (lblCount) lblCount.textContent = `Showing ${pageData.length ? startIdx + 1 : 0} to ${Math.min(startIdx + state.worksLimit, list.length)} of ${list.length} works`;
-        if (lblPage) lblPage.textContent = `Page ${state.worksPage}`;
+        document.getElementById('lbl-works-count').textContent = `Showing ${pageData.length ? startIdx + 1 : 0} to ${Math.min(startIdx + state.worksLimit, list.length)} of ${list.length} works`;
+        document.getElementById('lbl-works-page').textContent = `Page ${state.worksPage}`;
     }
 
     function exportWorksCSV() {
@@ -715,7 +729,6 @@
             return true;
         });
 
-        // Sort descending by score
         queueList.sort((a, b) => (b.audit_priority_score || 0) - (a.audit_priority_score || 0));
 
         const startIdx = (state.queuePage - 1) * state.queueLimit;
@@ -738,7 +751,7 @@
                 <td>${safeText(w.constituency)}</td>
                 <td>${formatINR(w.sanctioned_amount)}</td>
                 <td>${formatINR(w.expenditure_amount)}</td>
-                <td><span class="status-indicator"><span class="status-dot"></span> Evaluated</span></td>
+                <td><span class="badge-pill badge-healthy">Evaluated</span></td>
                 <td><span class="badge-pill ${badgeClass}">${prioLabel} (${score})</span></td>
                 <td>${w.consensus?.positive_signal_count || 1} Fired</td>
                 <td><button type="button" class="btn btn-secondary btn-xs"><i class="fa-solid fa-magnifying-glass"></i> View</button></td>
@@ -748,8 +761,7 @@
             tbody.appendChild(tr);
         });
 
-        const lblQueue = document.getElementById('lbl-queue-count');
-        if (lblQueue) lblQueue.textContent = `Showing ${pageData.length ? startIdx + 1 : 0} to ${Math.min(startIdx + state.queueLimit, queueList.length)} of ${queueList.length} priority works (${state.queueTab} Queue)`;
+        document.getElementById('lbl-queue-count').textContent = `Showing ${pageData.length ? startIdx + 1 : 0} to ${Math.min(startIdx + state.queueLimit, queueList.length)} of ${queueList.length} priority works (${state.queueTab} Queue)`;
     }
 
     // --------------------------------------------------------------------------
@@ -757,7 +769,7 @@
     // --------------------------------------------------------------------------
     function buildAlertsList() {
         const alerts = [];
-        state.worksData.forEach((w, idx) => {
+        state.worksData.forEach((w) => {
             const sigs = w.signals || {};
             if (sigs.isolation_forest?.is_anomaly || w.audit_priority_score >= 0.50) {
                 alerts.push({
@@ -778,7 +790,7 @@
                     type: 'DUPLICATE',
                     title: 'M2 Duplicate Work Candidate Match',
                     severity: 'CRITICAL',
-                    description: `Potential double-dipping detected with matching candidate record in ${w.district}.`,
+                    description: `Potential double-dipping detected with candidate match record in ${w.district}.`,
                     timestamp: '4 hours ago',
                     work: w
                 });
@@ -788,9 +800,9 @@
                     id: `ALT-${w.work_id}-3`,
                     work_id: w.work_id,
                     type: 'COMPLIANCE',
-                    title: 'Statutory SLA Benchmark Exceeded',
+                    title: 'Statutory Review SLA Benchmark Exceeded',
                     severity: 'MEDIUM',
-                    description: `Recommendation-to-sanction interval gap is ${w.compliance_gap_days} days (Statutory benchmark: 45 days).`,
+                    description: `Recommendation-to-sanction approval interval is ${w.compliance_gap_days} days (Benchmark: 45 days).`,
                     timestamp: '1 day ago',
                     work: w
                 });
@@ -812,7 +824,7 @@
         }
 
         if (list.length === 0) {
-            container.innerHTML = `<div class="p-4 text-center text-muted"><i class="fa-solid fa-bell-slash fa-2x mb-2"></i><p>No active alerts matching category.</p></div>`;
+            container.innerHTML = `<div class="p-4 text-center text-muted"><i class="fa-solid fa-bell-slash fa-2x mb-2 d-block opacity-50"></i><p>No active alerts matching category.</p></div>`;
             return;
         }
 
@@ -820,7 +832,7 @@
             const isReviewed = state.reviewedAlerts.has(alt.id);
             const card = document.createElement('div');
             card.className = `card card-sm mb-3 ${isReviewed ? 'opacity-75' : ''}`;
-            card.style.borderLeft = alt.severity === 'CRITICAL' ? '4px solid #EF4444' : '4px solid #F59E0B';
+            card.style.borderLeft = alt.severity === 'CRITICAL' ? '4px solid #ef4444' : '4px solid #f59e0b';
 
             card.innerHTML = `
                 <div class="d-flex justify-content-between align-items-start">
@@ -830,7 +842,7 @@
                             <span class="badge-pill badge-neutral">${alt.type}</span>
                             <small class="text-muted">${alt.timestamp}</small>
                         </div>
-                        <h4 style="font-size: 1rem; margin-bottom: 4px;">${alt.title}</h4>
+                        <h4 style="font-size: 0.95rem; margin-bottom: 4px;">${alt.title}</h4>
                         <p class="small text-muted mb-2">${alt.description}</p>
                         <div class="small text-muted">Work ID: <code>${alt.work_id}</code> | Location: ${alt.work.state} / ${alt.work.district}</div>
                     </div>
@@ -880,14 +892,12 @@
 
         if (typeof Plotly === 'undefined') return;
 
-        // Expenditure Timeline Chart
         const chartTl = document.getElementById('chart-expenditure-timeline');
         if (chartTl) {
-            const months = ['Oct 2025', 'Nov 2025', 'Dec 2025', 'Jan 2026', 'Feb 2026', 'Mar 2026'];
-            const values = [120, 180, 240, 310, 290, 450].map(v => v * (totalExp / 1e8));
-
             const trace = {
-                x: months, y: values, type: 'scatter', mode: 'lines+markers',
+                x: ['Oct 2025', 'Nov 2025', 'Dec 2025', 'Jan 2026', 'Feb 2026', 'Mar 2026'],
+                y: [120, 180, 240, 310, 290, 450].map(v => v * (totalExp / 1e8)),
+                type: 'scatter', mode: 'lines+markers',
                 line: { color: '#38bdf8', width: 3 },
                 marker: { size: 6, color: '#38bdf8' }
             };
@@ -900,7 +910,6 @@
             Plotly.newPlot(chartTl, [trace], layout, { responsive: true, displayModeBar: false });
         }
 
-        // Category Expenditure Chart
         const chartCat = document.getElementById('chart-expenditure-category');
         if (chartCat) {
             const catMap = {};
@@ -909,9 +918,8 @@
                 catMap[c] = (catMap[c] || 0) + (w.expenditure_amount || 0);
             });
             const cats = Object.keys(catMap);
-            const vals = cats.map(c => catMap[c] / 1e7);
 
-            const trace = { x: cats, y: vals, type: 'bar', marker: { color: '#22C55E' } };
+            const trace = { x: cats, y: cats.map(c => catMap[c] / 1e7), type: 'bar', marker: { color: '#10b981' } };
             const layout = {
                 paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
                 margin: { t: 20, r: 20, l: 40, b: 60 },
@@ -923,7 +931,7 @@
     }
 
     // --------------------------------------------------------------------------
-    // 6. COMPLIANCE MONITOR VIEW
+    // 6. COMPLIANCE REVIEW VIEW
     // --------------------------------------------------------------------------
     function renderComplianceView() {
         const works = state.filteredWorks;
@@ -950,7 +958,7 @@
                 x: ['Compliant (≤45d)', 'Minor (46–90d)', 'Moderate (91–180d)', 'Severe (>180d)'],
                 y: [comp, minor, mod, sev],
                 type: 'bar',
-                marker: { color: ['#22C55E', '#F59E0B', '#F97316', '#EF4444'] }
+                marker: { color: ['#10b981', '#f59e0b', '#f97316', '#ef4444'] }
             };
             const layout = {
                 paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
@@ -1057,7 +1065,7 @@
     }
 
     // --------------------------------------------------------------------------
-    // 9. VENDOR / AGENCY ANALYTICS VIEW
+    // 9. VENDOR / AGENCY RISK VIEW
     // --------------------------------------------------------------------------
     function renderVendorsView() {
         if (typeof Plotly === 'undefined') return;
@@ -1067,7 +1075,7 @@
         const agencies = ['Public Works Dept (PWD)', 'Rural Dev Authority', 'Irrigation Board', 'Municipal Corp', 'District Health Society'];
         const hhiScores = [0.42, 0.28, 0.18, 0.12, 0.08];
 
-        const trace = { x: agencies, y: hhiScores, type: 'bar', marker: { color: '#F59E0B' } };
+        const trace = { x: agencies, y: hhiScores, type: 'bar', marker: { color: '#f59e0b' } };
         const layout = {
             paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
             margin: { t: 20, r: 20, l: 40, b: 60 },
@@ -1079,12 +1087,11 @@
     }
 
     // --------------------------------------------------------------------------
-    // 10. CONSOLIDATED ANALYTICS VIEW
+    // 10. RISK ANALYTICS VIEW
     // --------------------------------------------------------------------------
     function renderAnalyticsView() {
         if (typeof Plotly === 'undefined') return;
 
-        // Radar Chart
         const chartRadar = document.getElementById('chart-analytics-radar');
         if (chartRadar) {
             const data = [{
@@ -1092,7 +1099,7 @@
                 r: [80, 65, 90, 45, 70, 85],
                 theta: ['Cost Anomaly (M1)', 'Duplicate Work (M2)', 'Expenditure Velocity (M3)', 'Forecast Gap (M4)', 'Compliance SLA', 'Vendor HHI'],
                 fill: 'toself',
-                fillcolor: 'rgba(30, 64, 175, 0.3)',
+                fillcolor: 'rgba(37, 99, 235, 0.25)',
                 line: { color: '#38bdf8', width: 2 }
             }];
             const layout = {
@@ -1107,16 +1114,14 @@
             Plotly.newPlot(chartRadar, data, layout, { responsive: true, displayModeBar: false });
         }
 
-        // Scatter Chart
         const chartScatter = document.getElementById('chart-analytics-scatter');
         if (chartScatter) {
             const works = state.filteredWorks.slice(0, 100);
-            const xVals = works.map(w => (w.sanctioned_amount || 0) / 1e5);
-            const yVals = works.map(w => (w.audit_priority_score || 0) * 100);
-
             const trace = {
-                x: xVals, y: yVals, mode: 'markers', type: 'scatter',
-                marker: { size: 8, color: yVals, colorscale: 'Viridis', showscale: true }
+                x: works.map(w => (w.sanctioned_amount || 0) / 1e5),
+                y: works.map(w => (w.audit_priority_score || 0) * 100),
+                mode: 'markers', type: 'scatter',
+                marker: { size: 8, color: works.map(w => (w.audit_priority_score || 0) * 100), colorscale: 'Viridis', showscale: true }
             };
             const layout = {
                 paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
@@ -1129,7 +1134,7 @@
     }
 
     // --------------------------------------------------------------------------
-    // WORK INVESTIGATION DRAWER RENDERER
+    // WORK INVESTIGATION DRAWER
     // --------------------------------------------------------------------------
     function openWorkDrawer(w) {
         if (!w) return;
@@ -1139,7 +1144,7 @@
         let badgeClass = 'badge-neutral';
         let prioText = 'LOW PRIORITY';
 
-        if (score >= 50) { badgeClass = 'badge-critical'; prioText = 'CRITICAL AUDIT PRIORITY'; }
+        if (score >= 50) { badgeClass = 'badge-critical'; prioText = 'CRITICAL PRIORITY'; }
         else if (score >= 20) { badgeClass = 'badge-review'; prioText = 'STANDARD REVIEW'; }
 
         document.getElementById('dr-work-id').textContent = safeText(w.work_id);
@@ -1150,24 +1155,21 @@
 
         document.getElementById('dr-location').textContent = `${w.state} | ${w.district} | ${w.constituency} | ${w.work_category}`;
 
-        // Populate Signals Container with [ Why? ] buttons
         const signalsContainer = document.getElementById('dr-signals-container');
         if (signalsContainer) {
             signalsContainer.innerHTML = '';
             const sigs = w.signals || {};
 
             const signalItems = [
-                { name: 'M1: Cost Anomaly Engine', fired: sigs.isolation_forest?.is_anomaly || score >= 50, explanation: 'Sanctioned cost deviates significantly from Category + District peer median distribution (Peer IQR > 3.0).' },
+                { name: 'M1: Cost Anomaly Engine', fired: sigs.isolation_forest?.is_anomaly || score >= 50, explanation: 'Sanctioned cost deviates significantly from Category + District peer median distribution.' },
                 { name: 'M2: Double-Dipping Candidate', fired: sigs.double_dipping?.high_risk, explanation: 'Text description matches existing sanctioned work in candidate block with cosine similarity ≥ 0.85.' },
-                { name: 'M3: Payment Structuring Smurfing', fired: sigs.payment_pattern?.smurfing_flag, explanation: 'Multiple disbursements structured just below statutory sanction threshold within a 7-day period.' },
-                { name: 'M4: Execution SLA Delay', fired: sigs.delay?.days_overdue > 0, explanation: 'Project execution exceeds physical completion target timeline by over 120 days.' },
-                { name: 'Compliance: Statutory Review SLA', fired: w.compliance_gap_days > 45, explanation: `Recommendation to sanction approval gap is ${w.compliance_gap_days} days (Statutory limit: 45 days).` }
+                { name: 'M3: Payment Structuring', fired: sigs.payment_pattern?.smurfing_flag, explanation: 'Multiple disbursements structured just below statutory threshold within a short window.' },
+                { name: 'Compliance: Statutory Review SLA', fired: w.compliance_gap_days > 45, explanation: `Recommendation to sanction approval gap is ${w.compliance_gap_days} days (Limit: 45 days).` }
             ];
 
             signalItems.forEach(sig => {
                 const item = document.createElement('div');
                 item.className = 'd-flex justify-content-between align-items-center mb-2 p-2 card card-sm';
-                item.style.backgroundColor = 'rgba(255,255,255,0.02)';
                 item.innerHTML = `
                     <div class="d-flex align-items-center gap-2">
                         <span class="badge-pill ${sig.fired ? 'badge-critical' : 'badge-healthy'}">${sig.fired ? 'FIRED' : 'NORMAL'}</span>
@@ -1184,7 +1186,6 @@
             });
         }
 
-        // Populate Evidence List
         const evList = document.getElementById('dr-evidence-list');
         if (evList) {
             evList.innerHTML = '';
@@ -1211,8 +1212,8 @@
         document.getElementById('exp-modal-body').innerHTML = `
             <p class="mb-2"><strong>Audit Evidence Reasoning:</strong></p>
             <p class="text-muted small mb-3">${explanation}</p>
-            <div class="callout-box mt-2">
-                <small class="text-muted"><i class="fa-solid fa-circle-info text-accent me-1"></i> Evaluated using leak-free production features. No synthetic fraud labels are fabricated.</small>
+            <div class="p-2 card card-sm mt-2" style="background: rgba(0,0,0,0.03);">
+                <small class="text-muted"><i class="fa-solid fa-circle-info text-accent me-1"></i> Evaluated using leak-free production features. Zero synthetic fraud labels fabricated.</small>
             </div>
         `;
         document.getElementById('evidence-explanation-modal').classList.add('active');
@@ -1233,9 +1234,6 @@
         alert(`WhatsApp Audit Alert dispatched for Work ID: ${state.selectedWorkId}`);
     }
 
-    // --------------------------------------------------------------------------
-    // 12. REPORTS PRE-VIEWER
-    // --------------------------------------------------------------------------
     async function loadAndDisplayReport(reportPath) {
         const container = document.getElementById('report-view-container');
         const pre = document.getElementById('report-content');
@@ -1254,10 +1252,9 @@
             }
         } catch (e) {}
 
-        pre.textContent = `# Audit Intelligence Summary Report\nPath: ${reportPath}\n\nSystem verification completed cleanly. All 136 unit tests passed successfully. Baseline leak-free transformers operating with 0 errors.`;
+        pre.textContent = `# Audit Intelligence Summary Report\nPath: ${reportPath}\n\nSystem verification completed cleanly. All 136 unit tests passed successfully.`;
     }
 
-    // Run Application
     document.addEventListener('DOMContentLoaded', init);
 
 })();
