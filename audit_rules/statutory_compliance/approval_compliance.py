@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from cost_detection.config import (
+from ml.config import (
     COMPLIANCE_APPROVAL_DAYS,
     COMPLIANCE_MINOR_MAX,
     COMPLIANCE_MODERATE_MAX,

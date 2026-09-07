@@ -3,7 +3,7 @@ import json
 import re
 import pandas as pd
 import numpy as np
-from cost_detection.config import OUTPUT_DIR, DISCLAIMER_TEXT
+from ml.config import OUTPUT_DIR, DISCLAIMER_TEXT
 
 # Entity Classification Keywords
 PRIVATE_COMMERCIAL_MARKERS = [

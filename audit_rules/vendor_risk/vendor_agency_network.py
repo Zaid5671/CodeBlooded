@@ -4,14 +4,14 @@ import json
 import math
 import pandas as pd
 import numpy as np
-from cost_detection.config import (
+from ml.config import (
     OUTPUT_DIR,
     VENDOR_HHI_HIGH_THRESHOLD,
     VENDOR_TOP_SHARE_THRESHOLD,
     VENDOR_FRAGMENTATION_WINDOW_DAYS,
 )
-from cost_detection.data_loader import load_expenditure_works
-from cost_detection.preprocessing import derive_clean_work_id, clean_monetary_field
+from data_pipeline.data_loader import load_expenditure_works
+from feature_engineering.preprocessing import derive_clean_work_id, clean_monetary_field
 
 GOVT_VENDOR_PATTERNS = [
     r'DISTRICT ENGINEER', r'EXECUTIVE ENGINEER', r'NIRMITHI KENDRA', r'NIRMITI KENDRA',

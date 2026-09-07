@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from cost_detection.config import (
+from ml.config import (
     AUDIT_COST_HIGH_WEIGHT,
     AUDIT_COST_MEDIUM_WEIGHT,
     AUDIT_DELAY_WEIGHT,

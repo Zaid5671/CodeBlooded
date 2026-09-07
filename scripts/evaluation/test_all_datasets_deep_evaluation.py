@@ -799,7 +799,7 @@ def generate_markdown_report(rep):
 
     # Section 4: Model 2 Duplicate Work
     md.append("## 4. M2_DUPLICATE_WORK — TF-IDF Representation Stability Diagnostic\n\n")
-    md.append("*(Note: Evaluates TF-IDF representation stability across sample descriptions. Production candidate-pair ranking and deduplication executes in `cost_detection/double_dipping.py` on blocked partitions (`state_code` + `district_code` + `work_category`))*\n\n")
+    md.append("*(Note: Evaluates TF-IDF representation stability across sample descriptions. Production candidate-pair ranking and deduplication executes in `ml/model_2_duplicate_work/double_dipping.py` on blocked partitions (`state_code` + `district_code` + `work_category`))*\n\n")
     md.append("| Dataset | Works Evaluated | High Risk Candidate Pairs (Cosine $\\ge 85$) | Medium Risk Pairs (65–84) | Low Risk Pairs (<65) | Mean Max Sim | P95 Sim |\n")
     md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: |\n")
     for k, d in rep['datasets'].items():

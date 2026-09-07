@@ -2,7 +2,7 @@ import os
 import json
 import pandas as pd
 import numpy as np
-from cost_detection.config import OUTPUT_DIR, DISCLAIMER_TEXT, PEER_MIN_SIZE, IQR_MULTIPLIER
+from ml.config import OUTPUT_DIR, DISCLAIMER_TEXT, PEER_MIN_SIZE, IQR_MULTIPLIER
 
 def calculate_tukey_upper_fence(series, min_size=10, multiplier=1.5):
     """Calculates non-parametric Tukey IQR upper fence for a numerical series."""

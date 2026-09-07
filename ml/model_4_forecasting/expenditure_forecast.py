@@ -2,7 +2,7 @@ import os
 import json
 import pandas as pd
 import numpy as np
-from cost_detection.config import (
+from ml.config import (
     OUTPUT_DIR,
     DATA_DIR,
     LS17_DATA_DIR,
@@ -11,7 +11,7 @@ from cost_detection.config import (
     MIN_FORECAST_OBSERVATIONS,
     RANDOM_STATE,
 )
-from cost_detection.preprocessing import clean_monetary_field
+from feature_engineering.preprocessing import clean_monetary_field
 
 def recursive_rolling_mean_forecast(history_vals, horizon=6, window=3):
     """

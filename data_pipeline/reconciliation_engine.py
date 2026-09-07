@@ -1,8 +1,8 @@
 import os
 import json
 import pandas as pd
-from cost_detection.double_dipping_reconciliation import load_and_reconcile_lifecycle_data
-from cost_detection.config import OUTPUT_DIR
+from ml.model_2_duplicate_work.double_dipping_reconciliation import load_and_reconcile_lifecycle_data
+from ml.config import OUTPUT_DIR
 
 def run_master_reconciliation(data_dir="data/original/LokSabha18"):
     """

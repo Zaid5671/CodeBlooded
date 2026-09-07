@@ -2,8 +2,8 @@ import os
 import json
 import pandas as pd
 import numpy as np
-from cost_detection.config import OUTPUT_DIR, DISCLAIMER_TEXT
-from cost_detection.preprocessing import derive_clean_work_id, clean_monetary_field
+from ml.config import OUTPUT_DIR, DISCLAIMER_TEXT
+from feature_engineering.preprocessing import derive_clean_work_id, clean_monetary_field
 
 def run_duplicate_expenditure_detection(df_exp, df_master=None):
     """

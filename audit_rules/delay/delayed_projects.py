@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
-from cost_detection.config import (
+from ml.config import (
     DELAY_MIN_PEER_GROUP_SIZE,
     DELAY_IQR_MULTIPLIER,
     DEFAULT_REFERENCE_DATE,

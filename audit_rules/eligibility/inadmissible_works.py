@@ -3,7 +3,7 @@ import os
 import json
 import pandas as pd
 import numpy as np
-from cost_detection.config import OUTPUT_DIR, DISCLAIMER_TEXT
+from ml.config import OUTPUT_DIR, DISCLAIMER_TEXT
 
 # Landmark / Location Prepositions
 LOCATION_PREPOSITIONS = [
