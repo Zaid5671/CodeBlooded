@@ -3525,6 +3525,1797 @@
     }
   },
   {
+    "file_path": "data/original/RajyaSabha_Retired/Allocated Limit for Honble MPs (1).csv",
+    "filename": "Allocated Limit for Honble MPs (1).csv",
+    "file_size_bytes": 21070,
+    "chamber": "Rajya Sabha",
+    "term": "Sitting Members (Continuous House)",
+    "record_grain": "ONE ROW = ONE MP / CONSTITUENCY ALLOCATION RECORD",
+    "row_count": 232,
+    "column_count": 5,
+    "exact_duplicate_rows": 0,
+    "exact_duplicate_percentage": 0.0,
+    "column_names": [
+      "Sr. No.",
+      "State",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "semantic_fields": {
+      "work_id_fields": [],
+      "work_number_fields": [],
+      "mp_fields": [
+        "Hon'ble Members of Parliament"
+      ],
+      "constituency_fields": [],
+      "state_fields": [
+        "State"
+      ],
+      "district_fields": [],
+      "agency_fields": [],
+      "vendor_fields": [],
+      "amount_fields": [
+        "Allocated AMOUNT ( \u20b9 )"
+      ],
+      "date_fields": [],
+      "status_fields": []
+    },
+    "identifier_analyses": {},
+    "columns": {
+      "Sr. No.": {
+        "name": "Sr. No.",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 232,
+        "type_category": "NUMERIC",
+        "numeric_count": 231,
+        "min": 1.0,
+        "max": 231.0,
+        "mean": 116.0,
+        "median": 116.0,
+        "std": 66.83,
+        "q1": 58.5,
+        "q3": 173.5,
+        "iqr": 115.0
+      },
+      "State": {
+        "name": "State",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 33,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Uttar Pradesh",
+            "count": 31,
+            "percentage": 13.36
+          },
+          {
+            "value": "Tamil Nadu",
+            "count": 19,
+            "percentage": 8.19
+          },
+          {
+            "value": "Maharashtra",
+            "count": 18,
+            "percentage": 7.76
+          },
+          {
+            "value": "Bihar",
+            "count": 15,
+            "percentage": 6.47
+          },
+          {
+            "value": "Karnataka",
+            "count": 14,
+            "percentage": 6.03
+          }
+        ]
+      },
+      "Hon'ble Members of Parliament": {
+        "name": "Hon'ble Members of Parliament",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 232,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Dr. Abhishek Manu Singhvi (2026-32) (2026-2032)",
+            "count": 1,
+            "percentage": 0.43
+          },
+          {
+            "value": "Shri Ramji Lal Suman (2024-30) (2024-2030)",
+            "count": 1,
+            "percentage": 0.43
+          },
+          {
+            "value": "Shri R. Dharmar (2022-28) (2022-2028)",
+            "count": 1,
+            "percentage": 0.43
+          },
+          {
+            "value": "Shri R. Girirajan (2022-28) (2022-2028)",
+            "count": 1,
+            "percentage": 0.43
+          },
+          {
+            "value": "Shri Raghav Chadha (2022-28) (2022-2028)",
+            "count": 1,
+            "percentage": 0.43
+          }
+        ]
+      },
+      "Elected/Nominated": {
+        "name": "Elected/Nominated",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 3,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Elected MP",
+            "count": 220,
+            "percentage": 94.83
+          },
+          {
+            "value": "Nominated MP",
+            "count": 11,
+            "percentage": 4.74
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.43
+          }
+        ]
+      },
+      "Allocated AMOUNT ( \u20b9 )": {
+        "name": "Allocated AMOUNT ( \u20b9 )",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 74,
+        "type_category": "NUMERIC",
+        "numeric_count": 232,
+        "min": 23800006.0,
+        "max": 33638482301.82,
+        "mean": 289986916.4,
+        "median": 147000000.0,
+        "std": 2199975645.86,
+        "q1": 73500000.0,
+        "q3": 196063957.11,
+        "iqr": 122563957.11
+      }
+    }
+  },
+  {
+    "file_path": "data/original/RajyaSabha_Retired/Amount consented for Calamity.csv",
+    "filename": "Amount consented for Calamity.csv",
+    "file_size_bytes": 2504,
+    "chamber": "Rajya Sabha",
+    "term": "Sitting Members (Continuous House)",
+    "record_grain": "ONE ROW = ONE CALAMITY RELIEF CONSENT EVENT",
+    "row_count": 21,
+    "column_count": 6,
+    "exact_duplicate_rows": 0,
+    "exact_duplicate_percentage": 0.0,
+    "column_names": [
+      "Sr. No.",
+      "Calamity Type",
+      "Calamity Name",
+      "Hon'ble Members of Parliament",
+      "Date of Consent",
+      "Consent Amount ( \u20b9 )"
+    ],
+    "semantic_fields": {
+      "work_id_fields": [],
+      "work_number_fields": [],
+      "mp_fields": [
+        "Hon'ble Members of Parliament"
+      ],
+      "constituency_fields": [],
+      "state_fields": [],
+      "district_fields": [],
+      "agency_fields": [],
+      "vendor_fields": [],
+      "amount_fields": [
+        "Consent Amount ( \u20b9 )"
+      ],
+      "date_fields": [
+        "Date of Consent"
+      ],
+      "status_fields": []
+    },
+    "identifier_analyses": {},
+    "columns": {
+      "Sr. No.": {
+        "name": "Sr. No.",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 21,
+        "type_category": "NUMERIC",
+        "numeric_count": 20,
+        "min": 1.0,
+        "max": 20.0,
+        "mean": 10.5,
+        "median": 10.5,
+        "std": 5.92,
+        "q1": 5.75,
+        "q3": 15.25,
+        "iqr": 9.5
+      },
+      "Calamity Type": {
+        "name": "Calamity Type",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 3,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "National Calamity",
+            "count": 12,
+            "percentage": 57.14
+          },
+          {
+            "value": "State Calamity",
+            "count": 8,
+            "percentage": 38.1
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 4.76
+          }
+        ]
+      },
+      "Calamity Name": {
+        "name": "Calamity Name",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 5,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Flood 2025 in Punjab",
+            "count": 9,
+            "percentage": 42.86
+          },
+          {
+            "value": "Wayanad landslides 2024",
+            "count": 6,
+            "percentage": 28.57
+          },
+          {
+            "value": "Meppadi landslides 2024",
+            "count": 3,
+            "percentage": 14.29
+          },
+          {
+            "value": "Vilangad Landslides 2024",
+            "count": 2,
+            "percentage": 9.52
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 4.76
+          }
+        ]
+      },
+      "Hon'ble Members of Parliament": {
+        "name": "Hon'ble Members of Parliament",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 17,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Shri P. P. Suneer (2024-30) (2024-2030)",
+            "count": 2,
+            "percentage": 9.52
+          },
+          {
+            "value": "Dr. John Brittas (2021-27) (2021-2027)",
+            "count": 2,
+            "percentage": 9.52
+          },
+          {
+            "value": "Shri Narain Dass Gupta (2024-30) (2024-2030)",
+            "count": 2,
+            "percentage": 9.52
+          },
+          {
+            "value": "Smt. P. T. Usha (2022-28) (2022-2028)",
+            "count": 2,
+            "percentage": 9.52
+          },
+          {
+            "value": "Shri Sandosh Kumar P (2022-28) (2022-2028)",
+            "count": 1,
+            "percentage": 4.76
+          }
+        ]
+      },
+      "Date of Consent": {
+        "name": "Date of Consent",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 17,
+        "type_category": "DATE",
+        "min_date": "2024-09-10 00:00:00",
+        "max_date": "2025-11-17 00:00:00",
+        "unique_dates": 16
+      },
+      "Consent Amount ( \u20b9 )": {
+        "name": "Consent Amount ( \u20b9 )",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 6,
+        "type_category": "NUMERIC",
+        "numeric_count": 21,
+        "min": 500000.0,
+        "max": 104500000.0,
+        "mean": 9952380.95,
+        "median": 2500000.0,
+        "std": 21977775.57,
+        "q1": 2500000.0,
+        "q3": 10000000.0,
+        "iqr": 7500000.0
+      }
+    }
+  },
+  {
+    "file_path": "data/original/RajyaSabha_Retired/Expenditure on Completed and On-going Works as on Date.csv",
+    "filename": "Expenditure on Completed and On-going Works as on Date.csv",
+    "file_size_bytes": 7031704,
+    "chamber": "Rajya Sabha",
+    "term": "Sitting Members (Continuous House)",
+    "record_grain": "ONE ROW = ONE EXPENDITURE / PAYMENT TRANSACTION RECORD",
+    "row_count": 25130,
+    "column_count": 11,
+    "exact_duplicate_rows": 0,
+    "exact_duplicate_percentage": 0.0,
+    "column_names": [
+      "Sr. No.",
+      "State",
+      "Work",
+      "Work ID",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Expenditure Date",
+      "Vendor Name",
+      "Payment Status",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "semantic_fields": {
+      "work_id_fields": [
+        "Work ID"
+      ],
+      "work_number_fields": [],
+      "mp_fields": [
+        "Hon'ble Members of Parliament"
+      ],
+      "constituency_fields": [],
+      "state_fields": [
+        "State"
+      ],
+      "district_fields": [
+        "IDA"
+      ],
+      "agency_fields": [],
+      "vendor_fields": [
+        "Vendor Name"
+      ],
+      "amount_fields": [
+        "Fund Disbursed Amount ( \u20b9 )"
+      ],
+      "date_fields": [
+        "Expenditure Date"
+      ],
+      "status_fields": [
+        "Payment Status"
+      ]
+    },
+    "identifier_analyses": {
+      "Work ID": {
+        "total_present": 25130,
+        "unique_count": 15315,
+        "duplicate_count": 9815,
+        "duplicate_percentage": 39.06
+      }
+    },
+    "columns": {
+      "Sr. No.": {
+        "name": "Sr. No.",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 25130,
+        "type_category": "NUMERIC",
+        "numeric_count": 25129,
+        "min": 1.0,
+        "max": 25129.0,
+        "mean": 12565.0,
+        "median": 12565.0,
+        "std": 7254.26,
+        "q1": 6283.0,
+        "q3": 18847.0,
+        "iqr": 12564.0
+      },
+      "State": {
+        "name": "State",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 30,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Uttar Pradesh",
+            "count": 6793,
+            "percentage": 27.03
+          },
+          {
+            "value": "Punjab",
+            "count": 3074,
+            "percentage": 12.23
+          },
+          {
+            "value": "Madhya Pradesh",
+            "count": 1939,
+            "percentage": 7.72
+          },
+          {
+            "value": "Rajasthan",
+            "count": 1695,
+            "percentage": 6.74
+          },
+          {
+            "value": "Jharkhand",
+            "count": 1411,
+            "percentage": 5.61
+          }
+        ]
+      },
+      "Work": {
+        "name": "Work",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 100,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Construction of roads, link roads, pathways or any other road with or without drainage system",
+            "count": 7927,
+            "percentage": 31.54
+          },
+          {
+            "value": "Lighting of public spaces",
+            "count": 4265,
+            "percentage": 16.97
+          },
+          {
+            "value": "Construction of community centers and community halls",
+            "count": 1321,
+            "percentage": 5.26
+          },
+          {
+            "value": "Construction of rooms and halls in school and colleges",
+            "count": 968,
+            "percentage": 3.85
+          },
+          {
+            "value": "Street lights",
+            "count": 863,
+            "percentage": 3.43
+          }
+        ]
+      },
+      "Work ID": {
+        "name": "Work ID",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 15315,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "WS/MP844/2023-2024/74812",
+            "count": 191,
+            "percentage": 0.76
+          },
+          {
+            "value": "WS/MP140/2023-2024/17140",
+            "count": 68,
+            "percentage": 0.27
+          },
+          {
+            "value": "WS/MP235/2025-2026/241415",
+            "count": 61,
+            "percentage": 0.24
+          },
+          {
+            "value": "WS/MP107/2023-2024/90552",
+            "count": 57,
+            "percentage": 0.23
+          },
+          {
+            "value": "WS/MP145/2025-2026/193233",
+            "count": 52,
+            "percentage": 0.21
+          }
+        ]
+      },
+      "IDA": {
+        "name": "IDA",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 531,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "RANCHI(DEPUTY COMMISSIONER RANCHI_IDA)",
+            "count": 1144,
+            "percentage": 4.55
+          },
+          {
+            "value": "FEROZEPUR(DEPUTY COMMISSIONER FIROZEPUR_IDA)",
+            "count": 1042,
+            "percentage": 4.15
+          },
+          {
+            "value": "SONBHADRA(DISTRICT MAGISTRATE SONBHADRA_IDA)",
+            "count": 885,
+            "percentage": 3.52
+          },
+          {
+            "value": "BUDAUN(DISTRICT MAGISTRATE BUDAUN_IDA)",
+            "count": 797,
+            "percentage": 3.17
+          },
+          {
+            "value": "PATNA(DISTRICT PLANNING OFFICER PATNA_IDA)",
+            "count": 569,
+            "percentage": 2.26
+          }
+        ]
+      },
+      "Hon'ble Members of Parliament": {
+        "name": "Hon'ble Members of Parliament",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 170,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Dr. Sandeep Kumar Pathak (2022-28) (2022-2028)",
+            "count": 1152,
+            "percentage": 4.58
+          },
+          {
+            "value": "Shri Hardeep Singh Puri (2020-26) (2020-2026)",
+            "count": 885,
+            "percentage": 3.52
+          },
+          {
+            "value": "Shri B.L. Verma (2020-26) (2020-2026)",
+            "count": 804,
+            "percentage": 3.2
+          },
+          {
+            "value": "Shri Sant Balbir Singh (2022-28) (2022-2028)",
+            "count": 765,
+            "percentage": 3.04
+          },
+          {
+            "value": "Dr. Dharmasthala Veerendra Heggade (2022-28) (2022-2028)",
+            "count": 644,
+            "percentage": 2.56
+          }
+        ]
+      },
+      "Elected/Nominated": {
+        "name": "Elected/Nominated",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 3,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Elected MP",
+            "count": 24007,
+            "percentage": 95.53
+          },
+          {
+            "value": "Nominated MP",
+            "count": 1122,
+            "percentage": 4.46
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.0
+          }
+        ]
+      },
+      "Expenditure Date": {
+        "name": "Expenditure Date",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 960,
+        "type_category": "DATE",
+        "min_date": "2023-07-27 00:00:00",
+        "max_date": "2026-09-05 00:00:00",
+        "unique_dates": 959
+      },
+      "Vendor Name": {
+        "name": "Vendor Name",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 6116,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "shyam swaroop manufacturere",
+            "count": 989,
+            "percentage": 3.94
+          },
+          {
+            "value": "SHRI NAVKAR METALS LIMITED",
+            "count": 384,
+            "percentage": 1.53
+          },
+          {
+            "value": "HIDAYA QIRAT ENTERPRISES",
+            "count": 317,
+            "percentage": 1.26
+          },
+          {
+            "value": "Junior Engineer Zila Parishad Prashant Kumar",
+            "count": 308,
+            "percentage": 1.23
+          },
+          {
+            "value": "RAHISH WARSI",
+            "count": 218,
+            "percentage": 0.87
+          }
+        ]
+      },
+      "Payment Status": {
+        "name": "Payment Status",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 3,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Payment Success",
+            "count": 24680,
+            "percentage": 98.21
+          },
+          {
+            "value": "Payment In-Progress",
+            "count": 449,
+            "percentage": 1.79
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.0
+          }
+        ]
+      },
+      "Fund Disbursed Amount ( \u20b9 )": {
+        "name": "Fund Disbursed Amount ( \u20b9 )",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 10770,
+        "type_category": "NUMERIC",
+        "numeric_count": 25130,
+        "min": 0.01,
+        "max": 12425553082.69,
+        "mean": 988901.96,
+        "median": 248250.0,
+        "std": 78384906.28,
+        "q1": 90000.0,
+        "q3": 573551.75,
+        "iqr": 483551.75
+      }
+    }
+  },
+  {
+    "file_path": "data/original/RajyaSabha_Retired/Works Completed.csv",
+    "filename": "Works Completed.csv",
+    "file_size_bytes": 3556746,
+    "chamber": "Rajya Sabha",
+    "term": "Sitting Members (Continuous House)",
+    "record_grain": "ONE ROW = ONE COMPLETED WORK RECORD",
+    "row_count": 9964,
+    "column_count": 11,
+    "exact_duplicate_rows": 0,
+    "exact_duplicate_percentage": 0.0,
+    "column_names": [
+      "Sr. No.",
+      "Work Category",
+      "Work",
+      "State",
+      "IDA",
+      "Work Description",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Image",
+      "Completion Date",
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "semantic_fields": {
+      "work_id_fields": [],
+      "work_number_fields": [],
+      "mp_fields": [
+        "Hon'ble Members of Parliament"
+      ],
+      "constituency_fields": [],
+      "state_fields": [
+        "State"
+      ],
+      "district_fields": [
+        "IDA"
+      ],
+      "agency_fields": [],
+      "vendor_fields": [],
+      "amount_fields": [
+        "Amount Disbursed ( \u20b9 )"
+      ],
+      "date_fields": [
+        "Completion Date"
+      ],
+      "status_fields": []
+    },
+    "identifier_analyses": {},
+    "columns": {
+      "Sr. No.": {
+        "name": "Sr. No.",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 9964,
+        "type_category": "NUMERIC",
+        "numeric_count": 9963,
+        "min": 1.0,
+        "max": 9963.0,
+        "mean": 4982.0,
+        "median": 4982.0,
+        "std": 2876.21,
+        "q1": 2491.5,
+        "q3": 7472.5,
+        "iqr": 4981.0
+      },
+      "Work Category": {
+        "name": "Work Category",
+        "data_type": "object",
+        "null_count": 5,
+        "null_percentage": 0.05,
+        "unique_count": 5,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Normal/Others",
+            "count": 9795,
+            "percentage": 98.3
+          },
+          {
+            "value": "Repair and Renovation",
+            "count": 97,
+            "percentage": 0.97
+          },
+          {
+            "value": "Trust and Society",
+            "count": 65,
+            "percentage": 0.65
+          },
+          {
+            "value": "Bar and Associations",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.01
+          }
+        ]
+      },
+      "Work": {
+        "name": "Work",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 9964,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "WS/MP187/2023-2024/1362-Street lights",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "WS/MP180/2025-2026/173417-Construction of roads, link roads, pathways or any other road with or without drainage system",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "WS/MP18403/2025-2026/157876-Setting up of kitchen and pantries",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "WS/MP162/2025-2026/177851-Construction of additional rooms and halls in the existing public and community building",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "WS/MP18340/2025-2026/197523-Purchase of vehicle for mobile dispensaries (Four, three and two wheelers)",
+            "count": 1,
+            "percentage": 0.01
+          }
+        ]
+      },
+      "State": {
+        "name": "State",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 29,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Uttar Pradesh",
+            "count": 2982,
+            "percentage": 29.93
+          },
+          {
+            "value": "Bihar",
+            "count": 1173,
+            "percentage": 11.77
+          },
+          {
+            "value": "Tamil Nadu",
+            "count": 744,
+            "percentage": 7.47
+          },
+          {
+            "value": "Karnataka",
+            "count": 614,
+            "percentage": 6.16
+          },
+          {
+            "value": "Punjab",
+            "count": 486,
+            "percentage": 4.88
+          }
+        ]
+      },
+      "IDA": {
+        "name": "IDA",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 430,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "PATNA(DISTRICT PLANNING OFFICER PATNA_IDA)",
+            "count": 489,
+            "percentage": 4.91
+          },
+          {
+            "value": "BUDAUN(DISTRICT MAGISTRATE BUDAUN_IDA)",
+            "count": 346,
+            "percentage": 3.47
+          },
+          {
+            "value": "SHAHJAHANPUR(DISTRICT MAGISTRAE SHAHJAHANAPUR_IDA)",
+            "count": 336,
+            "percentage": 3.37
+          },
+          {
+            "value": "HAMIRPUR(DISTRICT MAGISTRATE HAMIRPUR_2)",
+            "count": 333,
+            "percentage": 3.34
+          },
+          {
+            "value": "RANCHI(DEPUTY COMMISSIONER RANCHI_IDA)",
+            "count": 309,
+            "percentage": 3.1
+          }
+        ]
+      },
+      "Work Description": {
+        "name": "Work Description",
+        "data_type": "object",
+        "null_count": 6,
+        "null_percentage": 0.06,
+        "unique_count": 8072,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "High Mast LED Light (9.5 mtrs MS Pole with 6 LED Light 150 W)",
+            "count": 204,
+            "percentage": 2.05
+          },
+          {
+            "value": "Purchase of books and periodicals for libraries",
+            "count": 108,
+            "percentage": 1.08
+          },
+          {
+            "value": "Led Semi High Mast Light (6LED) with 170-watt, 9 meter pole",
+            "count": 96,
+            "percentage": 0.96
+          },
+          {
+            "value": "LED SEMI HIGH MAST LIGHT",
+            "count": 94,
+            "percentage": 0.94
+          },
+          {
+            "value": "Installing a big hand pump (India Mark III) at a public place",
+            "count": 93,
+            "percentage": 0.93
+          }
+        ]
+      },
+      "Hon'ble Members of Parliament": {
+        "name": "Hon'ble Members of Parliament",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 157,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Shri Baburam Nishad (2022-28) (NaN-NaN)",
+            "count": 436,
+            "percentage": 4.38
+          },
+          {
+            "value": "Shri B.L. Verma (2020-26) (NaN-NaN)",
+            "count": 350,
+            "percentage": 3.51
+          },
+          {
+            "value": "Dr. Dharmasthala Veerendra Heggade (2022-28) (NaN-NaN)",
+            "count": 301,
+            "percentage": 3.02
+          },
+          {
+            "value": "Shri Hardeep Singh Puri (2020-26) (NaN-NaN)",
+            "count": 292,
+            "percentage": 2.93
+          },
+          {
+            "value": "Dr. K. Laxman (2022-28) (NaN-NaN)",
+            "count": 275,
+            "percentage": 2.76
+          }
+        ]
+      },
+      "Elected/Nominated": {
+        "name": "Elected/Nominated",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 2,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Elected MP",
+            "count": 9963,
+            "percentage": 99.99
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.01
+          }
+        ]
+      },
+      "Image": {
+        "name": "Image",
+        "data_type": "object",
+        "null_count": 3458,
+        "null_percentage": 34.7,
+        "unique_count": 2,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Images",
+            "count": 6505,
+            "percentage": 65.29
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.01
+          }
+        ]
+      },
+      "Completion Date": {
+        "name": "Completion Date",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 760,
+        "type_category": "DATE",
+        "min_date": "2023-08-02 00:00:00",
+        "max_date": "2026-09-05 00:00:00",
+        "unique_dates": 759
+      },
+      "Amount Disbursed ( \u20b9 )": {
+        "name": "Amount Disbursed ( \u20b9 )",
+        "data_type": "object",
+        "null_count": 23,
+        "null_percentage": 0.23,
+        "unique_count": 4289,
+        "type_category": "NUMERIC",
+        "numeric_count": 9941,
+        "min": 10000.0,
+        "max": 7614976892.21,
+        "mean": 1532034.38,
+        "median": 497500.0,
+        "std": 76383447.52,
+        "q1": 239236.34,
+        "q3": 984876.0,
+        "iqr": 745639.66
+      }
+    }
+  },
+  {
+    "file_path": "data/original/RajyaSabha_Retired/Works Recommended.csv",
+    "filename": "Works Recommended.csv",
+    "file_size_bytes": 9065373,
+    "chamber": "Rajya Sabha",
+    "term": "Sitting Members (Continuous House)",
+    "record_grain": "ONE ROW = ONE WORK RECOMMENDATION PROPOSAL",
+    "row_count": 25204,
+    "column_count": 11,
+    "exact_duplicate_rows": 0,
+    "exact_duplicate_percentage": 0.0,
+    "column_names": [
+      "Sr. No.",
+      "Work category",
+      "WORK",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Work description",
+      "Recommended date",
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "semantic_fields": {
+      "work_id_fields": [],
+      "work_number_fields": [],
+      "mp_fields": [
+        "Hon'ble Members of Parliament"
+      ],
+      "constituency_fields": [],
+      "state_fields": [
+        "State"
+      ],
+      "district_fields": [
+        "IDA"
+      ],
+      "agency_fields": [],
+      "vendor_fields": [],
+      "amount_fields": [
+        "RECOMMENDED AMOUNT   ( \u20b9 )"
+      ],
+      "date_fields": [
+        "Recommended date",
+        "Sanction Date"
+      ],
+      "status_fields": []
+    },
+    "identifier_analyses": {},
+    "columns": {
+      "Sr. No.": {
+        "name": "Sr. No.",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 25204,
+        "type_category": "NUMERIC",
+        "numeric_count": 25203,
+        "min": 1.0,
+        "max": 25203.0,
+        "mean": 12602.0,
+        "median": 12602.0,
+        "std": 7275.62,
+        "q1": 6301.5,
+        "q3": 18902.5,
+        "iqr": 12601.0
+      },
+      "Work category": {
+        "name": "Work category",
+        "data_type": "object",
+        "null_count": 5,
+        "null_percentage": 0.02,
+        "unique_count": 5,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Normal/Others",
+            "count": 24427,
+            "percentage": 96.92
+          },
+          {
+            "value": "Repair and Renovation",
+            "count": 413,
+            "percentage": 1.64
+          },
+          {
+            "value": "Trust and Society",
+            "count": 350,
+            "percentage": 1.39
+          },
+          {
+            "value": "Bar and Associations",
+            "count": 8,
+            "percentage": 0.03
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.0
+          }
+        ]
+      },
+      "WORK": {
+        "name": "WORK",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 19467,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "NA-Construction of roads, link roads, pathways or any other road with or without drainage system",
+            "count": 1199,
+            "percentage": 4.76
+          },
+          {
+            "value": "NA-Lighting of public spaces",
+            "count": 977,
+            "percentage": 3.88
+          },
+          {
+            "value": "NA-Construction of community centers and community halls",
+            "count": 697,
+            "percentage": 2.77
+          },
+          {
+            "value": "NA-Construction of rooms and halls in school and colleges",
+            "count": 273,
+            "percentage": 1.08
+          },
+          {
+            "value": "NA-Street lights",
+            "count": 205,
+            "percentage": 0.81
+          }
+        ]
+      },
+      "State": {
+        "name": "State",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 31,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Uttar Pradesh",
+            "count": 5831,
+            "percentage": 23.14
+          },
+          {
+            "value": "Bihar",
+            "count": 1824,
+            "percentage": 7.24
+          },
+          {
+            "value": "Kerala",
+            "count": 1540,
+            "percentage": 6.11
+          },
+          {
+            "value": "Madhya Pradesh",
+            "count": 1362,
+            "percentage": 5.4
+          },
+          {
+            "value": "Gujarat",
+            "count": 1327,
+            "percentage": 5.27
+          }
+        ]
+      },
+      "IDA": {
+        "name": "IDA",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 622,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "RANCHI(DEPUTY COMMISSIONER RANCHI_IDA)",
+            "count": 859,
+            "percentage": 3.41
+          },
+          {
+            "value": "PATNA(DISTRICT PLANNING OFFICER PATNA_IDA)",
+            "count": 661,
+            "percentage": 2.62
+          },
+          {
+            "value": "GHAZIPUR(DISTRICT MAGISTRAE GHAZIPUR_IDA)",
+            "count": 470,
+            "percentage": 1.86
+          },
+          {
+            "value": "SONBHADRA(DISTRICT MAGISTRATE SONBHADRA_IDA)",
+            "count": 415,
+            "percentage": 1.65
+          },
+          {
+            "value": "JAUNPUR(DISTRICT MAGISTRATE JAUNPUR_IDA)",
+            "count": 394,
+            "percentage": 1.56
+          }
+        ]
+      },
+      "Hon'ble Members of Parliament": {
+        "name": "Hon'ble Members of Parliament",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 197,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Shri Baburam Nishad (2022-28) (2022-2028)",
+            "count": 649,
+            "percentage": 2.57
+          },
+          {
+            "value": "Shri Vivek K. Tankha (2022-28) (2022-2028)",
+            "count": 504,
+            "percentage": 2.0
+          },
+          {
+            "value": "Dr. Dharmasthala Veerendra Heggade (2022-28) (2022-2028)",
+            "count": 474,
+            "percentage": 1.88
+          },
+          {
+            "value": "Smt. Mahua Maji (2022-28) (2022-2028)",
+            "count": 465,
+            "percentage": 1.84
+          },
+          {
+            "value": "Shri Harsh Mahajan (2024-30) (2024-2030)",
+            "count": 461,
+            "percentage": 1.83
+          }
+        ]
+      },
+      "Elected/Nominated": {
+        "name": "Elected/Nominated",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 3,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Elected MP",
+            "count": 24093,
+            "percentage": 95.59
+          },
+          {
+            "value": "Nominated MP",
+            "count": 1110,
+            "percentage": 4.4
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.0
+          }
+        ]
+      },
+      "Work description": {
+        "name": "Work description",
+        "data_type": "object",
+        "null_count": 23,
+        "null_percentage": 0.09,
+        "unique_count": 22124,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "High Mast LED Light (9.5 mtrs MS Pole with 6 LED Light 150 W)",
+            "count": 204,
+            "percentage": 0.81
+          },
+          {
+            "value": "Purchase of books and periodicals for libraries",
+            "count": 108,
+            "percentage": 0.43
+          },
+          {
+            "value": "Regarding for giving single walled fabrication of 5000 ltr water tanker to Village. 2mm stainless sheet AISI 304 Material etc. (SC)",
+            "count": 102,
+            "percentage": 0.4
+          },
+          {
+            "value": "Installing a big hand pump (India Mark III) at a public place",
+            "count": 98,
+            "percentage": 0.39
+          },
+          {
+            "value": "LED SEMI HIGH MAST LIGHT",
+            "count": 97,
+            "percentage": 0.38
+          }
+        ]
+      },
+      "Recommended date": {
+        "name": "Recommended date",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 975,
+        "type_category": "DATE",
+        "min_date": "2023-06-14 00:00:00",
+        "max_date": "2026-09-05 00:00:00",
+        "unique_dates": 974
+      },
+      "RECOMMENDED AMOUNT   ( \u20b9 )": {
+        "name": "RECOMMENDED AMOUNT   ( \u20b9 )",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 5031,
+        "type_category": "NUMERIC",
+        "numeric_count": 25203,
+        "min": 3.89,
+        "max": 73500000.0,
+        "mean": 885265.09,
+        "median": 500000.0,
+        "std": 1875177.6,
+        "q1": 243000.0,
+        "q3": 1000000.0,
+        "iqr": 757000.0
+      },
+      "Sanction Date": {
+        "name": "Sanction Date",
+        "data_type": "object",
+        "null_count": 5826,
+        "null_percentage": 23.12,
+        "unique_count": 813,
+        "type_category": "DATE",
+        "min_date": "2023-07-07 00:00:00",
+        "max_date": "2026-09-05 00:00:00",
+        "unique_dates": 812
+      }
+    }
+  },
+  {
+    "file_path": "data/original/RajyaSabha_Retired/Works Sanctioned.csv",
+    "filename": "Works Sanctioned.csv",
+    "file_size_bytes": 7622272,
+    "chamber": "Rajya Sabha",
+    "term": "Sitting Members (Continuous House)",
+    "record_grain": "ONE ROW = ONE SANCTIONED WORK / PROJECT ENTITY",
+    "row_count": 19607,
+    "column_count": 12,
+    "exact_duplicate_rows": 0,
+    "exact_duplicate_percentage": 0.0,
+    "column_names": [
+      "Sr. No.",
+      "Work category",
+      "Work",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Work description",
+      "Recommended date",
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )",
+      "Work Status"
+    ],
+    "semantic_fields": {
+      "work_id_fields": [],
+      "work_number_fields": [],
+      "mp_fields": [
+        "Hon'ble Members of Parliament"
+      ],
+      "constituency_fields": [],
+      "state_fields": [
+        "State"
+      ],
+      "district_fields": [
+        "IDA"
+      ],
+      "agency_fields": [],
+      "vendor_fields": [],
+      "amount_fields": [
+        "Sanction Amount ( \u20b9 )"
+      ],
+      "date_fields": [
+        "Recommended date",
+        "Sanction Date"
+      ],
+      "status_fields": [
+        "Work Status"
+      ]
+    },
+    "identifier_analyses": {},
+    "columns": {
+      "Sr. No.": {
+        "name": "Sr. No.",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 19607,
+        "type_category": "NUMERIC",
+        "numeric_count": 19606,
+        "min": 1.0,
+        "max": 19606.0,
+        "mean": 9803.5,
+        "median": 9803.5,
+        "std": 5659.91,
+        "q1": 4902.25,
+        "q3": 14704.75,
+        "iqr": 9802.5
+      },
+      "Work category": {
+        "name": "Work category",
+        "data_type": "object",
+        "null_count": 7,
+        "null_percentage": 0.04,
+        "unique_count": 5,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Normal/Others",
+            "count": 19071,
+            "percentage": 97.27
+          },
+          {
+            "value": "Repair and Renovation",
+            "count": 299,
+            "percentage": 1.52
+          },
+          {
+            "value": "Trust and Society",
+            "count": 227,
+            "percentage": 1.16
+          },
+          {
+            "value": "Bar and Associations",
+            "count": 2,
+            "percentage": 0.01
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.01
+          }
+        ]
+      },
+      "Work": {
+        "name": "Work",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 19607,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "WS/MP187/2023-2024/1199-Construction of rooms and halls in school and colleges",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "WS/MP007/2025-2026/219573-Installing tube-wells and borewells",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "WS/MP007/2025-2026/219580-Installing tube-wells and borewells",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "WS/MP007/2025-2026/219579-Installing tube-wells and borewells",
+            "count": 1,
+            "percentage": 0.01
+          },
+          {
+            "value": "WS/MP007/2025-2026/219578-Installing tube-wells and borewells",
+            "count": 1,
+            "percentage": 0.01
+          }
+        ]
+      },
+      "State": {
+        "name": "State",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 30,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Uttar Pradesh",
+            "count": 4873,
+            "percentage": 24.85
+          },
+          {
+            "value": "Bihar",
+            "count": 1571,
+            "percentage": 8.01
+          },
+          {
+            "value": "Madhya Pradesh",
+            "count": 1103,
+            "percentage": 5.63
+          },
+          {
+            "value": "Karnataka",
+            "count": 1060,
+            "percentage": 5.41
+          },
+          {
+            "value": "Gujarat",
+            "count": 1055,
+            "percentage": 5.38
+          }
+        ]
+      },
+      "IDA": {
+        "name": "IDA",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 573,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "RANCHI(DEPUTY COMMISSIONER RANCHI_IDA)",
+            "count": 652,
+            "percentage": 3.33
+          },
+          {
+            "value": "PATNA(DISTRICT PLANNING OFFICER PATNA_IDA)",
+            "count": 648,
+            "percentage": 3.3
+          },
+          {
+            "value": "SONBHADRA(DISTRICT MAGISTRATE SONBHADRA_IDA)",
+            "count": 415,
+            "percentage": 2.12
+          },
+          {
+            "value": "BUDAUN(DISTRICT MAGISTRATE BUDAUN_IDA)",
+            "count": 392,
+            "percentage": 2.0
+          },
+          {
+            "value": "JAUNPUR(DISTRICT MAGISTRATE JAUNPUR_IDA)",
+            "count": 387,
+            "percentage": 1.97
+          }
+        ]
+      },
+      "Hon'ble Members of Parliament": {
+        "name": "Hon'ble Members of Parliament",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 179,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Shri Baburam Nishad (2022-28) (2022-2028)",
+            "count": 496,
+            "percentage": 2.53
+          },
+          {
+            "value": "Dr. Dharmasthala Veerendra Heggade (2022-28) (2022-2028)",
+            "count": 453,
+            "percentage": 2.31
+          },
+          {
+            "value": "Shri Harsh Mahajan (2024-30) (2024-2030)",
+            "count": 418,
+            "percentage": 2.13
+          },
+          {
+            "value": "Shri Hardeep Singh Puri (2020-26) (2020-2026)",
+            "count": 415,
+            "percentage": 2.12
+          },
+          {
+            "value": "Shri B.L. Verma (2020-26) (2020-2026)",
+            "count": 409,
+            "percentage": 2.09
+          }
+        ]
+      },
+      "Elected/Nominated": {
+        "name": "Elected/Nominated",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 3,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Elected MP",
+            "count": 18648,
+            "percentage": 95.11
+          },
+          {
+            "value": "Nominated MP",
+            "count": 958,
+            "percentage": 4.89
+          },
+          {
+            "value": "\u00a0",
+            "count": 1,
+            "percentage": 0.01
+          }
+        ]
+      },
+      "Work description": {
+        "name": "Work description",
+        "data_type": "object",
+        "null_count": 11,
+        "null_percentage": 0.06,
+        "unique_count": 17157,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "High Mast LED Light (9.5 mtrs MS Pole with 6 LED Light 150 W)",
+            "count": 204,
+            "percentage": 1.04
+          },
+          {
+            "value": "Purchase of books and periodicals for libraries",
+            "count": 108,
+            "percentage": 0.55
+          },
+          {
+            "value": "Regarding for giving single walled fabrication of 5000 ltr water tanker to Village. 2mm stainless sheet AISI 304 Material etc. (SC)",
+            "count": 102,
+            "percentage": 0.52
+          },
+          {
+            "value": "Installing a big hand pump (India Mark III) at a public place",
+            "count": 98,
+            "percentage": 0.5
+          },
+          {
+            "value": "LED SEMI HIGH MAST LIGHT",
+            "count": 97,
+            "percentage": 0.49
+          }
+        ]
+      },
+      "Recommended date": {
+        "name": "Recommended date",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 941,
+        "type_category": "DATE",
+        "min_date": "2023-06-14 00:00:00",
+        "max_date": "2026-09-02 00:00:00",
+        "unique_dates": 940
+      },
+      "Sanction Date": {
+        "name": "Sanction Date",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 813,
+        "type_category": "DATE",
+        "min_date": "2023-07-07 00:00:00",
+        "max_date": "2026-09-05 00:00:00",
+        "unique_dates": 812
+      },
+      "Sanction Amount ( \u20b9 )": {
+        "name": "Sanction Amount ( \u20b9 )",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 4775,
+        "type_category": "NUMERIC",
+        "numeric_count": 19606,
+        "min": 10000.0,
+        "max": 73500000.0,
+        "mean": 874629.24,
+        "median": 500000.0,
+        "std": 1943287.82,
+        "q1": 243000.0,
+        "q3": 998700.0,
+        "iqr": 755700.0
+      },
+      "Work Status": {
+        "name": "Work Status",
+        "data_type": "object",
+        "null_count": 0,
+        "null_percentage": 0.0,
+        "unique_count": 7,
+        "type_category": "CATEGORICAL",
+        "top_values": [
+          {
+            "value": "Physical Inspection",
+            "count": 9893,
+            "percentage": 50.46
+          },
+          {
+            "value": "Sanction",
+            "count": 3950,
+            "percentage": 20.15
+          },
+          {
+            "value": "Vendor Identification",
+            "count": 2810,
+            "percentage": 14.33
+          },
+          {
+            "value": "Work partially Completed",
+            "count": 1882,
+            "percentage": 9.6
+          },
+          {
+            "value": "Work Completed",
+            "count": 971,
+            "percentage": 4.95
+          }
+        ]
+      }
+    }
+  },
+  {
     "file_path": "data/original/RajyaSabha_Sitting/Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv",
     "filename": "Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv",
     "file_size_bytes": 21302,

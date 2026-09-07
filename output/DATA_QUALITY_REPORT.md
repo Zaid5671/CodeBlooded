@@ -1,5 +1,5 @@
 # COMPREHENSIVE DATA QUALITY & ANOMALY INVENTORY REPORT
-**Generated At**: 2026-09-07T15:05:11.904578
+**Generated At**: 2026-09-07T15:15:17.759119
 
 ## 1. Summary of Data Quality Findings Across All 17 Real Datasets
 
@@ -16,6 +16,12 @@
 | `Works Completed_LokSabha_18.csv` | 34,440 | 378,840 | 9,462 (2.5%) | 0 | None (0) | None (0) | Completion Date: 1 |
 | `Works Recommended_LokSabha_18.csv` | 107,024 | 1,177,264 | 28,287 (2.4%) | 0 | None (0) | RECOMMENDED AMOUNT   ( ₹ ): 44 | Recommended date: 1, Sanction Date: 1 |
 | `Works Sanctioned_LokSabha_18.csv` | 79,220 | 950,640 | 98 (0.01%) | 0 | None (0) | Sanction Amount ( ₹ ): 3 | Recommended date: 1, Sanction Date: 1 |
+| `Allocated Limit for Honble MPs (1).csv` | 232 | 1,160 | 0 (0.0%) | 0 | None (0) | None (0) | None (0) |
+| `Amount consented for Calamity.csv` | 21 | 126 | 0 (0.0%) | 0 | None (0) | None (0) | Date of Consent: 1 |
+| `Expenditure on Completed and On-going Works as on Date.csv` | 25,130 | 276,430 | 0 (0.0%) | 0 | None (0) | Fund Disbursed Amount ( ₹ ): 93 | Expenditure Date: 1 |
+| `Works Completed.csv` | 9,964 | 109,604 | 3,492 (3.19%) | 0 | None (0) | None (0) | Completion Date: 1 |
+| `Works Recommended.csv` | 25,204 | 277,244 | 5,854 (2.11%) | 0 | None (0) | RECOMMENDED AMOUNT   ( ₹ ): 4 | Recommended date: 1, Sanction Date: 1 |
+| `Works Sanctioned.csv` | 19,607 | 235,284 | 18 (0.01%) | 0 | None (0) | None (0) | Recommended date: 1, Sanction Date: 1 |
 | `Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv` | 232 | 1,160 | 0 (0.0%) | 0 | None (0) | None (0) | None (0) |
 | `Amount_consented_for_Calamity_Rajya_Sitting.csv` | 21 | 126 | 0 (0.0%) | 0 | None (0) | None (0) | Date of Consent: 1 |
 | `Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv` | 25,141 | 276,551 | 0 (0.0%) | 0 | None (0) | Fund Disbursed Amount ( ₹ ): 93 | Expenditure Date: 1 |

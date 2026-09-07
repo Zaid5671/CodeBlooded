@@ -1,5 +1,5 @@
 # FULL REAL-DATA INVENTORY & STATISTICAL SCAN REPORT
-**Generated At**: 2026-09-07T15:05:07.854429 | **Total Structured Files Scanned**: 17
+**Generated At**: 2026-09-07T15:15:13.477274 | **Total Structured Files Scanned**: 23
 
 ## Executive Summary of Scanned Datasets
 
@@ -16,17 +16,23 @@
 | 9 | `Works Completed_LokSabha_18.csv` | 18th Lok Sabha (2024-Present) | ONE ROW = ONE COMPLETED WORK RECORD | 34,440 | 11 | 0 (0.0%) | Hon'ble Members of Parliament |
 | 10 | `Works Recommended_LokSabha_18.csv` | 18th Lok Sabha (2024-Present) | ONE ROW = ONE WORK RECOMMENDATION PROPOSAL | 107,024 | 11 | 0 (0.0%) | Hon'ble Members of Parliament |
 | 11 | `Works Sanctioned_LokSabha_18.csv` | 18th Lok Sabha (2024-Present) | ONE ROW = ONE SANCTIONED WORK / PROJECT ENTITY | 79,220 | 12 | 0 (0.0%) | Hon'ble Members of Parliament |
-| 12 | `Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv` | Sitting Members (Continuous House) | ONE ROW = ONE MP / CONSTITUENCY ALLOCATION RECORD | 232 | 5 | 0 (0.0%) | Hon'ble Members of Parliament |
-| 13 | `Amount_consented_for_Calamity_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE CALAMITY RELIEF CONSENT EVENT | 21 | 6 | 0 (0.0%) | Hon'ble Members of Parliament |
-| 14 | `Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE EXPENDITURE / PAYMENT TRANSACTION RECORD | 25,141 | 11 | 0 (0.0%) | Work ID, Hon'ble Members of Parliament |
-| 15 | `Works_Completed_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE COMPLETED WORK RECORD | 9,979 | 11 | 0 (0.0%) | Hon'ble Members of Parliament |
-| 16 | `Works_Recommended_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE WORK RECOMMENDATION PROPOSAL | 25,240 | 11 | 0 (0.0%) | Hon'ble Members of Parliament |
-| 17 | `Works_Sanctioned_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE SANCTIONED WORK / PROJECT ENTITY | 19,607 | 12 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 12 | `Allocated Limit for Honble MPs (1).csv` | Sitting Members (Continuous House) | ONE ROW = ONE MP / CONSTITUENCY ALLOCATION RECORD | 232 | 5 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 13 | `Amount consented for Calamity.csv` | Sitting Members (Continuous House) | ONE ROW = ONE CALAMITY RELIEF CONSENT EVENT | 21 | 6 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 14 | `Expenditure on Completed and On-going Works as on Date.csv` | Sitting Members (Continuous House) | ONE ROW = ONE EXPENDITURE / PAYMENT TRANSACTION RECORD | 25,130 | 11 | 0 (0.0%) | Work ID, Hon'ble Members of Parliament |
+| 15 | `Works Completed.csv` | Sitting Members (Continuous House) | ONE ROW = ONE COMPLETED WORK RECORD | 9,964 | 11 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 16 | `Works Recommended.csv` | Sitting Members (Continuous House) | ONE ROW = ONE WORK RECOMMENDATION PROPOSAL | 25,204 | 11 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 17 | `Works Sanctioned.csv` | Sitting Members (Continuous House) | ONE ROW = ONE SANCTIONED WORK / PROJECT ENTITY | 19,607 | 12 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 18 | `Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv` | Sitting Members (Continuous House) | ONE ROW = ONE MP / CONSTITUENCY ALLOCATION RECORD | 232 | 5 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 19 | `Amount_consented_for_Calamity_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE CALAMITY RELIEF CONSENT EVENT | 21 | 6 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 20 | `Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE EXPENDITURE / PAYMENT TRANSACTION RECORD | 25,141 | 11 | 0 (0.0%) | Work ID, Hon'ble Members of Parliament |
+| 21 | `Works_Completed_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE COMPLETED WORK RECORD | 9,979 | 11 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 22 | `Works_Recommended_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE WORK RECOMMENDATION PROPOSAL | 25,240 | 11 | 0 (0.0%) | Hon'ble Members of Parliament |
+| 23 | `Works_Sanctioned_Rajya_Sitting.csv` | Sitting Members (Continuous House) | ONE ROW = ONE SANCTIONED WORK / PROJECT ENTITY | 19,607 | 12 | 0 (0.0%) | Hon'ble Members of Parliament |
 
-**Total Real Data Records Scanned Across All Files**: **782,874 rows**
+**Total Real Data Records Scanned Across All Files**: **863,032 rows**
 
 - **Lok Sabha Total Rows**: 702,654
-- **Rajya Sabha Total Rows**: 80,220
+- **Rajya Sabha Total Rows**: 160,378
 
 ## Detailed File-by-File Statistical Profile
 
@@ -294,7 +300,149 @@
 
 ---
 
-### 12. `Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv`
+### 12. `Allocated Limit for Honble MPs (1).csv`
+- **File Path**: `data/original/RajyaSabha_Retired/Allocated Limit for Honble MPs (1).csv`
+- **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
+- **Record Grain**: `ONE ROW = ONE MP / CONSTITUENCY ALLOCATION RECORD`
+- **Dimensions**: 232 rows × 5 columns | Size: 21,070 bytes
+- **Exact Duplicate Rows**: 0 (0.0%)
+
+#### Column Schema & Statistics
+
+| Column Name | Type | Category | Null Count (%) | Summary Statistics / Distribution |
+|---|---|---|---:|---|
+| `Sr. No.` | `object` | `NUMERIC` | 0 (0.0%) | Min: 1.0, Max: 231.0, Mean: 116.0, Median: 116.0, IQR: 115.0 (Q1: 58.5, Q3: 173.5) |
+| `State` | `object` | `CATEGORICAL` | 0 (0.0%) | 33 unique. Top: Uttar Pradesh (31); Tamil Nadu (19); Maharashtra (18) |
+| `Hon'ble Members of Parliament` | `object` | `CATEGORICAL` | 0 (0.0%) | 232 unique. Top: Dr. Abhishek Manu Singhvi (2026-32) (2026-2032) (1); Shri Ramji Lal Suman (2024-30) (2024-2030) (1); Shri R. Dharmar (2022-28) (2022-2028) (1) |
+| `Elected/Nominated` | `object` | `CATEGORICAL` | 0 (0.0%) | 3 unique. Top: Elected MP (220); Nominated MP (11);   (1) |
+| `Allocated AMOUNT ( ₹ )` | `object` | `NUMERIC` | 0 (0.0%) | Min: 23800006.0, Max: 33638482301.82, Mean: 289986916.4, Median: 147000000.0, IQR: 122563957.11 (Q1: 73500000.0, Q3: 196063957.11) |
+
+---
+
+### 13. `Amount consented for Calamity.csv`
+- **File Path**: `data/original/RajyaSabha_Retired/Amount consented for Calamity.csv`
+- **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
+- **Record Grain**: `ONE ROW = ONE CALAMITY RELIEF CONSENT EVENT`
+- **Dimensions**: 21 rows × 6 columns | Size: 2,504 bytes
+- **Exact Duplicate Rows**: 0 (0.0%)
+
+#### Column Schema & Statistics
+
+| Column Name | Type | Category | Null Count (%) | Summary Statistics / Distribution |
+|---|---|---|---:|---|
+| `Sr. No.` | `object` | `NUMERIC` | 0 (0.0%) | Min: 1.0, Max: 20.0, Mean: 10.5, Median: 10.5, IQR: 9.5 (Q1: 5.75, Q3: 15.25) |
+| `Calamity Type` | `object` | `CATEGORICAL` | 0 (0.0%) | 3 unique. Top: National Calamity (12); State Calamity (8);   (1) |
+| `Calamity Name` | `object` | `CATEGORICAL` | 0 (0.0%) | 5 unique. Top: Flood 2025 in Punjab (9); Wayanad landslides 2024 (6); Meppadi landslides 2024 (3) |
+| `Hon'ble Members of Parliament` | `object` | `CATEGORICAL` | 0 (0.0%) | 17 unique. Top: Shri P. P. Suneer (2024-30) (2024-2030) (2); Dr. John Brittas (2021-27) (2021-2027) (2); Shri Narain Dass Gupta (2024-30) (2024-2030) (2) |
+| `Date of Consent` | `object` | `DATE` | 0 (0.0%) | Min Date: 2024-09-10 00:00:00, Max Date: 2025-11-17 00:00:00, Unique Dates: 16 |
+| `Consent Amount ( ₹ )` | `object` | `NUMERIC` | 0 (0.0%) | Min: 500000.0, Max: 104500000.0, Mean: 9952380.95, Median: 2500000.0, IQR: 7500000.0 (Q1: 2500000.0, Q3: 10000000.0) |
+
+---
+
+### 14. `Expenditure on Completed and On-going Works as on Date.csv`
+- **File Path**: `data/original/RajyaSabha_Retired/Expenditure on Completed and On-going Works as on Date.csv`
+- **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
+- **Record Grain**: `ONE ROW = ONE EXPENDITURE / PAYMENT TRANSACTION RECORD`
+- **Dimensions**: 25,130 rows × 11 columns | Size: 7,031,704 bytes
+- **Exact Duplicate Rows**: 0 (0.0%)
+- **Identifier Uniqueness**:
+  - `Work ID`: 15,315 unique out of 25,130 records (9,815 duplicates, 39.06%)
+
+#### Column Schema & Statistics
+
+| Column Name | Type | Category | Null Count (%) | Summary Statistics / Distribution |
+|---|---|---|---:|---|
+| `Sr. No.` | `object` | `NUMERIC` | 0 (0.0%) | Min: 1.0, Max: 25129.0, Mean: 12565.0, Median: 12565.0, IQR: 12564.0 (Q1: 6283.0, Q3: 18847.0) |
+| `State` | `object` | `CATEGORICAL` | 0 (0.0%) | 30 unique. Top: Uttar Pradesh (6,793); Punjab (3,074); Madhya Pradesh (1,939) |
+| `Work` | `object` | `CATEGORICAL` | 0 (0.0%) | 100 unique. Top: Construction of roads, link roads, pathways or any other road with or without drainage system (7,927); Lighting of public spaces (4,265); Construction of community centers and community halls (1,321) |
+| `Work ID` | `object` | `CATEGORICAL` | 0 (0.0%) | 15,315 unique. Top: WS/MP844/2023-2024/74812 (191); WS/MP140/2023-2024/17140 (68); WS/MP235/2025-2026/241415 (61) |
+| `IDA` | `object` | `CATEGORICAL` | 0 (0.0%) | 531 unique. Top: RANCHI(DEPUTY COMMISSIONER RANCHI_IDA) (1,144); FEROZEPUR(DEPUTY COMMISSIONER FIROZEPUR_IDA) (1,042); SONBHADRA(DISTRICT MAGISTRATE SONBHADRA_IDA) (885) |
+| `Hon'ble Members of Parliament` | `object` | `CATEGORICAL` | 0 (0.0%) | 170 unique. Top: Dr. Sandeep Kumar Pathak (2022-28) (2022-2028) (1,152); Shri Hardeep Singh Puri (2020-26) (2020-2026) (885); Shri B.L. Verma (2020-26) (2020-2026) (804) |
+| `Elected/Nominated` | `object` | `CATEGORICAL` | 0 (0.0%) | 3 unique. Top: Elected MP (24,007); Nominated MP (1,122);   (1) |
+| `Expenditure Date` | `object` | `DATE` | 0 (0.0%) | Min Date: 2023-07-27 00:00:00, Max Date: 2026-09-05 00:00:00, Unique Dates: 959 |
+| `Vendor Name` | `object` | `CATEGORICAL` | 0 (0.0%) | 6,116 unique. Top: shyam swaroop manufacturere (989); SHRI NAVKAR METALS LIMITED (384); HIDAYA QIRAT ENTERPRISES (317) |
+| `Payment Status` | `object` | `CATEGORICAL` | 0 (0.0%) | 3 unique. Top: Payment Success (24,680); Payment In-Progress (449);   (1) |
+| `Fund Disbursed Amount ( ₹ )` | `object` | `NUMERIC` | 0 (0.0%) | Min: 0.01, Max: 12425553082.69, Mean: 988901.96, Median: 248250.0, IQR: 483551.75 (Q1: 90000.0, Q3: 573551.75) |
+
+---
+
+### 15. `Works Completed.csv`
+- **File Path**: `data/original/RajyaSabha_Retired/Works Completed.csv`
+- **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
+- **Record Grain**: `ONE ROW = ONE COMPLETED WORK RECORD`
+- **Dimensions**: 9,964 rows × 11 columns | Size: 3,556,746 bytes
+- **Exact Duplicate Rows**: 0 (0.0%)
+
+#### Column Schema & Statistics
+
+| Column Name | Type | Category | Null Count (%) | Summary Statistics / Distribution |
+|---|---|---|---:|---|
+| `Sr. No.` | `object` | `NUMERIC` | 0 (0.0%) | Min: 1.0, Max: 9963.0, Mean: 4982.0, Median: 4982.0, IQR: 4981.0 (Q1: 2491.5, Q3: 7472.5) |
+| `Work Category` | `object` | `CATEGORICAL` | 5 (0.05%) | 5 unique. Top: Normal/Others (9,795); Repair and Renovation (97); Trust and Society (65) |
+| `Work` | `object` | `CATEGORICAL` | 0 (0.0%) | 9,964 unique. Top: WS/MP187/2023-2024/1362-Street lights (1); WS/MP180/2025-2026/173417-Construction of roads, link roads, pathways or any other road with or without drainage system (1); WS/MP18403/2025-2026/157876-Setting up of kitchen and pantries (1) |
+| `State` | `object` | `CATEGORICAL` | 0 (0.0%) | 29 unique. Top: Uttar Pradesh (2,982); Bihar (1,173); Tamil Nadu (744) |
+| `IDA` | `object` | `CATEGORICAL` | 0 (0.0%) | 430 unique. Top: PATNA(DISTRICT PLANNING OFFICER PATNA_IDA) (489); BUDAUN(DISTRICT MAGISTRATE BUDAUN_IDA) (346); SHAHJAHANPUR(DISTRICT MAGISTRAE SHAHJAHANAPUR_IDA) (336) |
+| `Work Description` | `object` | `CATEGORICAL` | 6 (0.06%) | 8,072 unique. Top: High Mast LED Light (9.5 mtrs MS Pole with 6 LED Light 150 W) (204); Purchase of books and periodicals for libraries (108); Led Semi High Mast Light (6LED) with 170-watt, 9 meter pole (96) |
+| `Hon'ble Members of Parliament` | `object` | `CATEGORICAL` | 0 (0.0%) | 157 unique. Top: Shri Baburam Nishad (2022-28) (NaN-NaN) (436); Shri B.L. Verma (2020-26) (NaN-NaN) (350); Dr. Dharmasthala Veerendra Heggade (2022-28) (NaN-NaN) (301) |
+| `Elected/Nominated` | `object` | `CATEGORICAL` | 0 (0.0%) | 2 unique. Top: Elected MP (9,963);   (1) |
+| `Image` | `object` | `CATEGORICAL` | 3,458 (34.7%) | 2 unique. Top: Images (6,505);   (1) |
+| `Completion Date` | `object` | `DATE` | 0 (0.0%) | Min Date: 2023-08-02 00:00:00, Max Date: 2026-09-05 00:00:00, Unique Dates: 759 |
+| `Amount Disbursed ( ₹ )` | `object` | `NUMERIC` | 23 (0.23%) | Min: 10000.0, Max: 7614976892.21, Mean: 1532034.38, Median: 497500.0, IQR: 745639.66 (Q1: 239236.34, Q3: 984876.0) |
+
+---
+
+### 16. `Works Recommended.csv`
+- **File Path**: `data/original/RajyaSabha_Retired/Works Recommended.csv`
+- **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
+- **Record Grain**: `ONE ROW = ONE WORK RECOMMENDATION PROPOSAL`
+- **Dimensions**: 25,204 rows × 11 columns | Size: 9,065,373 bytes
+- **Exact Duplicate Rows**: 0 (0.0%)
+
+#### Column Schema & Statistics
+
+| Column Name | Type | Category | Null Count (%) | Summary Statistics / Distribution |
+|---|---|---|---:|---|
+| `Sr. No.` | `object` | `NUMERIC` | 0 (0.0%) | Min: 1.0, Max: 25203.0, Mean: 12602.0, Median: 12602.0, IQR: 12601.0 (Q1: 6301.5, Q3: 18902.5) |
+| `Work category` | `object` | `CATEGORICAL` | 5 (0.02%) | 5 unique. Top: Normal/Others (24,427); Repair and Renovation (413); Trust and Society (350) |
+| `WORK` | `object` | `CATEGORICAL` | 0 (0.0%) | 19,467 unique. Top: NA-Construction of roads, link roads, pathways or any other road with or without drainage system (1,199); NA-Lighting of public spaces (977); NA-Construction of community centers and community halls (697) |
+| `State` | `object` | `CATEGORICAL` | 0 (0.0%) | 31 unique. Top: Uttar Pradesh (5,831); Bihar (1,824); Kerala (1,540) |
+| `IDA` | `object` | `CATEGORICAL` | 0 (0.0%) | 622 unique. Top: RANCHI(DEPUTY COMMISSIONER RANCHI_IDA) (859); PATNA(DISTRICT PLANNING OFFICER PATNA_IDA) (661); GHAZIPUR(DISTRICT MAGISTRAE GHAZIPUR_IDA) (470) |
+| `Hon'ble Members of Parliament` | `object` | `CATEGORICAL` | 0 (0.0%) | 197 unique. Top: Shri Baburam Nishad (2022-28) (2022-2028) (649); Shri Vivek K. Tankha (2022-28) (2022-2028) (504); Dr. Dharmasthala Veerendra Heggade (2022-28) (2022-2028) (474) |
+| `Elected/Nominated` | `object` | `CATEGORICAL` | 0 (0.0%) | 3 unique. Top: Elected MP (24,093); Nominated MP (1,110);   (1) |
+| `Work description` | `object` | `CATEGORICAL` | 23 (0.09%) | 22,124 unique. Top: High Mast LED Light (9.5 mtrs MS Pole with 6 LED Light 150 W) (204); Purchase of books and periodicals for libraries (108); Regarding for giving single walled fabrication of 5000 ltr water tanker to Village. 2mm stainless sheet AISI 304 Material etc. (SC) (102) |
+| `Recommended date` | `object` | `DATE` | 0 (0.0%) | Min Date: 2023-06-14 00:00:00, Max Date: 2026-09-05 00:00:00, Unique Dates: 974 |
+| `RECOMMENDED AMOUNT   ( ₹ )` | `object` | `NUMERIC` | 0 (0.0%) | Min: 3.89, Max: 73500000.0, Mean: 885265.09, Median: 500000.0, IQR: 757000.0 (Q1: 243000.0, Q3: 1000000.0) |
+| `Sanction Date` | `object` | `DATE` | 5,826 (23.12%) | Min Date: 2023-07-07 00:00:00, Max Date: 2026-09-05 00:00:00, Unique Dates: 812 |
+
+---
+
+### 17. `Works Sanctioned.csv`
+- **File Path**: `data/original/RajyaSabha_Retired/Works Sanctioned.csv`
+- **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
+- **Record Grain**: `ONE ROW = ONE SANCTIONED WORK / PROJECT ENTITY`
+- **Dimensions**: 19,607 rows × 12 columns | Size: 7,622,272 bytes
+- **Exact Duplicate Rows**: 0 (0.0%)
+
+#### Column Schema & Statistics
+
+| Column Name | Type | Category | Null Count (%) | Summary Statistics / Distribution |
+|---|---|---|---:|---|
+| `Sr. No.` | `object` | `NUMERIC` | 0 (0.0%) | Min: 1.0, Max: 19606.0, Mean: 9803.5, Median: 9803.5, IQR: 9802.5 (Q1: 4902.25, Q3: 14704.75) |
+| `Work category` | `object` | `CATEGORICAL` | 7 (0.04%) | 5 unique. Top: Normal/Others (19,071); Repair and Renovation (299); Trust and Society (227) |
+| `Work` | `object` | `CATEGORICAL` | 0 (0.0%) | 19,607 unique. Top: WS/MP187/2023-2024/1199-Construction of rooms and halls in school and colleges (1); WS/MP007/2025-2026/219573-Installing tube-wells and borewells (1); WS/MP007/2025-2026/219580-Installing tube-wells and borewells (1) |
+| `State` | `object` | `CATEGORICAL` | 0 (0.0%) | 30 unique. Top: Uttar Pradesh (4,873); Bihar (1,571); Madhya Pradesh (1,103) |
+| `IDA` | `object` | `CATEGORICAL` | 0 (0.0%) | 573 unique. Top: RANCHI(DEPUTY COMMISSIONER RANCHI_IDA) (652); PATNA(DISTRICT PLANNING OFFICER PATNA_IDA) (648); SONBHADRA(DISTRICT MAGISTRATE SONBHADRA_IDA) (415) |
+| `Hon'ble Members of Parliament` | `object` | `CATEGORICAL` | 0 (0.0%) | 179 unique. Top: Shri Baburam Nishad (2022-28) (2022-2028) (496); Dr. Dharmasthala Veerendra Heggade (2022-28) (2022-2028) (453); Shri Harsh Mahajan (2024-30) (2024-2030) (418) |
+| `Elected/Nominated` | `object` | `CATEGORICAL` | 0 (0.0%) | 3 unique. Top: Elected MP (18,648); Nominated MP (958);   (1) |
+| `Work description` | `object` | `CATEGORICAL` | 11 (0.06%) | 17,157 unique. Top: High Mast LED Light (9.5 mtrs MS Pole with 6 LED Light 150 W) (204); Purchase of books and periodicals for libraries (108); Regarding for giving single walled fabrication of 5000 ltr water tanker to Village. 2mm stainless sheet AISI 304 Material etc. (SC) (102) |
+| `Recommended date` | `object` | `DATE` | 0 (0.0%) | Min Date: 2023-06-14 00:00:00, Max Date: 2026-09-02 00:00:00, Unique Dates: 940 |
+| `Sanction Date` | `object` | `DATE` | 0 (0.0%) | Min Date: 2023-07-07 00:00:00, Max Date: 2026-09-05 00:00:00, Unique Dates: 812 |
+| `Sanction Amount ( ₹ )` | `object` | `NUMERIC` | 0 (0.0%) | Min: 10000.0, Max: 73500000.0, Mean: 874629.24, Median: 500000.0, IQR: 755700.0 (Q1: 243000.0, Q3: 998700.0) |
+| `Work Status` | `object` | `CATEGORICAL` | 0 (0.0%) | 7 unique. Top: Physical Inspection (9,893); Sanction (3,950); Vendor Identification (2,810) |
+
+---
+
+### 18. `Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv`
 - **File Path**: `data/original/RajyaSabha_Sitting/Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv`
 - **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
 - **Record Grain**: `ONE ROW = ONE MP / CONSTITUENCY ALLOCATION RECORD`
@@ -313,7 +461,7 @@
 
 ---
 
-### 13. `Amount_consented_for_Calamity_Rajya_Sitting.csv`
+### 19. `Amount_consented_for_Calamity_Rajya_Sitting.csv`
 - **File Path**: `data/original/RajyaSabha_Sitting/Amount_consented_for_Calamity_Rajya_Sitting.csv`
 - **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
 - **Record Grain**: `ONE ROW = ONE CALAMITY RELIEF CONSENT EVENT`
@@ -333,7 +481,7 @@
 
 ---
 
-### 14. `Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv`
+### 20. `Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv`
 - **File Path**: `data/original/RajyaSabha_Sitting/Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv`
 - **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
 - **Record Grain**: `ONE ROW = ONE EXPENDITURE / PAYMENT TRANSACTION RECORD`
@@ -360,7 +508,7 @@
 
 ---
 
-### 15. `Works_Completed_Rajya_Sitting.csv`
+### 21. `Works_Completed_Rajya_Sitting.csv`
 - **File Path**: `data/original/RajyaSabha_Sitting/Works_Completed_Rajya_Sitting.csv`
 - **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
 - **Record Grain**: `ONE ROW = ONE COMPLETED WORK RECORD`
@@ -385,7 +533,7 @@
 
 ---
 
-### 16. `Works_Recommended_Rajya_Sitting.csv`
+### 22. `Works_Recommended_Rajya_Sitting.csv`
 - **File Path**: `data/original/RajyaSabha_Sitting/Works_Recommended_Rajya_Sitting.csv`
 - **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
 - **Record Grain**: `ONE ROW = ONE WORK RECOMMENDATION PROPOSAL`
@@ -410,7 +558,7 @@
 
 ---
 
-### 17. `Works_Sanctioned_Rajya_Sitting.csv`
+### 23. `Works_Sanctioned_Rajya_Sitting.csv`
 - **File Path**: `data/original/RajyaSabha_Sitting/Works_Sanctioned_Rajya_Sitting.csv`
 - **Chamber**: Rajya Sabha | **Term**: Sitting Members (Continuous House)
 - **Record Grain**: `ONE ROW = ONE SANCTIONED WORK / PROJECT ENTITY`

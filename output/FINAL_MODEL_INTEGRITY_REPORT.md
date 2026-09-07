@@ -1,10 +1,10 @@
 # SIH26102 — FINAL MODEL INTEGRITY & RECONCILIATION REPORT
-**Generated At**: 2026-09-07T15:08:29.769619 | **Status**: PRODUCTION INTEGRITY FROZEN
+**Generated At**: 2026-09-07T15:15:18.268375 | **Status**: PRODUCTION INTEGRITY FROZEN
 
 ## A. Dataset Inventory
 
-- **Total Files Scanned**: 17 CSV files under `data/original/`
-- **Total Administrative Records**: 782,874 rows across 3 legislative partitions:
+- **Total Files Scanned**: 23 CSV files under `data/original/`
+- **Total Administrative Records**: 863,032 rows across 3 legislative partitions:
   - **17th Lok Sabha (2019–2024)**: 397,241 records (5 files)
   - **18th Lok Sabha (2024–Present)**: 305,413 records (6 files)
   - **Rajya Sabha Sitting Members**: 80,220 records (6 files)
