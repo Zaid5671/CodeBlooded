@@ -1,35 +1,82 @@
 # 🏛️ AI-Powered MPLADS Audit Intelligence Platform (SIH26102)
-## Team CodeBlooded — Lok Sabha 18th Audit Decision-Support & Anomaly Triage Engine
+### 🚀 Team CodeBlooded — Lok Sabha 18th Audit Decision-Support & Anomaly Triage Engine
 
-[![SIH26102](https://img.shields.io/badge/Problem%20Statement-SIH26102-blue.svg?style=for-the-badge)](https://sih.gov.in)
+<div align="center">
+
+```
+  ██████╗ ██████╗ ██████╗ ███████╗██████╗ ██╗      ██████╗  ██████╗ ██████╗ ███████╗██████╗
+ ██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗██╔═══██╗██╔══██╗██╔════╝██╔══██╗
+ ██║     ██║   ██║██║  ██║█████╗  ██████╔╝██║     ██║   ██║██║   ██║██║  ██║█████╗  ██║  ██║
+ ██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██║   ██║██║  ██║██╔══╝  ██║  ██║
+ ╚██████╗╚██████╔╝██████╔╝███████╗██████╔╝███████╗╚██████╔╝╚██████╔╝██████╔╝███████╗██████╔╝
+  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝ ╚══════╝╚═════╝
+                      AI-POWERED GOVERNANCE & AUDIT INTELLIGENCE PLATFORM
+```
+
+[![SIH26102](https://img.shields.io/badge/Problem%20Statement-SIH26102-blue.svg?style=for-the-badge&logo=gov.in)](https://sih.gov.in)
 [![Organization](https://img.shields.io/badge/Organization-MoSPI%20%7C%20DIID-navy.svg?style=for-the-badge)](https://mospi.gov.in)
 [![Team](https://img.shields.io/badge/Team-CodeBlooded-red.svg?style=for-the-badge)](https://github.com/Zaid5671/CodeBlooded)
-[![Architecture](https://img.shields.io/badge/ML%20Architecture-Verified%20%26%20Frozen-green.svg?style=for-the-badge)](#canonical-m1m5-ml-architecture-verified--frozen)
-[![Test Pass Rate](https://img.shields.io/badge/Test%20Pass%20Rate-100%25%20(149%2F149)-brightgreen.svg?style=for-the-badge)](#comprehensive-149-test-automated-suite-verification)
-[![API Speed](https://img.shields.io/badge/API%20Latency-Sub--5ms%20Cached-teal.svg?style=for-the-badge)](#full-stack-performance--speed-benchmarking-matrix)
-[![Corpus](https://img.shields.io/badge/Total%20Corpus-210%2C551%20Records-orange.svg?style=for-the-badge)](#dataset-scope-resources--keying-architecture)
+[![Architecture](https://img.shields.io/badge/ML%20Architecture-Verified%20%26%20Frozen-green.svg?style=for-the-badge)](#-canonical-m1m5-ml-architecture-verified--frozen)
+[![Test Pass Rate](https://img.shields.io/badge/Test%20Pass%20Rate-100%25%20(149%2F149)-brightgreen.svg?style=for-the-badge)](#-comprehensive-149-test-automated-suite-verification)
+[![API Speed](https://img.shields.io/badge/API%20Latency-Sub--5ms%20Cached-teal.svg?style=for-the-badge)](#-full-stack-performance--speed-benchmarking-matrix)
+[![Corpus](https://img.shields.io/badge/Total%20Corpus-210%2C551%20Records-orange.svg?style=for-the-badge)](#-dataset-scope-resources--keying-architecture)
+
+</div>
+
+---
+
+## 📸 Dashboard Showcase & User Interface
+
+Here is a visual walk-through of the production **Apple-Inspired Glassmorphism Interface** (`frontend/index.html`):
+
+### 1. Executive Overview Dashboard
+> High-level KPI summary, total expenditure metrics, audit review counters, and real-time Chart.js category visualizations.
+
+![Executive Overview Dashboard](docs/assets/dashboard_overview.png)
+
+---
+
+### 2. Priority Audit Queue (Model M5 Consensus)
+> Actionable triage queue categorizing master works into `CRITICAL AUDIT PRIORITY` (1,635 works), `HIGH`, `MEDIUM`, and `LOW` tiers with underlying evidence indicators.
+
+![Priority Audit Queue](docs/assets/priority_queue.png)
+
+---
+
+### 3. Duplicate Work Candidate Intelligence (Model M2)
+> Side-by-side inspection of candidate double-dipping pairs displaying TF-IDF Cosine Similarity scores, location overlaps, and vendor comparisons.
+
+![Duplicate Work Intelligence](docs/assets/duplicate_detection.png)
+
+---
+
+### 4. Expenditure & Time-Series Forecasting (Model M4)
+> 6-month forward trajectory predictions with empirical 95% confidence bounds and state-wise fund utilization ratios.
+
+![Analytics & Forecasting](docs/assets/analytics_forecast.png)
 
 ---
 
 ## 📖 Table of Contents
-1. [Problem Statement & Official Metadata](#problem-statement--official-metadata)
-2. [The Engineering Journey & Problem Triage](#the-engineering-journey--problem-triage)
-3. [System Architecture & Visual Diagrams](#system-architecture--visual-diagrams)
-4. [Dataset Scope, Resources & Keying Architecture](#dataset-scope-resources--keying-architecture)
-5. [Canonical M1–M5 ML Architecture (Verified & Frozen)](#canonical-m1m5-ml-architecture-verified--frozen)
-6. [Audit Rules & Statutory Compliance Engine](#audit-rules--statutory-compliance-engine)
-7. [Frontend Glassmorphism UI & Navigation](#frontend-glassmorphism-ui--navigation)
-8. [25 Registered Backend REST API Endpoint Directory](#25-registered-backend-rest-api-endpoint-directory)
-9. [Full-Stack Performance & Speed Benchmarking Matrix](#full-stack-performance--speed-benchmarking-matrix)
-10. [Comprehensive 149-Test Automated Suite Verification](#comprehensive-149-test-automated-suite-verification)
-11. [Leak-Free 80/20 Train-Test Validation Experiment](#leak-free-8020-train-test-validation-experiment)
-12. [Complete Repository Directory Structure](#complete-repository-directory-structure)
-13. [Installation, Setup & Execution Guide](#installation-setup--execution-guide)
-14. [Governance, Safety & Non-Incriminating Terminology](#governance-safety--non-incriminating-terminology)
+- [📖 Table of Contents](#-table-of-contents)
+- [📸 Dashboard Showcase & User Interface](#-dashboard-showcase--user-interface)
+- [1. 🎯 Problem Statement & Metadata](#1--problem-statement--metadata)
+- [2. 🚀 The Engineering Journey & Problem Triage](#2--the-engineering-journey--problem-triage)
+- [3. 📐 System Architecture & Visual Flowcharts](#3--system-architecture--visual-flowcharts)
+- [4. 📊 Dataset Scope, Resources & Keying Architecture](#4--dataset-scope-resources--keying-architecture)
+- [5. 🔬 Canonical M1–M5 ML Architecture (Verified & Frozen)](#5--canonical-m1m5-ml-architecture-verified--frozen)
+- [6. 📜 Audit Rules & Statutory Compliance Engine](#6--audit-rules--statutory-compliance-engine)
+- [7. 🌐 25 Registered Backend REST API Endpoint Directory](#7--25-registered-backend-rest-api-endpoint-directory)
+- [8. ⚡ Full-Stack Performance & Speed Benchmarking Matrix](#8--full-stack-performance--speed-benchmarking-matrix)
+- [9. 🧪 Comprehensive 149-Test Automated Suite Verification](#9--comprehensive-149-test-automated-suite-verification)
+- [10. 🎯 Leak-Free 80/20 Train-Test Validation Experiment](#10--leak-free-8020-train-test-validation-experiment)
+- [11. 📁 Complete Repository Directory Structure](#11--complete-repository-directory-structure)
+- [12. 💻 Installation, Setup & Execution Guide](#12--installation-setup--execution-guide)
+- [13. 🛡️ Governance, Safety & Non-Incriminating Terminology](#13--governance-safety--non-incriminating-terminology)
 
 ---
 
-## 1. Problem Statement & Official Metadata
+## 1. 🎯 Problem Statement & Metadata
 
 - **Problem Statement ID**: **SIH26102**
 - **Title**: AI-Powered MPLADS Audit Intelligence Platform
@@ -38,13 +85,13 @@
 - **Team Name**: **CodeBlooded**
 - **Target Scheme**: Members of Parliament Local Area Development Scheme (MPLADS)
 - **Primary Corpus**: **Lok Sabha 18th** (with comparison datasets across Lok Sabha 17th, Rajya Sabha Sitting, and Rajya Sabha Retired MPs)
-- **Headline Compliance**: *"Near-Complete Functional & Technical Match to SIH26102"*
+- **Headline Alignment**: *"Near-Complete Functional & Technical Match to SIH26102"*
 
 ---
 
-## 2. The Engineering Journey & Problem Triage
+## 2. 🚀 The Engineering Journey & Problem Triage
 
-Building an enterprise-grade audit intelligence platform for **210,551 government records** across multiple parliamentary terms presented significant technical, algorithmic, and performance challenges. Below is the chronological journey of how Team CodeBlooded iteratively diagnosed and resolved every engineering obstacle across multiple forensic passes:
+Building an enterprise-grade audit intelligence platform for **210,551 government records** across multiple parliamentary terms presented significant technical, algorithmic, and performance challenges. Below is the chronological story of how Team CodeBlooded iteratively diagnosed and resolved every engineering obstacle across multiple forensic passes:
 
 ### 🚨 Challenge 1: Contradictory Initial Documentation & Phrase Triage
 - **Problem**: Early audit reports contained contradictory claims, such as referring to the platform as a "supervised fraud classifier" or claiming "100% ML accuracy."
@@ -77,7 +124,7 @@ Building an enterprise-grade audit intelligence platform for **210,551 governmen
 
 ---
 
-## 3. System Architecture & Visual Diagrams
+## 3. 📐 System Architecture & Visual Flowcharts
 
 ### 3.1 End-to-End System Pipeline Architecture
 ```mermaid
@@ -146,7 +193,7 @@ sequenceDiagram
 
 ---
 
-## 4. Dataset Scope, Resources & Keying Architecture
+## 4. 📊 Dataset Scope, Resources & Keying Architecture
 
 ### 4.1 Corpus Breakdown (210,551 Total Records)
 The platform integrates four official government datasets sourced from MoSPI e-SAKSHI MPLADS administrative portals:
@@ -159,15 +206,9 @@ The platform integrates four official government datasets sourced from MoSPI e-S
 | **`RS_Retired`** | **Rajya Sabha Retired MPs** | 19,607 | 25,130 | 9,964 | 25,204 | 25,204 |
 | **TOTAL** | **All Corpora Combined** | **210,551** | **272,978** | **125,639** | **252,217** | **210,551** |
 
-### 4.2 Canonical Work Key Architecture
-- **Unique Source Work Entities**: **190,944 unique work entities** across all datasets.
-- **Canonical Key Format**: `canonical_work_key = CORPUS|source_work_id` (0 collisions across all 210,551 records).
-- **Rajya Sabha Snapshot Identity**: `RS_Sitting` and `RS_Retired` represent historical snapshot views of the same underlying Rajya Sabha source work population (19,607 overlapping RS Work IDs; 19,606 identical rows; 1 row differs only in Work Status; union = 19,607 unique source works). Entity deduplication prevents double-counting.
-- **Zero Synthetic Government Data**: **No synthetic or fake government records exist in the audited production data paths.**
-
 ---
 
-## 5. Canonical M1–M5 ML Architecture (Verified & Frozen)
+## 5. 🔬 Canonical M1–M5 ML Architecture (Verified & Frozen)
 
 ### 5.1 Model M1 — Cost / Expenditure Anomaly Engine
 - **Implementation**: `ml/model_1_cost_anomaly/isolation_forest.py`
@@ -177,143 +218,110 @@ The platform integrates four official government datasets sourced from MoSPI e-S
     $$\text{robust\_deviation} = \frac{\text{sanction\_amount} - \text{peer\_median}}{\text{IQR}}$$
   - Zero-IQR MAD Fallback (when $\text{IQR} == 0$):
     $$\text{MAD} = \text{median}(|x - \text{median}|), \quad \text{scaled\_MAD} = 1.4826 \times \text{MAD}$$
-- **8 Production Features**:
-  1. `log_sanction`: Log-transformed sanction amount $\ln(\text{sanction} + 1)$.
-  2. `peer_dev`: Ratio deviation from peer group median $(\text{sanction} / \text{peer\_median})$.
-  3. `robust_dev`: Robust z-score normalized by peer IQR / MAD.
-  4. `days`: Project sanction-to-completion duration in days.
-  5. `num_payments`: Total number of payment vouchers disbursed.
-  6. `max_payment_ratio`: Ratio of max single payment to total sanction.
-  7. `payment_var`: Variance in inter-payment voucher amounts.
-  8. `time_between_payments`: Average days between consecutive disbursements.
+- **8 Production Features**: `log_sanction`, `peer_dev`, `robust_dev`, `days`, `num_payments`, `max_payment_ratio`, `payment_var`, `time_between_payments`.
 - **Output**: Flagged **3,961 works** requiring cost audit review out of 79,220 master works.
 
 ### 5.2 Model M2 — Double-Dipping & Duplicate Work Intelligence
 - **Implementation**: `ml/model_2_duplicate_work/double_dipping.py`
-- **Algorithm**: Candidate Blocking (State + District + Work Category) + TF-IDF Vectorization (`ngram_range=(1,2)`) + Cosine Similarity matching across Work Title, Description, Executing Vendor, and Location Entities.
+- **Algorithm**: Candidate Blocking (State + District + Work Category) + TF-IDF Vectorization (`ngram_range=(1,2)`) + Cosine Similarity matching.
 - **Cosine Similarity Formula**:
   $$\text{Cosine Similarity}(A, B) = \frac{A \cdot B}{\|A\|_2 \|B\|_2}$$
-- **Text Normalization**: Administrative stopword preservation using `vendor/funNLP` (`GLOBAL_STOPWORDS` preserving `road`, `school`, `hospital`, `hall`, `construction`).
-- **Output (`output/double_dipping_results.json`)**: Exactly **5,000 candidate pairs** categorized into M2 candidate-pair risk tiers:
-  - **High Risk**: 1,997 pairs
-  - **Medium Risk**: 2,499 pairs
-  - **Low Risk**: 504 pairs
+- **Output (`output/double_dipping_results.json`)**: Exactly **5,000 candidate pairs** categorized into M2 candidate-pair risk tiers (1,997 High, 2,499 Medium, 504 Low).
 
 ### 5.3 Model M3 — Expenditure / Payment Anomaly Detection
 - **Implementation**: `ml/model_3_expenditure_anomaly/duplicate_expenditure.py` & `expenditure_matching.py`
-- **Algorithm**: Vectorized payment structuring analysis detecting voucher splitting, sudden payment velocity bursts, fiscal year-end rushes, and vendor clustering across 56,604 unique payment-linked projects.
-- **Optimized Execution**: Vectorized `.groupby().agg()` aggregations executing in **~0.84s** (**18.3x speedup**).
+- **Algorithm**: Vectorized payment structuring analysis detecting voucher splitting, payment velocity bursts, fiscal year-end rushes, and vendor clustering across 56,604 unique payment-linked projects in **~0.84s** (**18.3x speedup**).
 
 ### 5.4 Model M4 — Rolling Expenditure Forecasting
 - **Implementation**: `ml/model_4_forecasting/expenditure_forecast.py`
-- **Algorithm**: Recursive 3-Month Rolling Average Forecast (`recursive_rolling_mean_forecast`). Multi-step 6-month forecast horizon with empirical 95% confidence intervals.
-- **Evaluated LS18 National Outlay Improvement**:
-  - **6-Month Evaluation (2026-03 to 2026-08)**: M4 MAE ₹310.40M vs Naive ₹321.02M (**3.31% lower MAE**); M4 RMSE ₹350.57M vs Naive ₹428.28M (**18.15% lower RMSE**).
-  - **8-Month Holdout Evaluation (2026-02 to 2026-09)**: M4 MAE ₹420.59M vs Naive ₹442.64M (**4.98% lower MAE**).
+- **Algorithm**: Recursive 3-Month Rolling Average Forecast (`recursive_rolling_mean_forecast`). Multi-step 6-month forecast horizon with empirical 95% confidence intervals (3.31% lower MAE on 6-month evaluation, 4.98% lower MAE on 8-month holdout).
 
 ### 5.5 Model M5 — Multi-Signal Audit Priority Aggregator
 - **Implementation**: `ml/model_5_audit_priority/misuse_priority.py`
-- **Algorithm**: Weighted Multi-Signal Evidence Aggregator running via fast dictionary iteration (`df.to_dict('records')`) in **~0.42s** (**72.7x speedup**).
 - **Weighted Consensus Formula**:
   $$\text{Priority Score} = 0.30(S_{\text{cost}}) + 0.25(S_{\text{delay}}) + 0.25(S_{\text{compliance}}) + 0.10(S_{\text{vendor}}) + 0.10(S_{\text{eligibility}})$$
-- **Canonical M5 Audit Priority Tiers**:
-  - **`CRITICAL AUDIT PRIORITY`**: **1,635 works** (Score $\ge 0.50$ or $\ge 2$ major independent signals).
-  - **`STANDARD AUDIT PRIORITY`**: ($0.20 \le \text{Score} < 0.50$ or 1 major signal).
-  - **`LOW AUDIT PRIORITY`**: ($\text{Score} < 0.20$ and 0 major signals).
+- **Output**: **1,635 `CRITICAL AUDIT PRIORITY` works** (Score $\ge 0.50$ or $\ge 2$ major independent signals).
 
 ---
 
-## 6. Audit Rules & Statutory Compliance Engine
+## 6. 📜 Audit Rules & Statutory Compliance Engine
 
 The `audit_rules/` package enforces deterministic statutory guidelines defined under official MPLADS administrative frameworks:
 
 1. **Delay Detection Rules (`audit_rules/delay/delayed_projects.py`)**:
-   - **Sanction SLA Breach**: Work recommendation approved/pending $> 75$ days without administrative sanction.
-   - **Rejection SLA Breach**: Rejection notification $> 45$ days.
-   - **Execution Duration Anomaly**: Project execution duration exceeding peer median by $> 3 \times \text{IQR}$.
-
+   - Sanction SLA Breach: Work recommendation approved/pending $> 75$ days without sanction.
+   - Rejection SLA Breach: Rejection notification $> 45$ days.
 2. **Statutory Compliance Rules (`audit_rules/statutory_compliance/compliance_rules.py`)**:
-   - Evaluates mandatory administrative approvals, technical sanctions, and financial concurrence milestones.
-
-3. **Eligibility & Private Beneficiaries Engine (`audit_rules/eligibility/`)**:
-   - Flags works recommended on non-public assets or private trust properties (`private_beneficiaries.py`).
-   - Identifies inadmissible work categories prohibited under MPLADS guidelines (`inadmissible_works.py`).
-
-4. **Vendor Concentration & Agency Risk (`audit_rules/vendor_risk/`)**:
-   - Computes Herfindahl-Hirschman Index ($\text{HHI}$) for vendor concentration across districts:
-     $$\text{HHI} = \sum_{i=1}^{n} s_i^2$$
-   - Flags vendor agency networks receiving $> 40\%$ of total constituency allocations.
+   - Evaluates mandatory administrative approvals and technical sanctions.
+3. **Vendor Concentration HHI (`audit_rules/vendor_risk/`)**:
+   $$\text{HHI} = \sum_{i=1}^{n} s_i^2$$
 
 ---
 
-## 7. Frontend Glassmorphism UI & Navigation
+## 7. 🌐 25 Registered Backend REST API Endpoint Directory
 
-The frontend web interface (`frontend/index.html`) is built with modern Apple-inspired glassmorphism design principles (`backdrop-filter: blur(12px)`):
+<details>
+<summary><b>🔍 Click to expand full 25 REST API endpoint directory table and sample JSON payload</b></summary>
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│ 🏛️ MPLADS AUDIT INTELLIGENCE PLATFORM — LOK SABHA 18TH                 │
-├─────────────────────────────────────────────────────────────────────────┤
-│ [📊 Overview] [🔍 Works] [🚨 Priority Queue] [👯 Duplicates] [📈 Analytics] │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐           │
-│  │ Total Expenditure│ │ Audit Review Req│ │ Critical Priority│           │
-│  │    ₹8,417.2 Cr   │ │   14,210 Works  │ │   1,635 Works   │           │
-│  └─────────────────┘ └─────────────────┘ └─────────────────┘           │
-│                                                                         │
-│  ┌─────────────────────────────────┐ ┌───────────────────────────────┐ │
-│  │ Category Expenditure Breakdown  │ │ M5 Audit Priority Distribution│ │
-│  │ (Chart.js Bar Visualization)    │ │ (Chart.js Doughnut Chart)     │ │
-│  └─────────────────────────────────┘ └───────────────────────────────┘ │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
-### Key UI Features:
-1. **Overview Executive Dashboard**: High-level KPI cards (Total Works, Total Expenditure, Audit Review Required, Critical Priority, Duplicate Candidates) and interactive Chart.js graphs.
-2. **Works Explorer**: Searchable master works table featuring a **300ms input debounce buffer** and instant Work Detail Modal.
-3. **Priority Audit Queue**: Actionable audit queue grouped by M5 risk tiers (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`).
-4. **Duplicate Candidate Pair Inspector**: Side-by-side candidate double-dipping pair inspection showing Cosine Similarity scores and vendor overlaps.
-5. **Demo Role Context Switcher**: Interactive switcher enabling perspective switching for Member of Parliament (MP), District Nodal Authority, State Nodal Authority, Ministry (MoSPI), and Auditor roles.
-
----
-
-## 8. 25 Registered Backend REST API Endpoint Directory
-
-The Flask backend server (`backend/app.py`) exposes **25 REST API endpoints**:
-
-| # | Route Path | Method | Description & Parameters | Cached Response Time |
+| # | Route Path | Method | Description | Response Latency |
 |---|---|---|---|---|
 | 1 | `GET /` | GET | Serves Frontend Single Page App | < 2 ms |
-| 2 | `GET /api/corpora` | GET | Metadata for LS18, LS17, RS Sitting, RS Retired | < 1 ms |
-| 3 | `GET /api/summary` | GET | Executive KPIs, Total Works & Financial Summaries | < 5 ms |
-| 4 | `GET /api/validation` | GET | Data Quality Floor & Work ID Normalization Checks | < 2 ms |
-| 5 | `GET /api/signals` | GET | Statistical Audit Signal Counts & Distribution | < 2 ms |
-| 6 | `GET /api/works` | GET | Paginated Master Works (`page`, `limit`, `category`, `search`) | Dynamic (< 45 ms) |
-| 7 | `GET /api/works/<work_id>` | GET | Detailed Single Work Entity Audit Profile | < 5 ms |
-| 8 | `GET /api/top-anomalies` | GET | Top M1 Cost Anomaly Flagged Records | < 2 ms |
+| 2 | `GET /api/corpora` | GET | Corpus Metadata | < 1 ms |
+| 3 | `GET /api/summary` | GET | Executive KPIs & Dashboard Stats | < 5 ms |
+| 4 | `GET /api/validation` | GET | Data Quality Checks | < 2 ms |
+| 5 | `GET /api/signals` | GET | Statistical Audit Signal Counts | < 2 ms |
+| 6 | `GET /api/works` | GET | Paginated Master Sanctioned Works | Dynamic (< 45 ms) |
+| 7 | `GET /api/works/<work_id>` | GET | Single Work Profile | < 5 ms |
+| 8 | `GET /api/top-anomalies` | GET | M1 Cost Anomaly Records | < 2 ms |
 | 9 | `GET /api/double-dipping` | GET | M2 Duplicate Candidate Pairs (5,000 pairs) | < 2 ms |
-| 10 | `GET /api/delayed-projects` | GET | SLA Delay Breaches & Project Duration Anomalies | < 2 ms |
-| 11 | `GET /api/compliance` | GET | Statutory SLA & Approval Compliance Metrics | < 3 ms |
-| 12 | `GET /api/ia-watchlist` | GET | Implementing Agency Watchlist & Risk Score | < 2 ms |
-| 13 | `GET /api/audit-priority` | GET | M5 Deterministic Audit Priority Rankings | < 1 ms |
-| 14 | `GET /api/forecast` | GET | M4 Rolling Average 6-Month Trajectory Predictions | < 1 ms |
-| 15 | `GET /api/vendor-risk` | GET | Vendor Concentration HHI & Agency Network Risk | < 4 ms |
+| 10 | `GET /api/delayed-projects` | GET | SLA Delay Breaches | < 2 ms |
+| 11 | `GET /api/compliance` | GET | Statutory Compliance Metrics | < 3 ms |
+| 12 | `GET /api/ia-watchlist` | GET | Implementing Agency Watchlist | < 2 ms |
+| 13 | `GET /api/audit-priority` | GET | M5 Audit Priority Rankings | < 1 ms |
+| 14 | `GET /api/forecast` | GET | M4 Rolling Average Expenditure Predictions | < 1 ms |
+| 15 | `GET /api/vendor-risk` | GET | Vendor Concentration HHI | < 4 ms |
 | 16 | `GET /api/inadmissible-works` | GET | Inadmissible Work Rule Evaluation | < 1 ms |
-| 17 | `GET /api/private-beneficiaries` | GET | Private Beneficiary & Non-Public Asset Flags | < 1 ms |
-| 18 | `GET /api/duplicate-expenditure` | GET | Transaction-Level Payment Voucher Anomaly Flags | < 1 ms |
-| 19 | `GET /api/fund-utilization` | GET | State & Constituency Fund Utilization Ratios | < 1 ms |
-| 20 | `GET /api/deep-evaluation` | GET | Comprehensive Multi-Model Deep Evaluation Diagnostics | < 5 ms |
-| 21 | `GET /api/canonical-registry` | GET | Canonical Model Parameter Registry Definitions | < 1 ms |
-| 22 | `GET, POST /api/query` | GET/POST | Fast Substring Keyword Search across Master Works | Dynamic (< 15 ms) |
-| 23 | `GET, POST /api/agents/triage` | GET/POST | Multi-Agent Consensus Triage Simulation | Dynamic |
-| 24 | `POST /api/notifications/dispatch` | POST | Alert Notification Dispatch Handler | Action Handler |
-| 25 | `GET /api/export-reports` | GET | Static Markdown Audit Report Exporter | Download Stream |
+| 17 | `GET /api/private-beneficiaries` | GET | Private Beneficiary Flags | < 1 ms |
+| 18 | `GET /api/duplicate-expenditure` | GET | Transaction Payment Voucher Anomaly Flags | < 1 ms |
+| 19 | `GET /api/fund-utilization` | GET | Fund Utilization Ratios | < 1 ms |
+| 20 | `GET /api/deep-evaluation` | GET | Multi-Model Deep Diagnostic Report | < 5 ms |
+| 21 | `GET /api/canonical-registry` | GET | Model Parameter Registry Definitions | < 1 ms |
+| 22 | `GET, POST /api/query` | GET/POST | Keyword Search across Master Works | Dynamic (< 15 ms) |
+| 23 | `GET, POST /api/agents/triage` | GET/POST | Multi-Agent Triage Simulation | Dynamic |
+| 24 | `POST /api/notifications/dispatch` | POST | Alert Notification Dispatch Handler | Action |
+| 25 | `GET /api/export-reports` | GET | Static Markdown Audit Report Exporter | Stream |
+
+#### Sample JSON Response (`GET /api/audit-priority`):
+```json
+{
+  "status": "success",
+  "data": {
+    "total_scored_works": 79220,
+    "critical_priority_count": 1635,
+    "high_priority_count": 12580,
+    "priority_breakdown": {
+      "CRITICAL AUDIT PRIORITY": 1635,
+      "STANDARD AUDIT PRIORITY": 24510,
+      "LOW AUDIT PRIORITY": 53075
+    },
+    "sample_critical_work": {
+      "clean_work_id": "WS/MP620/2024-2025/133166",
+      "priority_tier": "CRITICAL AUDIT PRIORITY",
+      "priority_score": 0.785,
+      "risk_factors": [
+        "Isolation Forest Cost Anomaly Flag",
+        "Sanction SLA Breach (>75 Days)",
+        "Vendor Concentration HHI > 0.40"
+      ]
+    }
+  }
+}
+```
+</details>
 
 ---
 
-## 9. Full-Stack Performance & Speed Benchmarking Matrix
+## 8. ⚡ Full-Stack Performance & Speed Benchmarking Matrix
 
 | Component / Endpoint | Baseline Timing | Optimized Timing | Speedup Factor | Optimization Mechanism |
 |---|---|---|---|---|
@@ -331,7 +339,7 @@ The Flask backend server (`backend/app.py`) exposes **25 REST API endpoints**:
 
 ---
 
-## 10. Comprehensive 149-Test Automated Suite Verification
+## 9. 🧪 Comprehensive 149-Test Automated Suite Verification
 
 The codebase is continuously verified by a suite of **149 automated unit and integration tests** (`python3 -m pytest tests/`):
 
@@ -350,18 +358,16 @@ The codebase is continuously verified by a suite of **149 automated unit and int
 
 ---
 
-## 11. Leak-Free 80/20 Train-Test Validation Experiment
+## 10. 🎯 Leak-Free 80/20 Train-Test Validation Experiment
 
 To verify model stability and eliminate data leakage, an independent 80/20 train-test split experiment was conducted across 5 random seeds (42, 100, 200, 300, 400):
-
 - **Data Split**: 80% Training set (63,372 works) and 20% Test set (15,844 works).
-- **Strict Leak-Free Protocol**: Peer statistics (median, IQR, MAD) and ML estimators were fitted strictly on training splits before evaluating test splits.
 - **Out-of-Sample Anomaly Rate**: Mean **5.07%** ($\pm 0.23\%$).
 - **Out-of-Sample Cross-Detector Concordance (Jaccard Index)**: Mean **0.4571** ($\pm 0.0274$).
 
 ---
 
-## 12. Complete Repository Directory Structure
+## 11. 📁 Complete Repository Directory Structure
 
 ```
 .
@@ -396,6 +402,7 @@ To verify model stability and eliminate data leakage, an independent 80/20 train
 │   └── validation/                      # 80/20 Validation Scripts
 ├── tests/                               # Comprehensive Automated Test Suite (149 tests)
 ├── docs/                                # Forensic Audit Reports & Documentation
+│   ├── assets/                          # Embedded Dashboard Screenshots
 │   ├── SIH26102_SOURCE_OF_TRUTH.md      # Reconciled System Source of Truth
 │   ├── SIH26102_PERFORMANCE_AUDIT.md    # Detailed Forensic Performance Audit
 │   └── SIH26102_PERFORMANCE_REPORT.md   # Final Performance Benchmarks & Verification
@@ -407,14 +414,14 @@ To verify model stability and eliminate data leakage, an independent 80/20 train
 
 ---
 
-## 13. Installation, Setup & Execution Guide
+## 12. 💻 Installation, Setup & Execution Guide
 
-### 13.1 Prerequisites
+### 12.1 Prerequisites
 - **Python**: Version 3.10+ (Python 3.13 recommended)
 - **Pip**: Python package manager
 - **Browser**: Modern web browser (Chrome, Safari, Firefox, Edge)
 
-### 13.2 Step-by-Step Installation
+### 12.2 Quick Start Shell Commands
 ```bash
 # 1. Clone the repository
 git clone https://github.com/Zaid5671/CodeBlooded.git
@@ -426,36 +433,20 @@ source venv/bin/activate
 
 # 3. Install required packages
 pip install -r requirements.txt
-```
 
-### 13.3 Executing the Full ML Pipeline
-Run the unified 13-step ML audit pipeline to process raw datasets and generate output JSON files:
-```bash
+# 4. Run full ML audit pipeline
 python3 run_pipeline.py
-```
 
-### 13.4 Launching the Backend REST API Server
-Start the Flask server on port 5051 with pre-warmed in-memory caching:
-```bash
+# 5. Launch Backend REST API Server (Port 5051)
 python3 backend/app.py
-```
 
-### 13.5 Opening the Frontend Web UI
-Open `frontend/index.html` directly in your browser, or serve via Python HTTP server:
-```bash
-python3 -m http.server 8000 --directory frontend
-```
-Then open `http://localhost:8000` in your web browser.
-
-### 13.6 Running the Test Suite
-Execute the complete 149-test suite:
-```bash
+# 6. Run the 149-test suite
 python3 -m pytest tests/ -v
 ```
 
 ---
 
-## 14. Governance, Safety & Non-Incriminating Terminology
+## 13. 🛡️ Governance, Safety & Non-Incriminating Terminology
 
 To maintain strict compliance with government audit guidelines, the following policies are enforced across the codebase:
 1. **Zero Synthetic Government Records**: 100% of data processed in production paths originates from actual MoSPI government records.
