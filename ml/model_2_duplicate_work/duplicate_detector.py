@@ -1,13 +1,10 @@
 import re
 import pandas as pd
+from feature_engineering.nlp_text_processor import clean_nlp_text
 
 def normalize_text_for_dup(text):
-    """Normalize text for duplicate detection by removing non-alphanumeric chars and extra spaces."""
-    if pd.isna(text):
-        return ""
-    s = str(text).lower()
-    s = re.sub(r'[^a-z0-9\s]', '', s)
-    return re.sub(r'\s+', ' ', s).strip()
+    """Normalize text for duplicate detection using NLP text processing rules."""
+    return clean_nlp_text(text)
 
 def evaluate_duplicate_works(df):
     """

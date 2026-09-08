@@ -1,101 +1,46 @@
-# MPLADS Audit Intelligence — macOS Tahoe Liquid Glass Design System Specification
+# MPLADS Audit Intelligence — Immersive Product Design System Specification
 ## SIH 2026 — SIH26102 — CodeBlooded
 **Document Status**: Production Design Specification
-**Design Intelligence Engine**: `ui-ux-pro-max` + Apple Human Interface Guidelines (HIG)
+**Visual Language**: Deep Black Environment + 3D WebGL Particle System + Liquid Glass Controls + HIG Typography
 
 ---
 
 ### 1. Visual Identity & Design Philosophy
 
-The **MPLADS Audit Intelligence Platform** is designed as a desktop-first, government-grade macOS application. It eschews generic SaaS templates, AI dashboard clichés, and glassmorphism over-saturation in favor of a restrained, calm, authoritative, and evidence-focused desktop experience.
+The **MPLADS Audit Intelligence Platform** is designed as a cinematic, immersive product experience that blends Apple HIG desktop precision with a 3D WebGL visualization engine.
 
 #### Core Principles:
-1. **Material Layering (HIG Liquid Glass Rule)**:
-   - **Functional Layers** (Navigation Sidebar, Application Header/Toolbar, Cmd+K Spotlight Modal, Filter Popovers, Segmented Controls, Toast Notifications) use **Liquid Glass Material** with controlled backdrop blur (`backdrop-filter: blur(20px)`), dynamic optical borders, and subtle lensing.
-   - **Content Layers** (Data Tables, Analytical Charts, Audit Evidence Panels, Work Detail Drawers, Long-form Text) sit on **Clean, Solid Content Surfaces** with high legibility and zero visual noise.
-2. **Concentric Geometry**:
-   - Window Radius: `16px`
-   - Card / Container Radius: `12px`
-   - Control / Button Radius: `8px`
-   - Inner Pill / Badge Radius: `6px`
-3. **Ambient Liquid Light Environment**:
-   - Subtle, slow-moving orbital background light fields (blur: `120px`, opacity: `0.12 - 0.18`) that respond softly to pointer position and view navigation without distracting from readability.
-4. **Strict Non-Fabrication & Truthful Reporting**:
-   - Zero synthetic fraud claims (`"Potential anomaly — requires audit review"`).
-   - Missing data rendered as `"Data unavailable in source record"` (never converted to 0).
+1. **Deep Black Environment**:
+   - Canvas: `#030712` (Deep Space Black)
+   - Content Surface: `#0f172a` / `#1e293b` (Slate Glass)
+   - Border: `rgba(255, 255, 255, 0.1)`
+2. **3D WebGL Particle Engine (Three.js)**:
+   - GPU-accelerated particle cloud with 3,000 instanced points representing MPLADS works activity.
+   - Morphing across 6 analytical states (National Network, Geographic Distribution, Signal Chaos, Priority Convergence, Financial Flow, Forecast Trajectory).
+3. **Scroll-Driven Analytical Narrative**:
+   - Scroll position dynamically interpolates particle positions and opacity in sync with screen sections ("See the whole system", "Follow the money", "Find what needs review", "Know where to look first").
+4. **Functional Layer vs Solid Content Layer**:
+   - Liquid Glass (`backdrop-filter: blur(25px)`) applied to Top Toolbar, Floating Navigation Sidebar, Cmd+K Spotlight Modal, and Filter Popovers.
+   - Clean, solid high-contrast surfaces for Data Tables, Plotly Charts, and Audit Evidence to guarantee 100% legibility.
 
 ---
 
-### 2. Typography System
+### 2. Particle Morph States Specification
 
-- **Primary Font Stack**: `-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Fira Sans", system-ui, sans-serif`
-- **Monospace Font Stack**: `"SF Mono", "Fira Code", Menlo, Monaco, Consolas, monospace`
-- **Numeric Tabular Display**: All financial, score, and statistical columns enforce `font-variant-numeric: tabular-nums;`.
-
-| Scale | Size | Line Height | Weight | Usage |
-| :--- | :--- | :--- | :--- | :--- |
-| **Display** | 28px (1.75rem) | 1.2 | 700 (Bold) | Major Section Headers |
-| **Page Title** | 20px (1.25rem) | 1.3 | 600 (SemiBold) | Application Toolbar Title |
-| **Section Header**| 15px (0.9375rem)| 1.4 | 600 (SemiBold) | Card & Panel Titles |
-| **Body** | 13px (0.8125rem)| 1.5 | 400 (Regular) | Primary Content & Tables |
-| **Metadata** | 11px (0.6875rem)| 1.4 | 500 (Medium) | Badges, Timestamps, Labels |
+| State | Name | Visual Behavior | Semantic Palette |
+| :--- | :--- | :--- | :--- |
+| **State 1** | National Network | Dense 3D sphere/torus network of interconnected works | White `#FFFFFF` + Sapphire `#38BDF8` |
+| **State 2** | Geographic Distribution | Abstract 2D/3D map layout representing works across India | Cool Slate `#94A3B8` + Accent `#2563EB` |
+| **State 3** | Signal Chaos | Particles scatter into high-entropy outlier clouds | Warning Amber `#F59E0B` + Crimson `#EF4444` |
+| **State 4** | Priority Convergence | Particles assemble into 3 distinct priority rings | Crimson `#EF4444` (Critical), Amber `#F59E0B` (Standard), Emerald `#10B981` (Low) |
+| **State 5** | Financial Flow | Flowing horizontal stream representing monthly expenditure | Emerald `#10B981` + Cyan `#06B6D4` |
+| **State 6** | Forecast Trajectory | Forward-projecting curve into 6-month expected horizon | Cyan `#38BDF8` with shaded bounds |
 
 ---
 
-### 3. Material & Color Palette
+### 3. Typography & Composition Rules
 
-#### Light Mode (Primary Desktop Mode):
-- **Window Base Canvas**: `#F8FAFC`
-- **Content Surface**: `#FFFFFF` (Solid with `1px solid rgba(226, 232, 240, 0.8)`)
-- **Liquid Glass Navigation**: `rgba(255, 255, 255, 0.72)` + `backdrop-filter: blur(25px) saturate(180%)`
-- **Liquid Glass Border**: `rgba(255, 255, 255, 0.8)` top/left highlight, `rgba(203, 213, 225, 0.5)` bottom/right shadow
-- **Primary Text**: `#0F172A`
-- **Muted Text**: `#64748B`
-- **Accent Blue**: `#2563EB` (Selection, Active Navigation, Key CTA)
-
-#### Dark Mode:
-- **Window Base Canvas**: `#0B1120`
-- **Content Surface**: `#1E293B` (Solid with `1px solid rgba(51, 65, 85, 0.6)`)
-- **Liquid Glass Navigation**: `rgba(15, 23, 42, 0.75)` + `backdrop-filter: blur(25px) saturate(180%)`
-- **Liquid Glass Border**: `rgba(255, 255, 255, 0.12)` top/left highlight, `rgba(0, 0, 0, 0.4)` bottom/right
-- **Primary Text**: `#F8FAFC`
-- **Muted Text**: `#94A3B8`
-- **Accent Blue**: `#38BDF8`
-
-#### Semantic Risk Colors (WCAG AA High-Contrast):
-- **Critical Audit Priority**: `#EF4444` (Crimson)
-- **Standard Review**: `#F59E0B` (Amber)
-- **Low Priority / Healthy**: `#10B981` (Emerald)
-- **Informational / Neutral**: `#64748B` (Slate)
-
----
-
-### 4. Interactive Components & Functional Liquid Glass
-
-1. **Top Application Toolbar (`GlassToolbar`)**:
-   - Fixed height (`52px`), floating glass material.
-   - Left: Compact MPLADS Mark + "Audit Intelligence".
-   - Center: Contextual Breadcrumb & Page Title.
-   - Right: Cmd+K Search trigger (`GlassSearch`), Global Filter popover button (`GlassFilterBar`), Alert Center indicator, Persona switcher.
-2. **Mac Sidebar (`GlassNavigation`)**:
-   - Width: `240px`, collapsible to `64px` on tablet/compact widths.
-   - Sectioned Navigation:
-     - **Main**: Overview, Works Explorer, Audit Queue, Alert Center
-     - **Monitoring**: Expenditure, Compliance Review, Delay & Execution
-     - **Intelligence**: Duplicate Works, Expenditure Forecast, Agency Risk, Risk Analytics
-     - **Governance**: AI & Methodology, Audit Reports
-3. **Mac Spotlight Search Overlay (`GlassSpotlight`)**:
-   - Triggered by `Cmd+K` / `Ctrl+K` or clicking search bar.
-   - Liquid glass overlay card with keyboard navigation (Up/Down/Enter/Esc).
-   - Real-time instant query matching across Work IDs, Descriptions, Districts, MPs, Agencies.
-4. **Data Tables & Inspection Drawers**:
-   - Clean, non-glass tabular content with sticky headers, subtle row hover highlighting, and direct row click opening the **Work Investigation Drawer**.
-
----
-
-### 5. Motion & Interaction Rules
-
-- **Spring Physics**: `cubic-bezier(0.16, 1, 0.3, 1)` for smooth, responsive desktop feel.
-- **Duration**: `150ms` for buttons/hovers, `250ms` for drawers/modals, `350ms` for view transitions.
-- **Ambient Light Orbs**: 2 slow background light blobs with `transform: translate3d()` and `pointer-events: none` running at 60fps.
-- **Reduced Motion (`prefers-reduced-motion: reduce`)**: Background light animation disabled, modal fade duration reduced to 50ms with zero scale transform.
+- **Headline Font**: `-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif`
+- **Body Font**: `"SF Pro Text", "Fira Sans", sans-serif`
+- **Data Font**: `"SF Mono", "Fira Code", monospace` (enforcing `font-variant-numeric: tabular-nums`)
+- **50/50 Cinematic Layout**: Left side houses large white display text and narrative controls; Right side presents interactive 3D WebGL visualization and clean analytical panels.

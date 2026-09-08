@@ -12,14 +12,14 @@
     "fallback_composite_matches": 1
   },
   "lifecycle_match_rates": {
-    "recommendation_to_sanction_match_rate_pct": 100.0,
+    "recommendation_to_sanction_match_rate_pct": 0.0,
     "sanction_to_expenditure_match_rate_pct": 71.45,
-    "sanction_to_completion_match_rate_pct": 43.37
+    "sanction_to_completion_match_rate_pct": 0.0
   },
   "unmatched_records_by_stage": {
     "unmatched_expenditure_records": 1,
     "unmatched_completed_records": 0,
-    "unmatched_recommended_records": 27805
+    "unmatched_recommended_records": 107024
   },
   "historical_numerical_reconciliation": {
     "model_3_delay_count_explanation": {

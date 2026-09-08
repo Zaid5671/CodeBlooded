@@ -1,0 +1,854 @@
+[
+  {
+    "relative_path": "LokSabha17/Allocated Limit for Honble MPs_LokSabha_17.csv",
+    "folder": "LokSabha17",
+    "filename": "Allocated Limit for Honble MPs_LokSabha_17.csv",
+    "grain": "MP ALLOCATION",
+    "rows": 544,
+    "cols": 5,
+    "columns": [
+      "Sr. No.",
+      "State",
+      "Hon'ble Members of Parliaments",
+      "Constituency",
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "null_count": 3,
+    "null_pct": 0.11,
+    "monetary_columns": [
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Allocated AMOUNT ( \u20b9 )": {
+        "min": 0.1099999994039535,
+        "max": 47588887166.81,
+        "mean": 175929342.57600743,
+        "median": 92880335.0
+      }
+    },
+    "date_columns": []
+  },
+  {
+    "relative_path": "LokSabha17/Expenditure on Completed and On-going Works as on Date_LokSabha17.csv",
+    "folder": "LokSabha17",
+    "filename": "Expenditure on Completed and On-going Works as on Date_LokSabha17.csv",
+    "grain": "TRANSACTION / VOUCHER",
+    "rows": 138575,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "State",
+      "Work",
+      "Work ID",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Constituency",
+      "Expenditure Date",
+      "Vendor Name",
+      "Payment Status",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Expenditure Date",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Fund Disbursed Amount ( \u20b9 )": {
+        "min": 0.25,
+        "max": 38810444965.729,
+        "mean": 560136.3155797148,
+        "median": 150000.0
+      }
+    },
+    "date_columns": [
+      "Expenditure Date"
+    ]
+  },
+  {
+    "relative_path": "LokSabha17/Works Completed_LokSabha_17.csv",
+    "folder": "LokSabha17",
+    "filename": "Works Completed_LokSabha_17.csv",
+    "grain": "COMPLETION RECORD",
+    "rows": 71256,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "Work Category",
+      "Work",
+      "State",
+      "IDA",
+      "Work Description",
+      "Hon'ble Members of Parliament",
+      "Constituency",
+      "Image",
+      "Completion Date",
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "null_count": 21641,
+    "null_pct": 2.76,
+    "monetary_columns": [
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Amount Disbursed ( \u20b9 )": {
+        "min": 1608.0,
+        "max": 32278195509.69,
+        "mean": 908835.3280124451,
+        "median": 299154.0
+      }
+    },
+    "date_columns": [
+      "Completion Date"
+    ]
+  },
+  {
+    "relative_path": "LokSabha17/Works Recommended_LokSabha_17.csv",
+    "folder": "LokSabha17",
+    "filename": "Works Recommended_LokSabha_17.csv",
+    "grain": "RECOMMENDATION",
+    "rows": 94749,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "Work category",
+      "WORK",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Constituency",
+      "Work description",
+      "Recommended date",
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "null_count": 3056,
+    "null_pct": 0.29,
+    "monetary_columns": [
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "monetary_stats": {
+      "RECOMMENDED AMOUNT   ( \u20b9 )": {
+        "min": 1.0,
+        "max": 75742166.0,
+        "mean": 469374.23293224827,
+        "median": 299999.0
+      },
+      "Sanction Date": {
+        "min": 44469922950.7,
+        "max": 44469922950.7,
+        "mean": 44469922950.7,
+        "median": 44469922950.7
+      }
+    },
+    "date_columns": [
+      "Recommended date",
+      "Sanction Date"
+    ]
+  },
+  {
+    "relative_path": "LokSabha17/Works Sanctioned_LokSabha_17.csv",
+    "folder": "LokSabha17",
+    "filename": "Works Sanctioned_LokSabha_17.csv",
+    "grain": "WORK (SANCTIONED)",
+    "rows": 92117,
+    "cols": 12,
+    "columns": [
+      "Sr. No.",
+      "Work category",
+      "Work",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Constituency",
+      "Work description",
+      "Recommended date",
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )",
+      "Work Status"
+    ],
+    "null_count": 252,
+    "null_pct": 0.02,
+    "monetary_columns": [
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Sanction Amount ( \u20b9 )": {
+        "min": 3.92,
+        "max": 75742166.0,
+        "mean": 469009.2320207142,
+        "median": 299982.0
+      }
+    },
+    "date_columns": [
+      "Recommended date",
+      "Sanction Date"
+    ]
+  },
+  {
+    "relative_path": "LokSabha18/Allocated Limit for Honble MPs_LokSabha_18.csv",
+    "folder": "LokSabha18",
+    "filename": "Allocated Limit for Honble MPs_LokSabha_18.csv",
+    "grain": "MP ALLOCATION",
+    "rows": 544,
+    "cols": 5,
+    "columns": [
+      "Sr. No.",
+      "State",
+      "Hon'ble Members of Parliaments",
+      "Constituency",
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "null_count": 1,
+    "null_pct": 0.04,
+    "monetary_columns": [
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Allocated AMOUNT ( \u20b9 )": {
+        "min": 49000000.0,
+        "max": 83336673298.01,
+        "mean": 306949072.9208471,
+        "median": 147000000.0
+      }
+    },
+    "date_columns": []
+  },
+  {
+    "relative_path": "LokSabha18/Amount consented for Calamity_LokSabha_18.csv",
+    "folder": "LokSabha18",
+    "filename": "Amount consented for Calamity_LokSabha_18.csv",
+    "grain": "CALAMITY CONSENT",
+    "rows": 13,
+    "cols": 6,
+    "columns": [
+      "Sr. No.",
+      "Calamity Type",
+      "Calamity Name",
+      "Hon'ble Members of Parliament",
+      "Date of Consent",
+      "Consent Amount ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Consent Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Consent Amount ( \u20b9 )": {
+        "min": 500000.0,
+        "max": 40567400.0,
+        "mean": 6241138.461538462,
+        "median": 2500000.0
+      }
+    },
+    "date_columns": [
+      "Date of Consent"
+    ]
+  },
+  {
+    "relative_path": "LokSabha18/Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv",
+    "folder": "LokSabha18",
+    "filename": "Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv",
+    "grain": "TRANSACTION / VOUCHER",
+    "rows": 84172,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "State",
+      "Work",
+      "Work ID",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Constituency",
+      "Expenditure Date",
+      "Vendor Name",
+      "Payment Status",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Expenditure Date",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Fund Disbursed Amount ( \u20b9 )": {
+        "min": 1.0,
+        "max": 27787500708.45,
+        "mean": 660255.2085836146,
+        "median": 190546.0
+      }
+    },
+    "date_columns": [
+      "Expenditure Date"
+    ]
+  },
+  {
+    "relative_path": "LokSabha18/Works Completed_LokSabha_18.csv",
+    "folder": "LokSabha18",
+    "filename": "Works Completed_LokSabha_18.csv",
+    "grain": "COMPLETION RECORD",
+    "rows": 34440,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "Work Category",
+      "Work",
+      "State",
+      "IDA",
+      "Work Description",
+      "Hon'ble Members of Parliament",
+      "Constituency",
+      "Image",
+      "Completion Date",
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "null_count": 9462,
+    "null_pct": 2.5,
+    "monetary_columns": [
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Amount Disbursed ( \u20b9 )": {
+        "min": 8448.0,
+        "max": 16665942883.4,
+        "mean": 970078.1655064028,
+        "median": 298955.0
+      }
+    },
+    "date_columns": [
+      "Completion Date"
+    ]
+  },
+  {
+    "relative_path": "LokSabha18/Works Recommended_LokSabha_18.csv",
+    "folder": "LokSabha18",
+    "filename": "Works Recommended_LokSabha_18.csv",
+    "grain": "RECOMMENDATION",
+    "rows": 107024,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "Work category",
+      "WORK",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Constituency",
+      "Work description",
+      "Recommended date",
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "null_count": 28287,
+    "null_pct": 2.4,
+    "monetary_columns": [
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "monetary_stats": {
+      "RECOMMENDED AMOUNT   ( \u20b9 )": {
+        "min": 1.0,
+        "max": 99965000.0,
+        "mean": 535540.083144838,
+        "median": 309000.0
+      },
+      "Sanction Date": {
+        "min": 57315106318.41,
+        "max": 57315106318.41,
+        "mean": 57315106318.41,
+        "median": 57315106318.41
+      }
+    },
+    "date_columns": [
+      "Recommended date",
+      "Sanction Date"
+    ]
+  },
+  {
+    "relative_path": "LokSabha18/Works Sanctioned_LokSabha_18.csv",
+    "folder": "LokSabha18",
+    "filename": "Works Sanctioned_LokSabha_18.csv",
+    "grain": "WORK (SANCTIONED)",
+    "rows": 79220,
+    "cols": 12,
+    "columns": [
+      "Sr. No.",
+      "Work category",
+      "Work",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Constituency",
+      "Work description",
+      "Recommended date",
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )",
+      "Work Status"
+    ],
+    "null_count": 98,
+    "null_pct": 0.01,
+    "monetary_columns": [
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Sanction Amount ( \u20b9 )": {
+        "min": 2.46,
+        "max": 49740000.0,
+        "mean": 527221.9543654931,
+        "median": 300000.0
+      }
+    },
+    "date_columns": [
+      "Recommended date",
+      "Sanction Date"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Retired/Allocated Limit for Honble MPs (1).csv",
+    "folder": "RajyaSabha_Retired",
+    "filename": "Allocated Limit for Honble MPs (1).csv",
+    "grain": "MP ALLOCATION",
+    "rows": 232,
+    "cols": 5,
+    "columns": [
+      "Sr. No.",
+      "State",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Allocated AMOUNT ( \u20b9 )": {
+        "min": 23800006.0,
+        "max": 33638482301.82,
+        "mean": 289986916.39500004,
+        "median": 147000000.0
+      }
+    },
+    "date_columns": []
+  },
+  {
+    "relative_path": "RajyaSabha_Retired/Amount consented for Calamity.csv",
+    "folder": "RajyaSabha_Retired",
+    "filename": "Amount consented for Calamity.csv",
+    "grain": "CALAMITY CONSENT",
+    "rows": 21,
+    "cols": 6,
+    "columns": [
+      "Sr. No.",
+      "Calamity Type",
+      "Calamity Name",
+      "Hon'ble Members of Parliament",
+      "Date of Consent",
+      "Consent Amount ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Consent Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Consent Amount ( \u20b9 )": {
+        "min": 500000.0,
+        "max": 104500000.0,
+        "mean": 9952380.952380951,
+        "median": 2500000.0
+      }
+    },
+    "date_columns": [
+      "Date of Consent"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Retired/Expenditure on Completed and On-going Works as on Date.csv",
+    "folder": "RajyaSabha_Retired",
+    "filename": "Expenditure on Completed and On-going Works as on Date.csv",
+    "grain": "TRANSACTION / VOUCHER",
+    "rows": 25130,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "State",
+      "Work",
+      "Work ID",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Expenditure Date",
+      "Vendor Name",
+      "Payment Status",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Expenditure Date",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Fund Disbursed Amount ( \u20b9 )": {
+        "min": 0.01,
+        "max": 12425553082.69,
+        "mean": 988901.9564417034,
+        "median": 248250.0
+      }
+    },
+    "date_columns": [
+      "Expenditure Date"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Retired/Works Completed.csv",
+    "folder": "RajyaSabha_Retired",
+    "filename": "Works Completed.csv",
+    "grain": "COMPLETION RECORD",
+    "rows": 9964,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "Work Category",
+      "Work",
+      "State",
+      "IDA",
+      "Work Description",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Image",
+      "Completion Date",
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "null_count": 3492,
+    "null_pct": 3.19,
+    "monetary_columns": [
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Amount Disbursed ( \u20b9 )": {
+        "min": 10000.0,
+        "max": 7614976892.21,
+        "mean": 1532034.3812916204,
+        "median": 497500.0
+      }
+    },
+    "date_columns": [
+      "Completion Date"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Retired/Works Recommended.csv",
+    "folder": "RajyaSabha_Retired",
+    "filename": "Works Recommended.csv",
+    "grain": "RECOMMENDATION",
+    "rows": 25204,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "Work category",
+      "WORK",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Work description",
+      "Recommended date",
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "null_count": 5854,
+    "null_pct": 2.11,
+    "monetary_columns": [
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "monetary_stats": {
+      "RECOMMENDED AMOUNT   ( \u20b9 )": {
+        "min": 3.89,
+        "max": 73500000.0,
+        "mean": 885265.0948383128,
+        "median": 500000.0
+      },
+      "Sanction Date": {
+        "min": 22311336185.21,
+        "max": 22311336185.21,
+        "mean": 22311336185.21,
+        "median": 22311336185.21
+      }
+    },
+    "date_columns": [
+      "Recommended date",
+      "Sanction Date"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Retired/Works Sanctioned.csv",
+    "folder": "RajyaSabha_Retired",
+    "filename": "Works Sanctioned.csv",
+    "grain": "WORK (SANCTIONED)",
+    "rows": 19607,
+    "cols": 12,
+    "columns": [
+      "Sr. No.",
+      "Work category",
+      "Work",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Work description",
+      "Recommended date",
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )",
+      "Work Status"
+    ],
+    "null_count": 18,
+    "null_pct": 0.01,
+    "monetary_columns": [
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Sanction Amount ( \u20b9 )": {
+        "min": 10000.0,
+        "max": 73500000.0,
+        "mean": 874629.2403789656,
+        "median": 500000.0
+      }
+    },
+    "date_columns": [
+      "Recommended date",
+      "Sanction Date"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Sitting/Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv",
+    "folder": "RajyaSabha_Sitting",
+    "filename": "Allocated_Limit_for_Honble_MPs_Rajya_Sabha.csv",
+    "grain": "MP ALLOCATION",
+    "rows": 232,
+    "cols": 5,
+    "columns": [
+      "Sr. No.",
+      "State",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Allocated AMOUNT ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Allocated AMOUNT ( \u20b9 )": {
+        "min": 23800006.0,
+        "max": 33638482301.82,
+        "mean": 289986916.39500004,
+        "median": 147000000.0
+      }
+    },
+    "date_columns": []
+  },
+  {
+    "relative_path": "RajyaSabha_Sitting/Amount_consented_for_Calamity_Rajya_Sitting.csv",
+    "folder": "RajyaSabha_Sitting",
+    "filename": "Amount_consented_for_Calamity_Rajya_Sitting.csv",
+    "grain": "CALAMITY CONSENT",
+    "rows": 21,
+    "cols": 6,
+    "columns": [
+      "Sr. No.",
+      "Calamity Type",
+      "Calamity Name",
+      "Hon'ble Members of Parliament",
+      "Date of Consent",
+      "Consent Amount ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Consent Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Consent Amount ( \u20b9 )": {
+        "min": 500000.0,
+        "max": 104500000.0,
+        "mean": 9952380.952380951,
+        "median": 2500000.0
+      }
+    },
+    "date_columns": [
+      "Date of Consent"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Sitting/Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv",
+    "folder": "RajyaSabha_Sitting",
+    "filename": "Expenditure_on_Completed_and_On-going_Works_as_on_Date_Rajya_Sitting.csv",
+    "grain": "TRANSACTION / VOUCHER",
+    "rows": 25141,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "State",
+      "Work",
+      "Work ID",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Expenditure Date",
+      "Vendor Name",
+      "Payment Status",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "null_count": 0,
+    "null_pct": 0.0,
+    "monetary_columns": [
+      "Expenditure Date",
+      "Fund Disbursed Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Fund Disbursed Amount ( \u20b9 )": {
+        "min": 0.01,
+        "max": 12432221932.69,
+        "mean": 988999.7957670739,
+        "median": 248250.0
+      }
+    },
+    "date_columns": [
+      "Expenditure Date"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Sitting/Works_Completed_Rajya_Sitting.csv",
+    "folder": "RajyaSabha_Sitting",
+    "filename": "Works_Completed_Rajya_Sitting.csv",
+    "grain": "COMPLETION RECORD",
+    "rows": 9979,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "Work Category",
+      "Work",
+      "State",
+      "IDA",
+      "Work Description",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Image",
+      "Completion Date",
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "null_count": 3492,
+    "null_pct": 3.18,
+    "monetary_columns": [
+      "Amount Disbursed ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Amount Disbursed ( \u20b9 )": {
+        "min": 10000.0,
+        "max": 7635111513.21,
+        "mean": 1533770.8945781437,
+        "median": 497618.5
+      }
+    },
+    "date_columns": [
+      "Completion Date"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Sitting/Works_Recommended_Rajya_Sitting.csv",
+    "folder": "RajyaSabha_Sitting",
+    "filename": "Works_Recommended_Rajya_Sitting.csv",
+    "grain": "RECOMMENDATION",
+    "rows": 25240,
+    "cols": 11,
+    "columns": [
+      "Sr. No.",
+      "Work category",
+      "WORK",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Work description",
+      "Recommended date",
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "null_count": 5889,
+    "null_pct": 2.12,
+    "monetary_columns": [
+      "RECOMMENDED AMOUNT   ( \u20b9 )",
+      "Sanction Date"
+    ],
+    "monetary_stats": {
+      "RECOMMENDED AMOUNT   ( \u20b9 )": {
+        "min": 3.89,
+        "max": 73500000.0,
+        "mean": 884686.1881298784,
+        "median": 500000.0
+      },
+      "Sanction Date": {
+        "min": 22328594702.21,
+        "max": 22328594702.21,
+        "mean": 22328594702.21,
+        "median": 22328594702.21
+      }
+    },
+    "date_columns": [
+      "Recommended date",
+      "Sanction Date"
+    ]
+  },
+  {
+    "relative_path": "RajyaSabha_Sitting/Works_Sanctioned_Rajya_Sitting.csv",
+    "folder": "RajyaSabha_Sitting",
+    "filename": "Works_Sanctioned_Rajya_Sitting.csv",
+    "grain": "WORK (SANCTIONED)",
+    "rows": 19607,
+    "cols": 12,
+    "columns": [
+      "Sr. No.",
+      "Work category",
+      "Work",
+      "State",
+      "IDA",
+      "Hon'ble Members of Parliament",
+      "Elected/Nominated",
+      "Work description",
+      "Recommended date",
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )",
+      "Work Status"
+    ],
+    "null_count": 18,
+    "null_pct": 0.01,
+    "monetary_columns": [
+      "Sanction Date",
+      "Sanction Amount ( \u20b9 )"
+    ],
+    "monetary_stats": {
+      "Sanction Amount ( \u20b9 )": {
+        "min": 10000.0,
+        "max": 73500000.0,
+        "mean": 874629.2403789656,
+        "median": 500000.0
+      }
+    },
+    "date_columns": [
+      "Recommended date",
+      "Sanction Date"
+    ]
+  }
+]

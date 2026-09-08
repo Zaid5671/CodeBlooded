@@ -179,7 +179,7 @@ class TestNewModulesSuite(unittest.TestCase):
         df_c = pd.DataFrame([{'clean_work_id': 'W_HIGH', 'signal_compliance': True}])
 
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
-        self.assertEqual(df_p.iloc[0]['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+        self.assertEqual(df_p.iloc[0]['audit_priority'], 'CRITICAL AUDIT PRIORITY')
 
     # 8. Cross-House & Forecast Horizon Tests
     def test_15_cross_house_pending_state(self):
@@ -242,7 +242,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.10)
         self.assertEqual(row['major_dimension_count'], 0)
-        self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'LOW AUDIT PRIORITY')
 
         # Case B: Eligibility only (Score: 0.10, Major: 0) -> LOW
         df_s = pd.DataFrame([{'clean_work_id': 'WB', 'risk_level': 'LOW'}])
@@ -253,7 +253,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.10)
         self.assertEqual(row['major_dimension_count'], 0)
-        self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'LOW AUDIT PRIORITY')
 
         # Case C: Vendor + Eligibility (Score: 0.20, Major: 0) -> STANDARD (Key regression test)
         df_s = pd.DataFrame([{'clean_work_id': 'WC', 'risk_level': 'LOW', 'IDA': 'AG_V'}])
@@ -264,7 +264,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.20)
         self.assertEqual(row['major_dimension_count'], 0)
-        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+        self.assertEqual(row['audit_priority'], 'STANDARD AUDIT PRIORITY')
 
         # Case D: Cost only (Score: 0.30, Major: 1) -> STANDARD
         df_s = pd.DataFrame([{'clean_work_id': 'WD', 'risk_level': 'HIGH'}])
@@ -274,7 +274,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.30)
         self.assertEqual(row['major_dimension_count'], 1)
-        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+        self.assertEqual(row['audit_priority'], 'STANDARD AUDIT PRIORITY')
 
         # Case E: Delay only (Score: 0.25, Major: 1) -> STANDARD
         df_s = pd.DataFrame([{'clean_work_id': 'WE', 'risk_level': 'LOW'}])
@@ -284,7 +284,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.25)
         self.assertEqual(row['major_dimension_count'], 1)
-        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+        self.assertEqual(row['audit_priority'], 'STANDARD AUDIT PRIORITY')
 
         # Case F: Cost + Delay (Score: 0.55, Major: 2) -> CRITICAL
         df_s = pd.DataFrame([{'clean_work_id': 'WF', 'risk_level': 'HIGH'}])
@@ -294,7 +294,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.55)
         self.assertEqual(row['major_dimension_count'], 2)
-        self.assertEqual(row['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'CRITICAL AUDIT PRIORITY')
 
         # Case G: Cost + Compliance (Score: 0.55, Major: 2) -> CRITICAL
         df_s = pd.DataFrame([{'clean_work_id': 'WG', 'risk_level': 'HIGH'}])
@@ -304,7 +304,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.55)
         self.assertEqual(row['major_dimension_count'], 2)
-        self.assertEqual(row['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'CRITICAL AUDIT PRIORITY')
 
         # Case H: Delay + Compliance (Score: 0.50, Major: 2) -> CRITICAL
         df_s = pd.DataFrame([{'clean_work_id': 'WH', 'risk_level': 'LOW'}])
@@ -314,7 +314,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.50)
         self.assertEqual(row['major_dimension_count'], 2)
-        self.assertEqual(row['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'CRITICAL AUDIT PRIORITY')
 
         # Case I: Cost + Vendor (Score: 0.40, Major: 1) -> STANDARD
         df_s = pd.DataFrame([{'clean_work_id': 'WI', 'risk_level': 'HIGH', 'IDA': 'AG_V'}])
@@ -324,7 +324,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.40)
         self.assertEqual(row['major_dimension_count'], 1)
-        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+        self.assertEqual(row['audit_priority'], 'STANDARD AUDIT PRIORITY')
 
         # Case J: Delay + Eligibility (Score: 0.35, Major: 1) -> STANDARD
         df_s = pd.DataFrame([{'clean_work_id': 'WJ', 'risk_level': 'LOW'}])
@@ -335,7 +335,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.35)
         self.assertEqual(row['major_dimension_count'], 1)
-        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+        self.assertEqual(row['audit_priority'], 'STANDARD AUDIT PRIORITY')
 
         # Case K: Compliance + Vendor (Score: 0.35, Major: 1) -> STANDARD
         df_s = pd.DataFrame([{'clean_work_id': 'WK', 'risk_level': 'LOW', 'IDA': 'AG_V'}])
@@ -345,7 +345,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.35)
         self.assertEqual(row['major_dimension_count'], 1)
-        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+        self.assertEqual(row['audit_priority'], 'STANDARD AUDIT PRIORITY')
 
         # Case L: No signals (Score: 0.00, Major: 0) -> LOW
         df_s = pd.DataFrame([{'clean_work_id': 'WL', 'risk_level': 'LOW'}])
@@ -355,7 +355,7 @@ class TestNewModulesSuite(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertEqual(row['misuse_priority_score'], 0.00)
         self.assertEqual(row['major_dimension_count'], 0)
-        self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'LOW AUDIT PRIORITY')
 
 if __name__ == '__main__':
     unittest.main()

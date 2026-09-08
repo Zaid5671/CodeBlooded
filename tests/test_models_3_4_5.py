@@ -240,7 +240,7 @@ class TestModels345(unittest.TestCase):
         row = df_p.iloc[0]
         self.assertFalse(row['cost_signal'])
         self.assertEqual(row['fired_signal_count'], 0)
-        self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'LOW AUDIT PRIORITY')
 
     def test_25_delay_contributes_0_25(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'LOW'}])
@@ -270,7 +270,7 @@ class TestModels345(unittest.TestCase):
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 2)
-        self.assertEqual(row['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'CRITICAL AUDIT PRIORITY')
 
     def test_28_one_signal_gives_standard_review(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH', 'evidence_list': ['Cost high']}])
@@ -280,7 +280,7 @@ class TestModels345(unittest.TestCase):
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 1)
-        self.assertEqual(row['audit_priority'], 'STANDARD_REVIEW')
+        self.assertEqual(row['audit_priority'], 'STANDARD AUDIT PRIORITY')
 
     def test_29_zero_signals_gives_low_priority(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'LOW'}])
@@ -290,7 +290,7 @@ class TestModels345(unittest.TestCase):
         df_p, _ = run_audit_priority_aggregation(df_s, df_d, df_c)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 0)
-        self.assertEqual(row['audit_priority'], 'LOW_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'LOW AUDIT PRIORITY')
 
     def test_30_fired_signal_count_is_correct(self):
         df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH'}])

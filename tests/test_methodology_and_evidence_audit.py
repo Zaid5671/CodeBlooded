@@ -163,7 +163,7 @@ class TestMethodologyAndEvidenceAuditSuite:
 
     # 16. Dynamic report generation
     def test_16_dynamic_report_generation(self):
-        report_path = 'reports/final/final_system_verification.md' if os.path.exists('reports/final/final_system_verification.md') else 'data/reports/final_system_verification.md'
+        report_path = 'docs/reports/final/final_system_verification.md' if os.path.exists('docs/reports/final/final_system_verification.md') else ('reports/final/final_system_verification.md' if os.path.exists('reports/final/final_system_verification.md') else 'data/reports/final_system_verification.md')
         assert os.path.exists(report_path)
         with open(report_path) as f:
             content = f.read()

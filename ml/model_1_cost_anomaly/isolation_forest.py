@@ -155,4 +155,7 @@ def train_and_score_isolation_forest(df, fitted_imputer=None, fitted_model=None)
     df_out.loc[valid_mask, 'isolation_forest_flag'] = flags
     df_out.loc[valid_mask, 'isolation_forest_status'] = np.where(flags, 'ANOMALOUS_PATTERN_DETECTED', 'NORMAL')
 
+    if 'risk_level' not in df_out.columns:
+        df_out['risk_level'] = np.where(df_out['isolation_forest_flag'], 'HIGH', 'LOW')
+
     return df_out, imputer, iso_model

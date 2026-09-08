@@ -65,7 +65,7 @@ class TestFullSystemProductionSuite(unittest.TestCase):
         df_p, summary = run_audit_priority_aggregation(df_s, df_d, df_c, df_vendor_risk=df_v)
         row = df_p.iloc[0]
         self.assertEqual(row['fired_signal_count'], 2)
-        self.assertEqual(row['audit_priority'], 'CRITICAL_AUDIT_PRIORITY')
+        self.assertEqual(row['audit_priority'], 'CRITICAL AUDIT PRIORITY')
         self.assertTrue(row['vendor_concentration_risk'])
         self.assertIn('Vendor Network:', ' '.join(row['combined_evidence']))
 

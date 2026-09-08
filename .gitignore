@@ -12,9 +12,12 @@ __pycache__/
 cost_detection/__pycache__/
 output/cache/
 
-# Large uncompressed pipeline output
-output/scored_sanctioned_works.csv
-output/scored_sanctioned_works.json
-output/misuse_priority_results.json
-output/misuse_priority.csv
-
+# Large uncompressed pipeline outputs
+output/**/*.csv
+output/*.csv
+output/**/*.json
+output/*.json
+!output/m4_metric_reconciliation.json
+!output/dataset_inventory.json
+!output/model_architecture_graph.json
+!output/expenditure_forecast.json

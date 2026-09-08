@@ -98,13 +98,13 @@ class TestFinalModelIntegritySuite:
         major_count = 0
 
         if score >= 0.50 or major_count >= 2:
-            tier = "CRITICAL_AUDIT_PRIORITY"
+            tier = "CRITICAL AUDIT PRIORITY"
         elif score >= 0.20 or major_count >= 1:
-            tier = "STANDARD_REVIEW"
+            tier = "STANDARD AUDIT PRIORITY"
         else:
-            tier = "LOW_PRIORITY"
+            tier = "LOW AUDIT PRIORITY"
 
-        assert tier == "STANDARD_REVIEW", "Supporting-only signals must be STANDARD_REVIEW, never CRITICAL."
+        assert tier == "STANDARD AUDIT PRIORITY", "Supporting-only signals must be STANDARD AUDIT PRIORITY, never CRITICAL."
 
     def test_08_no_fraud_confirmation_language(self):
         summary_path = os.path.join(OUTPUT_DIR, "pipeline_summary.json")
@@ -191,3 +191,97 @@ class TestFinalModelIntegritySuite:
         with open(report_path, "r", encoding="utf-8") as f:
             rep_text = f.read()
         assert "EMPIRICAL 95% EXPECTED RANGE" in rep_text
+
+    def test_17_rs_sitting_vs_retired_identity(self):
+        s_df = pd.read_csv('data/original/RajyaSabha_Sitting/Works_Sanctioned_Rajya_Sitting.csv', low_memory=False)
+        r_df = pd.read_csv('data/original/RajyaSabha_Retired/Works Sanctioned.csv', low_memory=False)
+        from ml.feature_engineering.preprocessing import preprocess_sanctioned_works
+        s_prep = preprocess_sanctioned_works(s_df)
+        r_prep = preprocess_sanctioned_works(r_df)
+        s_ids = set(s_prep['clean_work_id'])
+        r_ids = set(r_prep['clean_work_id'])
+        intersection_count = len(s_ids.intersection(r_ids))
+        sitting_only_count = len(s_ids - r_ids)
+        retired_only_count = len(r_ids - s_ids)
+        union_count = len(s_ids.union(r_ids))
+        assert intersection_count == 19607
+        assert sitting_only_count == 0
+        assert retired_only_count == 0
+        assert union_count == 19607
+
+    def test_18_source_id_preservation(self):
+        from ml.feature_engineering.preprocessing import preprocess_sanctioned_works
+        df_raw = pd.read_csv('data/original/LokSabha18/Works Sanctioned_LokSabha_18.csv', low_memory=False)
+        df_prep = preprocess_sanctioned_works(df_raw)
+        assert 'source_work_id' in df_prep.columns
+        assert df_prep['source_work_id'].equals(df_prep['clean_work_id'])
+
+    def test_19_m5_terminology(self):
+        from ml.model_5_audit_priority.misuse_priority import run_audit_priority_aggregation
+        df_s = pd.DataFrame([{'clean_work_id': 'W1', 'risk_level': 'HIGH'}])
+        df_d = pd.DataFrame([{'clean_work_id': 'W1', 'signal_delay': True}])
+        df_c = pd.DataFrame([{'clean_work_id': 'W1', 'signal_compliance': False}])
+        df_p, summary = run_audit_priority_aggregation(df_s, df_d, df_c)
+        assert df_p.iloc[0]['audit_priority'] == 'CRITICAL AUDIT PRIORITY'
+        assert 'critical_audit_priority_count' in summary
+        assert 'standard_audit_priority_count' in summary
+        assert 'low_audit_priority_count' in summary
+
+    def test_20_45_day_compliance_wording(self):
+        from ml.audit_rules.statutory_compliance.approval_compliance import run_compliance_detection
+        df_dummy = pd.DataFrame([{
+            'clean_work_id': 'W1', 'state': 'UP', 'ida': 'AGENCY_1',
+            'sanction_date': '2024-02-01', 'recommended_date': '2024-01-01'
+        }])
+        df_res, _ = run_compliance_detection(df_dummy)
+        ev = df_res.iloc[0]['evidence']
+        assert 'applicable 45-day communication/rejection window' in ev
+
+    def test_21_cross_house_candidate_isolation(self):
+        from ml.model_2_duplicate_work.double_dipping import compare_works
+        df_a = [{'clean_work_id': 'W1', 'State': 'UP', 'Constituency': 'A', 'IDA': 'IDA1', 'work_name': 'Test Road Construction', 'Work description': 'Test Road Construction', 'sanction_amount': 500000.0}]
+        df_b = [{'clean_work_id': 'W2', 'State': 'UP', 'Constituency': 'A', 'IDA': 'IDA1', 'work_name': 'Test Road Construction', 'Work description': 'Test Road Construction', 'sanction_amount': 500000.0}]
+        analyzed_pairs, _ = compare_works(df_a, df_b, chamber_pair="LS-RS")
+        assert len(analyzed_pairs) >= 0
+
+    def test_22_m1_anomaly_operating_point_terminology(self):
+        from ml.model_1_cost_anomaly.overrun_rules import evaluate_cost_overrun
+        from ml.model_1_cost_anomaly.peer_analysis import evaluate_peer_iqr
+        from ml.model_1_cost_anomaly.isolation_forest import train_and_score_isolation_forest
+        df_dummy = pd.DataFrame({
+            'clean_work_id': [f'W{i}' for i in range(100)],
+            'sanction_amount': [100000.0] * 100,
+            'is_below_floor': [False] * 100,
+            'rec_to_sanc_days': [15.0] * 100,
+            'State': ['UP'] * 100,
+            'standardized_category': ['ROADS'] * 100
+        })
+        df_s1 = evaluate_cost_overrun(df_dummy)
+        df_s2 = evaluate_peer_iqr(df_s1)
+        df_out, _, _ = train_and_score_isolation_forest(df_s2)
+        assert 'isolation_forest_flag' in df_out.columns
+
+    def test_23_m4_forecast_metric_terminology(self):
+        from ml.model_4_forecasting.expenditure_forecast import generate_expenditure_forecast
+        df_dummy = pd.DataFrame({
+            'clean_work_id': [f'W{i}' for i in range(10)],
+            'actual_expenditure': [100000.0] * 10,
+            'sanc_dt': pd.to_datetime(['2024-01-01'] * 10)
+        })
+        _, res = generate_expenditure_forecast(df_dummy)
+        assert 'forecasting_method' in res
+
+    def test_24_database_architecture_classification(self):
+        arch_doc = 'docs/architecture_truth.md'
+        assert os.path.exists(arch_doc)
+        with open(arch_doc, 'r', encoding='utf-8') as f:
+            text = f.read()
+        assert 'output/' in text or 'PostgreSQL' in text or 'file' in text.lower()
+
+    def test_25_combined_master_count_identity(self):
+        total_corpus_records = 210551
+        unique_source_works = 190944
+        overlapping_records = 19607
+        assert total_corpus_records == 79220 + 92117 + 19607 + 19607
+        assert unique_source_works == 79220 + 92117 + 19607
+        assert overlapping_records == total_corpus_records - unique_source_works

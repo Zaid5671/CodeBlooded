@@ -193,19 +193,19 @@ def run_audit_priority_aggregation(
 
         # Deterministic Tier Assignment Logic
         if misuse_priority_score >= 0.50:
-            audit_priority = "CRITICAL_AUDIT_PRIORITY"
+            audit_priority = "CRITICAL AUDIT PRIORITY"
             tier_reason = "Score >= 0.50"
         elif major_dimension_count >= 2:
-            audit_priority = "CRITICAL_AUDIT_PRIORITY"
+            audit_priority = "CRITICAL AUDIT PRIORITY"
             tier_reason = f"{major_dimension_count} major dimensions fired: {', '.join(fired_major_dimensions)}"
         elif misuse_priority_score >= 0.20:
-            audit_priority = "STANDARD_REVIEW"
+            audit_priority = "STANDARD AUDIT PRIORITY"
             tier_reason = "Score 0.20-0.49"
         elif major_dimension_count >= 1:
-            audit_priority = "STANDARD_REVIEW"
+            audit_priority = "STANDARD AUDIT PRIORITY"
             tier_reason = f"1 major dimension fired: {', '.join(fired_major_dimensions)}"
         else:
-            audit_priority = "LOW_PRIORITY"
+            audit_priority = "LOW AUDIT PRIORITY"
             tier_reason = "No major dimensions and score < 0.20"
             
         # Core Fired Independent Signal Count (Historical 3-Signal Standard preserved)
@@ -299,14 +299,16 @@ def run_audit_priority_aggregation(
         (df_priority['compliance_component'] == 0) &
         (df_priority['vendor_payment_component'] > 0) &
         (df_priority['eligibility_beneficiary_component'] > 0) &
-        (df_priority['audit_priority'] == 'CRITICAL_AUDIT_PRIORITY')
+        (df_priority['audit_priority'] == 'CRITICAL AUDIT PRIORITY')
     ).sum())
     
     summary = {
         'total_works_processed': len(df_priority),
-        'critical_audit_priority_count': int((df_priority['audit_priority'] == 'CRITICAL_AUDIT_PRIORITY').sum()),
-        'standard_review_count': int((df_priority['audit_priority'] == 'STANDARD_REVIEW').sum()),
-        'low_priority_count': int((df_priority['audit_priority'] == 'LOW_PRIORITY').sum()),
+        'critical_audit_priority_count': int((df_priority['audit_priority'] == 'CRITICAL AUDIT PRIORITY').sum()),
+        'standard_audit_priority_count': int((df_priority['audit_priority'] == 'STANDARD AUDIT PRIORITY').sum()),
+        'low_audit_priority_count': int((df_priority['audit_priority'] == 'LOW AUDIT PRIORITY').sum()),
+        'standard_review_count': int((df_priority['audit_priority'] == 'STANDARD AUDIT PRIORITY').sum()),
+        'low_priority_count': int((df_priority['audit_priority'] == 'LOW AUDIT PRIORITY').sum()),
         'score_min': float(df_priority['misuse_priority_score'].min()),
         'score_max': float(df_priority['misuse_priority_score'].max()),
         'major_dimensions_breakdown': {

@@ -4,25 +4,45 @@ import pandas as pd
 import numpy as np
 from feature_engineering.preprocessing import derive_clean_work_id, clean_monetary_field
 
+def _find_corpus_file(data_dir, pattern_key):
+    if not os.path.exists(data_dir):
+        return ""
+    files = os.listdir(data_dir)
+    for f in files:
+        if f.lower().endswith(".csv") and pattern_key.lower() in f.lower():
+            return os.path.join(data_dir, f)
+    return ""
+
+def _get_series(df, col_name, fallback_val=""):
+    if col_name in df.columns:
+        return df[col_name].fillna('').astype(str).str.strip()
+    matches = [c for c in df.columns if col_name.lower() in str(c).lower()]
+    if matches:
+        return df[matches[0]].fillna('').astype(str).str.strip()
+    return pd.Series([fallback_val] * len(df))
+
+def _get_amt_series(df, keywords):
+    for kw in keywords:
+        matches = [c for c in df.columns if kw.lower() in str(c).lower()]
+        if matches:
+            return df[matches[0]]
+    return df.iloc[:, 0] if not df.empty else pd.Series(dtype=float)
+
 def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
     """
     Loads MPLADS datasets across lifecycle stages (Recommended, Sanctioned, Expenditure, Completed)
     and reconciles them into unified MasterWorkEntity records using fast vectorized operations.
-    
-    Returns:
-        df_master: pd.DataFrame of master work entities
-        reco_summary: dict of reconciliation statistics
     """
-    sanctioned_path = os.path.join(data_dir, "Works Sanctioned_LokSabha_18.csv")
-    expenditure_path = os.path.join(data_dir, "Expenditure on Completed and On-going Works as on Date_LokSabha_18.csv")
-    recommended_path = os.path.join(data_dir, "Works Recommended_LokSabha_18.csv")
-    completed_path = os.path.join(data_dir, "Works Completed_LokSabha_18.csv")
+    sanctioned_path = _find_corpus_file(data_dir, "Sanctioned")
+    expenditure_path = _find_corpus_file(data_dir, "Expenditure")
+    recommended_path = _find_corpus_file(data_dir, "Recommended")
+    completed_path = _find_corpus_file(data_dir, "Completed")
     
     # Load raw dataframes safely
-    df_sanc = pd.read_csv(sanctioned_path, low_memory=False) if os.path.exists(sanctioned_path) else pd.DataFrame()
-    df_exp = pd.read_csv(expenditure_path, low_memory=False) if os.path.exists(expenditure_path) else pd.DataFrame()
-    df_reco = pd.read_csv(recommended_path, low_memory=False) if os.path.exists(recommended_path) else pd.DataFrame()
-    df_comp = pd.read_csv(completed_path, low_memory=False) if os.path.exists(completed_path) else pd.DataFrame()
+    df_sanc = pd.read_csv(sanctioned_path, low_memory=False) if (sanctioned_path and os.path.exists(sanctioned_path)) else pd.DataFrame()
+    df_exp = pd.read_csv(expenditure_path, low_memory=False) if (expenditure_path and os.path.exists(expenditure_path)) else pd.DataFrame()
+    df_reco = pd.read_csv(recommended_path, low_memory=False) if (recommended_path and os.path.exists(recommended_path)) else pd.DataFrame()
+    df_comp = pd.read_csv(completed_path, low_memory=False) if (completed_path and os.path.exists(completed_path)) else pd.DataFrame()
 
     entity_dict = {}
     exact_id_matches = 0
@@ -32,22 +52,25 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
     # 1. Process Sanctioned Works (Primary backbone)
     sanc_count = len(df_sanc)
     if not df_sanc.empty:
-        work_col = 'Work' if 'Work' in df_sanc.columns else 'Work description'
-        desc_col = 'Work description' if 'Work description' in df_sanc.columns else 'Work'
+        work_col = 'Work' if 'Work' in df_sanc.columns else ('Work description' if 'Work description' in df_sanc.columns else df_sanc.columns[0])
+        desc_col = 'Work description' if 'Work description' in df_sanc.columns else work_col
         
-        df_sanc['clean_sanc_amt'] = clean_monetary_field(df_sanc['Sanction Amount ( ₹ )']).fillna(0.0)
+        sanc_amt_raw = _get_amt_series(df_sanc, ['sanction', 'amount'])
+        df_sanc['clean_sanc_amt'] = clean_monetary_field(sanc_amt_raw).fillna(0.0)
         cids = [derive_clean_work_id(w) for w in df_sanc[work_col]]
         
-        st_series = df_sanc['State'].fillna('').astype(str).str.strip()
-        cn_series = df_sanc['Constituency'].fillna('').astype(str).str.strip()
-        mp_series = df_sanc["Hon'ble Members of Parliament"].fillna('').astype(str).str.strip() if "Hon'ble Members of Parliament" in df_sanc.columns else ""
-        ida_series = df_sanc['IDA'].fillna('').astype(str).str.strip() if 'IDA' in df_sanc.columns else ""
-        cat_series = df_sanc['Work category'].fillna('OTHER').astype(str).str.strip() if 'Work category' in df_sanc.columns else 'OTHER'
-        desc_series = df_sanc[desc_col].fillna('').astype(str).str.strip()
-        work_name_series = df_sanc[work_col].fillna('').astype(str).str.strip()
-        dt_series = df_sanc['Sanction Date'].fillna('').astype(str).str.strip() if 'Sanction Date' in df_sanc.columns else ""
-        rec_dt_series = df_sanc['Recommended date'].fillna('').astype(str).str.strip() if 'Recommended date' in df_sanc.columns else ""
-        status_series = df_sanc['Work Status'].fillna('SANCTIONED').astype(str).str.strip() if 'Work Status' in df_sanc.columns else "SANCTIONED"
+        st_series = _get_series(df_sanc, 'state')
+        cn_series = _get_series(df_sanc, 'constituency')
+        if cn_series.str.len().sum() == 0:
+            cn_series = _get_series(df_sanc, 'district')
+        mp_series = _get_series(df_sanc, 'member')
+        ida_series = _get_series(df_sanc, 'ida')
+        cat_series = _get_series(df_sanc, 'category', fallback_val='OTHER')
+        desc_series = _get_series(df_sanc, desc_col)
+        work_name_series = _get_series(df_sanc, work_col)
+        dt_series = _get_series(df_sanc, 'sanction date')
+        rec_dt_series = _get_series(df_sanc, 'recommended date')
+        status_series = _get_series(df_sanc, 'status', fallback_val='SANCTIONED')
 
         desc_prefix = desc_series.str.lower().str.replace(r'[^a-z0-9]', '', regex=True).str[:40]
         amt_rounded = df_sanc['clean_sanc_amt'].round(-3).astype(int).astype(str)
@@ -71,22 +94,22 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
                     'linkage_confidence': 'EXACT_ID' if cid else 'STRONG_COMPOSITE_MATCH',
                     'work_name': work_name_series.iloc[idx],
                     'description': desc_series.iloc[idx],
-                    'work_category': cat_series.iloc[idx] if isinstance(cat_series, pd.Series) else cat_series,
+                    'work_category': cat_series.iloc[idx],
                     'state': st_series.iloc[idx],
                     'constituency': cn_series.iloc[idx],
-                    'mp': mp_series.iloc[idx] if isinstance(mp_series, pd.Series) else mp_series,
-                    'ida': ida_series.iloc[idx] if isinstance(ida_series, pd.Series) else ida_series,
+                    'mp': mp_series.iloc[idx],
+                    'ida': ida_series.iloc[idx],
                     'sanction_amount': sanc_amt,
                     'recommended_amount': sanc_amt,
                     'expenditure_amount': 0.0,
                     'completed_amount': 0.0,
                     'vendors': set(),
                     'payment_status': 'SANCTIONED',
-                    'sanction_date': dt_series.iloc[idx] if isinstance(dt_series, pd.Series) else dt_series,
-                    'recommended_date': rec_dt_series.iloc[idx] if isinstance(rec_dt_series, pd.Series) else rec_dt_series,
+                    'sanction_date': dt_series.iloc[idx],
+                    'recommended_date': rec_dt_series.iloc[idx],
                     'completion_date': '',
                     'expenditure_dates': set(),
-                    'lifecycle_status': status_series.iloc[idx] if isinstance(status_series, pd.Series) else status_series,
+                    'lifecycle_status': status_series.iloc[idx],
                     'stages_present': {'sanctioned'},
                     'source_datasets': ['Works Sanctioned']
                 }
@@ -96,21 +119,24 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
                 if sanc_amt > entity_dict[key]['sanction_amount']:
                     entity_dict[key]['sanction_amount'] = sanc_amt
 
-    # 2. Reconcile Expenditure Works (AGGREGATE BEFORE JOINING)
+    # 2. Reconcile Expenditure Works
     exp_count = len(df_exp)
     if not df_exp.empty:
-        exp_w_col = 'Work ID' if 'Work ID' in df_exp.columns else 'Work'
-        df_exp['clean_exp_amt'] = clean_monetary_field(df_exp['Fund Disbursed Amount ( ₹ )']).fillna(0.0)
+        exp_w_col = 'Work ID' if 'Work ID' in df_exp.columns else ('Work' if 'Work' in df_exp.columns else df_exp.columns[0])
+        exp_amt_raw = _get_amt_series(df_exp, ['disbursed', 'expenditure', 'amount'])
+        df_exp['clean_exp_amt'] = clean_monetary_field(exp_amt_raw).fillna(0.0)
         cids_exp = [derive_clean_work_id(w) for w in df_exp[exp_w_col]]
         
-        st_exp = df_exp['State'].fillna('').astype(str).str.strip()
-        cn_exp = df_exp['Constituency'].fillna('').astype(str).str.strip()
-        mp_exp = df_exp["Hon'ble Members of Parliament"].fillna('').astype(str).str.strip() if "Hon'ble Members of Parliament" in df_exp.columns else ""
-        ida_exp = df_exp['IDA'].fillna('').astype(str).str.strip() if 'IDA' in df_exp.columns else ""
-        desc_exp = df_exp['Work'].fillna('').astype(str).str.strip()
-        vendor_exp = df_exp['Vendor Name'].fillna('').astype(str).str.strip() if 'Vendor Name' in df_exp.columns else ""
-        pay_status_exp = df_exp['Payment Status'].fillna('').astype(str).str.strip() if 'Payment Status' in df_exp.columns else ""
-        dt_exp = df_exp['Expenditure Date'].fillna('').astype(str).str.strip() if 'Expenditure Date' in df_exp.columns else ""
+        st_exp = _get_series(df_exp, 'state')
+        cn_exp = _get_series(df_exp, 'constituency')
+        if cn_exp.str.len().sum() == 0:
+            cn_exp = _get_series(df_exp, 'district')
+        mp_exp = _get_series(df_exp, 'member')
+        ida_exp = _get_series(df_exp, 'ida')
+        desc_exp = _get_series(df_exp, 'work')
+        vendor_exp = _get_series(df_exp, 'vendor')
+        pay_status_exp = _get_series(df_exp, 'payment status')
+        dt_exp = _get_series(df_exp, 'expenditure date')
 
         desc_prefix_exp = desc_exp.str.lower().str.replace(r'[^a-z0-9]', '', regex=True).str[:40]
         amt_rounded_exp = df_exp['clean_exp_amt'].round(-3).astype(int).astype(str)
@@ -120,16 +146,14 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
             cid = cids_exp[idx]
             key = cid if cid else comp_keys_exp.iloc[idx]
             exp_amt = float(df_exp['clean_exp_amt'].iloc[idx])
-            v_name = vendor_exp.iloc[idx] if isinstance(vendor_exp, pd.Series) else vendor_exp
-            e_date = dt_exp.iloc[idx] if isinstance(dt_exp, pd.Series) else dt_exp
-            p_stat = pay_status_exp.iloc[idx] if isinstance(pay_status_exp, pd.Series) else pay_status_exp
+            v_name = vendor_exp.iloc[idx]
+            e_date = dt_exp.iloc[idx]
+            p_stat = pay_status_exp.iloc[idx]
 
             if key in entity_dict:
                 entity_dict[key]['stages_present'].add('expenditure')
                 entity_dict[key]['source_datasets'].append('Expenditure')
                 entity_dict[key]['expenditure_amount'] += exp_amt
-                if p_stat:
-                    entity_dict[key]['payment_status'] = p_stat
                 if v_name and v_name.upper() != 'NAN':
                     entity_dict[key]['vendors'].add(v_name)
                 if e_date and e_date.upper() != 'NAN':
@@ -146,8 +170,8 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
                     'work_category': 'OTHER',
                     'state': st_exp.iloc[idx],
                     'constituency': cn_exp.iloc[idx],
-                    'mp': mp_exp.iloc[idx] if isinstance(mp_exp, pd.Series) else mp_exp,
-                    'ida': ida_exp.iloc[idx] if isinstance(ida_exp, pd.Series) else ida_exp,
+                    'mp': mp_exp.iloc[idx],
+                    'ida': ida_exp.iloc[idx],
                     'sanction_amount': 0.0,
                     'recommended_amount': 0.0,
                     'expenditure_amount': exp_amt,
@@ -165,13 +189,17 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
 
     # 3. Process Completed Works
     comp_count = len(df_comp)
-    if not df_comp.empty and 'Work Description' in df_comp.columns:
-        df_comp['clean_comp_amt'] = clean_monetary_field(df_comp['Amount Disbursed ( ₹ )']).fillna(0.0)
-        cids_comp = [derive_clean_work_id(w) for w in df_comp['Work']]
-        st_comp = df_comp['State'].fillna('').astype(str).str.strip()
-        cn_comp = df_comp['Constituency'].fillna('').astype(str).str.strip()
-        desc_comp = df_comp['Work Description'].fillna('').astype(str).str.strip()
-        dt_comp = df_comp['Completion Date'].fillna('').astype(str).str.strip() if 'Completion Date' in df_comp.columns else ""
+    if not df_comp.empty:
+        comp_w_col = [c for c in df_comp.columns if 'work' in c.lower()][0] if any('work' in c.lower() for c in df_comp.columns) else df_comp.columns[0]
+        comp_amt_raw = _get_amt_series(df_comp, ['disbursed', 'completed', 'amount'])
+        df_comp['clean_comp_amt'] = clean_monetary_field(comp_amt_raw).fillna(0.0)
+        cids_comp = [derive_clean_work_id(w) for w in df_comp[comp_w_col]]
+        st_comp = _get_series(df_comp, 'state')
+        cn_comp = _get_series(df_comp, 'constituency')
+        if cn_comp.str.len().sum() == 0:
+            cn_comp = _get_series(df_comp, 'district')
+        desc_comp = _get_series(df_comp, comp_w_col)
+        dt_comp = _get_series(df_comp, 'completion date')
 
         desc_prefix_comp = desc_comp.str.lower().str.replace(r'[^a-z0-9]', '', regex=True).str[:40]
         amt_rounded_comp = df_comp['clean_comp_amt'].round(-3).astype(int).astype(str)
@@ -180,7 +208,7 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
         for idx in range(comp_count):
             cid = cids_comp[idx]
             key = cid if cid else comp_keys_comp.iloc[idx]
-            c_date = dt_comp.iloc[idx] if isinstance(dt_comp, pd.Series) else dt_comp
+            c_date = dt_comp.iloc[idx]
             c_amt = float(df_comp['clean_comp_amt'].iloc[idx])
             if key in entity_dict:
                 entity_dict[key]['stages_present'].add('completed')
@@ -192,12 +220,15 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
     # 4. Process Recommended Works
     reco_count = len(df_reco)
     if not df_reco.empty:
-        reco_w_col = 'WORK' if 'WORK' in df_reco.columns else 'Work description'
-        df_reco['clean_reco_amt'] = clean_monetary_field(df_reco['RECOMMENDED AMOUNT   ( ₹ )']).fillna(0.0)
+        reco_w_col = [c for c in df_reco.columns if 'work' in c.lower()][0] if any('work' in c.lower() for c in df_reco.columns) else df_reco.columns[0]
+        reco_amt_raw = _get_amt_series(df_reco, ['recommended', 'amount'])
+        df_reco['clean_reco_amt'] = clean_monetary_field(reco_amt_raw).fillna(0.0)
         cids_reco = [derive_clean_work_id(w) for w in df_reco[reco_w_col]]
-        st_reco = df_reco['State'].fillna('').astype(str).str.strip()
-        cn_reco = df_reco['Constituency'].fillna('').astype(str).str.strip()
-        desc_reco = df_reco['Work description'].fillna('').astype(str).str.strip() if 'Work description' in df_reco.columns else ""
+        st_reco = _get_series(df_reco, 'state')
+        cn_reco = _get_series(df_reco, 'constituency')
+        if cn_reco.str.len().sum() == 0:
+            cn_reco = _get_series(df_reco, 'district')
+        desc_reco = _get_series(df_reco, reco_w_col)
 
         desc_prefix_reco = desc_reco.str.lower().str.replace(r'[^a-z0-9]', '', regex=True).str[:40]
         amt_rounded_reco = df_reco['clean_reco_amt'].round(-3).astype(int).astype(str)
@@ -225,7 +256,6 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
             'work_name': ent['work_name'],
             'description': ent['description'],
             'work_category': ent['work_category'],
-            'category': ent['work_category'],
             'state': ent['state'],
             'constituency': ent['constituency'],
             'mp': ent['mp'],
@@ -234,9 +264,8 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
             'recommended_amount': ent['recommended_amount'],
             'expenditure_amount': ent['expenditure_amount'],
             'completed_amount': ent['completed_amount'],
-            'primary_vendor': next(iter(ent['vendors']), '') if ent['vendors'] else '',
-            'all_vendors': list(ent['vendors']),
-            'vendors': list(ent['vendors']),
+            'vendor_count': len(ent['vendors']),
+            'vendors_str': ", ".join(list(ent['vendors'])[:5]),
             'payment_status': ent['payment_status'],
             'sanction_date': ent['sanction_date'],
             'recommended_date': ent['recommended_date'],
@@ -259,7 +288,7 @@ def load_and_reconcile_lifecycle_data(data_dir="data/original/LokSabha18"):
         'completed_records': comp_count,
         'master_entities': len(df_master),
         'unique_master_work_entities': len(df_master),
-        'lifecycle_reconciled_entities': int((df_master['stage_count'] > 1).sum()),
+        'lifecycle_reconciled_entities': int((df_master['stage_count'] > 1).sum()) if ('stage_count' in df_master.columns and not df_master.empty) else 0,
         'exact_id_matches': exact_id_matches,
         'fallback_matches': fallback_matches,
         'unmatched_records': unmatched_records
