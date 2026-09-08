@@ -6,7 +6,7 @@ def process_and_aggregate_expenditure(df_exp):
     """
     Groups raw expenditure dataset by clean_work_id BEFORE joining to sanctioned works.
     Calculates total actual_expenditure = SUM(Fund Disbursed Amount), voucher count,
-    first and last expenditure dates.
+    first and last expenditure dates using high-throughput vectorized aggregations.
     """
     df_e = df_exp.copy()
 
@@ -35,48 +35,55 @@ def process_and_aggregate_expenditure(df_exp):
     # Filter out missing Work IDs
     valid_exp = df_e[df_e['clean_work_id'].notnull()].copy()
 
-    # Custom per-work payment behavior calculation
-    def calc_payment_features(group):
-        n = len(group)
-        amts = group['expenditure_amount'].values
-        tot = float(amts.sum())
-        mean_amt = tot / n if n > 0 else 0.0
-        max_amt = float(amts.max()) if n > 0 else 0.0
-        max_ratio = max_amt / tot if tot > 0 else 1.0
-        
-        if n > 1:
-            var_amt = float(np.var(amts, ddof=1)) if n > 1 else np.nan
-            dts = sorted([d for d in group['exp_dt'] if pd.notnull(d)])
-            if len(dts) > 1:
-                diffs = [(dts[i] - dts[i-1]).days for i in range(1, len(dts))]
-                med_diff = float(np.median(diffs))
-            else:
-                med_diff = np.nan
-        else:
-            var_amt = np.nan
-            med_diff = np.nan
-            
-        vendors = [str(v).strip() for v in group.get('Vendor Name', pd.Series(dtype=object)).dropna() if str(v).strip()]
-        first_dt = group['exp_dt'].min()
-        last_dt = group['exp_dt'].max()
-        
-        return pd.Series({
-            'actual_expenditure': tot,
-            'expenditure_record_count': n,
-            'num_payments': n,
-            'mean_payment_amount': round(mean_amt, 2),
-            'max_payment_amount': round(max_amt, 2),
-            'max_payment_ratio': round(max_ratio, 4),
-            'payment_variance': round(var_amt, 2) if pd.notnull(var_amt) else np.nan,
-            'median_time_between_payments': round(med_diff, 2) if pd.notnull(med_diff) else np.nan,
-            'HAS_MULTIPLE_PAYMENTS': n > 1,
-            'PAYMENT_FEATURES_AVAILABLE': n > 0,
-            'first_expenditure_date': first_dt,
-            'last_expenditure_date': last_dt,
-            'vendor_names': vendors
-        })
+    # 3. High-performance vectorized aggregation
+    agg_df = valid_exp.groupby('clean_work_id').agg(
+        actual_expenditure=('expenditure_amount', 'sum'),
+        num_payments=('expenditure_amount', 'count'),
+        max_payment_amount=('expenditure_amount', 'max'),
+        first_expenditure_date=('exp_dt', 'min'),
+        last_expenditure_date=('exp_dt', 'max')
+    ).reset_index()
 
-    agg_df = valid_exp.groupby('clean_work_id').apply(calc_payment_features).reset_index()
+    agg_df['expenditure_record_count'] = agg_df['num_payments']
+    agg_df['mean_payment_amount'] = (agg_df['actual_expenditure'] / agg_df['num_payments']).round(2)
+    agg_df['max_payment_amount'] = agg_df['max_payment_amount'].round(2)
+    agg_df['max_payment_ratio'] = np.where(
+        agg_df['actual_expenditure'] > 0,
+        (agg_df['max_payment_amount'] / agg_df['actual_expenditure']).round(4),
+        1.0
+    )
+    agg_df['HAS_MULTIPLE_PAYMENTS'] = agg_df['num_payments'] > 1
+    agg_df['PAYMENT_FEATURES_AVAILABLE'] = agg_df['num_payments'] > 0
+
+    # Calculate payment variance and median time between payments for multi-payment works
+    multi_mask = agg_df['num_payments'] > 1
+    multi_work_ids = set(agg_df.loc[multi_mask, 'clean_work_id'])
+
+    if multi_work_ids:
+        multi_exp = valid_exp[valid_exp['clean_work_id'].isin(multi_work_ids)]
+        var_series = multi_exp.groupby('clean_work_id')['expenditure_amount'].var(ddof=1).round(2)
+        
+        # Median diffs
+        multi_exp_dates = multi_exp[multi_exp['exp_dt'].notnull()].sort_values(['clean_work_id', 'exp_dt'])
+        multi_exp_dates['prev_dt'] = multi_exp_dates.groupby('clean_work_id')['exp_dt'].shift(1)
+        multi_exp_dates['dt_diff'] = (multi_exp_dates['exp_dt'] - multi_exp_dates['prev_dt']).dt.days
+        med_diff_series = multi_exp_dates.groupby('clean_work_id')['dt_diff'].median().round(2)
+
+        agg_df['payment_variance'] = agg_df['clean_work_id'].map(var_series)
+        agg_df['median_time_between_payments'] = agg_df['clean_work_id'].map(med_diff_series)
+    else:
+        agg_df['payment_variance'] = np.nan
+        agg_df['median_time_between_payments'] = np.nan
+
+    # Vendor names mapping
+    vendor_col = 'Vendor Name' if 'Vendor Name' in valid_exp.columns else ('vendor' if 'vendor' in valid_exp.columns else None)
+    if vendor_col:
+        valid_v = valid_exp[valid_exp[vendor_col].notnull()]
+        valid_v_clean = valid_v[valid_v[vendor_col].astype(str).str.strip() != '']
+        vendor_map = valid_v_clean.groupby('clean_work_id')[vendor_col].apply(lambda s: [str(v).strip() for v in s if str(v).strip()]).to_dict()
+        agg_df['vendor_names'] = agg_df['clean_work_id'].map(lambda wid: vendor_map.get(wid, []))
+    else:
+        agg_df['vendor_names'] = [[] for _ in range(len(agg_df))]
 
     # Print Validation Statistics
     total_rows = len(df_exp)
@@ -100,12 +107,42 @@ def process_and_aggregate_expenditure(df_exp):
 
 def match_expenditure_data(df_sanctioned, df_expenditure):
     """
-    Joins aggregated expenditure data to sanctioned works by canonical clean_work_id.
+    Joins aggregated expenditure data to sanctioned master works DataFrame on clean_work_id.
     """
-    df_sanc = df_sanctioned.copy()
+    if df_expenditure is None or len(df_expenditure) == 0:
+        df_s = df_sanctioned.copy()
+        df_s['actual_expenditure'] = np.nan
+        df_s['expenditure_record_count'] = 0
+        df_s['num_payments'] = 0
+        df_s['mean_payment_amount'] = np.nan
+        df_s['max_payment_amount'] = np.nan
+        df_s['max_payment_ratio'] = np.nan
+        df_s['payment_variance'] = np.nan
+        df_s['median_time_between_payments'] = np.nan
+        df_s['HAS_MULTIPLE_PAYMENTS'] = False
+        df_s['PAYMENT_FEATURES_AVAILABLE'] = False
+        df_s['first_expenditure_date'] = pd.NaT
+        df_s['last_expenditure_date'] = pd.NaT
+        df_s['vendor_names'] = [[] for _ in range(len(df_s))]
+        return df_s
+
     df_agg = process_and_aggregate_expenditure(df_expenditure)
 
-    # Join aggregated expenditure
-    df_merged = df_sanc.merge(df_agg, on='clean_work_id', how='left')
+    cols_to_merge = [
+        'clean_work_id', 'actual_expenditure', 'expenditure_record_count', 'num_payments',
+        'mean_payment_amount', 'max_payment_amount', 'max_payment_ratio', 'payment_variance',
+        'median_time_between_payments', 'HAS_MULTIPLE_PAYMENTS', 'PAYMENT_FEATURES_AVAILABLE',
+        'first_expenditure_date', 'last_expenditure_date', 'vendor_names'
+    ]
+    cols_present = [c for c in cols_to_merge if c in df_agg.columns]
+
+    df_merged = pd.merge(df_sanctioned, df_agg[cols_present], on='clean_work_id', how='left')
+
+    df_merged['expenditure_record_count'] = df_merged['expenditure_record_count'].fillna(0).astype(int)
+    df_merged['num_payments'] = df_merged['num_payments'].fillna(0).astype(int)
+    df_merged['HAS_MULTIPLE_PAYMENTS'] = df_merged['HAS_MULTIPLE_PAYMENTS'].fillna(False).astype(bool)
+    df_merged['PAYMENT_FEATURES_AVAILABLE'] = df_merged['PAYMENT_FEATURES_AVAILABLE'].fillna(False).astype(bool)
+    if 'vendor_names' in df_merged.columns:
+        df_merged['vendor_names'] = df_merged['vendor_names'].apply(lambda v: v if isinstance(v, list) else [])
 
     return df_merged

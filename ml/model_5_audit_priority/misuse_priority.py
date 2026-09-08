@@ -47,7 +47,7 @@ def run_audit_priority_aggregation(
     # Merge new module dataframes if provided
     inadmissible_map = {}
     if df_inadmissible is not None and not df_inadmissible.empty:
-        for _, row in df_inadmissible.iterrows():
+        for row in df_inadmissible.to_dict('records'):
             cid = row['clean_work_id']
             inadmissible_map[cid] = {
                 'signal': bool(row.get('inadmissible_signal', False)),
@@ -57,7 +57,7 @@ def run_audit_priority_aggregation(
 
     priv_map = {}
     if df_private_beneficiaries is not None and not df_private_beneficiaries.empty:
-        for _, row in df_private_beneficiaries.iterrows():
+        for row in df_private_beneficiaries.to_dict('records'):
             cid = row['clean_work_id']
             priv_map[cid] = {
                 'signal': bool(row.get('private_beneficiary_signal', False)),
@@ -67,7 +67,7 @@ def run_audit_priority_aggregation(
 
     dup_exp_map = {}
     if df_duplicate_expenditure is not None and not df_duplicate_expenditure.empty:
-        for _, row in df_duplicate_expenditure.iterrows():
+        for row in df_duplicate_expenditure.to_dict('records'):
             cid = row['clean_work_id']
             dup_exp_map[cid] = {
                 'signal': bool(row.get('duplicate_expenditure_signal', False)),
@@ -76,7 +76,7 @@ def run_audit_priority_aggregation(
 
     idle_util_map = {}
     if df_fund_utilization is not None and not df_fund_utilization.empty:
-        for _, row in df_fund_utilization.iterrows():
+        for row in df_fund_utilization.to_dict('records'):
             cid = row['clean_work_id']
             idle_util_map[cid] = {
                 'signal': bool(row.get('idle_utilization_signal', False)),
@@ -107,13 +107,13 @@ def run_audit_priority_aggregation(
     # Process Vendor Agency Risk Map
     v_risk_map = {}
     if df_vendor_risk is not None and not df_vendor_risk.empty:
-        for idx, v_row in df_vendor_risk.iterrows():
+        for v_row in df_vendor_risk.to_dict('records'):
             ida_key = str(v_row.get('implementing_agency', '')).strip()
             if ida_key:
-                v_risk_map[ida_key] = v_row.to_dict()
+                v_risk_map[ida_key] = v_row
 
     records = []
-    for idx, row in merged.iterrows():
+    for row in merged.to_dict('records'):
         cid = row['clean_work_id']
         ida = str(row.get('IDA', row.get('ida', ''))).strip()
         

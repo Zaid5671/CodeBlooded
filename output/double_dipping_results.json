@@ -69,10 +69,10 @@
     "image_similarity_available": false
   },
   "performance_metrics_seconds": {
-    "ingestion_reconciliation": 7.182,
-    "embedding_generation": 2.528,
-    "candidate_blocking_scoring": 7.838,
-    "total_runtime": 17.548
+    "ingestion_reconciliation": 7.371,
+    "embedding_generation": 2.518,
+    "candidate_blocking_scoring": 7.767,
+    "total_runtime": 17.656
   },
   "top_suspicious_pairs": [
     {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MPLADS Audit Intelligence Platform — Production Console (SIH26102)</title>
+    <title>MPLADS Audit Intelligence Platform — SIH26102</title>
     
     <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, Fira Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
 <body class="light-mode">
 
     <!-- =================================================================---------
-         1. ADMINISTRATIVE ROLE / LOGIN MODAL
+         1. DEMO CONTEXT & AUTHENTICATION MODAL
          ================================================================---------- -->
     <div id="login-modal" class="modal-overlay active">
         <div class="glass-modal-card">
@@ -37,7 +37,7 @@
 
             <form id="login-form" onsubmit="return false;">
                 <div class="form-group mb-3">
-                    <label class="small font-weight-bold text-muted mb-1 d-block">USER ID / EMAIL</label>
+                    <label class="small font-weight-bold text-muted mb-1 d-block">OFFICER EMAIL</label>
                     <input type="text" id="login-userid" class="form-input w-100" placeholder="audit.officer@nic.in" value="audit.officer@nic.in">
                 </div>
 
@@ -47,22 +47,22 @@
                 </div>
 
                 <div class="form-group mb-4">
-                    <label class="small font-weight-bold text-muted mb-1 d-block">ADMINISTRATIVE ROLE</label>
+                    <label class="small font-weight-bold text-muted mb-1 d-block">VIEW CONTEXT (DEMO PERSPECTIVE)</label>
                     <select id="login-role" class="form-select w-100">
-                        <option value="Ministry">Ministry of Statistics & Programme Implementation (MoSPI)</option>
-                        <option value="State Nodal Authority">State Nodal Authority (SNA)</option>
-                        <option value="District Authority" selected>District Magistrate / Authority (DA)</option>
-                        <option value="MP / Constituency">Member of Parliament (MP) Office</option>
-                        <option value="SIH Judge / Evaluator">SIH Judge / Evaluator Mode</option>
+                        <option value="Ministry">Central / Ministry (MoSPI)</option>
+                        <option value="State Nodal Authority">State Nodal Authority</option>
+                        <option value="District Authority" selected>District Magistrate / Authority</option>
+                        <option value="MP / Constituency">MP Office / Constituency View</option>
+                        <option value="SIH Judge / Evaluator">SIH Evaluator Mode</option>
                     </select>
                 </div>
 
                 <div class="d-flex flex-column gap-2">
                     <button type="button" id="btn-signin" class="btn btn-primary w-100">
-                        <i class="fa-solid fa-right-to-bracket"></i> Sign In to Audit Console
+                        <i class="fa-solid fa-right-to-bracket"></i> Enter Audit Console
                     </button>
                     <button type="button" id="btn-explore-demo" class="btn btn-secondary w-100">
-                        <i class="fa-solid fa-shield-halved"></i> Explore Demo Mode (Offline / SIH Mode)
+                        <i class="fa-solid fa-shield-halved"></i> Explore Evaluator Demo Mode
                     </button>
                 </div>
             </form>
@@ -80,7 +80,7 @@
                 <a href="#" class="brand-logo text-white" style="font-size: 1.1rem;">
                     <i class="fa-solid fa-shapes"></i> MPLADS Audit Intelligence
                 </a>
-                <span class="badge-pill badge-lime" id="lbl-demo-indicator">DEMO MODE ACTIVE</span>
+                <span class="badge-pill badge-lime" id="lbl-demo-indicator">SIH26102 CONSOLE</span>
             </div>
 
             <div class="d-flex align-items-center gap-3">
@@ -93,18 +93,19 @@
                 <button type="button" id="btn-spotlight-trigger" class="btn btn-secondary btn-xs">
                     <i class="fa-solid fa-magnifying-glass"></i> Cmd+K Search
                 </button>
+                <span class="small text-white opacity-75 font-weight-bold d-none d-md-inline" style="font-size: 0.75rem;">View Context (Demo):</span>
                 <select id="header-role-selector" class="form-select" style="padding: 4px 8px; font-size: 0.8rem;">
-                    <option value="Ministry">Ministry (MoSPI)</option>
-                    <option value="State Nodal Authority">State Nodal Authority</option>
+                    <option value="Ministry">Central / Ministry</option>
+                    <option value="State Nodal Authority">State Nodal Area</option>
                     <option value="District Authority" selected>District Magistrate</option>
                     <option value="MP / Constituency">MP Office</option>
-                    <option value="SIH Judge / Evaluator">SIH Evaluator</option>
+                    <option value="SIH Judge / Evaluator">SIH Evaluator Mode</option>
                 </select>
                 <button type="button" id="btn-toggle-theme" class="btn btn-secondary btn-xs">
                     <i class="fa-solid fa-moon"></i> Theme
                 </button>
                 <button type="button" id="btn-logout" class="btn btn-dark btn-xs">
-                    <i class="fa-solid fa-power-off"></i> Logout
+                    <i class="fa-solid fa-power-off"></i> Exit
                 </button>
             </div>
         </header>
@@ -112,20 +113,14 @@
         <!-- APPLICATION BODY -->
         <div class="app-body">
 
-            <!-- SIDEBAR NAVIGATION (12 CORE VIEWS) -->
+            <!-- SIDEBAR NAVIGATION (6 ESSENTIAL AUDIT VIEWS) -->
             <aside class="app-sidebar">
                 <div class="nav-item active" data-view="overview"><i class="fa-solid fa-chart-pie"></i> Overview</div>
                 <div class="nav-item" data-view="works"><i class="fa-solid fa-list-check"></i> Works Explorer</div>
                 <div class="nav-item" data-view="priority"><i class="fa-solid fa-layer-group"></i> Audit Priority Queue</div>
-                <div class="nav-item" data-view="alerts"><i class="fa-solid fa-bell"></i> Alert Center</div>
-                <div class="nav-item" data-view="expenditure"><i class="fa-solid fa-wallet"></i> Expenditure Intelligence</div>
-                <div class="nav-item" data-view="compliance"><i class="fa-solid fa-clock"></i> Statutory SLA Review</div>
-                <div class="nav-item" data-view="duplicates"><i class="fa-solid fa-clone"></i> Duplicate Works</div>
-                <div class="nav-item" data-view="forecast"><i class="fa-solid fa-chart-line"></i> Expenditure Outlook</div>
-                <div class="nav-item" data-view="agencies"><i class="fa-solid fa-building-user"></i> Agency & Vendor Risk</div>
-                <div class="nav-item" data-view="analytics"><i class="fa-solid fa-sliders"></i> Risk Analytics</div>
-                <div class="nav-item" data-view="methodology"><i class="fa-solid fa-book"></i> AI Governance</div>
-                <div class="nav-item" data-view="reports"><i class="fa-solid fa-file-contract"></i> Reports & Export</div>
+                <div class="nav-item" data-view="duplicates"><i class="fa-solid fa-clone"></i> Duplicate Pairs</div>
+                <div class="nav-item" data-view="anomalies"><i class="fa-solid fa-triangle-exclamation"></i> Anomaly Center</div>
+                <div class="nav-item" data-view="forecast"><i class="fa-solid fa-chart-line"></i> Expenditure Forecast</div>
             </aside>
 
             <!-- MAIN CONTENT AREA -->
@@ -138,7 +133,7 @@
                         <div class="d-flex gap-2">
                             <button type="button" id="btn-apply-filters" class="btn btn-primary btn-xs"><i class="fa-solid fa-check"></i> Apply</button>
                             <button type="button" id="btn-reset-filters" class="btn btn-secondary btn-xs"><i class="fa-solid fa-rotate-left"></i> Reset</button>
-                            <button type="button" id="btn-save-filter" class="btn btn-secondary btn-xs"><i class="fa-solid fa-bookmark"></i> Save</button>
+                            <button type="button" id="btn-save-filter" class="btn btn-secondary btn-xs"><i class="fa-solid fa-bookmark"></i> Save Filter</button>
                         </div>
                     </div>
 
@@ -176,31 +171,31 @@
                             <span class="small text-muted" id="kpi-ov-total">79,220 Master Works</span>
                         </div>
                         <div class="kpi-tile" style="border-color: #ef4444;" onclick="switchView('priority');">
-                            <span class="small text-muted font-weight-bold">CRITICAL PRIORITY</span>
+                            <span class="small text-muted font-weight-bold">CRITICAL PRIORITY QUEUE</span>
                             <div class="kpi-number text-destructive" id="kpi-ov-critical">1,635</div>
                             <span class="small text-muted">2.06% High-Risk Triage</span>
                         </div>
-                        <div class="kpi-tile" onclick="switchView('priority');">
-                            <span class="small text-muted font-weight-bold">M1 COST OVERRUN OUTLIERS</span>
+                        <div class="kpi-tile" onclick="switchView('anomalies');">
+                            <span class="small text-muted font-weight-bold">M1 COST ANOMALIES</span>
                             <div class="kpi-number text-warning" id="kpi-ov-anomalies">3,961</div>
-                            <span class="small text-muted">Isolation Forest Flagged</span>
+                            <span class="small text-muted">Isolation Forest Outliers</span>
                         </div>
                         <div class="kpi-tile" onclick="switchView('duplicates');">
                             <span class="small text-muted font-weight-bold">POTENTIAL DUPLICATES</span>
                             <div class="kpi-number text-accent" id="kpi-ov-duplicates">1,810</div>
-                            <span class="small text-muted">Candidate Pair Matches</span>
+                            <span class="small text-muted">Candidate Linkage Pairs</span>
                         </div>
                     </div>
 
                     <div class="grid-2 mb-4">
                         <div class="card">
-                            <h3>Geographic Risk Distribution</h3>
+                            <h3>Geographic Risk & Outlay Distribution</h3>
                             <p class="text-muted small mb-2">State-wise sanctioned outlay (₹ Cr)</p>
                             <div id="chart-geo-distribution" style="height: 300px;"></div>
                         </div>
                         <div class="card">
-                            <h3>Audit Priority Ratio</h3>
-                            <p class="text-muted small mb-2">Multi-signal tier breakdown</p>
+                            <h3>Audit Priority Tier Ratio</h3>
+                            <p class="text-muted small mb-2">Multi-signal tier breakdown across master dataset</p>
                             <div id="chart-priority-donut" style="height: 300px;"></div>
                         </div>
                     </div>
@@ -212,7 +207,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div>
                                 <h3>Works Inventory Explorer</h3>
-                                <p class="text-muted small">Searchable repository of 79,220 master work entities</p>
+                                <p class="text-muted small">Searchable master repository of MPLADS works records</p>
                             </div>
                             <input type="text" id="input-search-works" class="form-input" style="width: 260px;" placeholder="Search work ID, MP, district...">
                         </div>
@@ -276,55 +271,12 @@
                     </div>
                 </section>
 
-                <!-- 4. ALERT CENTER VIEW -->
-                <section id="view-alerts" class="view-section d-none">
-                    <div class="card">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h3>Alert Center</h3>
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-secondary btn-xs active" data-alert-cat="ALL">All</button>
-                                <button type="button" class="btn btn-secondary btn-xs" data-alert-cat="CRITICAL">Critical</button>
-                                <button type="button" class="btn btn-secondary btn-xs" data-alert-cat="COST">Cost</button>
-                                <button type="button" class="btn btn-secondary btn-xs" data-alert-cat="DUPLICATE">Duplicate</button>
-                                <button type="button" class="btn btn-secondary btn-xs" data-alert-cat="COMPLIANCE">Compliance</button>
-                            </div>
-                        </div>
-                        <div id="alerts-list-container"><!-- Dynamic Alerts --></div>
-                    </div>
-                </section>
-
-                <!-- 5. EXPENDITURE VIEW -->
-                <section id="view-expenditure" class="view-section d-none">
-                    <div class="grid-3 mb-4">
-                        <div class="card card-sm"><span class="small font-weight-bold text-muted">Total Sanctioned</span><div class="kpi-number" id="kpi-exp-sanctioned">₹54,120.4 Cr</div></div>
-                        <div class="card card-sm"><span class="small font-weight-bold text-muted">Disbursed Expenditure</span><div class="kpi-number text-accent" id="kpi-exp-disbursed">₹2,778.75 Cr</div></div>
-                        <div class="card card-sm"><span class="small font-weight-bold text-muted">Utilization Ratio</span><div class="kpi-number text-healthy" id="kpi-exp-ratio">5.13%</div></div>
-                    </div>
-                    <div class="card">
-                        <h3>Disbursement Velocity Timeline</h3>
-                        <div id="chart-expenditure-timeline" style="height: 320px;"></div>
-                    </div>
-                </section>
-
-                <!-- 6. COMPLIANCE REVIEW VIEW -->
-                <section id="view-compliance" class="view-section d-none">
-                    <div class="card">
-                        <h3>Statutory Review SLA Benchmark (45-Day Window)</h3>
-                        <div class="grid-4 mb-4 mt-3">
-                            <div class="card card-sm"><span class="small font-weight-bold text-muted">Compliant (&le;45d)</span><div class="kpi-number text-healthy" id="kpi-comp-compliant">23,337</div></div>
-                            <div class="card card-sm"><span class="small font-weight-bold text-muted">Minor (46–90d)</span><div class="kpi-number text-warning" id="kpi-comp-minor">20,937</div></div>
-                            <div class="card card-sm"><span class="small font-weight-bold text-muted">Moderate (91–180d)</span><div class="kpi-number text-warning" id="kpi-comp-moderate">21,611</div></div>
-                            <div class="card card-sm"><span class="small font-weight-bold text-muted">Severe (&gt;180d)</span><div class="kpi-number text-destructive" id="kpi-comp-severe">13,334</div></div>
-                        </div>
-                        <div id="chart-compliance-gaps" style="height: 320px;"></div>
-                    </div>
-                </section>
-
-                <!-- 7. DUPLICATE WORKS VIEW -->
+                <!-- 4. DUPLICATE PAIRS VIEW -->
                 <section id="view-duplicates" class="view-section d-none">
                     <div class="card">
-                        <h3>Potential Duplicate Works (Record Linkage)</h3>
-                        <div class="table-container mt-3">
+                        <h3>Potential Duplicate Works (Record Linkage M2)</h3>
+                        <p class="text-muted small mb-3">Geographic blocking with Sentence-Transformers semantic cosine parity & location matching</p>
+                        <div class="table-container">
                             <table class="data-table" id="tbl-duplicates">
                                 <thead>
                                     <tr>
@@ -344,288 +296,79 @@
                     </div>
                 </section>
 
-                <!-- 8. FORECAST VIEW -->
-                <section id="view-forecast" class="view-section d-none">
-                    <div class="card">
-                        <h3>Expenditure Outlook & 6-Month Rolling Forecast</h3>
-                        <div id="chart-expenditure-forecast" style="height: 360px;" class="mt-3"></div>
-                    </div>
-                </section>
-
-                <!-- 9. AGENCY RISK VIEW -->
-                <section id="view-agencies" class="view-section d-none">
-                    <div class="card">
-                        <h3>Vendor Concentration & Implementing Agency Risk (HHI)</h3>
-                        <div id="chart-vendor-hhi" style="height: 340px;" class="mt-3"></div>
-                    </div>
-                </section>
-
-                <!-- 10. RISK ANALYTICS VIEW -->
-                <section id="view-analytics" class="view-section d-none">
-                    <div class="card">
-                        <h3>Consolidated Risk Analytics</h3>
-                        <div id="chart-analytics-scatter" style="height: 360px;" class="mt-3"></div>
-                    </div>
-                </section>
-
-                <!-- 11. AI METHODOLOGY VIEW -->
-                <section id="view-methodology" class="view-section d-none">
-                    <div class="card">
-                        <h3>AI & Methodology Governance</h3>
-                        <p class="text-muted small">Authoritative documentation of models M1 through M5</p>
-                        <div class="grid-2 gap-3 mt-3">
-                            <div class="card card-sm">
-                                <h4>M1: Cost Anomaly Engine</h4>
-                                <p class="small text-muted mb-1">Peer IQR / MAD Baseline + Unsupervised Isolation Forest (300 estimators).</p>
-                                <span class="badge-pill badge-healthy">Audit Screening</span>
-                            </div>
-                            <div class="card card-sm">
-                                <h4>M2: Double-Dipping Detector</h4>
-                                <p class="small text-muted mb-1">Geographic Blocking + 384-dim Sentence-Transformer TF-IDF Vectorizer.</p>
-                                <span class="badge-pill badge-healthy">Record Linkage</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 12. REPORTS VIEW -->
-                <section id="view-reports" class="view-section d-none">
-                    <div class="card">
-                        <h3>Audit Reports & Verification Documents</h3>
-                        <div class="grid-3 gap-3 mt-3">
-                            <div class="card card-sm">
-                                <h4>System Verification Report</h4>
-                                <button type="button" class="btn btn-secondary btn-sm mt-2 btn-view-report" data-report="reports/final/final_system_verification.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
-                            </div>
-                            <div class="card card-sm">
-                                <h4>Model Validation Report</h4>
-                                <button type="button" class="btn btn-secondary btn-sm mt-2 btn-view-report" data-report="reports/model_validation/final_model_performance_validation.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
-                            </div>
-                            <div class="card card-sm">
-                                <h4>Audit Priority Report</h4>
-                                <button type="button" class="btn btn-secondary btn-sm mt-2 btn-view-report" data-report="reports/phase_6/phase6_audit_priority.md"><i class="fa-solid fa-file-lines"></i> View Report</button>
-                            </div>
-                        </div>
-
-                        <h4 class="mt-4 mb-2">Master Architectural Specification Documents (SIH 2026)</h4>
-                        <div class="grid-3 gap-3 mb-3">
-                            <div class="card card-sm">
-                                <h5>01. Product Requirements (PRD)</h5>
-                                <button type="button" class="btn btn-secondary btn-xs mt-2 btn-view-report" data-report="docs/01_PRD_PRODUCT_REQUIREMENTS.md"><i class="fa-solid fa-file-code text-accent"></i> View PRD</button>
-                            </div>
-                            <div class="card card-sm">
-                                <h5>02. Technical Requirements (TRD)</h5>
-                                <button type="button" class="btn btn-secondary btn-xs mt-2 btn-view-report" data-report="docs/02_TRD_TECHNICAL_REQUIREMENTS.md"><i class="fa-solid fa-file-code text-accent"></i> View TRD</button>
-                            </div>
-                            <div class="card card-sm">
-                                <h5>03. App Flow Navigation Map</h5>
-                                <button type="button" class="btn btn-secondary btn-xs mt-2 btn-view-report" data-report="docs/03_APP_FLOW_NAVIGATION_MAP.md"><i class="fa-solid fa-file-code text-accent"></i> View App Flow</button>
-                            </div>
-                            <div class="card card-sm">
-                                <h5>04. UI/UX Design Brief</h5>
-                                <button type="button" class="btn btn-secondary btn-xs mt-2 btn-view-report" data-report="docs/04_UI_UX_DESIGN_BRIEF.md"><i class="fa-solid fa-file-code text-accent"></i> View UI/UX Brief</button>
-                            </div>
-                            <div class="card card-sm">
-                                <h5>05. Backend Schema & Auth</h5>
-                                <button type="button" class="btn btn-secondary btn-xs mt-2 btn-view-report" data-report="docs/05_BACKEND_SCHEMA_AUTH.md"><i class="fa-solid fa-file-code text-accent"></i> View Schema</button>
-                            </div>
-                            <div class="card card-sm">
-                                <h5>06. Implementation Plan</h5>
-                                <button type="button" class="btn btn-secondary btn-xs mt-2 btn-view-report" data-report="docs/06_IMPLEMENTATION_PLAN.md"><i class="fa-solid fa-file-code text-accent"></i> View Build Plan</button>
-                            </div>
-                        </div>
-
-                        <div id="report-view-container" class="card mt-4 d-none">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 id="report-title">Report Content</h4>
-                                <button type="button" id="btn-close-report" class="btn btn-secondary btn-sm"><i class="fa-solid fa-xmark"></i> Close</button>
-                            </div>
-                            <pre id="report-content" style="white-space: pre-wrap; font-family: var(--font-mono); font-size: 0.8rem; background: var(--canvas-bg); padding: 16px; border-radius: var(--radius-control); max-height: 450px; overflow-y: auto;"></pre>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 13. SYSTEM UX STATES (404, 403, 500, MAINTENANCE, OFFLINE, EMPTY, SKELETON, BILLING, PAYMENTS) -->
-                <section id="view-404" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-triangle-exclamation text-warning mb-3" style="font-size: 3rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">404 — Entity Not Found</h2>
-                        <p class="text-muted mb-4">The requested work entity, audit report, or route does not exist in the canonical registry.</p>
-                        <div><button type="button" class="btn btn-primary" onclick="switchView('overview');">Return to Overview Command Center</button></div>
-                    </div>
-                </section>
-
-                <section id="view-403" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-lock text-destructive mb-3" style="font-size: 3rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">403 — Restricted Authorization</h2>
-                        <p class="text-muted mb-4">Your administrative role (<span id="lbl-403-role">District Authority</span>) lacks clearance for high-tier clearance dispatch.</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <button type="button" class="btn btn-primary" onclick="openBillingModal();">Request Clearance Upgrade</button>
-                            <button type="button" class="btn btn-secondary" onclick="switchView('overview');">Return to Overview</button>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="view-500" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-bug text-destructive mb-3" style="font-size: 3rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">500 — System Pipeline Exception</h2>
-                        <p class="text-muted mb-4">An unexpected exception occurred during real-time data aggregation.</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <button type="button" class="btn btn-primary" onclick="location.reload();">Retry Pipeline Dispatch</button>
-                            <button type="button" class="btn btn-secondary" onclick="showToast('Error report logged to NIC Desk #TKT-9921', 'info');">Report Error Stack</button>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="view-maintenance" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-screwdriver-wrench text-warning mb-3" style="font-size: 3rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">System Maintenance Mode</h2>
-                        <p class="text-muted mb-4">MoSPI Nodal Data Servers undergo scheduled maintenance every Sunday 02:00–04:00 IST. Emergency read-only audit cache active.</p>
-                        <div><button type="button" class="btn btn-primary" onclick="switchView('overview');">Proceed with Offline Cache</button></div>
-                    </div>
-                </section>
-
-                <section id="view-offline" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-wifi text-muted mb-3" style="font-size: 3rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">Offline Cache Mode Active</h2>
-                        <p class="text-muted mb-4">Internet connection unavailable. Displaying 79,220 offline cached records. 0 pending offline mutations.</p>
-                        <div><button type="button" class="btn btn-secondary" onclick="checkNetworkState();">Check Network Reconnection</button></div>
-                    </div>
-                </section>
-
-                <section id="view-empty-state" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-folder-open text-muted mb-3" style="font-size: 3rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">No Matching Audit Records</h2>
-                        <p class="text-muted mb-4">Current filter criteria produced 0 works. Try adjusting state, district, or category filters.</p>
-                        <div><button type="button" class="btn btn-primary" onclick="resetGlobalFilters(); switchView('works');">Reset Global Filters</button></div>
-                    </div>
-                </section>
-
-                <section id="view-loading-state" class="view-section d-none">
-                    <div class="card p-4">
-                        <h3 class="mb-3"><i class="fa-solid fa-spinner fa-spin text-accent"></i> Executing Isolation Forest & Vector Parity Pipelines...</h3>
-                        <div class="skeleton skeleton-box mb-3"></div>
-                        <div class="grid-3 gap-3 mb-3">
-                            <div class="skeleton skeleton-box"></div>
-                            <div class="skeleton skeleton-box"></div>
-                            <div class="skeleton skeleton-box"></div>
-                        </div>
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text" style="width: 80%;"></div>
-                        <div class="skeleton skeleton-text" style="width: 60%;"></div>
-                    </div>
-                </section>
-
-                <section id="view-billing" class="view-section d-none">
-                    <div class="card mb-4">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <span class="badge-pill badge-lime mb-1">AUDIT CLEARANCE & QUOTAS</span>
-                                <h2>Subscription & Allocation Entitlements</h2>
-                            </div>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="openBillingModal();"><i class="fa-solid fa-arrow-up-right-dots"></i> Upgrade Clearance Plan</button>
-                        </div>
-                        <div class="grid-4 gap-3 mb-4">
-                            <div class="card card-sm">
-                                <small class="text-muted d-block">ACTIVE TIER</small>
-                                <strong style="font-size: 1.2rem;" class="text-accent" id="lbl-billing-tier">District Magistrate</strong>
-                            </div>
-                            <div class="card card-sm">
-                                <small class="text-muted d-block">MONTHLY AUDIT QUOTA</small>
-                                <strong style="font-size: 1.2rem;">10,000 / 10,000 Works</strong>
-                            </div>
-                            <div class="card card-sm">
-                                <small class="text-muted d-block">API CREDIT BALANCE</small>
-                                <strong style="font-size: 1.2rem;">₹50,000 Govt Treasury Credits</strong>
-                            </div>
-                            <div class="card card-sm">
-                                <small class="text-muted d-block">SLA RESOLUTION SLA</small>
-                                <strong style="font-size: 1.2rem;" class="text-healthy">2 Hours Priority</strong>
-                            </div>
+                <!-- 5. ANOMALY CENTER VIEW -->
+                <section id="view-anomalies" class="view-section d-none">
+                    <div class="grid-3 mb-4">
+                        <div class="card card-sm">
+                            <span class="small font-weight-bold text-muted">Cost Anomaly Outliers (M1)</span>
+                            <div class="kpi-number text-warning" id="kpi-anom-cost">3,961</div>
+                            <span class="small text-muted">Isolation Forest Flagged</span>
                         </div>
                         <div class="card card-sm">
-                            <h4>Recent Treasury Clearance Transactions</h4>
-                            <table class="data-table mt-2">
-                                <thead>
-                                    <tr><th>Txn ID</th><th>Date</th><th>Description</th><th>Allocation</th><th>Status</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>TXN-2026-9912</td><td>01 Mar 2026</td><td>District Audit Allocation Q1</td><td>₹5,00,000</td><td><span class="badge-pill badge-healthy">SUCCESS</span></td></tr>
-                                    <tr><td>TXN-2026-8401</td><td>15 Feb 2026</td><td>Vector Parity Compute Grant</td><td>₹2,50,000</td><td><span class="badge-pill badge-healthy">SUCCESS</span></td></tr>
-                                    <tr><td>TXN-2026-7102</td><td>02 Jan 2026</td><td>MoSPI SLA Escalation SLA</td><td>₹1,00,000</td><td><span class="badge-pill badge-neutral">PENDING</span></td></tr>
-                                </tbody>
-                            </table>
+                            <span class="small font-weight-bold text-muted">Statutory SLA Breaches (M3)</span>
+                            <div class="kpi-number text-destructive" id="kpi-anom-delay">13,334</div>
+                            <span class="small text-muted">&gt;180 Days Administrative Gap</span>
                         </div>
+                        <div class="card card-sm">
+                            <span class="small font-weight-bold text-muted">Agency Concentration (HHI)</span>
+                            <div class="kpi-number text-accent" id="kpi-anom-hhi">High Risk</div>
+                            <span class="small text-muted">Vendor Concentration Index</span>
+                        </div>
+                    </div>
+
+                    <div class="grid-2 mb-4">
+                        <div class="card">
+                            <h3>Statutory Review SLA Benchmark (45-Day Window)</h3>
+                            <p class="text-muted small mb-2">Sanction delay breakdown under statutory guidelines</p>
+                            <div id="chart-compliance-gaps" style="height: 300px;"></div>
+                        </div>
+                        <div class="card">
+                            <h3>Vendor Concentration & Implementing Agency Risk (HHI)</h3>
+                            <p class="text-muted small mb-2">Herfindahl-Hirschman Index across executing agencies</p>
+                            <div id="chart-vendor-hhi" style="height: 300px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3>Multi-Signal Anomaly Alerts Feed</h3>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-secondary btn-xs active" data-alert-cat="ALL">All Signals</button>
+                                <button type="button" class="btn btn-secondary btn-xs" data-alert-cat="CRITICAL">Critical</button>
+                                <button type="button" class="btn btn-secondary btn-xs" data-alert-cat="COST">Cost Anomaly</button>
+                                <button type="button" class="btn btn-secondary btn-xs" data-alert-cat="DUPLICATE">Duplicate Risk</button>
+                                <button type="button" class="btn btn-secondary btn-xs" data-alert-cat="COMPLIANCE">SLA Delay</button>
+                            </div>
+                        </div>
+                        <div id="alerts-list-container"><!-- Dynamic Anomaly Alerts --></div>
                     </div>
                 </section>
 
-                <section id="view-payment-success" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-circle-check text-healthy mb-3" style="font-size: 3.5rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">Treasury Clearance Approved</h2>
-                        <p class="text-muted mb-2">Transaction Reference: <code>TXN-2026-GOVT-99812</code></p>
-                        <p class="small text-muted mb-4">Audit quota of +50,000 works and CAG Level-4 inspection clearance applied to your session.</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <button type="button" class="btn btn-primary" onclick="switchView('billing');">View Active Entitlements</button>
-                            <button type="button" class="btn btn-secondary" onclick="showToast('GST Invoice & Certified Voucher downloaded.', 'success');">Download Tax Invoice</button>
+                <!-- 6. FORECAST VIEW -->
+                <section id="view-forecast" class="view-section d-none">
+                    <div class="grid-2 mb-4">
+                        <div class="card card-sm">
+                            <span class="small font-weight-bold text-muted">6-Month Projected Outlay</span>
+                            <div class="kpi-number text-accent" id="kpi-fc-outlay">₹4,800.0 Cr</div>
+                            <span class="small text-muted">Rolling Outlay Forecast</span>
+                        </div>
+                        <div class="card card-sm">
+                            <span class="small font-weight-bold text-muted">95% Confidence Interval</span>
+                            <div class="kpi-number text-healthy">± ₹400 Cr</div>
+                            <span class="small text-muted">Statistical Band</span>
                         </div>
                     </div>
-                </section>
 
-                <section id="view-payment-failed" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-circle-xmark text-destructive mb-3" style="font-size: 3.5rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">Payment Clearance Failed</h2>
-                        <p class="text-muted mb-2">Error Code: <code>ERR_GATEWAY_TIMEOUT (504)</code></p>
-                        <p class="small text-muted mb-4">The e-Kuber Treasury gateway did not respond within 30 seconds. No funds were debited.</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <button type="button" class="btn btn-primary" onclick="openBillingModal();">Retry Treasury Transaction</button>
-                            <button type="button" class="btn btn-secondary" onclick="openHelpDesk();">Contact Help Desk</button>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="view-payment-pending" class="view-section d-none">
-                    <div class="card text-center p-5">
-                        <i class="fa-solid fa-hourglass-half text-warning mb-3" style="font-size: 3.5rem;"></i>
-                        <h2 style="font-size: 1.8rem; font-weight: 800;">Treasury Clearance Pending</h2>
-                        <p class="text-muted mb-2">Bank Reference: <code>RBI-EKUBER-88712-2026</code></p>
-                        <p class="small text-muted mb-4">Awaiting multi-signature approval from State Nodal Finance Officer. Estimated completion: 15 mins.</p>
-                        <div><button type="button" class="btn btn-secondary" onclick="showToast('e-Kuber status checked: Pending Approval', 'info');">Refresh Status</button></div>
+                    <div class="card">
+                        <h3>Expenditure Outlook & 6-Month Rolling Forecast</h3>
+                        <p class="text-muted small mb-2">Disbursement velocity trajectory and 6-month predictive expenditure horizon</p>
+                        <div id="chart-expenditure-forecast" style="height: 360px;" class="mt-3"></div>
                     </div>
                 </section>
 
                 <!-- PRODUCTION SYSTEM FOOTER -->
                 <footer class="app-footer mt-5 p-3 text-center" style="border-top: 2px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted);">
-                    <div class="d-flex justify-content-center gap-2 flex-wrap mb-2">
-                        <a href="#" class="text-muted btn-open-legal" data-legal="privacy">Privacy</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="terms">Terms</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="cookie">Cookie Policy</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="cookie-preferences">Cookie Prefs</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="refund">Refund Policy</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="cancellation">Cancellation</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="shipping">Shipping Policy</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="return">Returns</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="disclaimer">Disclaimer</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="accessibility">Accessibility</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="dpa">DPA</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="aup">AUP</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="security">Security</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="responsible-disclosure">Disclosure</a> &bull;
-                        <a href="#" class="text-muted btn-open-legal" data-legal="community-guidelines">Community</a>
-                    </div>
-                    <div class="d-flex justify-content-center gap-3 flex-wrap mb-2 font-weight-bold">
-                        <a href="#" class="text-accent btn-open-onboarding"><i class="fa-solid fa-graduation-cap me-1"></i> Auditor Onboarding</a> &bull;
-                        <a href="#" class="text-accent btn-open-billing"><i class="fa-solid fa-credit-card me-1"></i> Quotas & Billing</a> &bull;
-                        <a href="#" class="text-accent btn-open-help"><i class="fa-solid fa-headset me-1"></i> Help Center</a> &bull;
-                        <a href="#" class="text-accent btn-open-account"><i class="fa-solid fa-user-gear me-1"></i> Account Settings</a>
-                    </div>
-                    <div>&copy; 2026 MPLADS Audit Intelligence Platform &bull; Problem Statement SIH26102 &bull; Government Monitoring System</div>
+                    <div>&copy; 2026 MPLADS Audit Intelligence Platform &bull; Problem Statement SIH26102 &bull; Ministry of Statistics & Programme Implementation (MoSPI) &bull; Team CodeBlooded</div>
                 </footer>
 
             </main>
@@ -642,195 +385,6 @@
             <input type="text" id="spotlight-input" class="form-input w-100 mb-3" placeholder="Search work ID, MP, district, category...">
             <div id="spotlight-results" style="max-height: 280px; overflow-y: auto;"><small class="text-muted">Type to search 79,220 works...</small></div>
         </div>
-    </div>
-
-    <!-- LEGAL COMPLIANCE MODAL -->
-    <div id="legal-modal" class="modal-overlay">
-        <div class="glass-modal-card" style="max-width: 760px;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 id="legal-modal-title">Legal & Compliance Policy</h3>
-                <button type="button" id="btn-close-legal" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="d-flex gap-2 mb-3 overflow-x-auto pb-1" id="legal-tabs">
-                <button type="button" class="btn btn-secondary btn-xs active" data-tab="privacy">Privacy</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="terms">Terms</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="cookie">Cookie Policy</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="cookie-preferences">Cookie Prefs</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="refund">Refund Policy</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="cancellation">Cancellation</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="shipping">Shipping Policy</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="return">Returns Policy</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="disclaimer">Disclaimer</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="accessibility">Accessibility</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="dpa">DPA</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="aup">AUP</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="security">Security Policy</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="responsible-disclosure">Disclosure</button>
-                <button type="button" class="btn btn-secondary btn-xs" data-tab="community-guidelines">Community</button>
-            </div>
-            <div id="legal-content-area" style="max-height: 380px; overflow-y: auto; font-size: 0.85rem; line-height: 1.5;" class="p-3 card card-sm">
-                <!-- Dynamic Legal Content -->
-            </div>
-        </div>
-    </div>
-
-    <!-- AUDITOR ONBOARDING WIZARD MODAL (4 STEPS) -->
-    <div id="onboarding-modal" class="modal-overlay">
-        <div class="glass-modal-card" style="max-width: 640px;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3><i class="fa-solid fa-graduation-cap text-accent"></i> Auditor Onboarding Walkthrough</h3>
-                <button type="button" id="btn-close-onboarding" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div class="wizard-steps mb-4">
-                <div class="wizard-step active" id="wiz-step-1">1</div>
-                <div class="wizard-step" id="wiz-step-2">2</div>
-                <div class="wizard-step" id="wiz-step-3">3</div>
-                <div class="wizard-step" id="wiz-step-4">4</div>
-            </div>
-
-            <div id="onboarding-step-body" class="mb-4">
-                <!-- Step 1 Content -->
-                <div class="wiz-content" data-step="1">
-                    <h4>Step 1: Primary Jurisdiction Selection</h4>
-                    <p class="small text-muted mb-3">Select your assigned state or district jurisdiction to calibrate local cost baselines.</p>
-                    <select class="form-select w-100 mb-3" id="onboard-jurisdiction">
-                        <option value="ALL">All India (MoSPI Central Nodal Desk)</option>
-                        <option value="Maharashtra">Maharashtra Nodal Area</option>
-                        <option value="Uttar Pradesh">Uttar Pradesh Nodal Area</option>
-                        <option value="Tamil Nadu">Tamil Nadu Nodal Area</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-between">
-                <button type="button" id="btn-wiz-prev" class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-arrow-left"></i> Previous</button>
-                <button type="button" id="btn-wiz-next" class="btn btn-primary btn-sm">Next Step <i class="fa-solid fa-arrow-right"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- CLEARANCE PLAN UPGRADE & BILLING MODAL -->
-    <div id="billing-upgrade-modal" class="modal-overlay">
-        <div class="glass-modal-card" style="max-width: 680px;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3><i class="fa-solid fa-credit-card text-accent"></i> Clearance Tier & Quota Upgrade</h3>
-                <button type="button" id="btn-close-billing-modal" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="grid-3 gap-3 mb-4">
-                <div class="card card-sm">
-                    <span class="badge-pill badge-neutral mb-2">TIER 1</span>
-                    <h4>District Magistrate</h4>
-                    <p class="small text-muted">10,000 works/mo. Standard SLA (12h).</p>
-                    <strong>Included Free</strong>
-                    <button type="button" class="btn btn-secondary btn-xs w-100 mt-2" onclick="setClearanceTier('District Magistrate');">Active Tier</button>
-                </div>
-                <div class="card card-sm" style="border: 2px solid var(--accent-lime);">
-                    <span class="badge-pill badge-lime mb-2">TIER 2 (RECOMMENDED)</span>
-                    <h4>State Nodal Clearance</h4>
-                    <p class="small text-muted">50,000 works/mo. Priority SLA (2h).</p>
-                    <strong>₹2,50,000 / yr</strong>
-                    <button type="button" class="btn btn-primary btn-xs w-100 mt-2" onclick="processTreasuryPayment('State Nodal Clearance', 250000);">Upgrade Tier</button>
-                </div>
-                <div class="card card-sm">
-                    <span class="badge-pill badge-neutral mb-2">TIER 3</span>
-                    <h4>CAG Inspector General</h4>
-                    <p class="small text-muted">Unlimited works. Instant real-time SLA.</p>
-                    <strong>₹10,000,000 / yr</strong>
-                    <button type="button" class="btn btn-primary btn-xs w-100 mt-2" onclick="processTreasuryPayment('CAG Inspector General', 10000000);">Upgrade Tier</button>
-                </div>
-            </div>
-            <div class="card card-sm">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>Cancel or Downgrade Subscription</strong>
-                        <p class="small text-muted mb-0">De-allocate administrative clearance and revert to read-only guest tier.</p>
-                    </div>
-                    <button type="button" class="btn btn-secondary btn-xs" onclick="confirmCancelSubscription();">Cancel Subscription</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- LIVE TOAST CONTAINER -->
-    <div id="toast-container"></div>
-
-    <!-- HELP CENTER & SUPPORT MODAL -->
-    <div id="help-modal" class="modal-overlay">
-        <div class="glass-modal-card" style="max-width: 680px;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3><i class="fa-solid fa-headset text-accent"></i> Audit Support & Help Center</h3>
-                <button type="button" id="btn-close-help" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="grid-2 gap-3 mb-3">
-                <div class="card card-sm">
-                    <h4><i class="fa-solid fa-book"></i> Documentation</h4>
-                    <p class="small text-muted">Read step-by-step audit guidelines, model specifications, and SLA benchmarks.</p>
-                    <button type="button" class="btn btn-secondary btn-xs mt-2" onclick="switchView('methodology'); document.getElementById('help-modal').classList.remove('active');">View Methodology</button>
-                </div>
-                <div class="card card-sm">
-                    <h4><i class="fa-solid fa-envelope"></i> Technical Support</h4>
-                    <p class="small text-muted">Submit an inquiry to the MoSPI IT Audit Desk (SLA: 2 hours).</p>
-                    <button type="button" class="btn btn-primary btn-xs mt-2" onclick="alert('Ticket created: TKT-2026-MPLADS-881. Support officer assigned.');">Raise Ticket</button>
-                </div>
-            </div>
-            <div class="card card-sm">
-                <h4>Frequently Asked Questions</h4>
-                <details class="mb-2"><summary class="font-weight-bold">How are M1 cost outliers calculated?</summary><p class="small text-muted mt-1">Isolation Forest (300 estimators) evaluates sanction outlay against peer state/district baselines.</p></details>
-                <details><summary class="font-weight-bold">What triggers a duplicate record match?</summary><p class="small text-muted mt-1">Sentence-Transformers TF-IDF vectorization flags cosine text parity > 90% in same constituency boundary.</p></details>
-            </div>
-        </div>
-    </div>
-
-    <!-- ACCOUNT & PROFILE DRAWER -->
-    <aside id="account-drawer" class="drawer">
-        <div class="drawer-header">
-            <div>
-                <span class="badge-pill badge-lime mb-1">AUTHENTICATED USER</span>
-                <h3>Administrative Profile</h3>
-            </div>
-            <button type="button" id="btn-close-account" class="btn btn-secondary btn-xs"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="drawer-body">
-            <div class="card card-sm mb-3">
-                <strong id="acc-name">Audit Officer</strong>
-                <small class="text-muted d-block" id="acc-email">audit.officer@nic.in</small>
-                <span class="badge-pill badge-neutral mt-2" id="acc-role">District Authority</span>
-            </div>
-            <div class="card card-sm mb-3">
-                <h4 style="font-size: 0.9rem; font-weight: 700;">Active Clearance Entitlements</h4>
-                <ul class="small text-muted ps-3 mb-0">
-                    <li>Read & Query Master Repository</li>
-                    <li>Investigate & Flag Anomalies</li>
-                    <li>Dispatch Audit Notifications</li>
-                    <li>Export System Reports</li>
-                </ul>
-            </div>
-            <div class="card card-sm mb-3">
-                <h4 style="font-size: 0.9rem; font-weight: 700;">Session Expiry Settings</h4>
-                <div class="small text-muted mb-2">Auto-logout after 15 minutes of inactivity.</div>
-                <button type="button" class="btn btn-secondary btn-xs" onclick="alert('Session extended for 60 minutes.');">Extend Session</button>
-            </div>
-        </div>
-    </aside>
-
-    <!-- SESSION EXPIRED MODAL -->
-    <div id="session-expired-modal" class="modal-overlay">
-        <div class="glass-modal-card text-center" style="max-width: 440px;">
-            <i class="fa-solid fa-clock-rotate-left text-warning mb-2" style="font-size: 2.5rem;"></i>
-            <h3>Session Expired</h3>
-            <p class="text-muted small mb-4">Your security token has expired due to inactivity. Re-authenticate to resume audit operations.</p>
-            <button type="button" class="btn btn-primary w-100" onclick="document.getElementById('session-expired-modal').classList.remove('active'); document.getElementById('login-modal').classList.add('active');">Re-Authenticate</button>
-        </div>
-    </div>
-
-    <!-- COOKIE PREFERENCES BANNER -->
-    <div id="cookie-banner" class="card" style="position: fixed; bottom: 20px; right: 20px; max-width: 420px; z-index: 9999; border-left: 4px solid var(--accent-lime); display: none;">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <strong><i class="fa-solid fa-cookie-bite text-accent"></i> Operational Cookies</strong>
-            <button type="button" class="btn btn-secondary btn-xs" id="btn-accept-cookies">Accept</button>
-        </div>
-        <p class="small text-muted mb-0">This government console uses operational cookies for session management and state persistence under MoSPI guidelines.</p>
     </div>
 
     <!-- WORK INVESTIGATION DRAWER -->
@@ -864,7 +418,6 @@
             <div class="card mb-3">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <h4 style="font-size: 0.95rem; font-weight: 700;">Why is this work flagged?</h4>
-                    <button type="button" id="btn-show-technical-details" class="btn btn-secondary btn-xs"><i class="fa-solid fa-code"></i> Tech Specs</button>
                 </div>
                 <div id="dr-signals-container"><!-- Dynamic Signals --></div>
             </div>
@@ -914,6 +467,9 @@
             </div>
         </div>
     </div>
+
+    <!-- LIVE TOAST CONTAINER -->
+    <div id="toast-container"></div>
 
     <!-- Main Client Engine Script -->
     <script src="app.js"></script>

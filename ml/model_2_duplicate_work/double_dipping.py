@@ -61,6 +61,17 @@ def compare_works(df_a, df_b=None, chamber_pair="LS-LS", max_candidates=5000, tf
     ch_parts = chamber_pair.split('-') if '-' in chamber_pair else [chamber_pair, chamber_pair]
     ch_a_default, ch_b_default = ch_parts[0], ch_parts[1]
     
+    from .double_dipping_similarity import normalize_text_for_matching, normalize_vendor_name, extract_location_entities
+
+    for c in candidate_pairs:
+        for r in (c['entity_a'], c['entity_b']):
+            if '_norm_desc' not in r:
+                desc = normalize_text_for_matching(r.get('description', ''))
+                r['_norm_desc'] = desc
+                r['_norm_title'] = normalize_text_for_matching(r.get('work_name', r.get('description', '')))
+                r['_norm_vendor'] = normalize_vendor_name(r.get('primary_vendor', ''))
+                r['_loc_entities'] = extract_location_entities(desc)
+
     analyzed_pairs = []
     
     for idx, c in enumerate(candidate_pairs, start=1):

@@ -104,13 +104,27 @@
         return String(str).trim();
     }
 
-    async function fetchData(endpoint) {
+    const apiCache = new Map();
+    const CACHE_TTL_MS = 60000; // 1 minute client-side cache
+
+    async function fetchData(endpoint, forceRefresh = false) {
         const separator = endpoint.includes('?') ? '&' : '?';
         const url = `/api/${endpoint}${separator}dataset=${encodeURIComponent(state.dataset)}`;
 
+        if (!forceRefresh && apiCache.has(url)) {
+            const cached = apiCache.get(url);
+            if (Date.now() - cached.timestamp < CACHE_TTL_MS) {
+                return cached.data;
+            }
+        }
+
         try {
             const res = await fetch(url);
-            if (res.ok) return await res.json();
+            if (res.ok) {
+                const data = await res.json();
+                apiCache.set(url, { data, timestamp: Date.now() });
+                return data;
+            }
         } catch (e) {
             console.warn('API fetch failed for ' + url, e);
         }
@@ -226,6 +240,10 @@
             if (viewId === 'priority') renderPriorityQueue();
             if (viewId === 'duplicates') renderDuplicatesTable();
             if (viewId === 'works') renderWorksTable();
+            if (viewId === 'anomalies') {
+                renderComplianceView();
+                buildAlertsList();
+            }
 
             renderCharts();
         };
@@ -411,23 +429,27 @@
         const searchInput = document.getElementById('input-search-works');
         const btnPrev = document.getElementById('btn-works-prev');
         const btnNext = document.getElementById('btn-works-next');
+        let searchTimeout = null;
 
         if (searchInput) {
             searchInput.addEventListener('input', () => {
-                const query = searchInput.value.trim().toLowerCase();
-                if (!query) {
-                    state.filteredWorks = [...state.worksData];
-                } else {
-                    state.filteredWorks = state.worksData.filter(w =>
-                        (getWorkId(w).toLowerCase().includes(query)) ||
-                        (getWorkDescription(w).toLowerCase().includes(query)) ||
-                        (safeText(w.mp_name).toLowerCase().includes(query)) ||
-                        (getStateName(w).toLowerCase().includes(query)) ||
-                        (getDistrictName(w).toLowerCase().includes(query))
-                    );
-                }
-                state.worksPage = 1;
-                renderWorksTable();
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    const query = searchInput.value.trim().toLowerCase();
+                    if (!query) {
+                        state.filteredWorks = [...state.worksData];
+                    } else {
+                        state.filteredWorks = state.worksData.filter(w =>
+                            (getWorkId(w).toLowerCase().includes(query)) ||
+                            (getWorkDescription(w).toLowerCase().includes(query)) ||
+                            (safeText(w.mp_name).toLowerCase().includes(query)) ||
+                            (getStateName(w).toLowerCase().includes(query)) ||
+                            (getDistrictName(w).toLowerCase().includes(query))
+                        );
+                    }
+                    state.worksPage = 1;
+                    renderWorksTable();
+                }, 300);
             });
         }
 
@@ -1070,7 +1092,7 @@
 
         // 4. Compliance Gaps Chart (Dynamic SLA buckets)
         const complianceElem = document.getElementById('chart-compliance-gaps');
-        if (complianceElem && state.currentView === 'compliance') {
+        if (complianceElem && (state.currentView === 'compliance' || state.currentView === 'anomalies')) {
             const summary = state.complianceData?.summary;
             const c = summary?.compliant_works || 23337;
             const min = summary?.minor_deviation_works || 20937;
@@ -1133,7 +1155,7 @@
 
         // 6. Vendor Risk HHI Chart
         const vendorElem = document.getElementById('chart-vendor-hhi');
-        if (vendorElem && state.currentView === 'agencies') {
+        if (vendorElem && (state.currentView === 'agencies' || state.currentView === 'anomalies')) {
             let records = state.vendorData?.records || [];
             if (state.globalFilters.state !== 'ALL') {
                 records = records.filter(r => getStateName(r) === state.globalFilters.state);

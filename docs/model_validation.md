@@ -38,10 +38,10 @@ Empirical evaluation was conducted directly on raw canonical source data across 
 
 | Metric | Model M4 (Recursive Rolling Mean) | Naive Baseline (Lag 1 Previous Month) | Performance Comparison |
 | :--- | :--- | :--- | :--- |
-| **MAE** | **₹420,589,864.65** (₹42.06 Cr) | ₹442,636,073.00 (₹44.26 Cr) | **-₹22,046,208.35 (-4.98% lower error)** |
-| **RMSE** | **₹534,344,701.84** (₹53.43 Cr) | ₹622,306,654.74 (₹62.23 Cr) | **-₹87,961,952.90 (-14.13% lower error)** |
-| **WAPE** | **27.10%** | 28.52% | **-1.42% error reduction** |
-| **sMAPE** | **30.98%** | 31.31% | **-0.33% error reduction** |
+| **MAE** | **₹420,589,864.65** (₹42.06 Cr) | ₹442,636,073.00 (₹44.26 Cr) | **4.98% lower MAE than naive baseline** |
+| **RMSE** | **₹534,344,701.84** (₹53.43 Cr) | ₹622,306,654.74 (₹62.23 Cr) | **14.13% lower RMSE than naive baseline** |
+| **WAPE** | **27.10%** | 28.52% | **1.42% lower WAPE than naive baseline** |
+| **sMAPE** | **30.98%** | 31.31% | **0.33% lower sMAPE than naive baseline** |
 
 **MAE Improvement Formula**:  
 $$\text{MAE Improvement \%} = \frac{\text{Naive MAE} - \text{M4 MAE}}{\text{Naive MAE}} \times 100 = \frac{442,636,073.00 - 420,589,864.65}{442,636,073.00} \times 100 = +4.98\%$$
@@ -55,12 +55,12 @@ $$\text{MAE Improvement \%} = \frac{\text{Naive MAE} - \text{M4 MAE}}{\text{Naiv
 
 | Metric | Model M4 (Recursive Rolling Mean) | Naive Baseline (Lag 1 Previous Month) | Performance Comparison |
 | :--- | :--- | :--- | :--- |
-| **MAE** | **₹310,403,934.10** (₹31.04 Cr) | ₹321,020,787.50 (₹32.10 Cr) | **-₹10,616,853.40 (-3.31% lower error)** |
-| **RMSE** | **₹350,568,052.97** (₹35.06 Cr) | ₹428,285,828.31 (₹42.83 Cr) | **-₹77,717,775.34 (-18.15% lower error)** |
-| **WAPE** | **18.47%** | 19.10% | **-0.63% error reduction** |
-| **sMAPE** | **18.38%** | 18.48% | **-0.10% error reduction** |
+| **MAE** | **₹310,403,934.10** (₹31.04 Cr) | ₹321,020,787.50 (₹32.10 Cr) | **3.31% lower MAE than naive baseline** |
+| **RMSE** | **₹350,568,052.97** (₹35.06 Cr) | ₹428,285,828.31 (₹42.83 Cr) | **18.15% lower RMSE than naive baseline** |
+| **WAPE** | **18.47%** | 19.10% | **0.63% lower WAPE than naive baseline** |
+| **sMAPE** | **18.38%** | 18.48% | **0.10% lower sMAPE than naive baseline** |
 
-**MAE Improvement vs Baseline**: **+3.31%**
+**MAE Improvement vs Baseline**: **3.31% lower MAE than naive baseline**
 
 ---
 
@@ -71,10 +71,10 @@ $$\text{MAE Improvement \%} = \frac{\text{Naive MAE} - \text{M4 MAE}}{\text{Naiv
 
 | Metric | Model M4 (State-Month Panel) | Naive Baseline (Lag 1 Previous Month) | Performance Comparison |
 | :--- | :--- | :--- | :--- |
-| **MAE** | **₹18,277,430.94** (₹1.83 Cr) | ₹18,955,391.79 (₹1.90 Cr) | **-₹677,960.85 (-3.58% lower error)** |
-| **RMSE** | **₹32,911,648.90** (₹3.29 Cr) | ₹36,501,329.48 (₹3.65 Cr) | **-₹3,589,680.58 (-9.83% lower error)** |
-| **WAPE** | **41.21%** | 42.74% | **-1.53% error reduction** |
-| **sMAPE** | **72.39%** | 72.86% | **-0.47% error reduction** |
+| **MAE** | **₹18,277,430.94** (₹1.83 Cr) | ₹18,955,391.79 (₹1.90 Cr) | **3.58% lower MAE than naive baseline** |
+| **RMSE** | **₹32,911,648.90** (₹3.29 Cr) | ₹36,501,329.48 (₹3.65 Cr) | **9.83% lower RMSE than naive baseline** |
+| **WAPE** | **41.21%** | 42.74% | **1.53% lower WAPE than naive baseline** |
+| **sMAPE** | **72.39%** | 72.86% | **0.47% lower sMAPE than naive baseline** |
 
 ---
 
@@ -87,7 +87,7 @@ Prior project reports recorded two sets of validation metrics for M4:
 ### Empirical Root Cause of Variance:
 1. **Granularity Difference**: Report A evaluated metrics across a multi-state panel (`STATE x CALENDAR MONTH`), where small or zero monthly expenditure actuals in individual states expand cell-level percentage metrics (WAPE=470.32%, sMAPE=54.21%), while Report B evaluated metrics at the **National Aggregate** level (WAPE=18.47%, sMAPE=18.38%).
 2. **Holdout Window Difference**: Report A evaluated an 8-month holdout set (`2026-02` to `2026-09`), whereas Report B evaluated a 6-month holdout window (`2026-03` to `2026-08`) excluding the incomplete tail month of September 2026.
-3. **Conclusion**: M4 consistently outperforms the naive previous-month baseline across all granularities and evaluation windows, reducing MAE by **+3.31% to +7.06%** relative to the naive baseline.
+3. **Conclusion**: M4 consistently outperforms the naive previous-month baseline across all granularities and evaluation windows, producing lower MAE than the naive baseline.
 
 ---
 
@@ -102,6 +102,6 @@ Prior project reports recorded two sets of validation metrics for M4:
 
 ## 6. Strict Non-Incriminating Wording Standard
 
-1. **MAE Improvement Wording**: "Model M4 reduced MAE by 4.98% (8-month national holdout) / 3.31% (6-month national holdout) / 7.06% (state-level baseline) relative to the naive previous-month baseline on the evaluated held-out period."
+1. **MAE Improvement Wording**: "On the evaluated LS18 national expenditure series, the recursive 3-month rolling-average M4 forecast produced lower MAE than the naive previous-month baseline on the documented evaluation windows."
 2. **Expected Range**: "Empirical 95% Expected Range ($[\mu - 1.96\sigma, \mu + 1.96\sigma]$)" (Never referred to as "95% confidence interval").
 3. **No Fraud Labels**: "Ground-truth fraud outcome labels do not exist in public datasets; Model M4 serves as an administrative decision-support signal for macro utilization tracking."

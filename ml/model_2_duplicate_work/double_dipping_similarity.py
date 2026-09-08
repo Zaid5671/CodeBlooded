@@ -142,22 +142,16 @@ def compute_pairwise_features(r_a, r_b, tfidf_model=None):
     """
     Computes master 25-dimensional feature vector between two master work entities.
     """
-    title_a = normalize_text_for_matching(r_a.get('work_name', r_a.get('description', '')))
-    title_b = normalize_text_for_matching(r_b.get('work_name', r_b.get('description', '')))
-    desc_a = normalize_text_for_matching(r_a.get('description', ''))
-    desc_b = normalize_text_for_matching(r_b.get('description', ''))
+    title_a = r_a.get('_norm_title') if '_norm_title' in r_a else normalize_text_for_matching(r_a.get('work_name', r_a.get('description', '')))
+    title_b = r_b.get('_norm_title') if '_norm_title' in r_b else normalize_text_for_matching(r_b.get('work_name', r_b.get('description', '')))
+    desc_a = r_a.get('_norm_desc') if '_norm_desc' in r_a else normalize_text_for_matching(r_a.get('description', ''))
+    desc_b = r_b.get('_norm_desc') if '_norm_desc' in r_b else normalize_text_for_matching(r_b.get('description', ''))
     
     # 1. Semantic Similarity
     if tfidf_model is not None and SKLEARN_AVAILABLE:
         try:
             vecs = tfidf_model.transform([desc_a, desc_b])
             semantic_sim = float(cosine_similarity(vecs[0], vecs[1])[0][0])
-        except Exception:
-            semantic_sim = compute_fallback_text_similarity(desc_a, desc_b)
-    elif SKLEARN_AVAILABLE:
-        try:
-            v = TfidfVectorizer(ngram_range=(1, 2), min_df=1).fit_transform([desc_a, desc_b])
-            semantic_sim = float(cosine_similarity(v[0], v[1])[0][0])
         except Exception:
             semantic_sim = compute_fallback_text_similarity(desc_a, desc_b)
     else:
@@ -182,8 +176,8 @@ def compute_pairwise_features(r_a, r_b, tfidf_model=None):
     amount_sim = 1.0 - (amt_diff / max_amt) if max_amt > 0 else 1.0
 
     # 4. Vendor Features
-    v_a = normalize_vendor_name(r_a.get('primary_vendor', ''))
-    v_b = normalize_vendor_name(r_b.get('primary_vendor', ''))
+    v_a = r_a.get('_norm_vendor') if '_norm_vendor' in r_a else normalize_vendor_name(r_a.get('primary_vendor', ''))
+    v_b = r_b.get('_norm_vendor') if '_norm_vendor' in r_b else normalize_vendor_name(r_b.get('primary_vendor', ''))
     vendor_exact = bool(v_a and v_b and v_a == v_b)
     if vendor_exact:
         vendor_sim = 1.0
@@ -211,8 +205,8 @@ def compute_pairwise_features(r_a, r_b, tfidf_model=None):
         date_sim = 0.5
 
     # 6. Location Features
-    loc_a = extract_location_entities(desc_a)
-    loc_b = extract_location_entities(desc_b)
+    loc_a = r_a.get('_loc_entities') if '_loc_entities' in r_a else extract_location_entities(desc_a)
+    loc_b = r_b.get('_loc_entities') if '_loc_entities' in r_b else extract_location_entities(desc_b)
     overlap_tokens = loc_a.intersection(loc_b)
     shared_loc_list = sorted(list(overlap_tokens))
     loc_token_overlap = len(overlap_tokens)

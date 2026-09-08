@@ -27,8 +27,23 @@ CACHE = {
     "works_map": {}
 }
 
+def get_cached_json(key, filename):
+    """Retrieves cached JSON payload or loads from output directory once."""
+    if CACHE.get(key) is not None:
+        return CACHE[key]
+    path = os.path.join(OUTPUT_DIR, filename)
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                CACHE[key] = data
+                return data
+        except Exception:
+            pass
+    return None
+
 def load_data():
-    """Load pre-computed ML pipeline results from output/ directory."""
+    """Load pre-computed ML pipeline results from output/ directory into memory."""
     # 1. Load Summary JSON
     summary_path = os.path.join(OUTPUT_DIR, "pipeline_summary.json")
     if os.path.exists(summary_path):
@@ -68,6 +83,23 @@ def load_data():
 
     # Map works by work_id for O(1) lookup
     CACHE["works_map"] = {w["work_id"]: w for w in CACHE["works"] if "work_id" in w}
+
+    # Pre-warm secondary result caches to eliminate disk reads during API requests
+    for key, fname in [
+        ("double_dipping", "double_dipping_results.json"),
+        ("delayed_projects", "delayed_projects_results.json"),
+        ("compliance", "compliance_results.json"),
+        ("audit_priority", "misuse_priority_results.json"),
+        ("forecast", "expenditure_forecast.json"),
+        ("vendor_risk", "vendor_agency_risk.json"),
+        ("inadmissible_works", "inadmissible_works_results.json"),
+        ("private_beneficiaries", "private_beneficiaries_results.json"),
+        ("duplicate_expenditure", "duplicate_expenditure_results.json"),
+        ("fund_utilization", "fund_utilization_results.json"),
+        ("deep_evaluation", "ALL_DATASETS_DEEP_EVALUATION.json"),
+    ]:
+        get_cached_json(key, fname)
+
     print(f"[Backend Data Loader] Loaded {len(CACHE['works']):,} scored records from {OUTPUT_DIR}")
 
 # Load data on startup
@@ -311,12 +343,9 @@ def get_double_dipping():
     GET /api/double-dipping - Returns potential double-dipping analysis results.
     Query params: page, limit, tier, min_score, constituency, state
     """
-    dd_path = os.path.join(OUTPUT_DIR, "double_dipping_results.json")
-    if not os.path.exists(dd_path):
+    dd_data = get_cached_json("double_dipping", "double_dipping_results.json")
+    if not dd_data:
         return jsonify({"error": "Double dipping results not found. Run pipeline first."}), 404
-        
-    with open(dd_path) as f:
-        dd_data = json.load(f)
 
     pairs = dd_data.get("top_suspicious_pairs", [])
     
@@ -370,21 +399,17 @@ def get_double_dipping():
 @app.route("/api/delayed-projects", methods=["GET"])
 def get_delayed_projects():
     """GET /api/delayed-projects - Returns Model 3 delay detection analysis."""
-    path = os.path.join(OUTPUT_DIR, "delayed_projects_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("delayed_projects", "delayed_projects_results.json")
+    if not data:
         return jsonify({"error": "Delayed projects results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
     return jsonify(data)
 
 @app.route("/api/compliance", methods=["GET"])
 def get_compliance():
     """GET /api/compliance - Returns Model 4 compliance deviation analysis."""
-    path = os.path.join(OUTPUT_DIR, "compliance_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("compliance", "compliance_results.json")
+    if not data:
         return jsonify({"error": "Compliance results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
 
     dataset_param = request.args.get("dataset") or request.args.get("corpus")
     key = resolve_corpus_key(dataset_param)
@@ -414,11 +439,9 @@ def get_compliance():
 @app.route("/api/ia-watchlist", methods=["GET"])
 def get_ia_watchlist():
     """GET /api/ia-watchlist - Returns Model 4 Implementing Agency Watchlist."""
-    path = os.path.join(OUTPUT_DIR, "compliance_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("compliance", "compliance_results.json")
+    if not data:
         return jsonify({"error": "Compliance results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
     return jsonify({
         "summary": data.get("summary"),
         "ia_watchlist": data.get("ia_watchlist", [])
@@ -427,11 +450,9 @@ def get_ia_watchlist():
 @app.route("/api/audit-priority", methods=["GET"])
 def get_audit_priority():
     """GET /api/audit-priority - Returns Model 5 Audit Priority / Misuse Aggregator analysis."""
-    path = os.path.join(OUTPUT_DIR, "misuse_priority_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("audit_priority", "misuse_priority_results.json")
+    if not data:
         return jsonify({"error": "Audit priority results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
 
     dataset_param = request.args.get("dataset") or request.args.get("corpus")
     key = resolve_corpus_key(dataset_param)
@@ -455,23 +476,17 @@ def get_audit_priority():
 @app.route("/api/forecast", methods=["GET"])
 def get_forecast():
     """GET /api/forecast - Returns Model 4 expenditure forecast analysis."""
-    path = os.path.join(OUTPUT_DIR, "expenditure_forecast.json")
-    if not os.path.exists(path):
-        path = os.path.join(OUTPUT_DIR, "expenditure_forecast_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("forecast", "expenditure_forecast.json") or get_cached_json("forecast", "expenditure_forecast_results.json")
+    if not data:
         return jsonify({"error": "Forecast results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
     return jsonify(data)
 
 @app.route("/api/vendor-risk", methods=["GET"])
 def get_vendor_risk():
     """GET /api/vendor-risk - Returns Vendor Agency Risk Network analysis."""
-    path = os.path.join(OUTPUT_DIR, "vendor_agency_risk.json")
-    if not os.path.exists(path):
+    data = get_cached_json("vendor_risk", "vendor_agency_risk.json")
+    if not data:
         return jsonify({"error": "Vendor risk results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
 
     dataset_param = request.args.get("dataset") or request.args.get("corpus")
     key = resolve_corpus_key(dataset_param)
@@ -491,51 +506,41 @@ def get_vendor_risk():
 @app.route("/api/inadmissible-works", methods=["GET"])
 def get_inadmissible_works():
     """GET /api/inadmissible-works - Returns Module 2 inadmissible works analysis."""
-    path = os.path.join(OUTPUT_DIR, "inadmissible_works_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("inadmissible_works", "inadmissible_works_results.json")
+    if not data:
         return jsonify({"error": "Inadmissible works results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
     return jsonify(data)
 
 @app.route("/api/private-beneficiaries", methods=["GET"])
 def get_private_beneficiaries():
     """GET /api/private-beneficiaries - Returns Module 3 private beneficiaries analysis."""
-    path = os.path.join(OUTPUT_DIR, "private_beneficiaries_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("private_beneficiaries", "private_beneficiaries_results.json")
+    if not data:
         return jsonify({"error": "Private beneficiaries results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
     return jsonify(data)
 
 @app.route("/api/duplicate-expenditure", methods=["GET"])
 def get_duplicate_expenditure():
     """GET /api/duplicate-expenditure - Returns Module 6 duplicate expenditure analysis."""
-    path = os.path.join(OUTPUT_DIR, "duplicate_expenditure_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("duplicate_expenditure", "duplicate_expenditure_results.json")
+    if not data:
         return jsonify({"error": "Duplicate expenditure results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
     return jsonify(data)
 
 @app.route("/api/fund-utilization", methods=["GET"])
 def get_fund_utilization():
     """GET /api/fund-utilization - Returns Module 7 fund utilization analysis."""
-    path = os.path.join(OUTPUT_DIR, "fund_utilization_results.json")
-    if not os.path.exists(path):
+    data = get_cached_json("fund_utilization", "fund_utilization_results.json")
+    if not data:
         return jsonify({"error": "Fund utilization results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
     return jsonify(data)
 
 @app.route("/api/deep-evaluation", methods=["GET"])
 def get_deep_evaluation():
     """GET /api/deep-evaluation - Returns multi-dataset evaluation suite results."""
-    path = os.path.join(OUTPUT_DIR, "ALL_DATASETS_DEEP_EVALUATION.json")
-    if not os.path.exists(path):
+    data = get_cached_json("deep_evaluation", "ALL_DATASETS_DEEP_EVALUATION.json")
+    if not data:
         return jsonify({"error": "Deep evaluation results not found."}), 404
-    with open(path) as f:
-        data = json.load(f)
     return jsonify(data)
 
 @app.route("/api/canonical-registry", methods=["GET"])
